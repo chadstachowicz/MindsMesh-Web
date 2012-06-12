@@ -11,3 +11,20 @@ group :assets do
   gem 'therubyracer', :platform => :ruby
   gem 'twitter-bootstrap-rails'
 end
+
+group :development, :test do
+  gem 'turn', :require => false
+  gem 'minitest'
+  gem "mocha"
+  gem 'rspec-rails'
+  gem 'capybara'
+  gem 'fabrication'
+  gem 'launchy'
+  gem 'database_cleaner'
+  gem 'libnotify'
+  gem 'rb-inotify'
+  gem 'guard-rspec'
+  gem 'railroady'
+  gem 'template_rider'
+  gem 'faker'
+end
