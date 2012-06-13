@@ -1,4 +1,6 @@
 Lyrne::Application.routes.draw do
+  resources :schools
+
   get "session/login"
   get "session/logout"
   get "/auth/:provider/callback" => "session#create"

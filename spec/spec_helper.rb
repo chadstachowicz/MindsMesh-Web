@@ -27,3 +27,12 @@ RSpec.configure do |config|
   # rspec-rails.
   config.infer_base_class_for_anonymous_controllers = false
 end
+
+
+def current_user
+  @cu ||= Fabricate(:user, roles_s: 'master')
+end
+
+def valid_session
+  {user_id: current_user.id}
+end

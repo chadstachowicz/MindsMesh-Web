@@ -26,17 +26,6 @@ describe UsersController do
   def valid_attributes
     {name: Faker::Name.name}
   end
-  
-  def current_user
-    @cu ||= Fabricate(:user, roles_s: 'master')
-  end
-
-  # This should return the minimal set of values that should be in the session
-  # in order to pass any filters (e.g. authentication) defined in
-  # UsersController. Be sure to keep this updated too.
-  def valid_session
-    {user_id: current_user.id}
-  end
 
   describe "GET index" do
     it "assigns all users as @users" do

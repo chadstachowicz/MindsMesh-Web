@@ -10,6 +10,7 @@ class Ability
 
     if current_user.master?
       can [:manage], User
+      can [:manage], School
     end
   end
 end
