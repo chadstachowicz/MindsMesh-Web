@@ -4,6 +4,7 @@ gem 'rails', '3.2.6'
 gem 'sqlite3'
 gem 'jquery-rails'
 gem 'omniauth-facebook'
+gem 'cancan'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
