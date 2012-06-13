@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe Login do
-  pending "write more tests: #{__FILE__}"
 
   describe "auth!" do
     it "raises an exception with invalid params" do

@@ -1,7 +1,15 @@
 class Ability
   include CanCan::Ability
   
-  def initialize(user)
-    user ||= User.new # guest user
+  def initialize(current_user)
+    current_user ||= User.new # user with no roles
+
+    can [:read], User do |user|
+      current_user == user
+    end
+
+    if current_user.master?
+      can [:manage], User
+    end
   end
 end
