@@ -1,0 +1,25 @@
+facebook: &facebook
+  key: 274790155904059
+  secret: aa3dc1b647378b4fdd096234751afc51
+  options: {}
+
+defaults: &defaults
+  admin_email: tapgyn@gmail.com
+
+development:
+  <<: *defaults
+  domain: 0.0.0.0:3000
+  facebook:
+    <<: *facebook
+
+test:
+  <<: *defaults
+  domain: test.host
+  facebook:
+    <<: *facebook
+
+production:
+  <<: *defaults
+  domain: site.com
+  facebook:
+    <<: *facebook

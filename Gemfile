@@ -1,8 +1,9 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.5'
+gem 'rails', '3.2.6'
 gem 'sqlite3'
 gem 'jquery-rails'
+gem 'omniauth-facebook'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'

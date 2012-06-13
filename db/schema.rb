@@ -11,6 +11,26 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 0) do
+ActiveRecord::Schema.define(:version => 20120613002935) do
+
+  create_table "logins", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "provider"
+    t.string   "uid"
+    t.string   "permissions_s"
+    t.string   "auth_s"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  add_index "logins", ["user_id"], :name => "index_logins_on_user_id"
+
+  create_table "users", :force => true do |t|
+    t.string   "name"
+    t.string   "photo_url"
+    t.string   "roles_s"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
 end
