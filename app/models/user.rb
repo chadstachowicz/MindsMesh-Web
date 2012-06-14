@@ -3,15 +3,28 @@ class User < ActiveRecord::Base
   has_many :logins
   validates_presence_of :name
 
+  ROLES = %w(guest user student moderator teacher admin master)
+
   def roles
-    roles_s.to_s.split.map &:to_sym
+    roles_s.to_s.split.map &:to_s
   end
 
-  def user?;      roles.empty?;               end
-  def student?;   roles.include?(:student);   end
-  def moderator?; roles.include?(:moderator); end
-  def teacher?;   roles.include?(:teacher);   end
-  def admin?;     roles.include?(:admin);     end
-  def master?;    roles.include?(:master);    end
+  def role?(*given_roles)
+    given_roles = given_roles.map(&:to_s)
+    return false if given_roles.size == 1 && given_roles.include?('user')
+    given_roles.each do |given_role|
+      raise "unknown #{given_role} role" unless ROLES.include?(given_role)
+      return true if roles.include?(given_role)
+    end
+    false
+  end
+
+  def guest?;     false;             end #when you don't have a current_user, it's a guest
+  def user?;      roles.empty?;      end #must have zero roles to be a user
+  def student?;   role?(:student);   end
+  def moderator?; role?(:moderator); end
+  def teacher?;   role?(:teacher);   end
+  def admin?;     role?(:admin);     end
+  def master?;    role?(:master);    end
 
 end
