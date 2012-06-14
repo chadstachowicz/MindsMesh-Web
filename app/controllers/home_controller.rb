@@ -1,12 +1,6 @@
 class HomeController < ApplicationController
   def index
-    return redirect_to :home_guest     unless current_user
-    return redirect_to :home_user      if current_user.user?
-    return redirect_to :home_student   if current_user.student?
-    return redirect_to :home_moderator if current_user.moderator?
-    return redirect_to :home_teacher   if current_user.teacher?
-    return redirect_to :home_admin     if current_user.admin?
-    return redirect_to :home_master    if current_user.master?
+    redirect_to_landing_home_page
   end
 
   def guest
@@ -15,6 +9,14 @@ class HomeController < ApplicationController
 
   def user
     authorize! :home_user, nil
+    @school = School.first
+    @school_user_request = @school.school_user_requests.build
+  end
+
+  def user_create_school_request
+    authorize! :home_user, nil
+    @school_user_request = current_user.school_user_requests.where(school_id: params[:school_id], email: params[:email]).first_or_initialize
+    @school_user_request.save
   end
 
   def student

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120613213335) do
+ActiveRecord::Schema.define(:version => 20120614165919) do
 
   create_table "logins", :force => true do |t|
     t.integer  "user_id"
@@ -24,6 +24,19 @@ ActiveRecord::Schema.define(:version => 20120613213335) do
   end
 
   add_index "logins", ["user_id"], :name => "index_logins_on_user_id"
+
+  create_table "school_user_requests", :force => true do |t|
+    t.integer  "school_id"
+    t.integer  "user_id"
+    t.string   "email"
+    t.string   "confirmation_token"
+    t.datetime "last_email_sent_at"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+  end
+
+  add_index "school_user_requests", ["school_id"], :name => "index_school_user_requests_on_school_id"
+  add_index "school_user_requests", ["user_id"], :name => "index_school_user_requests_on_user_id"
 
   create_table "schools", :force => true do |t|
     t.string   "name"

@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   attr_accessible :name, :photo_url, :roles_s
   has_many :logins
+  has_many :school_user_requests
   validates_presence_of :name
 
   ROLES = %w(guest user student moderator teacher admin master)

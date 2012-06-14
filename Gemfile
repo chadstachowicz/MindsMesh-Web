@@ -5,6 +5,7 @@ gem 'sqlite3'
 gem 'jquery-rails'
 gem 'omniauth-facebook'
 gem 'cancan'
+gem 'validates_email_format_of'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
@@ -29,4 +30,5 @@ group :development, :test do
   gem 'railroady'
   gem 'template_rider'
   gem 'faker'
+  gem 'spork'
 end

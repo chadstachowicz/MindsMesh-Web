@@ -1,0 +1,5 @@
+<% if @school_user_request.errors.any? %>
+  alert("<%= j @school_user_request.errors.full_messages.join(',') %>");
+<% else %>
+  alert("please, check your email box for a confirmation link");
+<% end %>

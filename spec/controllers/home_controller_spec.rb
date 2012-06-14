@@ -25,8 +25,30 @@ describe HomeController do
   describe "GET 'user'" do
     it "returns http success if in role" do
       session[:user_id] = Fabricate(:user).id
+      Fabricate(:school)
       get 'user'
       response.should be_success
+    end
+    it "denies access not in role" do
+      session[:user_id] = Fabricate(:user, roles_s: 'student').id
+      get 'user'
+      response.should redirect_to(denied_path)
+    end
+  end
+
+  describe "POST 'user'" do
+    it "should create a request" do
+      current_user = Fabricate(:user)
+
+      session[:user_id] = current_user.id
+
+      expect {
+        post 'user_create_school_request', {
+        format: 'js',
+          school_id: Fabricate(:school).id,
+          email: "#{Faker::Internet.user_name}@uncc.edu"
+        }
+      }.to change(current_user.school_user_requests, :count).by(1)
     end
     it "denies access not in role" do
       session[:user_id] = Fabricate(:user, roles_s: 'student').id
