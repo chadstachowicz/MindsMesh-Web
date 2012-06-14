@@ -1,6 +1,4 @@
 class UsersController < ApplicationController
-  before_filter :must_user
-
   respond_to :html#, :json, :xml
 
   load_and_authorize_resource

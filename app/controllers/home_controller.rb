@@ -15,7 +15,7 @@ class HomeController < ApplicationController
 
   def user_create_school_request
     authorize! :home_user, nil
-    @school_user_request = current_user.school_user_requests.where(school_id: params[:school_id], email: params[:email]).first_or_initialize
+    @school_user_request = current_user.school_user_requests.where(params[:school_user_request]).first_or_initialize
     @school_user_request.save
   end
 

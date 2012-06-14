@@ -44,9 +44,11 @@ describe HomeController do
 
       expect {
         post 'user_create_school_request', {
-        format: 'js',
-          school_id: Fabricate(:school).id,
-          email: "#{Faker::Internet.user_name}@uncc.edu"
+          format: 'js',
+          school_user_request: {
+            school_id: Fabricate(:school).id,
+            email: "#{Faker::Internet.user_name}@uncc.edu"
+          }
         }
       }.to change(current_user.school_user_requests, :count).by(1)
     end

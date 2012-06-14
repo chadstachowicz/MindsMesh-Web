@@ -19,10 +19,6 @@ class ApplicationController < ActionController::Base
     return redirect_to :home_master    if current_user.master?
   end
 
-  def must_user
-    redirect_to session_login_url, alert: 'Login Necessario' unless current_user
-  end
-
   rescue_from CanCan::AccessDenied do |exception|
     redirect_to denied_url, alert: exception.message
   end
