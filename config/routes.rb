@@ -7,6 +7,8 @@ Lyrne::Application.routes.draw do
 
   get "home/user"
   post "home/user" => "home#user_create_school_request", format: 'js'
+  get "home/user_school/:confirmation_token" => "home#user_school", as: 'home_user_school'
+
 
 
   get "home/student"

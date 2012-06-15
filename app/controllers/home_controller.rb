@@ -1,5 +1,6 @@
 class HomeController < ApplicationController
   def index
+#    
     redirect_to_landing_home_page
   end
 
@@ -17,6 +18,12 @@ class HomeController < ApplicationController
     authorize! :home_user, nil
     @school_user_request = current_user.school_user_requests.where(params[:school_user_request]).first_or_initialize
     @school_user_request.save
+  end
+
+  def user_school
+    sur = SchoolUserRequest.find_by_confirmation_token!(params[:confirmation_token])
+    session[:user_id] = sur.confirm
+    redirect_to_landing_home_page
   end
 
   def student

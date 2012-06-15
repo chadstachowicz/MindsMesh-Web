@@ -2,12 +2,17 @@ class User < ActiveRecord::Base
   attr_accessible :name, :photo_url, :roles_s
   has_many :logins
   has_many :school_user_requests
+  has_many :school_users
   validates_presence_of :name
 
   ROLES = %w(guest user student moderator teacher admin master)
 
   def roles
     roles_s.to_s.split.map &:to_s
+  end
+
+  def roles=(roles)
+    self.roles_s = roles.compact.join
   end
 
   def role?(*given_roles)

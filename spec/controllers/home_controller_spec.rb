@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe HomeController do
-
   describe "GET 'index'" do
     it "returns http success" do
       get 'index'
@@ -56,6 +55,36 @@ describe HomeController do
       session[:user_id] = Fabricate(:user, roles_s: 'student').id
       get 'user'
       response.should redirect_to(denied_path)
+    end
+  end
+
+  describe "GET 'user_school'" do
+    it "creates a new school_user" do
+      school_user_request = Fabricate(:school_user_request)
+      expect {
+        get "user_school", {confirmation_token: school_user_request.confirmation_token}
+      }.to change(school_user_request.school.school_users, :count).by(1)
+    end
+    it "destroys that confirmation_token" do
+      school_user_request = Fabricate(:school_user_request)
+      expect {
+        get "user_school", {confirmation_token: school_user_request.confirmation_token}
+      }.to change(SchoolUserRequest, :count).by(-1)
+    end
+    it "redirects_to home_student_path" do
+      school_user_request = Fabricate(:school_user_request)
+      get "user_school", {confirmation_token: school_user_request.confirmation_token}
+      response.should redirect_to(home_student_path)
+    end
+    it "logs in the user" do
+      school_user_request = Fabricate(:school_user_request)
+      session[:user_id].should be_nil
+      get "user_school", {confirmation_token: school_user_request.confirmation_token}
+      session[:user_id].should ==school_user_request.user_id
+    end
+    it "shows 404 message for invalid links" do
+      get "user_school", {confirmation_token: 'aaa'}
+      response.should render_template("errors/404")
     end
   end
 

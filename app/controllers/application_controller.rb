@@ -22,4 +22,16 @@ class ApplicationController < ActionController::Base
   rescue_from CanCan::AccessDenied do |exception|
     redirect_to denied_url, alert: exception.message
   end
+
+  rescue_from ActiveRecord::RecordNotFound,     with: :render_404
+  #rescue_from ActionController::RoutingError,   with: :render_404
+  #rescue_from ActionController::UnknownAction,  with: :render_404
+
+  def render_404
+    respond_to do |type| 
+      type.html { render "errors/404", layout: 'application', status: 404 } 
+      type.all  { render nothing: true, status: 404 } 
+    end
+  end
+
 end
