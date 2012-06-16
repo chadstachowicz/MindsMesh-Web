@@ -14,7 +14,6 @@ class Ability
     teacher   if current_user.teacher?
     admin     if current_user.admin?
     master    if current_user.master?
-
   end
 
   def guest
@@ -39,6 +38,8 @@ class Ability
 
   def admin
     can :home_admin
+    can :manage, Section
+    cannot :destroy, Section
   end
 
   def master

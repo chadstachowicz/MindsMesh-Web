@@ -1,4 +1,8 @@
 Lyrne::Application.routes.draw do
+  resources :sections
+  resources :courses
+  resources :schools
+  
   get "home/index"
   
   get "home/guest"
@@ -17,7 +21,6 @@ Lyrne::Application.routes.draw do
   get "home/admin"
   get "home/master"
 
-  resources :schools
 
 
   resources :users, only: [:index, :show, :edit, :update, :destroy]

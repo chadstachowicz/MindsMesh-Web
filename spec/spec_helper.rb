@@ -75,10 +75,10 @@ end
 # These instructions should self-destruct in 10 seconds.  If they don't, feel
 # free to delete them.
 
-def current_user
+def current_user_master
   @cu ||= Fabricate(:user, roles_s: 'master')
 end
 
 def valid_session
-  {user_id: current_user.id}
+  {user_id: current_user_master.id}
 end

@@ -21,7 +21,7 @@ require 'spec_helper'
 describe SchoolsController do
 
   def valid_attributes
-    {}
+    {name: Faker::Name.name}
   end
 
   describe "GET index" do
