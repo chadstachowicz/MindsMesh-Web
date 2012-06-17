@@ -13,6 +13,8 @@ class SectionsController < ApplicationController
   def show
     @section_user  = @section.section_users.where(user_id: current_user.id).first
     @section_users = @section.section_users.order("b_teacher DESC, b_moderator DESC").limit(10)
+    @post = Post.new
+    @posts = @section.posts.order("id DESC").limit(10)
     respond_with(@section)
   end
 
@@ -27,6 +29,15 @@ class SectionsController < ApplicationController
       flash[:notice] = "you left the section"
     end
     redirect_to @section
+  end
+
+  def create_post
+    @post = @section.posts.build(params[:post])
+    @post.user = current_user
+    if @post.save!
+      flash[:notice] = "Post successfully created."
+    end
+    respond_with(@post, location: @post)
   end
 
   # GET /sections/new

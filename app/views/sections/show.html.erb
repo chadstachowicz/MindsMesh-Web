@@ -52,7 +52,43 @@
       </ul>
     </td>
     <td>
-      posts here
+
+      <%= form_for(@post, url: posts_section_path(@section)) do |f| %>
+        <% if @post.errors.any? %>
+          <div id="error_explanation">
+            <h2><%= pluralize(@post.errors.count, "error") %> prohibited this post from being saved:</h2>
+
+            <ul>
+            <% @post.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <div class="field">
+          <%= f.label :text %><br />
+          <%= f.text_area :text %>
+        </div>
+        <div class="actions">
+          <%= f.submit %>
+        </div>
+      <% end %>
+
+      <hr>
+
+      <table>
+      <% @posts.each do |post| %>
+        <tr>
+          <td><%= link_to post.user.name, post.user %></td>
+          <td><%= post.text %></td>
+          <td><%= link_to 'Show', post %></td>
+          <td><%= link_to 'Edit', edit_post_path(post) %></td>
+          <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+      </table>
+
     </td>
   </tr>
 </table>

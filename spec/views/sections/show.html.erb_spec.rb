@@ -13,6 +13,13 @@ describe "sections/show" do
       Fabricate.build(:section_user),
       Fabricate.build(:section_user)
       ])
+    assign(:post, stub_model(Post,
+      :text => "MyText"
+    ).as_new_record)
+    assign(:posts, [
+      Fabricate(:post),
+      Fabricate(:post)
+      ])
   end
 
   it "renders attributes in <p>" do
@@ -22,5 +29,11 @@ describe "sections/show" do
     rendered.should match(//)
     rendered.should match(/Name/)
     rendered.should match(/Slug/)
+
+    # Run the generator again with the --webrat flag if you want to use webrat matchers
+    assert_select "form", :action => posts_section_path(@section), :method => "post" do
+      assert_select "textarea#post_text", :name => "post[text]"
+    end
   end
+
 end

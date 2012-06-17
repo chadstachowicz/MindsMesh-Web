@@ -15,6 +15,14 @@ describe SectionsController do
       get("/sections/1").should route_to("sections#show", :id => "1")
     end
 
+    it "routes to #join" do
+      put("/sections/1/join").should route_to("sections#join", :id => "1")
+    end
+
+    it "routes to #create_post" do
+      post("/sections/1/posts").should route_to("sections#create_post", :id => "1")
+    end
+
     it "routes to #edit" do
       get("/sections/1/edit").should route_to("sections#edit", :id => "1")
     end

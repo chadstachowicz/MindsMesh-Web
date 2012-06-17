@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   has_many :school_user_requests
   has_many :school_users
   has_many :section_users
+  has_many :posts
   validates_presence_of :name
 
   ROLES = %w(guest user student moderator teacher admin master)

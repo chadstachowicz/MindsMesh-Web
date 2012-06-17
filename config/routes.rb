@@ -1,9 +1,16 @@
 Lyrne::Application.routes.draw do
+
   resources :section_users
 
   resources :sections do
     member do
       put :join
+      #get :posts, format: 'js'
+      post :posts, action: :create_post
+    end
+  end
+  resources :posts, except: [:new, :create] do
+    member do
     end
   end
   resources :courses

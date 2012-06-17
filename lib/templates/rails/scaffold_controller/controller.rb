@@ -28,7 +28,7 @@ class <%= controller_class_name %>Controller < ApplicationController
 
   # POST <%= route_url %>
   def create
-    @<%= singular_table_name %> = <%= orm_class.find(class_name, "params[:id]") %>
+    @<%= singular_table_name %> = <%= orm_class.build(class_name) %>
     if @<%= singular_table_name %>.save
       flash[:notice] = "<%= human_name %> successfully created."
     end

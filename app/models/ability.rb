@@ -34,14 +34,21 @@ class Ability
     can [:read, :join], Section do |section|
       section.school.school_users.exists?(user_id: @current_user.id)
     end
+    can [:create_post], Section do |section|
+      section.section_users.exists?(user_id: @current_user.id)
+    end
   end
 
   def moderator
     can :home_moderator
+    #they are considered students in the sections they are in
+    #but that logic is not being invoked here
   end
 
   def teacher
     can :home_teacher
+    #they are considered students in the sections they are in
+    #but that logic is not being invoked here
   end
 
   def admin

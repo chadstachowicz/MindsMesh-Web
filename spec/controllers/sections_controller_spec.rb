@@ -47,6 +47,20 @@ describe SectionsController do
         put :join, {:id => section.to_param}, valid_session
       end.should change { SectionUser.count }.by(1)
       assigns(:section).should eq(section)
+      assigns(:section_user).should be_a(SectionUser)
+    end
+  end
+
+  describe "POST create" do
+    it "current_user creates post in @section" do
+      section = Fabricate(:section)
+      -> do
+        post :create_post, {:id => section.to_param, :post => {:text => Faker::Lorem.sentence}}, valid_session
+      end.should change { section.posts.count }.by(1)
+      -> do
+        post :create_post, {:id => section.to_param, :post => {:text => Faker::Lorem.sentence}}, valid_session
+      end.should change { current_user_master.posts.count }.by(1)
+      assigns(:section).should eq(section)
     end
   end
 
