@@ -8,6 +8,21 @@
 </head>
 <body>
 
+<div style="border:black solid 1px;padding:20px;">
+  <% if current_user %>
+  <%= link_to "Home User",      home_user_path      if current_user.user? %>
+  <%= link_to "Home Student",   home_student_path   if current_user.student? %>
+  <%= link_to "Home Moderator", home_moderator_path if current_user.moderator? %>
+  <%= link_to "Home Teacher",   home_teacher_path   if current_user.teacher? %>
+  <%= link_to "Home Admin",     home_admin_path     if current_user.admin? %>
+  <%= link_to "Home Master",    home_master_path    if current_user.master? %>
+  <% end %>
+</div>
+
+
+<p id="notice"><%= notice %></p>
+<p id="alert"><%= alert %></p>
+
 <%= yield %>
 
 </body>

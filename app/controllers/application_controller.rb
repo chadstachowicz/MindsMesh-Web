@@ -30,6 +30,7 @@ class ApplicationController < ActionController::Base
   def render_404
     respond_to do |type| 
       type.html { render "errors/404", layout: 'application', status: 404 } 
+      type.js   { render nothing: true, status: 404 } 
       type.all  { render nothing: true, status: 404 } 
     end
   end

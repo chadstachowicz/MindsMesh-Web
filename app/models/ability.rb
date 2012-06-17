@@ -19,6 +19,9 @@ class Ability
     # TODO: admin can manage/destroy SectionUser in their school
     # TODO: teacher can manage/destroy SectionUser in section they are moderator
     # TODO: moderator can destroy SectionUser in section they are moderator if it has no privileges
+    can [:destroy], Post do |post|
+      post.user_id == current_user.id
+    end
   end
 
   def guest
@@ -32,10 +35,11 @@ class Ability
   def student
     can :home_student
     can [:read, :join], Section do |section|
-      section.school.school_users.exists?(user_id: @current_user.id)
+      section.school.school_users.where(user_id: @current_user.id).exists?
     end
     can [:create_post], Section do |section|
-      section.section_users.exists?(user_id: @current_user.id)
+      User.logger.info "CAN create_post @section ?"
+      section.section_users.where(user_id: @current_user.id).exists?
     end
   end
 

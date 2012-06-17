@@ -1,6 +1,8 @@
 class PostsController < ApplicationController
   respond_to :html#, :json, :xml
 
+  respond_to :js, only: [:destroy]
+
   load_and_authorize_resource
 
   # GET /posts

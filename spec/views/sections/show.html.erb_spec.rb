@@ -2,12 +2,7 @@ require 'spec_helper'
 
 describe "sections/show" do
   before(:each) do
-    @section = assign(:section, stub_model(Section,
-      :course => nil,
-      :school => nil,
-      :name => "Name",
-      :slug => "Slug"
-    ))
+    @section = assign(:section, Fabricate(:section))
     assign(:section_user, nil)
     assign(:section_users, [
       Fabricate.build(:section_user),
@@ -20,6 +15,7 @@ describe "sections/show" do
       Fabricate(:post),
       Fabricate(:post)
       ])
+    controller.stub!(:current_user).and_return(current_user_master)
   end
 
   it "renders attributes in <p>" do

@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
   end
 
   def roles=(roles)
-    self.roles_s = roles.compact.join
+    self.roles_s = roles.compact.join(' ')
   end
 
   def role?(*given_roles)

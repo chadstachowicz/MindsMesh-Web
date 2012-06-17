@@ -1,4 +1,3 @@
-<p id="notice"><%= notice %></p>
 <table>
   <tr>
     <th>section</th>
@@ -10,12 +9,12 @@
     <td>
       <p>
         <b>Course:</b>
-        <%= @section.course %>
+        <%= link_to @section.course.name, @section.course %>
       </p>
 
       <p>
         <b>School:</b>
-        <%= @section.school %>
+        <%= link_to @section.school.name, @section.school %>
       </p>
 
       <p>
@@ -52,7 +51,7 @@
       </ul>
     </td>
     <td>
-
+      <% if can? :create_post, @section %>
       <%= form_for(@post, url: posts_section_path(@section)) do |f| %>
         <% if @post.errors.any? %>
           <div id="error_explanation">
@@ -71,20 +70,21 @@
           <%= f.text_area :text %>
         </div>
         <div class="actions">
-          <%= f.submit %>
+          <%= f.submit nil, data: { disable_with: "Please wait..." } %>
         </div>
       <% end %>
 
       <hr>
+      <% end %>
 
       <table>
       <% @posts.each do |post| %>
         <tr>
           <td><%= link_to post.user.name, post.user %></td>
-          <td><%= post.text %></td>
+          <td><i><%= post.text %></i></td>
           <td><%= link_to 'Show', post %></td>
           <td><%= link_to 'Edit', edit_post_path(post) %></td>
-          <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <td><%= link_to 'Destroy', post, remote: true, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         </tr>
       <% end %>
       </table>
@@ -92,3 +92,12 @@
     </td>
   </tr>
 </table>
+
+
+<script type="text/javascript">
+$(function() {
+  $('a[data-method=delete]').live("ajax:beforeSend", function() {
+    $(this).closest('tr').hide('slow')
+  });
+});
+</script>

@@ -11,10 +11,9 @@ guard 'rspec', :version => 2, :cli => '--drb' do
 
   # controllers
   watch(%r{^app/controllers/(.+)_(controller)\.rb$})  { |m| [
-                                             "spec/controllers/#{m[1]}_controllers_spec.rb",
+                                             "spec/#{m[2]}s/#{m[1]}_#{m[2]}_spec.rb",
                                              "spec/requests/#{m[1]}_spec.rb"
                                              ] }
-                                             #,"spec/#{m[2]}s/#{m[1]}_#{m[2]}_spec.rb"
                                              #,"spec/acceptance/#{m[1]}_spec.rb"
 
   # not used
