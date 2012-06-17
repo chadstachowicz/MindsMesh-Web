@@ -28,9 +28,8 @@ class <%= controller_class_name %>Controller < ApplicationController
 
   # POST <%= route_url %>
   def create
-    @<%= singular_table_name %> = <%= class_name %>.create(params[:<%= singular_table_name %>])
-
-    if @<%= singular_table_name %>.persisted?
+    @<%= singular_table_name %> = <%= orm_class.find(class_name, "params[:id]") %>
+    if @<%= singular_table_name %>.save
       flash[:notice] = "<%= human_name %> successfully created."
     end
     respond_with(@<%= singular_table_name %>, location: @<%= singular_table_name %>)
@@ -39,8 +38,6 @@ class <%= controller_class_name %>Controller < ApplicationController
   # PUT <%= route_url %>/1
   def update
     @<%= singular_table_name %> = <%= orm_class.find(class_name, "params[:id]") %>
-    
-    #@<%= orm_instance.update_attributes("params[:#{singular_table_name}]") %>
     if @<%= orm_instance.update_attributes("params[:#{singular_table_name}]") %>
       flash[:notice] = "<%= human_name %> successfully updated."
     end

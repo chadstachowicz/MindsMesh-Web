@@ -8,6 +8,11 @@ describe "sections/show" do
       :name => "Name",
       :slug => "Slug"
     ))
+    assign(:section_user, nil)
+    assign(:section_users, [
+      Fabricate.build(:section_user),
+      Fabricate.build(:section_user)
+      ])
   end
 
   it "renders attributes in <p>" do

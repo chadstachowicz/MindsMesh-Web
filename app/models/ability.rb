@@ -3,6 +3,7 @@ class Ability
   
   def initialize(current_user)
     return guest unless current_user
+    @current_user = current_user
     #
     can [:read], User do |user|
       current_user == user
@@ -14,6 +15,10 @@ class Ability
     teacher   if current_user.teacher?
     admin     if current_user.admin?
     master    if current_user.master?
+
+    # TODO: admin can manage/destroy SectionUser in their school
+    # TODO: teacher can manage/destroy SectionUser in section they are moderator
+    # TODO: moderator can destroy SectionUser in section they are moderator if it has no privileges
   end
 
   def guest
@@ -26,6 +31,9 @@ class Ability
 
   def student
     can :home_student
+    can [:read, :join], Section do |section|
+      section.school.school_users.exists?(user_id: @current_user.id)
+    end
   end
 
   def moderator

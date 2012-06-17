@@ -40,6 +40,16 @@ describe SectionsController do
     end
   end
 
+  describe "PUT join" do
+    it "current_user joins the @section" do
+      section = Fabricate(:section)
+      -> do
+        put :join, {:id => section.to_param}, valid_session
+      end.should change { SectionUser.count }.by(1)
+      assigns(:section).should eq(section)
+    end
+  end
+
   describe "GET new" do
     it "assigns a new section as @section" do
       get :new, {}, valid_session

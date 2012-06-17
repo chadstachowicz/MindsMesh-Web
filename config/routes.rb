@@ -1,5 +1,11 @@
 Lyrne::Application.routes.draw do
-  resources :sections
+  resources :section_users
+
+  resources :sections do
+    member do
+      put :join
+    end
+  end
   resources :courses
   resources :schools
   

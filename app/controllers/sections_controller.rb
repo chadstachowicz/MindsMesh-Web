@@ -11,7 +11,22 @@ class SectionsController < ApplicationController
 
   # GET /sections/1
   def show
+    @section_user  = @section.section_users.where(user_id: current_user.id).first
+    @section_users = @section.section_users.order("b_teacher DESC, b_moderator DESC").limit(10)
     respond_with(@section)
+  end
+
+  # PUT /sections/1/join
+  def join
+    @section_user = @section.section_users.where(user_id: current_user.id).first_or_initialize
+    if @section_user.new_record?
+      @section_user.save!
+      flash[:notice] = "you joined the section"
+    else
+      @section_user.destroy
+      flash[:notice] = "you left the section"
+    end
+    redirect_to @section
   end
 
   # GET /sections/new

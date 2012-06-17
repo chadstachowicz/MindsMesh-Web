@@ -1,25 +1,58 @@
 <p id="notice"><%= notice %></p>
+<table>
+  <tr>
+    <th>section</th>
+    <th>actions</th>
+    <th>users</th>
+    <th>posts</th>
+  </tr>
+  <tr>
+    <td>
+      <p>
+        <b>Course:</b>
+        <%= @section.course %>
+      </p>
 
-<p>
-  <b>Course:</b>
-  <%= @section.course %>
-</p>
+      <p>
+        <b>School:</b>
+        <%= @section.school %>
+      </p>
 
-<p>
-  <b>School:</b>
-  <%= @section.school %>
-</p>
+      <p>
+        <b>Name:</b>
+        <%= @section.name %>
+      </p>
 
-<p>
-  <b>Name:</b>
-  <%= @section.name %>
-</p>
-
-<p>
-  <b>Slug:</b>
-  <%= @section.slug %>
-</p>
-
-
-<%= link_to 'Edit', edit_section_path(@section) %> |
-<%= link_to 'Back', sections_path %>
+      <p>
+        <b>Slug:</b>
+        <%= @section.slug %>
+      </p>
+    </td>
+    <td>
+      <%= link_to (@section_user.present? ? 'leave this section' : 'join this section'),
+                  join_section_path(@section),
+                  method: 'put'
+                  %>
+      |
+      <%= link_to 'Edit', edit_section_path(@section) %> |
+      <%= link_to 'Back', sections_path %>
+    </td>
+    <td>
+      <ul>
+        <li>
+          <% @section_users.each do |section_user| %>
+            <% section_user.user do |user| %>
+              <%= link_to @user do %>
+                <%= image_tag @user.photo_url %>
+                <%= @user.name %>
+              <% end %>
+            <% end %>
+          <% end %>
+        </li>
+      </ul>
+    </td>
+    <td>
+      posts here
+    </td>
+  </tr>
+</table>
