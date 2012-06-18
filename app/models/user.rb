@@ -35,4 +35,8 @@ class User < ActiveRecord::Base
   def admin?;     role?(:admin);     end
   def master?;    role?(:master);    end
 
+
+  def posts_feed
+    Post.where(section_id: section_users.map(&:section_id)).order("id DESC").limit(50)
+  end
 end

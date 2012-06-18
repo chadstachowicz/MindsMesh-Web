@@ -5,4 +5,12 @@ class SectionUser < ActiveRecord::Base
   validates_presence_of :section
   validates_presence_of :user
   validates_uniqueness_of :user_id, scope: :section_id
+
+  ROLES = %w(teacher moderator student)
+
+  def role
+    return "teacher"   if b_teacher?
+    return "moderator" if b_moderator?
+    "student"
+  end
 end

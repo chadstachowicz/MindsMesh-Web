@@ -1,2 +1,25 @@
 <h1>Home#student</h1>
 <p>Find me in app/views/home/student.html.erb</p>
+<table>
+  <tr>
+    <th>feed</th>
+    <th>sidebar</th>
+  </tr>
+  <tr>
+    <td>
+      <table>
+      <% current_user.posts_feed.each do |post| %>
+        <tr>
+          <td><%= link_to post.user.name, post.user %></td>
+          <td><i><%= post.text %></i></td>
+          <td><%= link_to 'Show', post %></td>
+          <td><%= link_to 'Edit', edit_post_path(post) %></td>
+          <td><%= link_to 'Destroy', post, remote: true, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+      </table>
+    </td>
+    <td>
+    </td>
+  </tr>
+</table>

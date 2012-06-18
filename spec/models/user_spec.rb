@@ -56,4 +56,25 @@ describe User do
 
   end
 
+  describe "roles=" do
+    
+    it "should raise for unkown type" do
+      user = Fabricate.build(:user)
+      user.roles.should be_empty
+      roles = ['admin', 'teacher']
+      user.roles = roles
+      user.roles.should == roles
+    end
+
+  end
+
+  describe "posts_feed" do
+    
+    it "should return a query for posts" do
+      user = Fabricate.build(:user)
+      user.posts_feed.should be_instance_of(ActiveRecord::Relation)
+    end
+
+  end
+
 end
