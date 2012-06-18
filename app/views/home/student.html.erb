@@ -19,7 +19,12 @@
             <td colspan="2"><i><%= post.text %></i></td>
           </tr>
           <tr>
-            <td><%= link_to post.user.name, post.user %></td>
+            <td>
+              <%= link_to post.user do %>
+                <%= image_tag post.user.photo_url, width: 20 %>
+                <%= post.user.name %>
+              <% end %>
+            </td>
             <td style="text-align:right">
               <%= link_to 'Show', post %>
               <%= link_to 'Edit', edit_post_path(post) %>
