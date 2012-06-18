@@ -3,8 +3,7 @@ class CreateSectionUsers < ActiveRecord::Migration
     create_table :section_users do |t|
       t.references :section
       t.references :user
-      t.boolean :b_moderator
-      t.boolean :b_teacher
+      t.string :role
 
       t.timestamps
     end

@@ -5,18 +5,14 @@ describe SectionUser do
 
     it "should be a string" do
       section_user = Fabricate.build(:section_user)
-      section_user.role.should be_instance_of(String)
+      section_user.role_s.should be_instance_of(String)
     end
 
     it "should be one of the listed roles" do
-      section_users = [
-        Fabricate.build(:section_user),
-        Fabricate.build(:section_user, b_teacher: true),
-        Fabricate.build(:section_user, b_moderator: true)
-      ]
-      section_users.each do |section_user|
-        SectionUser::ROLES.should include(section_user.role)
-      end
+      # TODO: review these
+      SectionUser::ROLES.should include(Fabricate.build(:section_user).role)
+      SectionUser::ROLES.should include(Fabricate.build(:section_user, role: "moderator").role)
+      SectionUser::ROLES.should include(Fabricate.build(:section_user, role: "teacher").role)
     end
   end
 end

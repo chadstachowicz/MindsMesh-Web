@@ -4,9 +4,7 @@ describe "section_users/edit" do
   before(:each) do
     @section_user = assign(:section_user, stub_model(SectionUser,
       :section => nil,
-      :user => nil,
-      :b_moderator => false,
-      :b_teacher => false
+      :user => nil
     ))
   end
 
@@ -17,8 +15,6 @@ describe "section_users/edit" do
     assert_select "form", :action => section_users_path(@section_user), :method => "post" do
       assert_select "input#section_user_section_id", :name => "section_user[section_id]"
       assert_select "input#section_user_user_id", :name => "section_user[user_id]"
-      assert_select "input#section_user_b_moderator", :name => "section_user[b_moderator]"
-      assert_select "input#section_user_b_teacher", :name => "section_user[b_teacher]"
     end
   end
 end

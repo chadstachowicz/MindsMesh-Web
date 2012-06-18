@@ -35,12 +35,14 @@ ActiveRecord::Schema.define(:version => 20120617005510) do
   create_table "posts", :force => true do |t|
     t.integer  "section_id"
     t.integer  "user_id"
+    t.integer  "section_user_id"
     t.text     "text"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
   end
 
   add_index "posts", ["section_id"], :name => "index_posts_on_section_id"
+  add_index "posts", ["section_user_id"], :name => "index_posts_on_section_user_id"
   add_index "posts", ["user_id"], :name => "index_posts_on_user_id"
 
   create_table "school_user_requests", :force => true do |t|
@@ -80,10 +82,9 @@ ActiveRecord::Schema.define(:version => 20120617005510) do
   create_table "section_users", :force => true do |t|
     t.integer  "section_id"
     t.integer  "user_id"
-    t.boolean  "b_moderator"
-    t.boolean  "b_teacher"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.string   "role"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   add_index "section_users", ["section_id"], :name => "index_section_users_on_section_id"

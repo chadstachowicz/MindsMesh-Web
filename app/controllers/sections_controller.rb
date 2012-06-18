@@ -12,7 +12,7 @@ class SectionsController < ApplicationController
   # GET /sections/1
   def show
     @section_user  = @section.section_users.where(user_id: current_user.id).first
-    @section_users = @section.section_users.order("b_teacher DESC, b_moderator DESC").limit(10)
+    @section_users = @section.section_users.order("role DESC").limit(10)
     @posts         = @section.posts.order("id DESC").limit(10)
     @post = Post.new
     respond_with(@section)
@@ -32,18 +32,16 @@ class SectionsController < ApplicationController
   end
 
   def create_post
-    @post = @section.posts.build(params[:post])
-    @post.user = current_user
+    @section_user  = @section.section_users.where(user_id: current_user.id).first
+    @post = @section_user.posts.build(params[:post])
     if @post.save
       flash[:notice] = "Post successfully created."
       redirect_to @section
     else
-      @section_user  = @section.section_users.where(user_id: current_user.id).first
       @section_users = @section.section_users.order("b_teacher DESC, b_moderator DESC").limit(10)
       @posts         = @section.posts.order("id DESC").limit(10)
       render :show
     end
-    #respond_with(@post, location: @post)
   end
 
   # GET /sections/new

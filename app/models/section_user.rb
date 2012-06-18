@@ -1,16 +1,16 @@
 class SectionUser < ActiveRecord::Base
   belongs_to :section
   belongs_to :user
-  attr_accessible :b_moderator, :b_teacher, :section_id, :user_id
+  has_many :posts
+  attr_accessible :role, :section_id, :user_id
   validates_presence_of :section
   validates_presence_of :user
   validates_uniqueness_of :user_id, scope: :section_id
 
-  ROLES = %w(teacher moderator student)
+  ROLES = ['teacher', 'moderator', nil]
+  validates_inclusion_of :role, in: ROLES
 
-  def role
-    return "teacher"   if b_teacher?
-    return "moderator" if b_moderator?
-    "student"
+  def role_s
+    role || "student"
   end
 end

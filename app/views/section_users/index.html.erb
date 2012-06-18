@@ -4,8 +4,7 @@
   <tr>
     <th>Section</th>
     <th>User</th>
-    <th>B moderator</th>
-    <th>B teacher</th>
+    <th>Role</th>
     <th></th>
     <th></th>
     <th></th>
@@ -15,8 +14,7 @@
   <tr>
     <td><%= section_user.section %></td>
     <td><%= section_user.user %></td>
-    <td><%= section_user.b_moderator %></td>
-    <td><%= section_user.b_teacher %></td>
+    <td><%= section_user.role %></td>
     <td><%= link_to 'Show', section_user %></td>
     <td><%= link_to 'Edit', edit_section_user_path(section_user) %></td>
     <td><%= link_to 'Destroy', section_user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
