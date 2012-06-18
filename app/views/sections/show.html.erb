@@ -1,4 +1,4 @@
-<table>
+<table border="1" width="100%">
   <tr>
     <th>section</th>
     <th>actions</th>
@@ -40,13 +40,12 @@
       <ul>
         <li>
           <% @section_users.each do |section_user| %>
-            <% section_user.user do |user| %>
-              <%= link_to @user do %>
-                <%= image_tag @user.photo_url %>
-                <%= @user.name %>
-              <% end %>
+            <% user = section_user.user %>
+            <%= link_to user do %>
+              <%= image_tag user.photo_url, width: 30 %>
+              <%= user.name %>
             <% end %>
-            <strong>[<%= section_user.role %>]</strong>
+            <strong>[<%= section_user.role_s %>]</strong>
           <% end %>
         </li>
       </ul>

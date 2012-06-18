@@ -38,7 +38,7 @@ class SectionsController < ApplicationController
       flash[:notice] = "Post successfully created."
       redirect_to @section
     else
-      @section_users = @section.section_users.order("b_teacher DESC, b_moderator DESC").limit(10)
+      @section_users = @section.section_users.order("role DESC").limit(10)
       @posts         = @section.posts.order("id DESC").limit(10)
       render :show
     end

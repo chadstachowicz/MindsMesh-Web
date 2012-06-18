@@ -1,25 +1,53 @@
 <h1>Home#student</h1>
-<p>Find me in app/views/home/student.html.erb</p>
-<table>
+
+<table border=1 width="100%">
   <tr>
-    <th>feed</th>
-    <th>sidebar</th>
+    <th width="50%">feed</th>
+    <th width="50%">sidebar</th>
   </tr>
   <tr>
     <td>
-      <table>
       <% current_user.posts_feed.each do |post| %>
-        <tr>
-          <td><%= link_to post.user.name, post.user %></td>
-          <td><i><%= post.text %></i></td>
-          <td><%= link_to 'Show', post %></td>
-          <td><%= link_to 'Edit', edit_post_path(post) %></td>
-          <td><%= link_to 'Destroy', post, remote: true, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        </tr>
+        <table border=1 width="100%">
+          <tr>
+            <td colspan="2">
+              <%= link_to "post ##{post.id}", post %>
+              <%= link_to post.section.name, post.section %>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2"><i><%= post.text %></i></td>
+          </tr>
+          <tr>
+            <td><%= link_to post.user.name, post.user %></td>
+            <td style="text-align:right">
+              <%= link_to 'Show', post %>
+              <%= link_to 'Edit', edit_post_path(post) %>
+              <%= link_to 'Destroy', post, remote: true, method: :delete, data: { confirm: 'Are you sure?' } %>
+            </td>
+          </tr>
+        </table>
+        <p></p>
       <% end %>
-      </table>
     </td>
     <td>
+      <h2>my sections</h2>
+      <ul>
+      <% current_user.section_users.each do |section_user| %>
+        <% section = section_user.section %>
+        <li>
+          <%= link_to section.name, section %>
+          <strong>[<%= section_user.role_s %>]</strong>
+        </li>
+      <% end %>
+      </ul>
+      <hr />
+      <h2>all sections</h2>
+      <ul>
+      <% Section.all.each do |section| %>
+        <li><%= link_to section.name, section %></li>
+      <% end %>
+      </ul>
     </td>
   </tr>
 </table>
