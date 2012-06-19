@@ -215,6 +215,7 @@ DEPENDENCIES
   guard-rspec
   jquery-rails
   launchy
+  less-rails
   libnotify
   minitest
   mocha

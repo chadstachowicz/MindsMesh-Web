@@ -20,11 +20,6 @@ describe "sections/show" do
 
   it "renders attributes in <p>" do
     render
-    # Run the generator again with the --webrat flag if you want to use webrat matchers
-    rendered.should match(//)
-    rendered.should match(//)
-    rendered.should match(/Name/)
-    rendered.should match(/Slug/)
 
     # Run the generator again with the --webrat flag if you want to use webrat matchers
     assert_select "form", :action => posts_section_path(@section), :method => "post" do

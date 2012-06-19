@@ -1,29 +1,56 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Lyrne</title>
+  <title>Lyrne.com - Collaborate with your classmates</title>
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
 <body>
 
-<div style="border:black solid 1px;padding:20px;">
-  <% if current_user %>
-  <%= link_to "Home User",      home_user_path      if current_user.user? %>
-  <%= link_to "Home Student",   home_student_path   if current_user.student? %>
-  <%= link_to "Home Moderator", home_moderator_path if current_user.moderator? %>
-  <%= link_to "Home Teacher",   home_teacher_path   if current_user.teacher? %>
-  <%= link_to "Home Admin",     home_admin_path     if current_user.admin? %>
-  <%= link_to "Home Master",    home_master_path    if current_user.master? %>
-  <% end %>
-</div>
 
+  <div class="wrap clearfix">
+    <header>
+      <a href="/" title="Logo">
+        <%= image_tag 'template1/logo.png' %>
+      </a>
+      <div class="menu">
+        <% if current_user %>
+        <%= link_to "Home User",      home_user_path      if current_user.user? %>
+        <%= link_to "Home Student",   home_student_path   if current_user.student? %>
+        <%= link_to "Home Moderator", home_moderator_path if current_user.moderator? %>
+        <%= link_to "Home Teacher",   home_teacher_path   if current_user.teacher? %>
+        <%= link_to "Home Admin",     home_admin_path     if current_user.admin? %>
+        <%= link_to "Home Master",    home_master_path    if current_user.master? %>
+        <% end %>
+        <% if current_user %>
+        <div class="user">
+          <div class="image">
+            <%= image_tag current_user.photo_url, width: 50 %>
+          </div>
+          <%= current_user.name %>
+          <ul>
+            <li>My profile</li>
+            <li><%= link_to "Log out", session_logout_path, :method => :delete %></li>
+          </ul>
+        </div>
+        <% end %>
+      </div>
+    </header>
 
-<p id="notice"><%= notice %></p>
-<p id="alert"><%= alert %></p>
+    <%= "<p id='notice'>#{notice}</p>" if notice %>
+    <%= "<p id='alert'>#{alert}</p>" if alert %>
 
-<%= yield %>
+    <%= yield %>
+      
+    <div class="sidebar">
+      <div class="section search">
+        <input type="text" name="search" />
+      </div>
+      <%= yield(:sidebar) %>
+    </div>
+
+  </div>
 
 </body>
 </html>

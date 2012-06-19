@@ -1,43 +1,71 @@
 <h1>Home#student</h1>
 
-<table border=1 width="100%">
-  <tr>
-    <th width="50%">feed</th>
-    <th width="50%">sidebar</th>
-  </tr>
-  <tr>
-    <td>
-      <% current_user.posts_feed.each do |post| %>
-        <table border=1 width="100%">
-          <tr>
-            <td colspan="2">
-              <%= link_to "post ##{post.id}", post %>
-              <%= link_to post.section.name, post.section %>
-            </td>
-          </tr>
-          <tr>
-            <td colspan="2"><i><%= post.text %></i></td>
-          </tr>
-          <tr>
-            <td>
-              <%= link_to post.user do %>
-                <%= image_tag post.user.photo_url, width: 20 %>
-                <%= post.user.name %>
-              <% end %>
-            </td>
-            <td style="text-align:right">
-              <%= link_to 'Show', post %>
-              <%= link_to 'Edit', edit_post_path(post) %>
-              <%= link_to 'Destroy', post, remote: true, method: :delete, data: { confirm: 'Are you sure?' } %>
-            </td>
-          </tr>
-        </table>
-        <p></p>
-      <% end %>
-    </td>
-    <td>
-      <h2>my sections</h2>
-      <ul>
+<div class="main_feed clearfix">
+  <div class="feed form">
+    <div class="head">
+      <h1>Question or Comment</h1>
+      <select class="select class">
+        <option value="chem">Calc III</option>
+      </select>
+      <select class="select section">
+        <option>Section 1</option>
+      </select>
+    </div>
+    <div class="input">
+      <textarea name="comment"></textarea>  
+      <button class="button">Post</button>    
+    </div>
+  </div>
+
+  <div class="feed">
+    <div class="head">
+      <h1>News Feed</h1>
+      <button>Viewing: All</button>
+    </div>
+    <% if current_user.posts_feed.any? %>
+      <%= render current_user.posts_feed %>
+    <% end %>
+  </div>
+</div>
+
+
+<script type="text/javascript">
+
+$(function() {
+  $('.actions a').click(function(){
+    $(this).toggleClass('active');
+    if($(this).hasClass('comment_button')){
+      $(this).parents('.item').find('.comments').toggle();
+    }
+  });
+
+  $('.form textarea').focus(function(){
+    $(this).siblings('button').slideDown(100);
+  }).blur(function(){
+    $(this).siblings('button').slideUp(100);
+  });
+
+  var killScroll = false; 
+  $(window).scroll(function(){ 
+    if  ($(window).scrollTop()+200 >= ($(document).height() - ($(window).height()))){ 
+      if (killScroll == false) { 
+              killScroll = true; // IMPORTANT - Set killScroll to true, to make sure we do not trigger this code again before it's done running.
+            //alert('LOAD SOME NEW STUFF');
+
+              killScroll = false; //IMPORTANT, SET THIS TO FALSE WHEN NEW CONTENT IS DONE LOADING
+      }
+    }
+  });
+});
+</script>
+
+<% content_for :sidebar do %>
+<div class="section">
+  <div class="head">
+    <h1>My Sections</h1>
+  </div>
+  <div class="inner">
+    <ul>
       <% current_user.section_users.each do |section_user| %>
         <% section = section_user.section %>
         <li>
@@ -45,14 +73,20 @@
           <strong>[<%= section_user.role_s %>]</strong>
         </li>
       <% end %>
-      </ul>
-      <hr />
-      <h2>all sections</h2>
-      <ul>
+    </ul>
+  </div>
+</div>
+
+<div class="section">
+  <div class="head">
+    <h1>All Sections</h1>
+  </div>
+  <div class="inner">
+    <ul>
       <% Section.all.each do |section| %>
         <li><%= link_to section.name, section %></li>
       <% end %>
-      </ul>
-    </td>
-  </tr>
-</table>
+    </ul>
+  </div>
+</div>
+<% end %>

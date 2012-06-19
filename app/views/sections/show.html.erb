@@ -1,102 +1,111 @@
-<table border="1" width="100%">
-  <tr>
-    <th>section</th>
-    <th>actions</th>
-    <th>users</th>
-    <th>posts</th>
-  </tr>
-  <tr>
-    <td>
-      <p>
-        <b>Course:</b>
-        <%= link_to @section.course.name, @section.course %>
-      </p>
+<h1><%= @section.name %></h1>
 
-      <p>
+
+<div class="main_feed clearfix">
+  <% if can? :create_post, @section %>
+    <%= form_for(@post, url: posts_section_path(@section)) do |f| %>
+      <% if @post.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@post.errors.count, "error") %> prohibited this post from being saved:</h2>
+
+          <ul>
+          <% @post.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="field">
+        <%= f.text_area :text %>
+      </div>
+      <div class="actions">
+        <%= f.submit nil, data: { disable_with: "Please wait..." } %>
+      </div>
+    <% end %>
+  <% end %>
+
+  
+  <div class="feed">
+    <div class="head">
+      <h1>News Feed</h1>
+      <button>Viewing: All</button>
+    </div>
+    <% if @posts.any? %>
+      <%= render @posts %>
+    <% end %>
+  </div>
+</div>
+
+
+<% content_for :sidebar do %>
+
+<div class="section">
+  <div class="head">
+    <h1>About</h1>
+  </div>
+  <div class="inner">
+    <ul>
+      <li>
         <b>School:</b>
         <%= link_to @section.school.name, @section.school %>
-      </p>
+      </li>
+      <li>
+        <b>Course:</b>
+        <%= link_to @section.course.name, @section.course %>
+      </li>
+      <li>
+        <b>Teacher:</b>
+      </li>
+    </ul>
+  </div>
+</div>
 
-      <p>
-        <b>Name:</b>
-        <%= @section.name %>
-      </p>
+<div class="section">
+  <div class="head">
+    <h1>Actions</h1>
+  </div>
+  <div class="inner">
+    <ul>
+      <li>
+        <%= link_to 'edit this section', edit_section_path(@section) %>
+      </li>
+      <li>
+        <%= link_to (@section_user.present? ? 'leave this section' : 'join this section'),
+                    join_section_path(@section),
+                    method: 'put'
+                    %>
+      </li>
+    </ul>
+  </div>
+</div>
 
-      <p>
-        <b>Slug:</b>
-        <%= @section.slug %>
-      </p>
-    </td>
-    <td>
-      <%= link_to (@section_user.present? ? 'leave this section' : 'join this section'),
-                  join_section_path(@section),
-                  method: 'put'
-                  %>
-      |
-      <%= link_to 'Edit', edit_section_path(@section) %> |
-      <%= link_to 'Back', sections_path %>
-    </td>
-    <td>
-      <ul>
-        <li>
-          <% @section_users.each do |section_user| %>
-            <% user = section_user.user %>
-            <%= link_to user do %>
-              <%= image_tag user.photo_url, width: 30 %>
-              <%= user.name %>
-            <% end %>
-            <strong>[<%= section_user.role_s %>]</strong>
+<div class="section">
+  <div class="head">
+    <h1>Users</h1>
+  </div>
+  <div class="inner">
+    <ul>
+      <li>
+        <% @section_users.each do |section_user| %>
+          <% user = section_user.user %>
+          <%= link_to user do %>
+            <%= image_tag user.photo_url, width: 30 %>
+            <%= user.name %>
           <% end %>
-        </li>
-      </ul>
-    </td>
-    <td>
-      <% if can? :create_post, @section %>
-      <%= form_for(@post, url: posts_section_path(@section)) do |f| %>
-        <% if @post.errors.any? %>
-          <div id="error_explanation">
-            <h2><%= pluralize(@post.errors.count, "error") %> prohibited this post from being saved:</h2>
-
-            <ul>
-            <% @post.errors.full_messages.each do |msg| %>
-              <li><%= msg %></li>
-            <% end %>
-            </ul>
-          </div>
+          <strong>[<%= section_user.role_s %>]</strong>
         <% end %>
+      </li>
+    </ul>
+  </div>
+</div>
+<% end %>
 
-        <div class="field">
-          <%= f.label :text %><br />
-          <%= f.text_area :text %>
-        </div>
-        <div class="actions">
-          <%= f.submit nil, data: { disable_with: "Please wait..." } %>
-        </div>
-      <% end %>
 
-      <hr>
-      <% end %>
 
-      <table>
-      <% @posts.each do |post| %>
-        <tr>
-          <td>
-            <%= link_to post.user do %>
-              <%= image_tag post.user.photo_url, width: 20 %>
-              <%= post.user.name %>
-            <% end %>
-          </td>
-          <td><i><%= post.text %></i></td>
-          <td><%= link_to 'Show', post %></td>
-          <td><%= link_to 'Edit', edit_post_path(post) %></td>
-          <td><%= link_to 'Destroy', post, remote: true, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        </tr>
-      <% end %>
-      </table>
 
-    </td>
-  </tr>
-</table>
+
+
 
 
 <script type="text/javascript">

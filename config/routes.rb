@@ -37,6 +37,6 @@ Lyrne::Application.routes.draw do
 
 
   resources :users, only: [:index, :show, :edit, :update, :destroy]
-  root to: "users#index"
+  root to: "home#index"
   get "home/index", as: 'denied'
 end
