@@ -47,15 +47,19 @@
   <div class="inner">
     <ul>
       <li>
-        <b>School:</b>
-        <%= link_to @section.school.name, @section.school %>
+        <%= link_to @section.school, class: 'roman-icon' do %>
+          <b>School:</b>
+          <%= @section.school.name %>
+        <% end %>
       </li>
       <li>
-        <b>Course:</b>
-        <%= link_to @section.course.name, @section.course %>
+        <%= link_to @section.course, class: 'roman-icon' do %>
+          <b>Course:</b>
+          <%= @section.course.name %>
+        <% end %>
       </li>
       <li>
-        <b>Teacher:</b>
+        <a href="#" class="roman-icon"><b>Teacher:</b></a>
       </li>
     </ul>
   </div>
@@ -68,12 +72,13 @@
   <div class="inner">
     <ul>
       <li>
-        <%= link_to 'edit this section', edit_section_path(@section) %>
+        <%= link_to 'edit this section', edit_section_path(@section), class: 'roman-icon' %>
       </li>
       <li>
         <%= link_to (@section_user.present? ? 'leave this section' : 'join this section'),
                     join_section_path(@section),
-                    method: 'put'
+                    method: 'put',
+                    class: 'roman-icon'
                     %>
       </li>
     </ul>
@@ -86,25 +91,19 @@
   </div>
   <div class="inner">
     <ul>
-      <li>
-        <% @section_users.each do |section_user| %>
+      <% @section_users.each do |section_user| %>
+        <li>
           <% user = section_user.user %>
           <%= link_to user do %>
-            <%= image_tag user.photo_url, width: 30 %>
+            <%= image_tag user.photo_url, width: 25 %>
             <%= user.name %>
           <% end %>
-          <strong>[<%= section_user.role_s %>]</strong>
-        <% end %>
-      </li>
+        </li>
+      <% end %>
     </ul>
   </div>
 </div>
 <% end %>
-
-
-
-
-
 
 
 

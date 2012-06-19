@@ -13,7 +13,7 @@ body {
   padding-top: 20px;
   height: auto;
   min-height: 100%;
-  width: 950px;
+  width: 900px;
   margin: 0 auto;
   -webkit-box-sizing: border-box;
   /* Safari/Chrome, other WebKit */
@@ -523,12 +523,11 @@ body {
 }
 .wrap .sidebar .section .head h1 {
   padding-left: 10px;
-  font-size: 35px;
+  font-size: 30px;
   margin: 0;
   color: #b7993f;
 }
 .wrap .sidebar .section .inner {
-  padding: 20px;
   color: #cbb46f;
 }
 .wrap .sidebar .section .inner ul {
@@ -537,24 +536,31 @@ body {
 }
 .wrap .sidebar .section .inner li {
   list-style: none inside;
-  padding: 5px 0;
-  padding-left: 25px;
   position: relative;
+  &:hover { background:#fff; }
+  a {
+    display:block;
+    padding: 10px;
+    height:100%;
+    &.roman-icon {
+      padding-left: 35px;
+      &:before {
+        content: ".";
+        width: 18px;
+        height: 18px;
+        display: block;
+        background: asset-url('template1/school_icon.png', image);
+        left: 10px;
+        top: 50%;
+        position: absolute;
+        margin-top: -9px;
+      }
+    }
+  }
 }
 .wrap .sidebar .section .inner li a {
   color: #cbb46f;
   text-decoration: none;
-}
-.wrap .sidebar .section .inner li:before {
-  content: ".";
-  width: 18px;
-  height: 18px;
-  display: block;
-  background: asset-url('template1/school_icon.png', image);
-  left: 0;
-  top: 50%;
-  position: absolute;
-  margin-top: -9px;
 }
 .wrap .school .main {
   border: 3px solid #DBDBDB;

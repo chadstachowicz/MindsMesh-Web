@@ -68,10 +68,7 @@ $(function() {
     <ul>
       <% current_user.section_users.each do |section_user| %>
         <% section = section_user.section %>
-        <li>
-          <%= link_to section.name, section %>
-          <strong>[<%= section_user.role_s %>]</strong>
-        </li>
+        <li><%= link_to section.course.name, section, title: section.name, class: 'roman-icon' %></li>
       <% end %>
     </ul>
   </div>
@@ -84,7 +81,7 @@ $(function() {
   <div class="inner">
     <ul>
       <% Section.all.each do |section| %>
-        <li><%= link_to section.name, section %></li>
+        <li><%= link_to section.course.name, section, title: section.name, class: 'roman-icon' %></li>
       <% end %>
     </ul>
   </div>
