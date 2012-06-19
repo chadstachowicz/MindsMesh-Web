@@ -42,6 +42,17 @@
 
 <% content_for :sidebar do %>
 
+<% if @section_user.nil? %>
+<div class="block">
+  <%= link_to 'join this section',
+              join_section_path(@section),
+              method: 'put',
+              class: 'btn btn-large btn-success',
+              data: {disable_with: "hold on..."}
+              %>
+</div>
+<% end %>
+
 <section>
   <h2>About</h2>
   <div>
@@ -72,13 +83,16 @@
       <li>
         <%= link_to 'edit this section', edit_section_path(@section), class: 'roman-icon' %>
       </li>
+      <% if @section_user.present? %>
       <li>
-        <%= link_to (@section_user.present? ? 'leave this section' : 'join this section'),
+        <%= link_to 'leave this section',
                     join_section_path(@section),
                     method: 'put',
-                    class: 'roman-icon'
+                    class: 'roman-icon',
+                    data: {disable_with: "hold on..."}
                     %>
       </li>
+      <% end %>
     </ul>
   </div>
 </section>
