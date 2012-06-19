@@ -1,4 +1,6 @@
-<h1>Home#student</h1>
+<div class="page-header">
+  <h1>Home#student</h1>
+</div>
 
 <div class="main_feed clearfix">
   <div class="feed form">
@@ -60,30 +62,26 @@ $(function() {
 </script>
 
 <% content_for :sidebar do %>
-<div class="section">
-  <div class="head">
-    <h1>My Sections</h1>
-  </div>
-  <div class="inner">
+<section>
+  <h2>My Sections</h2>
+  <div>
     <ul>
       <% current_user.section_users.each do |section_user| %>
         <% section = section_user.section %>
-        <li><%= link_to section.course.name, section, title: section.name, class: 'roman-icon' %></li>
+        <li><%= link_to section.course.name, section, title: section.name, rel: 'tooltip', class: 'roman-icon' %></li>
       <% end %>
     </ul>
   </div>
-</div>
+</section>
 
-<div class="section">
-  <div class="head">
-    <h1>All Sections</h1>
-  </div>
-  <div class="inner">
+<section>
+  <h2>All Sections</h2>
+  <div>
     <ul>
       <% Section.all.each do |section| %>
-        <li><%= link_to section.course.name, section, title: section.name, class: 'roman-icon' %></li>
+        <li><%= link_to section.course.name, section, title: section.name, rel: 'tooltip', class: 'roman-icon' %></li>
       <% end %>
     </ul>
   </div>
-</div>
+</section>
 <% end %>

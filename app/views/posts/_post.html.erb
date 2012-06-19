@@ -1,22 +1,24 @@
-<div class="item clearfix">
+<div class="post item clearfix">
   <div class="image">
     <%= link_to image_tag(post.user.photo_url, width: 64), post.user %>
   </div>
   <div class="section">
-    <a href="#"><%= link_to post.user.name, post.user %></a> - <i><%= post.text %></i>
+    <a href="#"><%= link_to post.user.name, post.user %></a> <i><%= post.text %></i>
   </div>
   <div class="actions">
-    <%= link_to 'D', post, remote: true, method: :delete, data: { confirm: 'Are you sure?' }, style: 'background: none' %>
-    <%= link_to 'E', edit_post_path(post), style: 'background: none' %>
-    <%= link_to 'S', post, style: 'background: none' %>
-    <a href="#" class="checkmark"></a>        
+    <%= link_to '<i class="icon-trash"></i>'.html_safe, post, remote: true, method: :delete, data: { confirm: 'Are you sure?' }, style: 'background: none' %>
+    <%= link_to '<i class="icon-edit"></i>'.html_safe, edit_post_path(post), style: 'background: none' %>
+    <%= link_to '<i class="icon-eye-open"></i>'.html_safe, post, style: 'background: none' %>
+
+    <a href="#" class="checkmark"></a>
+
+    <span class="badge"><%= rand(9) %></span>
     <a href="#" class="comment_button"></a>
-    <div class="number">
-      4
-    </div>
-    <a href="#" class="brain"></a>        
+
+    <span class="badge"><%= rand(9) %></span>
+    <a href="#" class="brain"></a>
   </div>
   <div class="date">
-    <%= time_ago_in_words(post.created_at) %>
+    <%= time_ago_in_words(post.created_at) %> ago
   </div>
 </div>

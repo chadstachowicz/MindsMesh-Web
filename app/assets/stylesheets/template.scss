@@ -5,10 +5,6 @@
 body {
   background: #fff;
 }
-html,
-body {
-  height: 100%;
-}
 .wrap {
   padding-top: 20px;
   height: auto;
@@ -103,6 +99,7 @@ body {
   -o-transition: all .75s;
   /* Opera */
 
+  margin-top: 16px;
   background: #fff;
   border: 1px solid;
   border-top: 0;
@@ -155,6 +152,7 @@ body {
 }
 .wrap .feed.form .head h1 {
   font-size: 25px;
+  padding: 10px;
 }
 .wrap .feed.form .input {
   padding: 10px;
@@ -225,7 +223,7 @@ body {
   position: relative;
 }
 .wrap .feed .head h1 {
-  padding-left: 10px;
+  padding: 10px;
   font-size: 35px;
   margin: 0;
   color: #a0a0a0;
@@ -354,13 +352,8 @@ body {
   margin-top: 5px;
   height: 16px;
 }
-.wrap .feed .item .comments .comment .actions .number {
+.wrap .feed .item .comments .comment .actions .badge {
   float: right;
-  background: #dbdbdb;
-  padding: 0 3px;
-  -moz-border-radius: 4px;
-  border-radius: 4px;
-  font-size: 10px;
   height: 16px;
   line-height: 16px;
   margin-top: 0px;
@@ -444,16 +437,11 @@ body {
   margin-top: 5px;
   height: 24px;
 }
-.wrap .feed .item .actions .number {
+.wrap .feed .item .actions .badge {
   float: right;
-  background: #dbdbdb;
-  padding: 0 3px;
-  -moz-border-radius: 4px;
-  border-radius: 4px;
-  font-size: 10px;
-  height: 18px;
-  line-height: 18px;
-  margin-top: 3px;
+  height: 16px;
+  line-height: 16px;
+  margin-top: 0px;
 }
 .wrap .feed .item .actions a {
   display: block;
@@ -487,80 +475,88 @@ body {
 .wrap .sidebar {
   width: 280px;
   float: right;
-}
-.wrap .sidebar .section {
-  background: #faf4e1;
-  border: 1px solid #e6cc7e;
-  margin-bottom: 30px;
-  position: relative;
-}
-.wrap .sidebar .section.search {
-  border: none;
-  background: none;
-}
-.wrap .sidebar .section.search input {
-  -webkit-box-sizing: border-box;
-  /* Safari/Chrome, other WebKit */
+  section {
+    background: #faf4e1;
+    border: 1px solid #e6cc7e;
+    margin-bottom: 30px;
+    position: relative;
 
-  -moz-box-sizing: border-box;
-  /* Firefox, other Gecko */
+    &.search {
+      border: none;
+      background: none;
+      input {
+        -webkit-box-sizing: border-box;
+        /* Safari/Chrome, other WebKit */
 
-  box-sizing: border-box;
-  padding: 8px;
-  padding-left: 30px;
-  border: 1px solid #dbdbdb;
-  background: asset-url('template1/search.png', image) 5px center no-repeat #ffffff;
-  color: #cbcbcb;
-  font-size: 13px;
-  font-weight: 600;
-  width: 100%;
-}
-.wrap .sidebar .section .head {
-  background: #eee4c2;
-  font-size: 25px;
-  line-height: 55px;
-  position: relative;
-}
-.wrap .sidebar .section .head h1 {
-  padding-left: 10px;
-  font-size: 30px;
-  margin: 0;
-  color: #b7993f;
-}
-.wrap .sidebar .section .inner {
-  color: #cbb46f;
-}
-.wrap .sidebar .section .inner ul {
-  margin: 0;
-  padding: 0;
-}
-.wrap .sidebar .section .inner li {
-  list-style: none inside;
-  position: relative;
-  &:hover { background:#fff; }
-  a {
-    display:block;
-    padding: 10px;
-    height:100%;
-    &.roman-icon {
-      padding-left: 35px;
-      &:before {
-        content: ".";
-        width: 18px;
-        height: 18px;
-        display: block;
-        background: asset-url('template1/school_icon.png', image);
-        left: 10px;
-        top: 50%;
-        position: absolute;
-        margin-top: -9px;
+        -moz-box-sizing: border-box;
+        /* Firefox, other Gecko */
+
+        box-sizing: border-box;
+        padding: 20px;
+        padding-left: 30px;
+        border: 1px solid #dbdbdb;
+        background: asset-url('template1/search.png', image) 5px center no-repeat #ffffff;
+        color: #cbcbcb;
+        font-size: 13px;
+        font-weight: 600;
+        width: 100%;
+      }
+    }
+    h1 {
+      display: block;
+      background: #eee4c2;
+      padding: 10px;
+      color: #b7993f;
+    }
+    h2 {
+      display: block;
+      background: #eee4c2;
+      padding: 5px 10px;
+      color: #b7993f;
+    }
+    ul {
+      margin: 0;
+      padding: 0;
+      li {
+        color: #cbb46f;
+        list-style: none inside;
+        position: relative;
+        &:hover { background:#fff; }
+        a {
+          display:block;
+          padding: 10px;
+          height:100%;
+          color: #cbb46f;
+          text-decoration: none;
+          line-height:30px;
+          .image {
+            border: 2px solid #CCC;
+            border-radius: 30px;
+            line-height:26px;
+            height:30px;
+            width:30px;
+            float:left;
+            margin-right:10px;
+            img { border-radius:30px; }
+          }
+          &.roman-icon {
+            padding-left: 35px;
+            &:before {
+              content: ".";
+              width: 18px;
+              height: 18px;
+              display: block;
+              background: asset-url('template1/school_icon.png', image);
+              left: 10px;
+              top: 50%;
+              position: absolute;
+              margin-top: -9px;
+            }
+          }
+        }
       }
     }
   }
-}
-.wrap .sidebar .section .inner li a {
-  color: #cbb46f;
-  text-decoration: none;
 }
 .wrap .school .main {
   border: 3px solid #DBDBDB;

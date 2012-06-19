@@ -38,15 +38,15 @@
       </div>
     </header>
 
-    <%= "<p id='notice'>#{notice}</p>" if notice %>
-    <%= "<p id='alert'>#{alert}</p>" if alert %>
+    <%= "<p id='notice'>#{notice}</p>".html_safe if notice %>
+    <%= "<p id='alert'>#{alert}</p>".html_safe   if alert %>
 
     <%= yield %>
       
     <div class="sidebar">
-      <div class="section search">
+      <section class="search">
         <input type="text" name="search" />
-      </div>
+      </section>
       <%= yield(:sidebar) %>
     </div>
 

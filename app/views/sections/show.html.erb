@@ -1,4 +1,6 @@
-<h1><%= @section.name %></h1>
+<div class="page-header">
+  <h1><%= @section.name %></h1>
+</div>
 
 
 <div class="main_feed clearfix">
@@ -40,11 +42,9 @@
 
 <% content_for :sidebar do %>
 
-<div class="section">
-  <div class="head">
-    <h1>About</h1>
-  </div>
-  <div class="inner">
+<section>
+  <h2>About</h2>
+  <div>
     <ul>
       <li>
         <%= link_to @section.school, class: 'roman-icon' do %>
@@ -63,13 +63,11 @@
       </li>
     </ul>
   </div>
-</div>
+</section>
 
-<div class="section">
-  <div class="head">
-    <h1>Actions</h1>
-  </div>
-  <div class="inner">
+<section>
+  <h2>Actions</h2>
+  <div>
     <ul>
       <li>
         <%= link_to 'edit this section', edit_section_path(@section), class: 'roman-icon' %>
@@ -83,34 +81,22 @@
       </li>
     </ul>
   </div>
-</div>
+</section>
 
-<div class="section">
-  <div class="head">
-    <h1>Users</h1>
-  </div>
-  <div class="inner">
+<section>
+  <h2>Users</h2>
+  <div>
     <ul>
       <% @section_users.each do |section_user| %>
         <li>
           <% user = section_user.user %>
           <%= link_to user do %>
-            <%= image_tag user.photo_url, width: 25 %>
+            <div class="image"><%= image_tag user.photo_url, width: 30 %></div>
             <%= user.name %>
           <% end %>
         </li>
       <% end %>
     </ul>
   </div>
-</div>
+</section>
 <% end %>
-
-
-
-<script type="text/javascript">
-$(function() {
-  $('a[data-method=delete]').live("ajax:beforeSend", function() {
-    $(this).closest('tr').hide('slow')
-  });
-});
-</script>
