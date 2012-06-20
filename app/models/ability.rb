@@ -34,7 +34,7 @@ class Ability
 
   def student
     can :home_student
-    can [:read, :join], Section do |section|
+    can [:read, :join, :more_posts], Section do |section|
       section.school.school_users.where(user_id: @current_user.id).exists?
     end
     can [:create_post], Section do |section|

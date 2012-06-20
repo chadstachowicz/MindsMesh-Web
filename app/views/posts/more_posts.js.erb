@@ -1,0 +1,14 @@
+<% content_for :html do %>
+<% if @posts.any? %>
+  <%= render @posts %>
+  <%= link_to "MORE",
+              {action: 'more_posts', format: 'js', before: @posts.last.id},
+              class: "more btn btn-inverse btn-large",
+              data: {disable_with: "loading..."},
+              remote: true
+              %>
+<% else %>
+<h3><center>sorry, no posts were found</center></h3>
+<% end %>
+<% end %>
+$("#posts").append("<%= j yield(:html) %>");

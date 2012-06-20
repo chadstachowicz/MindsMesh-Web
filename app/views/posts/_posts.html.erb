@@ -1,10 +1,26 @@
 <section>
   <div class="head">
-    <h1>News Feed</h1>
+    <h1><%= title %></h1>
   </div>
   <div id="posts">
   <% if posts.any? %>
     <%= render posts %>
+    <%= link_to "MORE",
+                {action: 'more_posts', format: 'js', before: posts.last.id},
+                class: "more btn btn-inverse btn-large",
+                data: {disable_with: "loading..."},
+                remote: true
+                %>
+  <% else %>
+    <h3><center>sorry, no posts were found</center></h3>
   <% end %>
   </div>
 </section>
+
+<script type="text/javascript">
+
+  $("#posts a.more").live("ajax:beforeSend", function() {
+    $(this).fadeOut('fast');
+  });
+
+</script>

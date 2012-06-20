@@ -166,4 +166,37 @@ describe SectionsController do
     end
   end
 
+  describe "GET more_posts" do
+    before(:each) do
+      @section_user = Fabricate(:section_user, user: current_user_master)
+      @section = @section_user.section
+    end
+    describe "empty set" do
+      it "renders template" do
+        get :more_posts, {id: @section.to_param, format: 'js'}, valid_session
+        response.should render_template("posts/more_posts")
+      end
+    end
+    describe "with posts" do
+      before(:each) do
+        3.times do
+          Fabricate(:post, section_user: @section_user, text: Faker::Lorem.sentence)
+        end
+      end
+      it "with some posts" do
+        get :more_posts, {id: @section.to_param}, valid_session
+        assigns(:posts).size.should == 3
+      end
+      it "applying before" do
+        get :more_posts, {id: @section.to_param, before: Post.last.id}, valid_session
+        assigns(:posts).size.should == 2
+      end
+      it "applying limit" do
+        get :more_posts, {id: @section.to_param, limit: 1}, valid_session
+        assigns(:posts).size.should == 1
+      end
+      #it "applying after"
+    end
+  end
+
 end

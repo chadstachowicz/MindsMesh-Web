@@ -1,5 +1,7 @@
 require 'spec_helper'
 
 describe Post do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it "before" do
+    Post.before(nil).should be_a(ActiveRecord::Relation)
+  end
 end

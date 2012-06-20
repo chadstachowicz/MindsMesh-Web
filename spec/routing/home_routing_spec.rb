@@ -39,5 +39,16 @@ describe HomeController do
       get("/home/master").should route_to("home#master")
     end
 
+
+
+
+    it "routes to #create_post" do
+      post("/home/create_post").should route_to("home#create_post", format: 'js')
+    end
+
+    it "routes to #more_posts" do
+      get("/home/more_posts").should route_to("home#more_posts", format: 'js')
+    end
+
   end
 end

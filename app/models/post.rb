@@ -14,12 +14,14 @@ class Post < ActiveRecord::Base
     self.section_id = section_user.section_id    
   end
 
-  #before_validation do
-  #  if section_user_id.nil? && section_id.present? && user_id.present?
-  #    self.section_user_id = SectionUser.find_by_section_id_and_user_id(section_id, user_id).try :id
-  #  elsif section_user_id.present? && user_id.nil? && section_id.nil?
-  #    self.user_id = section_user.user_id
-  #    self.section_id = section_user.section_id
-  #  end
-  #end
+  default_scope includes(:user)
+
+  def self.before(id)
+    id ? where("posts.id < ?", id) : scoped
+  end
+
+  def self.as_feed(options)
+    options = options.reverse_merge(limit: 10)
+    order("id DESC").limit(options[:limit]).before(options[:before])
+  end
 end

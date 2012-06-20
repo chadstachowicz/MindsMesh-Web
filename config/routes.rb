@@ -6,7 +6,7 @@ Lyrne::Application.routes.draw do
     member do
       put :join
       #get :posts, format: 'js'
-      post :posts, action: :create_post
+      get :more_posts, format: 'js'
     end
   end
   resources :posts, except: [:new, :create] do
@@ -34,7 +34,8 @@ Lyrne::Application.routes.draw do
   get "home/teacher"
   get "home/admin"
   get "home/master"
-
+  get "home/more_posts", format: 'js'
+  post "home/create_post", format: 'js'
 
 
   resources :users, only: [:index, :show, :edit, :update, :destroy]

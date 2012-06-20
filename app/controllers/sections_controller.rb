@@ -31,6 +31,13 @@ class SectionsController < ApplicationController
     redirect_to @section
   end
 
+  # GET /sections/1/more_posts.js
+  def more_posts
+    raise "aaaaaaaa" unless @section.present?
+    @posts = @section.posts.as_feed(params.slice(:limit, :before))
+    respond_to { |f| f.js { render '/posts/more_posts' } }
+  end
+
   # GET /sections/new
   def new
     respond_with(@section)

@@ -29,7 +29,7 @@ describe 'Home' do
         fill_in('school_user_request_email', with: "#{Faker::Internet.user_name}@uncc.edu")
         click_button 'Register'
       end.should change { SchoolUserRequest.count }.by(1)
-      page.should have_content('$("body").append')
+      page.should have_content('replaceWith')
 
       # - clicks the confirmation email (currently mocked in the view)
       #clicks invalid link

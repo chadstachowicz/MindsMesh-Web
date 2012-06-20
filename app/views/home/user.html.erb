@@ -1,5 +1,3 @@
-<h1>Home#user</h1>
-<p>Find me in app/views/home/user.html.erb</p>
 <%= form_for @school_user_request, url: request.path, remote: true do |f| %>
   <%= f.hidden_field :school_id %>
   <%= f.text_field :email %>

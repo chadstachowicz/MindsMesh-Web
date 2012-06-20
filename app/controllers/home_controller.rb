@@ -27,6 +27,7 @@ class HomeController < ApplicationController
 
   def student
     authorize! :home_student, nil
+    @posts = current_user.posts_feed
   end
 
   def moderator
@@ -49,5 +50,10 @@ class HomeController < ApplicationController
     section_user = current_user.section_users.find(params[:section_user_id])
     @post = section_user.posts.create(params[:post])
     respond_to { |f| f.js }
+  end
+
+  def more_posts
+    @posts = current_user.posts_feed(params.slice(:limit, :before))
+    respond_to { |f| f.js { render '/posts/more_posts' } }
   end
 end

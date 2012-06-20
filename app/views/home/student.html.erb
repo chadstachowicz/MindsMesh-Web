@@ -16,8 +16,7 @@
 </section>
 
 <script type="text/javascript">
-$(function() {
-  
+
   $("#new_post textarea").live("focus blur", function(e) {
     if (e.type=="focusin") {
       $(this).switchClass("", "long", 'fast');
@@ -36,11 +35,10 @@ $(function() {
       return false;
     }
   });
-
-});
+  
 </script>
 
-<%= render '/posts/posts', posts: current_user.posts_feed %>
+<%= render '/posts/posts', posts: @posts, title: "News Feed" %>
 
 <% content_for :pageheader do %>
 <div class="page-header">

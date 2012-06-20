@@ -36,7 +36,7 @@ class User < ActiveRecord::Base
   def master?;    role?(:master);    end
 
 
-  def posts_feed
-    Post.where(section_id: section_users.map(&:section_id)).order("id DESC").limit(50)
+  def posts_feed(options={})
+    Post.where(section_id: section_users.map(&:section_id)).as_feed(options)
   end
 end

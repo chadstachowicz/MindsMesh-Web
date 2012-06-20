@@ -2,5 +2,5 @@
   alert("<%= j @school_user_request.errors.full_messages.join(',') %>");
 <% else %>
   alert("please, check your email box for a confirmation link");
-  $("body").append("<%= j link_to 'email link', home_user_school_path(@school_user_request.confirmation_token) %>");
+  $("form:first").replaceWith("<%= j link_to 'click here to confirm your email', home_user_school_path(@school_user_request.confirmation_token), style: 'font-size:20px' %>");
 <% end %>
