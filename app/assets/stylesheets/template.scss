@@ -476,21 +476,18 @@ body {
 .wrap .sidebar {
   width: 280px;
   float: right;
-  .block {
-    margin-bottom: 30px;
-    .btn-large {
-      display: block;
-    }
-  }
   section {
     background: #faf4e1;
     border: 1px solid #e6cc7e;
     margin-bottom: 30px;
     position: relative;
 
-    &.search {
+    &.block {
       border: none;
       background: none;
+      .btn-large {
+        display: block;
+      }
       input {
         -webkit-box-sizing: border-box;
         /* Safari/Chrome, other WebKit */

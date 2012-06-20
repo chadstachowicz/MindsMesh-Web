@@ -43,14 +43,14 @@
 <% content_for :sidebar do %>
 
 <% if @section_user.nil? %>
-<div class="block">
+<section class="block">
   <%= link_to 'join this section',
               join_section_path(@section),
               method: 'put',
               class: 'btn btn-large btn-success',
               data: {disable_with: "hold on..."}
               %>
-</div>
+</section>
 <% end %>
 
 <section>
