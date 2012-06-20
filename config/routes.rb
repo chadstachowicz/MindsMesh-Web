@@ -17,6 +17,7 @@ Lyrne::Application.routes.draw do
   resources :schools
   
   get "home/index"
+  post "home/index" => "home#create_post"
   
   get "home/guest"
   get "session/logout"

@@ -1,65 +1,52 @@
-<div class="page-header">
-  <h1>Home#student</h1>
-</div>
-
-<div class="main_feed clearfix">
-  <div class="feed form">
+<section>
+  <%= form_for Post.new, url: home_index_path(format: 'js'), remote: true do |f| %>
     <div class="head">
-      <h1>Question or Comment</h1>
-      <select class="select class">
-        <option value="chem">Calc III</option>
-      </select>
-      <select class="select section">
-        <option>Section 1</option>
-      </select>
+      <h1>Question or comment</h1>
+      <%= select_tag :section_user_id,
+                 options_for_select(
+                 current_user.section_users.includes(:section).map { |su| [su.section.name[0..300], su.id]}),
+                 include_blank: "post to a course" %>
     </div>
-    <div class="input">
-      <textarea name="comment"></textarea>  
-      <button class="button">Post</button>    
+    <div class="fields in10">
+      <%= f.text_area :text %>
+      <%= f.submit nil, class: "btn btn-success btn-large" %>
+      <div class="clear"></div>
     </div>
-  </div>
-
-  <div class="feed">
-    <div class="head">
-      <h1>News Feed</h1>
-      <button>Viewing: All</button>
-    </div>
-    <% if current_user.posts_feed.any? %>
-      <%= render current_user.posts_feed %>
-    <% end %>
-  </div>
-</div>
-
+  <% end %>
+</section>
 
 <script type="text/javascript">
-
 $(function() {
-  $('.actions a').click(function(){
-    $(this).toggleClass('active');
-    if($(this).hasClass('comment_button')){
-      $(this).parents('.item').find('.comments').toggle();
+  
+  $("#new_post textarea").live("focus blur", function(e) {
+    if (e.type=="focusin") {
+      $(this).switchClass("", "long", 'fast');
+    }
+  });
+  
+  $("#new_post").live("ajax:beforeSend", function(e) {
+    if ($(this).find('textarea').val().length < 10) {
+      alert('a reasonable question should have at least 10 letters');
+      $(this).find('textarea').focus();
+      return false;
+    }
+    if (! $(this).find('#section_user_id').val()) {
+      alert('pick a course to public your question');
+      $(this).find('#section_user_id').click();
+      return false;
     }
   });
 
-  $('.form textarea').focus(function(){
-    $(this).siblings('button').slideDown(100);
-  }).blur(function(){
-    $(this).siblings('button').slideUp(100);
-  });
-
-  var killScroll = false; 
-  $(window).scroll(function(){ 
-    if  ($(window).scrollTop()+200 >= ($(document).height() - ($(window).height()))){ 
-      if (killScroll == false) { 
-              killScroll = true; // IMPORTANT - Set killScroll to true, to make sure we do not trigger this code again before it's done running.
-            //alert('LOAD SOME NEW STUFF');
-
-              killScroll = false; //IMPORTANT, SET THIS TO FALSE WHEN NEW CONTENT IS DONE LOADING
-      }
-    }
-  });
 });
 </script>
+
+<%= render '/posts/posts', posts: current_user.posts_feed %>
+
+<% content_for :pageheader do %>
+<div class="page-header">
+  <h2>Home#student</h2>
+</div>
+<% end %>
 
 <% content_for :sidebar do %>
 <section>

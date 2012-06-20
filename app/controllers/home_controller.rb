@@ -44,4 +44,10 @@ class HomeController < ApplicationController
   def master
     authorize! :home_master, nil
   end
+
+  def create_post
+    section_user = current_user.section_users.find(params[:section_user_id])
+    @post = section_user.posts.create(params[:post])
+    respond_to { |f| f.js }
+  end
 end

@@ -1,0 +1,6 @@
+<% if @post.errors.any? %>
+  alert("<%= j @post.errors.full_messages.join(',') %>");
+<% else %>
+  alert("posted");
+  window.location.reload();
+<% end %>

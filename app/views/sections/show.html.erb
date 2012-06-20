@@ -1,44 +1,13 @@
+
+<%= render '/posts/posts', posts: @posts %>
+
+
+
+<% content_for :pageheader do %>
 <div class="page-header">
-  <h1><%= @section.name %></h1>
+  <h3><%= @section.name %></h3>
 </div>
-
-
-<div class="main_feed clearfix">
-  <% if can? :create_post, @section %>
-    <%= form_for(@post, url: posts_section_path(@section)) do |f| %>
-      <% if @post.errors.any? %>
-        <div id="error_explanation">
-          <h2><%= pluralize(@post.errors.count, "error") %> prohibited this post from being saved:</h2>
-
-          <ul>
-          <% @post.errors.full_messages.each do |msg| %>
-            <li><%= msg %></li>
-          <% end %>
-          </ul>
-        </div>
-      <% end %>
-
-      <div class="field">
-        <%= f.text_area :text %>
-      </div>
-      <div class="actions">
-        <%= f.submit nil, data: { disable_with: "Please wait..." } %>
-      </div>
-    <% end %>
-  <% end %>
-
-  
-  <div class="feed">
-    <div class="head">
-      <h1>News Feed</h1>
-      <button>Viewing: All</button>
-    </div>
-    <% if @posts.any? %>
-      <%= render @posts %>
-    <% end %>
-  </div>
-</div>
-
+<% end %>
 
 <% content_for :sidebar do %>
 

@@ -153,4 +153,52 @@ describe HomeController do
     end
   end
 
+
+  describe "POST create_post" do
+    before(:each) do
+      #@section = Fabricate(:section)
+      #@section_user = Fabricate(:section_user, user: current_user_master, section: @section)
+      @section_user = Fabricate(:section_user, user: current_user_master)
+    end
+    describe "with invalid params" do
+      it "doesn't create a post" do
+        -> do
+          post :create_post, {section_user_id: @section_user.to_param, post: {}}, valid_session
+        end.should change { @section_user.posts.count }.by(0)
+      end
+      it "renders show template" do
+        post :create_post, {section_user_id: @section_user.to_param, post: {}}, valid_session
+        assigns(:post).should be_a(Post)
+        assigns(:post).errors.should_not be_empty
+      end
+    end
+    describe "with valid params" do
+      it "creates a post" do
+        -> do
+          post :create_post, {section_user_id: @section_user.to_param, post: {text: Faker::Lorem.sentence}}, valid_session
+        end.should change { Post.count }.by(1)
+      end
+      it "creates a post associated with current_user" do
+        -> do
+          post :create_post, {section_user_id: @section_user.to_param, post: {text: Faker::Lorem.sentence}}, valid_session
+        end.should change { current_user_master.posts.count }.by(1)
+      end
+      it "creates a post associated with @section_user" do
+        -> do
+          post :create_post, {section_user_id: @section_user.to_param, post: {text: Faker::Lorem.sentence}}, valid_session
+        end.should change { @section_user.posts.count }.by(1)
+      end
+      it "creates a post associated with @section_user.section" do
+        -> do
+          post :create_post, {section_user_id: @section_user.to_param, post: {text: Faker::Lorem.sentence}}, valid_session
+        end.should change { @section_user.section.posts.count }.by(1)
+      end
+      it "creates a post associated with @section_user" do
+        post :create_post, {section_user_id: @section_user.to_param, post: {text: Faker::Lorem.sentence}}, valid_session
+        assigns(:post).should be_a(Post)
+      end
+    end
+  end
+
+
 end

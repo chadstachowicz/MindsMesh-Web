@@ -9,7 +9,7 @@
 <body>
 
 
-  <div class="wrap clearfix">
+  <div class="wrap clear">
     <header>
       <a href="/" title="Logo">
         <%= image_tag 'template1/logo.png' %>
@@ -41,15 +41,31 @@
     <%= "<div class='alert alert-success'><a class='close' data-dismiss='alert' href='#'>×</a><b>#{notice}</b></div>".html_safe if notice %>
     <%= "<div class='alert alert-error'><a class='close' data-dismiss='alert' href='#'>×</a><b>#{alert}</b></div>".html_safe   if alert %>
 
-    <%= yield %>
+    <%= yield(:pageheader) %>
+
+    <div id="main">
+      <%= yield %>
+    </div>
       
-    <div class="sidebar">
+    <div id="sidebar">
       <section class="block">
         <input type="text" name="search" />
       </section>
       <%= yield(:sidebar) %>
     </div>
 
+    <footer>
+      <div class="inner">
+        <a href="#" title="">Random</a>
+        <a href="#" title="">Items</a>
+        <a href="#" title="">Such As</a>
+        <a href="#" title="">FAQ</a>
+        <a href="#" title="">Terms of Service</a>
+        <a href="#" title="">Advertisng</a>
+
+        <span class="info">Copyright Lyrne 2012</span>
+      </div>
+    </footer>
   </div>
 
 </body>
