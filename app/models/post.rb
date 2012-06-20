@@ -20,7 +20,7 @@ class Post < ActiveRecord::Base
     id ? where("posts.id < ?", id) : scoped
   end
 
-  def self.as_feed(options)
+  def self.as_feed(options={})
     options = options.reverse_merge(limit: 10)
     order("id DESC").limit(options[:limit]).before(options[:before])
   end
