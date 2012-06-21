@@ -1,0 +1,43 @@
+<section>
+  <%= form_for Post.new, url: home_index_path(format: 'js'), remote: true do |f| %>
+    <div class="head">
+      <h1>Question or comment</h1>
+      <% if topic_user.present? %>
+      <%= hidden_field_tag :topic_user_id, topic_user.id %>
+      <% else %>
+      <%= select_tag :topic_user_id,
+                 options_for_select(
+                 current_user.topic_users.includes(:topic).map { |tu| [tu.topic.name, tu.id]}),
+                 include_blank: "post to a topic" %>
+      <% end %>
+    </div>
+    <div class="fields in10">
+      <%= f.text_area :text %>
+      <%= f.submit nil, class: "btn btn-success btn-large" %>
+      <div class="clear"></div>
+    </div>
+  <% end %>
+</section>
+
+<script type="text/javascript">
+
+  $("#new_post textarea").live("focus blur", function(e) {
+    if (e.type=="focusin") {
+      $(this).switchClass("", "long", 'fast');
+    }
+  });
+  
+  $("#new_post").live("ajax:beforeSend", function(e) {
+    if ($(this).find('textarea').val().length < 10) {
+      alert('a reasonable question should have at least 10 letters');
+      $(this).find('textarea').focus();
+      return false;
+    }
+    if (! $(this).find('#topic_user_id').val()) {
+      alert('pick a topic to publish your question');
+      $(this).find('#topic_user_id').click();
+      return false;
+    }
+  });
+  
+</script>

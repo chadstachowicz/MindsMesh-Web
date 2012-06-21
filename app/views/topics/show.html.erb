@@ -1,5 +1,5 @@
-
-<%= render '/posts/posts', posts: @posts, title: "Smesh" %>
+<%= render '/posts/new_post', topic_user: @topic_user if @topic_user.present? %>
+<%= render '/posts/posts', posts: @posts, title: "Mesh" %>
 
 
 
