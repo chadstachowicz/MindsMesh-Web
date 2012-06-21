@@ -3,7 +3,7 @@ require 'spec_helper'
 describe "posts/show" do
   before(:each) do
     @post = assign(:post, stub_model(Post,
-      :section => nil,
+      :topic => nil,
       :user => nil,
       :text => "MyText"
     ))

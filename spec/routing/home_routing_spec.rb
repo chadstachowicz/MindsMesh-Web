@@ -7,6 +7,10 @@ describe HomeController do
       get("/home/index").should route_to("home#index")
     end
 
+    it "routes to #basic" do
+      get("/home/basic").should route_to("home#basic")
+    end
+
     it "routes to #guest" do
       get("/home/guest").should route_to("home#guest")
     end
@@ -15,20 +19,16 @@ describe HomeController do
       get("/home/user").should route_to("home#user")
     end
 
-    it "routes to #create_school_request" do
-      post("/home/user").should route_to("home#user_create_school_request", format: 'js')
-    end
-
-    it "routes to #student" do
-      get("/home/student").should route_to("home#student")
+    it "routes to #guest_create_eur" do
+      post("/home/guest_create_eur").should route_to("home#guest_create_eur")
     end
 
     it "routes to #moderator" do
       get("/home/moderator").should route_to("home#moderator")
     end
 
-    it "routes to #teacher" do
-      get("/home/teacher").should route_to("home#teacher")
+    it "routes to #manager" do
+      get("/home/manager").should route_to("home#manager")
     end
 
     it "routes to #admin" do

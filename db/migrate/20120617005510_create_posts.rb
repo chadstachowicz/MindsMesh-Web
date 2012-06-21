@@ -1,15 +1,15 @@
 class CreatePosts < ActiveRecord::Migration
   def change
     create_table :posts do |t|
-      t.references :section
+      t.references :topic
       t.references :user
-      t.references :section_user
+      t.references :topic_user
       t.text :text
 
       t.timestamps
     end
-    add_index :posts, :section_id
+    add_index :posts, :topic_id
     add_index :posts, :user_id
-    add_index :posts, :section_user_id
+    add_index :posts, :topic_user_id
   end
 end

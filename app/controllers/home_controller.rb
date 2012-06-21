@@ -3,30 +3,30 @@ class HomeController < ApplicationController
     redirect_to_landing_home_page
   end
 
+  def basic
+    authorize! :home_basic, nil
+  end
+
   def guest
     authorize! :home_guest, nil
+    @entity = Entity.first
+    @entity_user_request = @entity.entity_user_requests.build
+  end
+
+  def guest_create_eur
+    authorize! :home_guest, nil
+    @entity_user_request = current_user.entity_user_requests.where(params[:entity_user_request]).first_or_initialize
+    @entity_user_request.save
+  end
+
+  def user_entity
+    eur = EntityUserRequest.find_by_confirmation_token!(params[:confirmation_token])
+    session[:user_id] = eur.confirm
+    redirect_to_landing_home_page
   end
 
   def user
     authorize! :home_user, nil
-    @school = School.first
-    @school_user_request = @school.school_user_requests.build
-  end
-
-  def user_create_school_request
-    authorize! :home_user, nil
-    @school_user_request = current_user.school_user_requests.where(params[:school_user_request]).first_or_initialize
-    @school_user_request.save
-  end
-
-  def user_school
-    sur = SchoolUserRequest.find_by_confirmation_token!(params[:confirmation_token])
-    session[:user_id] = sur.confirm
-    redirect_to_landing_home_page
-  end
-
-  def student
-    authorize! :home_student, nil
     @posts = current_user.posts_feed
   end
 
@@ -34,8 +34,8 @@ class HomeController < ApplicationController
     authorize! :home_moderator, nil
   end
 
-  def teacher
-    authorize! :home_teacher, nil
+  def manager
+    authorize! :home_manager, nil
   end
 
   def admin
@@ -47,8 +47,8 @@ class HomeController < ApplicationController
   end
 
   def create_post
-    section_user = current_user.section_users.find(params[:section_user_id])
-    @post = section_user.posts.create(params[:post])
+    topic_user = current_user.topic_users.find(params[:topic_user_id])
+    @post = topic_user.posts.create(params[:post])
     respond_to { |f| f.js }
   end
 

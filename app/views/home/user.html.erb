@@ -1,5 +1,72 @@
-<%= form_for @school_user_request, url: request.path, remote: true do |f| %>
-  <%= f.hidden_field :school_id %>
-  <%= f.text_field :email %>
-  <%= submit_tag "Register" %>
+<section>
+  <%= form_for Post.new, url: home_index_path(format: 'js'), remote: true do |f| %>
+    <div class="head">
+      <h1>Question or comment</h1>
+      <%= select_tag :topic_user_id,
+                 options_for_select(
+                 current_user.topic_users.includes(:topic).map { |su| [su.topic.name, su.id]}),
+                 include_blank: "post to a topic" %>
+    </div>
+    <div class="fields in10">
+      <%= f.text_area :text %>
+      <%= f.submit nil, class: "btn btn-success btn-large" %>
+      <div class="clear"></div>
+    </div>
+  <% end %>
+</section>
+
+<script type="text/javascript">
+
+  $("#new_post textarea").live("focus blur", function(e) {
+    if (e.type=="focusin") {
+      $(this).switchClass("", "long", 'fast');
+    }
+  });
+  
+  $("#new_post").live("ajax:beforeSend", function(e) {
+    if ($(this).find('textarea').val().length < 10) {
+      alert('a reasonable question should have at least 10 letters');
+      $(this).find('textarea').focus();
+      return false;
+    }
+    if (! $(this).find('#topic_user_id').val()) {
+      alert('pick a topic to publish your question');
+      $(this).find('#topic_user_id').click();
+      return false;
+    }
+  });
+  
+</script>
+
+<%= render '/posts/posts', posts: @posts, title: "My Smesh" %>
+
+<% content_for :pageheader do %>
+<div class="page-header">
+  <h2>Home#user</h2>
+</div>
+<% end %>
+
+<% content_for :sidebar do %>
+<section>
+  <h2>My Topics</h2>
+  <div>
+    <ul>
+      <% current_user.topic_users.each do |topic_user| %>
+        <% topic = topic_user.topic %>
+        <li><%= link_to topic.name, topic, title: topic.name, rel: 'tooltip', class: 'roman-icon' %></li>
+      <% end %>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <h2>All Topics</h2>
+  <div>
+    <ul>
+      <% Topic.all.each do |topic| %>
+        <li><%= link_to topic.name, topic, title: topic.name, rel: 'tooltip', class: 'roman-icon' %></li>
+      <% end %>
+    </ul>
+  </div>
+</section>
 <% end %>

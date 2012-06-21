@@ -1,18 +1,25 @@
 require 'spec_helper'
 
 describe "home/user.html.erb" do
+  before(:each) do
+    view.stub!(:current_user).and_return(current_user_user)
+    assign(:posts, [
+      Fabricate(:post),
+      Fabricate(:post)
+      ])
+  end
 
-  it "renders the edit user form" do
-    @school = Fabricate(:school)
-    @school_user_request = @school.school_user_requests.build
-
+  it "renders attributes" do
     render
 
-    # Run the generator again with the --webrat flag if you want to use webrat matchers
-    assert_select "form", action: home_user_path, method: "post", remote: true do
-      assert_select "input#school_user_request_school_id", :name => "school_user_request[school_id]"
-      assert_select "input#school_user_request_email", :name => "school_user_request[email]"
+    view.should render_template("/posts/_posts")
+    view.should render_template("/posts/_post")
+
+    assert_select "form", :action => home_index_path(format: 'js'), :method => "post" do
+      assert_select "#topic_user_id", :name => "topic_user_id"
+      assert_select "textarea#post_text", :name => "post[text]"
     end
   end
+
 
 end

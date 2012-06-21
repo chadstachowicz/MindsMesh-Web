@@ -2,7 +2,7 @@
 
 <table>
   <tr>
-    <th>Section</th>
+    <th>Topic</th>
     <th>User</th>
     <th>Text</th>
     <th></th>
@@ -12,7 +12,7 @@
 
 <% @posts.each do |post| %>
   <tr>
-    <td><%= post.section %></td>
+    <td><%= post.topic %></td>
     <td><%= post.user %></td>
     <td><%= post.text %></td>
     <td><%= link_to 'Show', post %></td>

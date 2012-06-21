@@ -13,12 +13,35 @@
 
 ActiveRecord::Schema.define(:version => 20120617005510) do
 
-  create_table "courses", :force => true do |t|
+  create_table "entities", :force => true do |t|
     t.string   "name"
     t.string   "slug"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  create_table "entity_user_requests", :force => true do |t|
+    t.integer  "entity_id"
+    t.integer  "user_id"
+    t.string   "email"
+    t.string   "confirmation_token"
+    t.datetime "last_email_sent_at"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+  end
+
+  add_index "entity_user_requests", ["entity_id"], :name => "index_entity_user_requests_on_entity_id"
+  add_index "entity_user_requests", ["user_id"], :name => "index_entity_user_requests_on_user_id"
+
+  create_table "entity_users", :force => true do |t|
+    t.integer  "entity_id"
+    t.integer  "user_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "entity_users", ["entity_id"], :name => "index_entity_users_on_entity_id"
+  add_index "entity_users", ["user_id"], :name => "index_entity_users_on_user_id"
 
   create_table "logins", :force => true do |t|
     t.integer  "user_id"
@@ -33,74 +56,38 @@ ActiveRecord::Schema.define(:version => 20120617005510) do
   add_index "logins", ["user_id"], :name => "index_logins_on_user_id"
 
   create_table "posts", :force => true do |t|
-    t.integer  "section_id"
+    t.integer  "topic_id"
     t.integer  "user_id"
-    t.integer  "section_user_id"
+    t.integer  "topic_user_id"
     t.text     "text"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
   end
 
-  add_index "posts", ["section_id"], :name => "index_posts_on_section_id"
-  add_index "posts", ["section_user_id"], :name => "index_posts_on_section_user_id"
+  add_index "posts", ["topic_id"], :name => "index_posts_on_topic_id"
+  add_index "posts", ["topic_user_id"], :name => "index_posts_on_topic_user_id"
   add_index "posts", ["user_id"], :name => "index_posts_on_user_id"
 
-  create_table "school_user_requests", :force => true do |t|
-    t.integer  "school_id"
-    t.integer  "user_id"
-    t.string   "email"
-    t.string   "confirmation_token"
-    t.datetime "last_email_sent_at"
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
-  end
-
-  add_index "school_user_requests", ["school_id"], :name => "index_school_user_requests_on_school_id"
-  add_index "school_user_requests", ["user_id"], :name => "index_school_user_requests_on_user_id"
-
-  create_table "school_users", :force => true do |t|
-    t.integer  "school_id"
-    t.integer  "user_id"
-    t.boolean  "b_student"
-    t.boolean  "b_moderator"
-    t.boolean  "b_teacher"
-    t.boolean  "b_admin"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-  end
-
-  add_index "school_users", ["school_id"], :name => "index_school_users_on_school_id"
-  add_index "school_users", ["user_id"], :name => "index_school_users_on_user_id"
-
-  create_table "schools", :force => true do |t|
-    t.string   "name"
-    t.string   "slug"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  create_table "section_users", :force => true do |t|
-    t.integer  "section_id"
+  create_table "topic_users", :force => true do |t|
+    t.integer  "topic_id"
     t.integer  "user_id"
     t.string   "role"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
 
-  add_index "section_users", ["section_id"], :name => "index_section_users_on_section_id"
-  add_index "section_users", ["user_id"], :name => "index_section_users_on_user_id"
+  add_index "topic_users", ["topic_id"], :name => "index_topic_users_on_topic_id"
+  add_index "topic_users", ["user_id"], :name => "index_topic_users_on_user_id"
 
-  create_table "sections", :force => true do |t|
-    t.integer  "course_id"
-    t.integer  "school_id"
+  create_table "topics", :force => true do |t|
+    t.integer  "entity_id"
     t.string   "name"
     t.string   "slug"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
 
-  add_index "sections", ["course_id"], :name => "index_sections_on_course_id"
-  add_index "sections", ["school_id"], :name => "index_sections_on_school_id"
+  add_index "topics", ["entity_id"], :name => "index_topics_on_entity_id"
 
   create_table "users", :force => true do |t|
     t.string   "name"

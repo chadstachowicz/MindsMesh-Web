@@ -1,0 +1,79 @@
+
+<%= render '/posts/posts', posts: @posts, title: "Smesh" %>
+
+
+
+<% content_for :pageheader do %>
+<div class="page-header">
+  <h3><%= @topic.name %></h3>
+</div>
+<% end %>
+
+<% content_for :sidebar do %>
+
+<% if @topic_user.nil? %>
+<section class="block">
+  <%= link_to 'join this topic',
+              join_topic_path(@topic),
+              method: 'put',
+              class: 'btn btn-large btn-success',
+              data: {disable_with: "hold on..."}
+              %>
+</section>
+<% end %>
+
+<section>
+  <h2>About</h2>
+  <div>
+    <ul>
+      <li>
+        <%= link_to @topic.entity, class: 'roman-icon' do %>
+          <b>Entity:</b>
+          <%= @topic.entity.name %>
+        <% end %>
+      </li>
+      <li>
+        <a href="#" class="roman-icon"><b>Teacher:</b></a>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <h2>Actions</h2>
+  <div>
+    <ul>
+      <li>
+        <%= link_to 'edit this topic', edit_topic_path(@topic), class: 'roman-icon' %>
+      </li>
+      <% if @topic_user.present? %>
+      <li>
+        <%= link_to 'leave this topic',
+                    join_topic_path(@topic),
+                    method: 'put',
+                    class: 'roman-icon',
+                    data: {disable_with: "hold on..."}
+                    %>
+      </li>
+      <% end %>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <h2>Users</h2>
+  <div>
+    <ul>
+      <% @topic_users.each do |topic_user| %>
+        <li>
+          <% user = topic_user.user %>
+          <%= link_to user do %>
+            <div class="image"><%= image_tag user.photo_url, width: 30 %></div>
+            <%= user.name %>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</section>
+<% end %>

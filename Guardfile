@@ -6,8 +6,10 @@ guard 'rspec', :version => 2, :cli => '--drb' do
   watch('spec/spec_helper.rb')  { "spec" }
 
   # Rails example
-  watch(%r{^app/(.+)\.rb$})                           { |m| "spec/#{m[1]}_spec.rb" }
-  watch(%r{^app/(.*)(\.erb|\.haml)$})                 { |m| "spec/#{m[1]}#{m[2]}_spec.rb" }
+
+  # too generic
+  #watch(%r{^app/(.+)\.rb$})                           { |m| "spec/#{m[1]}_spec.rb" }
+  #watch(%r{^app/(.*)(\.erb|\.haml)$})                 { |m| "spec/#{m[1]}#{m[2]}_spec.rb" }
 
   # controllers
   watch(%r{^app/controllers/(.+)_(controller)\.rb$})  { |m| [
@@ -17,11 +19,12 @@ guard 'rspec', :version => 2, :cli => '--drb' do
                                              #,"spec/acceptance/#{m[1]}_spec.rb"
 
   # not used
-  watch(%r{^spec/support/(.+)\.rb$})                  { "spec" }
-  watch(%r{^lib/(.+)\.rb$})     { |m| "spec/lib/#{m[1]}_spec.rb" }
+  #watch(%r{^spec/support/(.+)\.rb$})                  { "spec" }
+  #watch(%r{^lib/(.+)\.rb$})     { |m| "spec/lib/#{m[1]}_spec.rb" }
 
   # routes
   watch('config/routes.rb')                           { "spec/routing" }
+  watch(%r{^spec/routing/(.+)_routing\.rb$})  { |m| "spec/routing/#{m[1]}_routing_spec.rb" }
   
   # controllers
   watch('app/controllers/application_controller.rb')  { "spec/controllers" }

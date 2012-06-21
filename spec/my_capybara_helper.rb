@@ -5,11 +5,11 @@ def capybara_current_user!
   @current_user = User.last
 end
 
-def capybara_current_user_student!
-  school = Fabricate(:school)
+def capybara_current_user_user!
+  entity = Fabricate(:entity)
   capybara_current_user!
-  @current_user.school_users.create! { |su| su.school_id = school.id }
-  @current_user.roles += ['student']
+  @current_user.entity_users.create! { |su| su.entity_id = entity.id }
+  @current_user.roles += ['user']
   @current_user.save!
 end
 

@@ -1,17 +1,17 @@
 class Post < ActiveRecord::Base
-  belongs_to :section
+  belongs_to :topic
   belongs_to :user
-  belongs_to :section_user
+  belongs_to :topic_user
   attr_accessible :text
-  validates_presence_of :section
+  validates_presence_of :topic
   validates_presence_of :user
-  validates_presence_of :section_user
+  validates_presence_of :topic_user
   validates_presence_of :text
   validates_length_of :text, minimum: 10
 
   before_validation do
-    self.user_id    = section_user.user_id
-    self.section_id = section_user.section_id    
+    self.user_id    = topic_user.user_id
+    self.topic_id = topic_user.topic_id    
   end
 
   default_scope includes(:user)

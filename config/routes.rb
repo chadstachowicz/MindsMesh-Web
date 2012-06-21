@@ -1,8 +1,8 @@
 Lyrne::Application.routes.draw do
 
-  resources :section_users
+  resources :topic_users
 
-  resources :sections do
+  resources :topics do
     member do
       put :join
       #get :posts, format: 'js'
@@ -13,27 +13,26 @@ Lyrne::Application.routes.draw do
     member do
     end
   end
-  resources :courses
-  resources :schools
+  resources :entities
   
   get "home/index"
   post "home/index" => "home#create_post"
   
-  get "home/guest"
+  get "home/basic"
   get "session/logout"
   get "/auth/:provider/callback" => "session#create"
 
+  get "home/guest"
+  post "home/guest_create_eur"#, format: 'js'
+  get "home/user_entity/:confirmation_token" => "home#user_entity", as: 'home_user_entity'
+
+  
   get "home/user"
-  post "home/user" => "home#user_create_school_request", format: 'js'
-  get "home/user_school/:confirmation_token" => "home#user_school", as: 'home_user_school'
-
-
-
-  get "home/student"
   get "home/moderator"
-  get "home/teacher"
+  get "home/manager"
   get "home/admin"
   get "home/master"
+
   get "home/more_posts", format: 'js'
   post "home/create_post", format: 'js'
 

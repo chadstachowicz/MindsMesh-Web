@@ -4,12 +4,12 @@ describe "posts/index" do
   before(:each) do
     assign(:posts, [
       stub_model(Post,
-        :section => nil,
+        :topic => nil,
         :user => nil,
         :text => "MyText"
       ),
       stub_model(Post,
-        :section => nil,
+        :topic => nil,
         :user => nil,
         :text => "MyText"
       )
