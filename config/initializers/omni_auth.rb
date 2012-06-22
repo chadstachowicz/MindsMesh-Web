@@ -8,7 +8,7 @@ Rails.application.config.middleware.use OmniAuth::Builder do
                 info: { email: 'bob@example.com',
                         link: 'http://facebook.com/bob',
                         gender: 'male',
-                        image: "http://#{domain}/assets/rails.png"
+                        image: "http://#{domain}/assets/profile-photo.jpg"
                       }
                }
 
