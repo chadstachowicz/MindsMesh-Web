@@ -8,7 +8,7 @@
       <%= select_tag :topic_user_id,
                  options_for_select(
                  current_user.topic_users.includes(:topic).map { |tu| [tu.topic.name, tu.id]}),
-                 include_blank: "post to a topic" %>
+                 prompt: "Select a Course" %>
       <% end %>
     </div>
     <div class="fields in10">
@@ -34,7 +34,7 @@
       return false;
     }
     if (! $(this).find('#topic_user_id').val()) {
-      alert('pick a topic to publish your question');
+      alert('Select a Course');
       $(this).find('#topic_user_id').click();
       return false;
     }
