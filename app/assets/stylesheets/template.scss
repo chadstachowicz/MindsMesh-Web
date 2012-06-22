@@ -132,6 +132,14 @@
   border: none;
 }
 
+
+a {
+  color: #666;
+  &:hover { color: #95c557; }
+}
+
+
+
 .post {
   min-height: 70px;
   border-bottom: 1px solid #dbdbdb;
@@ -142,12 +150,79 @@
   color: #646464;
   font-size: 20px;
   line-height: 1.4em;
+  h1 {
+    font-size: 16px;
+    a {
+      text-decoration: none;color: #95c557;
+    }
+  }
+
+  .actions {
+    &.post_actions {  }
+    .group-left  { float:left; }
+    .group-right { float:right; }
+    a { font-size:12px;
+      i { font-size:14px; }
+    }
+
+  }
+
 }
+
+
+/*
+.post .actions {
+  margin-top: 5px;
+  height: 24px;
+}
+.post .actions .badge {
+  float: right;
+  height: 16px;
+  line-height: 16px;
+  margin-top: 0px;
+}
+.post .actions a {
+  display: block;
+  float: right;
+  width: 24px;
+  height: 24px;
+  margin: 0 4px;
+  background: asset-url('template1/actions.png', image);
+}
+.post .actions a.brain {
+  background-position: left top;
+}
+.post .actions a.brain.active {
+  background-position: left bottom;
+}
+.post .actions a.comment_button {
+  background-position: center top;
+}
+.post .actions a.comment_button.active {
+  background-position: center bottom;
+}
+.post .actions a.checkmark {
+  background-position: right top;
+}
+.post .actions a.checkmark.active {
+  background-position: right bottom;
+}
+*/
+.post:last-child {
+  border: none;
+}
+
+
+
+
+
+
+
+
 .post a {
-  color: #95c557;
   font-weight: 800;
-  text-decoration: none;
 }
+
 .post .image {
   display: block;
   position: absolute;
@@ -202,6 +277,7 @@
   margin-top: 5px;
   height: 16px;
 }
+/*
 .post .comments .comment .actions .badge {
   float: right;
   height: 16px;
@@ -234,6 +310,7 @@
 .post .comments .comment .actions a.checkmark.active {
   background-position: right bottom;
 }
+*/
 .post .comments .comment .image {
   display: block;
   position: absolute;
@@ -283,45 +360,7 @@
   right: 10px;
   text-align: right;
 }
-.post .actions {
-  margin-top: 5px;
-  height: 24px;
-}
-.post .actions .badge {
-  float: right;
-  height: 16px;
-  line-height: 16px;
-  margin-top: 0px;
-}
-.post .actions a {
-  display: block;
-  float: right;
-  width: 24px;
-  height: 24px;
-  margin: 0 4px;
-  background: asset-url('template1/actions.png', image);
-}
-.post .actions a.brain {
-  background-position: left top;
-}
-.post .actions a.brain.active {
-  background-position: left bottom;
-}
-.post .actions a.comment_button {
-  background-position: center top;
-}
-.post .actions a.comment_button.active {
-  background-position: center bottom;
-}
-.post .actions a.checkmark {
-  background-position: right top;
-}
-.post .actions a.checkmark.active {
-  background-position: right bottom;
-}
-.post:last-child {
-  border: none;
-}
+
 
 
 #posts a.more {

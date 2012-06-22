@@ -2,24 +2,26 @@
   <div class="image">
     <%= link_to image_tag(post.user.photo_url, width: 64), post.user %>
   </div>
-  <div class="topic">
-    <p style="font-size:16px;margin-bottom:0"><%= link_to post.user.name, post.user %> <i>posted on</i> <%= link_to post.topic.name, post.topic %></p>
+  <div>
+    <h1><%= link_to post.user.name, post.user %> <i>posted on</i> <%= link_to post.topic.name, post.topic %></h1>
     <p><i><%= post.text %></i></p>
   </div>
-  <div class="actions">
-    <%= link_to '<i class="icon-trash"></i>'.html_safe, post, remote: true, method: :delete, data: { confirm: 'Are you sure?' }, style: 'background: none' %>
-    <%= link_to '<i class="icon-edit"></i>'.html_safe, edit_post_path(post), style: 'background: none' %>
-    <%= link_to '<i class="icon-eye-open"></i>'.html_safe, post, style: 'background: none' %>
+  <div class="actions post_actions">
 
-    <a href="#" class="checkmark"></a>
+    <div class="group-left">
+      <%= link_to '<i class="icon-edit"></i> edit'.html_safe, edit_post_path(post) if rand(10).odd? %>
+      <%= link_to '<i class="icon-trash"></i> remove'.html_safe, post, remote: true, method: :delete, data: { confirm: 'Removing a post cannot be undone. Are you sure?' } if rand(10).odd? %>
+    </div>
 
-    <span class="badge"><%= rand(9) %></span>
-    <a href="#" class="comment_button"></a>
+    <div class="group-right">
+      <%= link_to "<i class='icon-save'></i> give a brain (#{rand 9})".html_safe, post %>
+      <%= link_to "<i class='icon-comment-alt'></i> reply (#{rand 9})".html_safe, post %>
+    </div>
 
-    <span class="badge"><%= rand(9) %></span>
-    <a href="#" class="brain"></a>
+
   </div>
   <div class="date">
     <%= time_ago_in_words(post.created_at) %> ago
+    <%= link_to 'single page <i class="icon-external-link"></i>'.html_safe, post %>
   </div>
 </div>
