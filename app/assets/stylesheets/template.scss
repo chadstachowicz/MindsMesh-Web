@@ -164,8 +164,11 @@ a {
     .group-right { float:right; }
     a {
       font-size:14px;
-      &:hover { color: #000; }
       i { font-size:16px; }
+      &:hover {
+        color: #000;
+        i { color: $green; }
+      }
     }
   }
 
@@ -174,7 +177,6 @@ a {
   .replies {
     margin: 0px;
     border: 1px solid #dbdbdb;
-    border-bottom: none;
     position: relative;
     .reply {
       padding: 12px 5px 5px 40px;
@@ -211,6 +213,7 @@ a {
   }
 
   form.new_reply {
+
     margin-bottom: 0;
     textarea {
       width: 100%;

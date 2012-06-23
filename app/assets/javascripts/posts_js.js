@@ -14,7 +14,7 @@ $("form.new_reply textarea").live("keydown", function(e) {
       $(this).focus();
     }
     else {
-      $(this).closest('form').submit();
+      $(this).closest('form').submit().remove();
     }
   }
 });
