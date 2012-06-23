@@ -1,5 +1,12 @@
 .clear { clear:both; }
 
+$green: #46a546;
+
+a {
+  color: #666;
+  &:hover { color: $green; }
+}
+
 .wrap {
   padding-top: 20px;
   height: auto;
@@ -133,12 +140,6 @@
 }
 
 
-a {
-  color: #666;
-  &:hover { color: #95c557; }
-}
-
-
 
 .post {
   min-height: 70px;
@@ -153,7 +154,7 @@ a {
   h1 {
     font-size: 16px;
     a {
-      text-decoration: none;color: #95c557;
+      text-decoration: none;color: $green;
     }
   }
 
@@ -327,7 +328,7 @@ a {
 
 .post .comments .comment.correct {
   background: #ddecc9;
-  border: 2px solid #95c557;
+  border: 2px solid $green;
 }
 .post .comments .comment .actions {
   margin-top: 5px;
@@ -414,7 +415,7 @@ a {
         &:focus {
           box-shadow: none;
           outline: none;
-          border-color: #95c557;
+          border-color: $green;
         }
         &.long {
           height: 150px;
