@@ -12,7 +12,7 @@
       <%= link_to '<i class="icon-trash"></i> remove'.html_safe, post, remote: true, method: :delete, data: { confirm: 'Removing a post cannot be undone. Are you sure?' } if rand(10).odd? %>
     </div>
     <div class="group-right">
-      <%= link_to "<i class='icon-save'></i> give a brain (#{rand 9})".html_safe, post %>
+      <%= link_to "<i class='icon-thumbs-up'></i> give a brain (#{rand 9})".html_safe, post %>
       <%= link_to "<i class='icon-comment-alt'></i> reply (#{post.replies.count})".html_safe, "#", data: { scroll_to_reply: "#new_reply_#{post.id}" } %>
     </div>
     <div class="clear"></div>
@@ -30,7 +30,7 @@
       <%= reply.text %>
       <div class="actions">
         <div class="group-right">
-          <%= link_to "<i class='icon-save'></i> give a brain".html_safe, post %>
+          <%= link_to "<i class='icon-thumbs-up'></i> give a brain".html_safe, post %>
         </div>
       </div>
       <div class="clear"></div>
