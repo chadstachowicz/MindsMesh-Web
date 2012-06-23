@@ -1,5 +1,13 @@
-<%= render '/posts/new_post', topic_user: @topic_user if @topic_user.present? %>
-<%= render '/posts/posts', posts: @posts, title: "Mesh" %>
+<% if can? :read_posts, @topic %>
+  <% if @topic_user.present? %>
+    <%= render '/posts/new_post', topic_user: @topic_user if @topic_user.present? %>
+  <% else %>
+  <h3>you cannot write posts in this topic yet, you need to join this topic in order to do so</h3>
+  <% end %>
+  <%= render '/posts/posts', posts: @posts, title: "Mesh" %>
+<% else %>
+<h3>you cannot read posts in this topic yet, you need to join this topic in order to do so</h3>
+<% end %>
 
 
 

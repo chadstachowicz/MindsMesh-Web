@@ -11,7 +11,7 @@ describe "topics/show" do
       Fabricate(:post),
       Fabricate(:post)
       ])
-    view.stub!(:current_user).and_return(current_user_master)
+    controller.stub!(:current_user).and_return(current_user_master)
   end
 
   it "renders a topic I did not joined" do

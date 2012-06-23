@@ -8,7 +8,7 @@ describe "topic_users/show" do
     ))
   end
 
-  it "renders attributes in <p>" do
+  it "renders" do
     render
   end
 end

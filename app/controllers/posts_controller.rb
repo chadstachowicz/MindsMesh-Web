@@ -3,7 +3,8 @@ class PostsController < ApplicationController
 
   respond_to :js, only: [:destroy]
 
-  load_and_authorize_resource
+  load_and_authorize_resource except: [:replies]
+  load_resource only: [:replies]
 
   # GET /posts
   def index

@@ -34,8 +34,13 @@ class Ability
 
   def user
     can :home_user
-    can [:read, :join, :more_posts], Topic do |topic|
+    #TODO: stop testing only as a master
+    can [:read, :join], Topic do |topic|
       topic.entity.entity_users.where(user_id: @current_user.id).exists?
+    end
+    #TODO: stop testing only as a master
+    can [:read_posts], Topic do |topic|
+      topic.topic_users.where(user_id: @current_user.id).exists?
     end
     can [:read], Post do |post|
       post.topic.topic_users.where(user_id: @current_user.id).exists?
