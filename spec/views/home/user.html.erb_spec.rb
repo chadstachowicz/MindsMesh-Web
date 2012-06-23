@@ -1,25 +1,32 @@
 require 'spec_helper'
 
 describe "home/user.html.erb" do
-  before(:each) do
+  
+  before do
+    assign(:posts, [])
     view.stub!(:current_user).and_return(current_user_user)
-    assign(:posts, [
-      Fabricate(:post),
-      Fabricate(:post)
-      ])
   end
 
-  it "renders attributes" do
+  it "renders templates without posts" do
     render
-
-    view.should render_template("/posts/_posts")
-    view.should render_template("/posts/_post")
-
-    assert_select "form", :action => home_index_path(format: 'js'), :method => "post" do
-      assert_select "#topic_user_id", :name => "topic_user_id"
-      assert_select "textarea#post_text", :name => "post[text]"
-    end
+    view.should render_template("posts/_posts")
   end
 
+  it "renders templates with posts" do
+    assign(:posts, [Fabricate(:post)])
+    render
+    view.should render_template("posts/_posts")
+  end
+
+  it "does not render new_post when user has no topics" do
+    render
+    view.should_not render_template("posts/_new_post")
+  end
+
+  it "renders new_post when user has topics" do
+    Fabricate(:topic_user, user: current_user_user)
+    render
+    view.should render_template("posts/_new_post")
+  end
 
 end
