@@ -1,7 +1,7 @@
 <% if current_user.topic_users.size.zero? %>
-<%= render '/posts/new_post', topic_user: nil %>
-<% else %>
 <h3>content for when you have not joined any topics</h3>
+<% else %>
+<%= render '/posts/new_post', topic_user: nil %>
 <% end %>
 <%= render '/posts/posts', posts: @posts, title: "My Mesh" %>
 
