@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120617005510) do
+ActiveRecord::Schema.define(:version => 20120622210246) do
 
   create_table "entities", :force => true do |t|
     t.string   "name"
@@ -67,6 +67,17 @@ ActiveRecord::Schema.define(:version => 20120617005510) do
   add_index "posts", ["topic_id"], :name => "index_posts_on_topic_id"
   add_index "posts", ["topic_user_id"], :name => "index_posts_on_topic_user_id"
   add_index "posts", ["user_id"], :name => "index_posts_on_user_id"
+
+  create_table "replies", :force => true do |t|
+    t.integer  "post_id"
+    t.integer  "user_id"
+    t.text     "text"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "replies", ["post_id"], :name => "index_replies_on_post_id"
+  add_index "replies", ["user_id"], :name => "index_replies_on_user_id"
 
   create_table "topic_users", :force => true do |t|
     t.integer  "topic_id"

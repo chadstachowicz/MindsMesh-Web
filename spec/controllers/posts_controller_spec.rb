@@ -25,7 +25,8 @@ describe PostsController do
   end
 
   before(:each) do
-    @post = Fabricate(:post)
+    @post = Fabricate(:post, topic_user: Fabricate(:topic_user, user: current_user_master), user: current_user_master)
+    stub!(:current_user).and_return(current_user_master)
   end
 
   describe "GET index" do
@@ -101,6 +102,46 @@ describe PostsController do
       delete :destroy, {:id => @post.to_param}, valid_session
       response.should redirect_to(posts_url)
     end
+  end
+
+  describe "POST replies" do
+
+    describe "valid params" do
+      it "creates a reply" do
+        expect {
+          post :replies, {id: @post.to_param, reply: {text: Faker::Lorem.sentence}}, valid_session
+        }.to change(Reply, :count).by(1)
+      end
+      it "creates a reply associated with @post" do
+        expect {
+          post :replies, {id: @post.to_param, reply: {text: Faker::Lorem.sentence}}, valid_session
+        }.to change(@post.replies, :count).by(1)
+      end
+      it "creates a reply associated with current_user" do
+        expect {
+          post :replies, {id: @post.to_param, reply: {text: Faker::Lorem.sentence}}, valid_session
+        }.to change(current_user.replies, :count).by(1)
+      end
+
+      it "redirects to the related post" do
+        post :replies, {id: @post.to_param, reply: {text: Faker::Lorem.sentence}}, valid_session
+        response.should redirect_to(@post)
+      end
+    end
+
+    describe "invalid params throw exception resulting in 500 error" do
+      it "without text" do
+        -> {
+          post :replies, {id: @post.to_param, reply: {}}, valid_session
+        }.should raise_error(ActiveRecord::RecordInvalid)
+      end
+      it "without reply" do
+        -> {
+          post :replies, {id: @post.to_param}, valid_session
+        }.should raise_error(ActiveRecord::RecordInvalid)
+      end
+    end
+
   end
 
 end

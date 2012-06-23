@@ -18,26 +18,3 @@
     </div>
   <% end %>
 </section>
-
-<script type="text/javascript">
-
-  $("#new_post textarea").live("focus blur", function(e) {
-    if (e.type=="focusin") {
-      $(this).switchClass("", "long", 'fast');
-    }
-  });
-  
-  $("#new_post").live("ajax:beforeSend", function(e) {
-    if ($(this).find('textarea').val().length < 10) {
-      alert('a reasonable question should have at least 10 letters');
-      $(this).find('textarea').focus();
-      return false;
-    }
-    if (! $(this).find('#topic_user_id').val()) {
-      alert('Select a Course');
-      $(this).find('#topic_user_id').click();
-      return false;
-    }
-  });
-  
-</script>

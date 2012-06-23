@@ -1,4 +1,4 @@
-<div class="post clearfix">
+<div class="post">
   <div class="image">
     <%= link_to image_tag(post.user.photo_url, width: 64), post.user %>
   </div>
@@ -7,21 +7,36 @@
     <p><i><%= post.text %></i></p>
   </div>
   <div class="actions post_actions">
-
     <div class="group-left">
       <%= link_to '<i class="icon-edit"></i> edit'.html_safe, edit_post_path(post) if rand(10).odd? %>
       <%= link_to '<i class="icon-trash"></i> remove'.html_safe, post, remote: true, method: :delete, data: { confirm: 'Removing a post cannot be undone. Are you sure?' } if rand(10).odd? %>
     </div>
-
     <div class="group-right">
       <%= link_to "<i class='icon-save'></i> give a brain (#{rand 9})".html_safe, post %>
-      <%= link_to "<i class='icon-comment-alt'></i> reply (#{rand 9})".html_safe, post %>
+      <%= link_to "<i class='icon-comment-alt'></i> reply (#{post.replies.count})".html_safe, "#", data: { scroll_to_reply: "#new_reply_#{post.id}" } %>
     </div>
-
-
+    <div class="clear"></div>
   </div>
   <div class="date">
     <%= time_ago_in_words(post.created_at) %> ago
-    <%= link_to 'single page <i class="icon-external-link"></i>'.html_safe, post %>
+    <%= link_to 'single page <i class="icon-external-link"></i>'.html_safe, post, target: '_blank' unless request.url == post_url(post).to_s %>
   </div>
+  <div class="replies">
+    <%= div_for(post.replies) do |reply| %>
+      <div class="image">
+        <%= link_to image_tag(reply.user.photo_url, width: 16), reply.user %>
+      </div>
+      <p><%= link_to reply.user.name, reply.user %> <i>replied <%= time_ago_in_words(reply.created_at) %> ago</i></p>
+      <%= reply.text %>
+      <div class="actions">
+        <div class="group-right">
+          <%= link_to "<i class='icon-save'></i> give a brain".html_safe, post %>
+        </div>
+      </div>
+      <div class="clear"></div>
+    <% end %>
+  </div>
+  <%= form_for(post.replies.build, url: replies_post_path(post), html: {id: "new_reply_#{post.id}"}) do |f| %>
+    <%= f.text_area :text %>
+  <% end %>
 </div>

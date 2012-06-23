@@ -37,9 +37,8 @@ class Ability
     can [:read, :join, :more_posts], Topic do |topic|
       topic.entity.entity_users.where(user_id: @current_user.id).exists?
     end
-    can [:create_post], Topic do |topic|
-      User.logger.info "CAN create_post @topic ?"
-      topic.topic_users.where(user_id: @current_user.id).exists?
+    can [:read], Post do |post|
+      post.topic.topic_users.where(user_id: @current_user.id).exists?
     end
   end
 

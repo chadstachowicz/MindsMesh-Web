@@ -158,19 +158,89 @@ a {
   }
 
   .actions {
-    &.post_actions {  }
     .group-left  { float:left; }
     .group-right { float:right; }
     a { font-size:12px;
       i { font-size:14px; }
     }
-
   }
 
+
+
+  .replies {
+    margin: 0px;
+    border: 1px solid #dbdbdb;
+    border-bottom: none;
+    position: relative;
+    .reply {
+      padding: 12px 5px 5px 40px;
+
+      font-size: 14px;
+      border-bottom: 1px dashed #dbdbdb;
+      position: relative;
+      min-height: 20px;
+      line-height: 20px;
+
+      &:last-child {
+        border: none;
+      }
+
+      .image {
+        display: block;
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        top: 5px;
+        left: 5px;
+        border: 1px solid #dbdbdb;
+        -moz-border-radius: 64px;
+        border-radius: 64px;
+        img {
+          -moz-border-radius: 30px;
+          border-radius: 30px;
+          width: 30px;
+          height: 30px;
+        }
+      }
+
+    }
+  }
+
+  form.new_reply {
+    margin-bottom: 0;
+    textarea {
+      width: 100%;
+      -webkit-box-sizing: border-box;
+      /* Safari/Chrome, other WebKit */
+
+      -moz-box-sizing: border-box;
+      /* Firefox, other Gecko */
+
+      box-sizing: border-box;
+      border: 1px solid #dbdbdb;
+      border-radius: 0;
+      padding: 5px;
+      margin: 0;
+      font-size: 14px;
+      color: #646464;
+      resize: vertical;
+      height: 35px;
+      line-height: 25px;
+      &:focus {
+        box-shadow: none;
+        outline: none;
+        border-color: #95C557;
+      }
+      &.long {
+        height: 70px;
+      }
+    }
+  }
 }
 
 
 /*
+    
 .post .actions {
   margin-top: 5px;
   height: 24px;
@@ -252,23 +322,9 @@ a {
   border-bottom: 8px solid transparent;
   border-left: 8px solid #bababa;
 }
-.post .comments {
-  margin: 5px;
-  border: 1px solid #dbdbdb;
-  position: relative;
-  display: none;
-}
-.post .comments .comment {
-  padding: 5px;
-  padding-top: 12px;
-  padding-bottom: 12px;
-  font-size: 14px;
-  border-bottom: 1px dashed #dbdbdb;
-  position: relative;
-  padding-left: 40px;
-  min-height: 20px;
-  line-height: 20px;
-}
+
+
+
 .post .comments .comment.correct {
   background: #ddecc9;
   border: 2px solid #95c557;
@@ -277,82 +333,10 @@ a {
   margin-top: 5px;
   height: 16px;
 }
-/*
-.post .comments .comment .actions .badge {
-  float: right;
-  height: 16px;
-  line-height: 16px;
-  margin-top: 0px;
-}
-.post .comments .comment .actions a {
-  display: block;
-  float: right;
-  width: 16px;
-  height: 16px;
-  margin: 0 4px;
-  background: asset-url('template1/actions_small.png', image);
-}
-.post .comments .comment .actions a.brain {
-  background-position: left top;
-}
-.post .comments .comment .actions a.brain.active {
-  background-position: left bottom;
-}
-.post .comments .comment .actions a.comment_button {
-  background-position: center top;
-}
-.post .comments .comment .actions a.comment_button.active {
-  background-position: center bottom;
-}
-.post .comments .comment .actions a.checkmark {
-  background-position: right top;
-}
-.post .comments .comment .actions a.checkmark.active {
-  background-position: right bottom;
-}
-*/
-.post .comments .comment .image {
-  display: block;
-  position: absolute;
-  width: 30px;
-  height: 30px;
-  top: 5px;
-  left: 5px;
-  border: 1px solid #dbdbdb;
-  -moz-border-radius: 64px;
-  border-radius: 64px;
-}
-.post .comments .comment .image img {
-  -moz-border-radius: 30px;
-  border-radius: 30px;
-  width: 30px;
-  height: 30px;
-}
-.post .comments .comment:last-child {
-  border: none;
-}
-.post .comments textarea {
-  width: 100%;
-  -webkit-box-sizing: border-box;
-  /* Safari/Chrome, other WebKit */
 
-  -moz-box-sizing: border-box;
-  /* Firefox, other Gecko */
 
-  box-sizing: border-box;
-  border: none;
-  padding: 5px;
-  margin: 0;
-  font-size: 14px;
-  color: #646464;
-  resize: vertical;
-  height: 35px;
-  line-height: 25px;
-}
-.post .comments textarea:focus {
-  box-shadow: none;
-  outline: none;
-}
+
+
 .post .date {
   font-size: 10px;
   position: absolute;

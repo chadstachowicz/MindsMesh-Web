@@ -11,6 +11,7 @@ Lyrne::Application.routes.draw do
   end
   resources :posts, except: [:new, :create] do
     member do
+      post 'replies'
     end
   end
   resources :entities

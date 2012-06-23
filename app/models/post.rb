@@ -2,6 +2,7 @@ class Post < ActiveRecord::Base
   belongs_to :topic
   belongs_to :user
   belongs_to :topic_user
+  has_many :replies
   attr_accessible :text
   validates_presence_of :topic
   validates_presence_of :user

@@ -16,6 +16,16 @@ class PostsController < ApplicationController
     respond_with(@post)
   end
 
+  # POST /posts/1/replies
+  def replies
+    #if you are authorized to read it, you can also reply, always
+    authorize! :read, @post
+    reply = @post.replies.build(params[:reply])
+    reply.user = current_user
+    reply.save!
+    redirect_to @post
+  end
+
   # GET /posts/1/edit
   def edit
     respond_with(@post)
@@ -29,7 +39,7 @@ class PostsController < ApplicationController
     respond_with(@post, location: @post)
   end
 
-  # DELETE /posts/1
+  # DELETE /posts/1.js
   def destroy
     @post.destroy
     respond_with(@post)
