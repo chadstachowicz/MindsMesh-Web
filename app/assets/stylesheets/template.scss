@@ -159,10 +159,13 @@ a {
   }
 
   .actions {
+    margin-bottom:10px;
     .group-left  { float:left; }
     .group-right { float:right; }
-    a { font-size:12px;
-      i { font-size:14px; }
+    a {
+      font-size:14px;
+      &:hover { color: #000; }
+      i { font-size:16px; }
     }
   }
 
