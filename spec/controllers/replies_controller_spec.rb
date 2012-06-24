@@ -49,6 +49,28 @@ describe RepliesController do
     end
   end
 
+  describe "DELETE destroy" do
+    it "destroys the requested reply" do
+      expect {
+        delete :destroy, {:id => @reply.to_param}, valid_session
+      }.to change(Reply, :count).by(-1)
+    end
+
+    it "reduces post replies count" do
+      expect {
+        delete :destroy, {:id => @reply.to_param}, valid_session
+      }.to change(@reply.post.replies, :count).by(-1)
+    end
+
+    it "renders nothing" do
+      delete :destroy, {:id => @reply.to_param}, valid_session
+      response.body.should be_blank
+    end
+  end
+
+
+
+
   describe "PUT like" do
 
     it "creates like" do

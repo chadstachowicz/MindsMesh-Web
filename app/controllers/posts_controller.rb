@@ -1,6 +1,5 @@
 class PostsController < ApplicationController
   respond_to :html#, :json, :xml
-  respond_to :js, only: [:destroy]
 
   load_and_authorize_resource except: [:replies, :like]
   load_resource only: [:replies, :like, :update]
@@ -45,6 +44,6 @@ class PostsController < ApplicationController
   # DELETE /posts/1.js
   def destroy
     @post.destroy
-    respond_with(@post)
+    render nothing: true
   end
 end

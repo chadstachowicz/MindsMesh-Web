@@ -45,7 +45,7 @@ class Ability
     can [:read], Post do |post|
       post.topic.topic_users.where(user_id: @current_user.id).exists?
     end
-    can [:update], [Post, Reply] do |msg|
+    can [:update, :destroy], [Post, Reply] do |msg|
       msg.user_id == @current_user.id
     end
   end

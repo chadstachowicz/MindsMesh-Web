@@ -4,7 +4,7 @@ $("#posts a.more").live("ajax:beforeSend", function() {
 });
 
 $("form.new_reply textarea").live("focus", function(e) {
-  $(this).switchClass('', 'long', 'slow');
+  $(this).switchClass('', 'long', 1000);
 });
 
 $("form.new_reply textarea").live("keydown", function(e) {
@@ -21,7 +21,7 @@ $("form.new_reply textarea").live("keydown", function(e) {
 
 $("a[data-scroll-to-reply]").live("click", function() {
   var sel = $(this).data('scroll-to-reply');
-  $('body').animate({scrollTop: $(sel).offset().top-150}, 'slow', function() {
+  $('body').animate({scrollTop: $(sel).offset().top-150}, 1000, function() {
     $(sel).find('textarea').focus();
   });
   return false;

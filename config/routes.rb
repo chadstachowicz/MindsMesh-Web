@@ -15,7 +15,7 @@ Lyrne::Application.routes.draw do
       put 'like'
     end
   end
-  resources :replies, only: [:update] do
+  resources :replies, only: [:update, :destroy] do
     member do
       put 'like'
     end

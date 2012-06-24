@@ -24,7 +24,7 @@
     <div class="actions post_actions">
       <div class="group-left">
         <%= link_to '<i class="icon-edit"></i> <i>edit this post</i>'.html_safe, post, id: "edit_post_#{post.id}" if can_update_post %>
-        <%= link_to '<i class="icon-trash"></i> <i>remove</i>'.html_safe, post, remote: true, method: :delete, data: { confirm: 'Removing a post cannot be undone. Are you sure?' } if false %>
+        <%= link_to '<i class="icon-trash"></i> <i>remove</i>'.html_safe, post, remote: true, method: :delete, data: { confirm: 'Removing a post cannot be undone. Are you sure?' } if can_update_post %>
       </div>
       <div class="group-right">
         <%= link_to "<i class='icon-thumbs-up'></i> <span>#{post.likes.size}</span>".html_safe, like_post_path(post), remote: true, method: 'put', class: 'btn likebutton', rel: 'tooltip', title: 'like this?' %>
@@ -52,9 +52,10 @@
           </td>
         </tr>
       </table>
-      <div class="actions">
+      <div class="actions reply_actions">
         <div class="group-left">
           <%= link_to '<i class="icon-edit"></i> edit this reply'.html_safe, post, id: "edit_reply_#{reply.id}" if can_update_reply %>
+          <%= link_to '<i class="icon-trash"></i> <i>remove</i>'.html_safe, reply, remote: true, method: :delete, data: { confirm: 'Removing cannot be undone. Are you sure?' } if can_update_reply %>
         </div>
         <div class="group-right">
           <%= link_to "<i class='icon-thumbs-up'></i> <span>#{reply.likes.size}</span>".html_safe, like_reply_path(reply), remote: true, method: 'put', class: 'btn likebutton', rel: 'tooltip', title: 'like this?' %>

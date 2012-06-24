@@ -91,9 +91,9 @@ describe PostsController do
       }.to change(Post, :count).by(-1)
     end
 
-    it "redirects to the posts list" do
+    it "renders nothing" do
       delete :destroy, {:id => @post.to_param}, valid_session
-      response.should redirect_to(posts_url)
+      response.body.should be_blank
     end
   end
 
@@ -164,7 +164,7 @@ describe PostsController do
       }.should change(current_user.likes, :count).by(1)
     end
 
-    it "renders nothing" do
+    it "renders current likes count" do
       put :like, {:id => @post.to_param}, valid_session
       response.body.should == @post.likes.size.to_s
     end

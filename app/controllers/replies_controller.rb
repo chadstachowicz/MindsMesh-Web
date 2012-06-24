@@ -19,10 +19,9 @@ class RepliesController < ApplicationController
     #render js: "setTimeout( function() {$('#reply_#{@reply.id} span').html('#{@reply.likes.size}')}, 500)"
   end
 
-  #TODO: delete reply
   # DELETE /replies/1
-  #def destroy
-  #  @reply.destroy
-  #  respond_with(@reply)
-  #end
+  def destroy
+    @reply.destroy
+    render nothing: true
+  end
 end
