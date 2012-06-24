@@ -12,6 +12,12 @@ Lyrne::Application.routes.draw do
   resources :posts, except: [:new, :create] do
     member do
       post 'replies'
+      put 'like'
+    end
+  end
+  resources :replies, only: [] do
+    member do
+      put 'like'
     end
   end
   resources :entities

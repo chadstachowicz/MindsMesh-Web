@@ -45,3 +45,9 @@ $("#new_post").live("ajax:beforeSend", function(e) {
     return false;
   }
 });
+
+//like
+$(".likebutton").live("ajax:success", function(e, data) {
+  var m = Number($(this).text()) || 0;
+  $(this).html( $(this).html().replace(m, data) );
+});

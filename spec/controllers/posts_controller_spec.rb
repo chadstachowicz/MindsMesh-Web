@@ -144,4 +144,38 @@ describe PostsController do
 
   end
 
+  describe "PUT like" do
+
+    it "creates like" do
+      -> {
+        put :like, {:id => @post.to_param}, valid_session
+      }.should change(Like, :count).by(1)
+    end
+
+    it "creates like assiciated with @post" do
+      -> {
+        put :like, {:id => @post.to_param}, valid_session
+      }.should change(@post.likes, :count).by(1)
+    end
+
+    it "creates like assiciated with current_user" do
+      -> {
+        put :like, {:id => @post.to_param}, valid_session
+      }.should change(current_user.likes, :count).by(1)
+    end
+
+    it "can't like @post twice" do
+      -> {
+        put :like, {:id => @post.to_param}, valid_session
+        put :like, {:id => @post.to_param}, valid_session
+      }.should change(current_user.likes, :count).by(1)
+    end
+
+    it "renders nothing" do
+      put :like, {:id => @post.to_param}, valid_session
+      response.body.should == @post.likes.size.to_s
+    end
+
+  end
+
 end

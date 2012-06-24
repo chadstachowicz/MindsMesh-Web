@@ -3,6 +3,7 @@ class Post < ActiveRecord::Base
   belongs_to :user
   belongs_to :topic_user
   has_many :replies
+  has_many :likes, as: :likable
   attr_accessible :text
   validates_presence_of :topic
   validates_presence_of :user

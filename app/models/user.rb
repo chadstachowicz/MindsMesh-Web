@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
   has_many :topic_users
   has_many :posts
   has_many :replies
+  has_many :likes
   validates_presence_of :name
 
   ROLES = %w(basic guest user moderator manager admin master)

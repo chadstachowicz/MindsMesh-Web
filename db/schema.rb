@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120622210246) do
+ActiveRecord::Schema.define(:version => 20120623202244) do
 
   create_table "entities", :force => true do |t|
     t.string   "name"
@@ -42,6 +42,18 @@ ActiveRecord::Schema.define(:version => 20120622210246) do
 
   add_index "entity_users", ["entity_id"], :name => "index_entity_users_on_entity_id"
   add_index "entity_users", ["user_id"], :name => "index_entity_users_on_user_id"
+
+  create_table "likes", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "likable_type"
+    t.integer  "likable_id"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "likes", ["likable_type", "likable_id"], :name => "index_likes_on_likable_type_and_likable_id"
+  add_index "likes", ["user_id", "likable_type"], :name => "index_likes_on_user_id_and_likable_type"
+  add_index "likes", ["user_id"], :name => "index_likes_on_user_id"
 
   create_table "logins", :force => true do |t|
     t.integer  "user_id"

@@ -1,10 +1,9 @@
 class PostsController < ApplicationController
   respond_to :html#, :json, :xml
-
   respond_to :js, only: [:destroy]
 
-  load_and_authorize_resource except: [:replies]
-  load_resource only: [:replies]
+  load_and_authorize_resource except: [:replies, :like]
+  load_resource only: [:replies, :like]
 
   # GET /posts
   def index
@@ -25,6 +24,13 @@ class PostsController < ApplicationController
     reply.user = current_user
     reply.save!
     redirect_to @post
+  end
+
+  # PUT /posts/1/like
+  def like
+    #doesn't do anything if user already liked it
+    Like.create user: current_user, likable: @post
+    render text: @post.likes.size
   end
 
   # GET /posts/1/edit
