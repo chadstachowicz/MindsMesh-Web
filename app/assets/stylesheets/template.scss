@@ -152,13 +152,12 @@ span.best_in_place {
   padding-right: 15px;
   color: #646464;
   line-height: 1.4em;
-  h3 {
-    a {
-      text-decoration: none;color: $green;
-    }
-    i {
-      font-size: 13px;
-    }
+  .post-title a {
+    text-decoration: none;color: $green;
+    &:hover { text-decoration: underline; }
+  }
+  h3 i {
+    font-size: 13px;
   }
   p {
     font-size:13px;
@@ -176,13 +175,16 @@ span.best_in_place {
   }
   .actions {
     margin-bottom:10px;
-    text-align:right;
-    a {
-      font-size:14px;
-      i { font-size:16px; }
-      &:hover {
-        color: #000;
-        i { color: $green; }
+    .group-left  { float:left;font-size:11px;line-height:11px;font-style: italic; }
+    .group-right {
+      float:right; 
+      a {
+        font-size:14px;
+        i { font-size:16px; }
+        &:hover {
+          color: #000;
+          i { color: $green; }
+        }
       }
     }
   }
