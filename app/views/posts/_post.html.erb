@@ -1,33 +1,60 @@
+<% can_update_post = can? :update, post %>
 <div class="post">
   <div class="image">
     <%= link_to image_tag(post.user.photo_url, width: 64), post.user %>
   </div>
   <div>
-    <h1><%= link_to post.user.name, post.user %> <i>posted on</i> <%= link_to post.topic.name, post.topic %></h1>
-    <p><i><%= post.text %></i></p>
-  </div>
-  <div class="actions post_actions">
-    <div class="group-left">
-      <%#= link_to '<i class="icon-edit"></i> edit'.html_safe, edit_post_path(post), class: 'btn' if rand(10).odd? %>
-      <%#= link_to '<i class="icon-trash"></i> remove'.html_safe, post, class: 'btn', remote: true, method: :delete, data: { confirm: 'Removing a post cannot be undone. Are you sure?' } if rand(10).odd? %>
+    <em>
+      <%= time_ago_in_words(post.created_at) %> ago
+      <%= link_to 'single page <i class="icon-external-link"></i>'.html_safe, post, target: '_blank' unless request.url == post_url(post).to_s %>
+    </em>
+    <h3>
+      <%= link_to post.user.name, post.user %>
+      <i>posted on <%= link_to post.topic.name, post.topic %></i>
+    </h3>
+    <em>
+      <%= link_to '<i class="icon-edit"></i> <i>edit this post</i>'.html_safe, post, id: "edit_post_#{post.id}" if can_update_post %>
+      <%= link_to '<i class="icon-trash"></i> <i>remove</i>'.html_safe, post, remote: true, method: :delete, data: { confirm: 'Removing a post cannot be undone. Are you sure?' } if false %>
+    </em>
+    <table style="width:100%">
+      <tr>
+        <td>
+          <%= best_in_place_if can_update_post, post, :text, type: :textarea, activator: "#edit_post_#{post.id}" %>
+        </td>
+        <td width="7">
+        </td>
+      </tr>
+    </table>
+    <div class="actions post_actions">
+      <div class="group-right">
+        <%= link_to "<i class='icon-thumbs-up'></i> <span>#{post.likes.size}</span>".html_safe, like_post_path(post), remote: true, method: 'put', class: 'btn likebutton', rel: 'tooltip', title: 'like this?' %>
+        <%= link_to "<i class='icon-comment-alt'></i> #{post.replies.size}".html_safe, "#", class: 'btn', rel: 'tooltip', title: 'reply to this post!', data: { scroll_to_reply: "#new_reply_#{post.id}" } %>
+      </div>
+      <div class="clear"></div>
     </div>
-    <div class="group-right">
-      <%= link_to "<i class='icon-thumbs-up'></i> <span>#{post.likes.size}</span>".html_safe, like_post_path(post), remote: true, method: 'put', class: 'btn likebutton', rel: 'tooltip', title: 'like this?' %>
-      <%= link_to "<i class='icon-comment-alt'></i> #{post.replies.size}".html_safe, "#", class: 'btn', rel: 'tooltip', title: 'reply to this post!', data: { scroll_to_reply: "#new_reply_#{post.id}" } %>
-    </div>
-    <div class="clear"></div>
-  </div>
-  <div class="date">
-    <%= time_ago_in_words(post.created_at) %> ago
-    <%= link_to 'single page <i class="icon-external-link"></i>'.html_safe, post, target: '_blank' unless request.url == post_url(post).to_s %>
   </div>
   <div class="replies">
     <%= div_for(post.replies) do |reply| %>
+      <% can_update_reply = can? :update, reply %>
       <div class="image">
         <%= link_to image_tag(reply.user.photo_url, width: 16), reply.user %>
       </div>
-      <p><%= link_to reply.user.name, reply.user %> <i>replied <%= time_ago_in_words(reply.created_at) %> ago</i></p>
-      <%= reply.text %>
+      <p>
+        <%= link_to reply.user.name, reply.user %>
+        <i>replied <%= time_ago_in_words(reply.created_at) %> ago</i>
+      </p>
+      <em>
+        <%= link_to '<i class="icon-edit"></i> edit this reply'.html_safe, post, id: "edit_reply_#{reply.id}" if can_update_reply %>
+      </em>
+      <table style="width:100%">
+        <tr>
+          <td>
+          <%= best_in_place_if can_update_reply, reply, :text, type: :textarea, activator: "#edit_reply_#{reply.id}" %>
+          </td>
+          <td width="7">
+          </td>
+        </tr>
+      </table>
       <div class="actions">
         <div class="group-right">
           <%= link_to "<i class='icon-thumbs-up'></i> <span>#{reply.likes.size}</span>".html_safe, like_reply_path(reply), remote: true, method: 'put', class: 'btn likebutton', rel: 'tooltip', title: 'like this?' %>

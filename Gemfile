@@ -7,6 +7,7 @@ gem 'omniauth-facebook'
 gem 'cancan'
 gem 'validates_email_format_of'
 gem 'colorize'
+gem 'best_in_place'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'

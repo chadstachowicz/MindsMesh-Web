@@ -8,6 +8,7 @@ describe "posts/_post" do
       Fabricate(:reply, post: @post)
     }
     view.stub!(:post).and_return(@post)
+    controller.stub!(:current_user).and_return(current_user_master)
   end
 
   it "renders post text" do

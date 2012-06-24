@@ -7,6 +7,10 @@ a {
   &:hover { color: $green; }
 }
 
+span.best_in_place {
+  display: block;
+}
+
 .wrap {
   padding-top: 20px;
   height: auto;
@@ -139,8 +143,6 @@ a {
   border: none;
 }
 
-
-
 .post {
   min-height: 70px;
   border-bottom: 1px solid #dbdbdb;
@@ -149,19 +151,32 @@ a {
   padding-left: 100px;
   padding-right: 15px;
   color: #646464;
-  font-size: 20px;
   line-height: 1.4em;
-  h1 {
-    font-size: 16px;
+  h3 {
     a {
       text-decoration: none;color: $green;
     }
+    i {
+      font-size: 13px;
+    }
   }
-
+  p {
+    font-size:13px;
+    line-height:13px;
+    text-align: justify;
+    i {
+      font-size:13px;
+    }
+  }
+  em {
+    text-align:right;
+    display:block;
+    font-size:11px;
+    line-height:11px;
+  }
   .actions {
     margin-bottom:10px;
-    .group-left  { float:left; }
-    .group-right { float:right; }
+    text-align:right;
     a {
       font-size:14px;
       i { font-size:16px; }
@@ -189,6 +204,12 @@ a {
 
       &:last-child {
         border: none;
+      }
+
+      p {
+        i {
+          font-size:12px;
+        }
       }
 
       .image {
@@ -231,7 +252,7 @@ a {
       font-size: 14px;
       color: #646464;
       resize: vertical;
-      height: 35px;
+      height: 50px;
       line-height: 25px;
       &:focus {
         box-shadow: none;
@@ -239,7 +260,7 @@ a {
         border-color: #95C557;
       }
       &.long {
-        height: 70px;
+        height: 120px;
       }
     }
   }
@@ -343,15 +364,15 @@ a {
 
 
 
-
+/*
 .post .date {
   font-size: 10px;
   position: absolute;
-  top: -2px;
+  top: 6px;
   right: 10px;
   text-align: right;
 }
-
+*/
 
 
 #posts a.more {

@@ -11,9 +11,9 @@ class Post < ActiveRecord::Base
   validates_presence_of :text
   validates_length_of :text, minimum: 10
 
-  before_validation do
-    self.user_id    = topic_user.user_id
-    self.topic_id = topic_user.topic_id    
+  before_validation on: :create do
+    self.user_id  = topic_user.user_id
+    self.topic_id = topic_user.topic_id
   end
 
   default_scope includes(:user)

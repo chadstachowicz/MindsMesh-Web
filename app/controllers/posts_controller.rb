@@ -3,7 +3,7 @@ class PostsController < ApplicationController
   respond_to :js, only: [:destroy]
 
   load_and_authorize_resource except: [:replies, :like]
-  load_resource only: [:replies, :like]
+  load_resource only: [:replies, :like, :update]
 
   # GET /posts
   def index
@@ -33,17 +33,13 @@ class PostsController < ApplicationController
     render text: @post.likes.size
   end
 
-  # GET /posts/1/edit
-  def edit
-    respond_with(@post)
-  end
-
   # PUT /posts/1
   def update
     if @post.update_attributes(params[:post])
-      flash[:notice] = "Post successfully updated."
+      head :no_content
+    else
+      render json: @post.errors, status: :unprocessable_entity
     end
-    respond_with(@post, location: @post)
   end
 
   # DELETE /posts/1.js

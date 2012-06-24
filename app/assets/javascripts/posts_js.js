@@ -4,7 +4,7 @@ $("#posts a.more").live("ajax:beforeSend", function() {
 });
 
 $("form.new_reply textarea").live("focus", function(e) {
-  $(this).switchClass('', 'long', 'fast');
+  $(this).switchClass('', 'long', 'slow');
 });
 
 $("form.new_reply textarea").live("keydown", function(e) {
@@ -21,7 +21,7 @@ $("form.new_reply textarea").live("keydown", function(e) {
 
 $("a[data-scroll-to-reply]").live("click", function() {
   var sel = $(this).data('scroll-to-reply');
-  $('body').animate({scrollTop: $(sel).offset().top-50}, 'slow', function() {
+  $('body').animate({scrollTop: $(sel).offset().top-150}, 'slow', function() {
     $(sel).find('textarea').focus();
   });
   return false;
@@ -50,4 +50,9 @@ $("#new_post").live("ajax:beforeSend", function(e) {
 $(".likebutton").live("ajax:success", function(e, data) {
   var m = Number($(this).text()) || 0;
   $(this).html( $(this).html().replace(m, data) );
+});
+
+//best in place
+$(function() {
+  $(".best_in_place").best_in_place();
 });

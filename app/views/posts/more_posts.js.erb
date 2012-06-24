@@ -11,4 +11,4 @@
 <h3><center>sorry, no posts were found</center></h3>
 <% end %>
 <% end %>
-$("#posts").append("<%= j yield(:html) %>");
+$("#posts").append("<%= j yield(:html) %>").find(".best_in_place").best_in_place();

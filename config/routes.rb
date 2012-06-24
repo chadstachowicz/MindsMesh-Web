@@ -9,13 +9,13 @@ Lyrne::Application.routes.draw do
       get :more_posts, format: 'js'
     end
   end
-  resources :posts, except: [:new, :create] do
+  resources :posts, except: [:new, :create, :edit] do
     member do
       post 'replies'
       put 'like'
     end
   end
-  resources :replies, only: [] do
+  resources :replies, only: [:update] do
     member do
       put 'like'
     end

@@ -5,6 +5,7 @@ describe "home/user.html.erb" do
   before do
     assign(:posts, [])
     view.stub!(:current_user).and_return(current_user_user)
+    controller.stub!(:current_user).and_return(current_user_user)
   end
 
   it "renders templates without posts" do

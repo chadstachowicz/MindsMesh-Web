@@ -43,13 +43,6 @@ describe PostsController do
     end
   end
 
-  describe "GET edit" do
-    it "assigns the requested post as @post" do
-      get :edit, {:id => @post.to_param}, valid_session
-      assigns(:post).should eq(@post)
-    end
-  end
-
   describe "PUT update" do
     describe "with valid params" do
       it "updates the requested post" do
@@ -66,14 +59,14 @@ describe PostsController do
         assigns(:post).should eq(@post)
       end
 
-      it "redirects to the post" do
+      xit "redirects to the post" do
         put :update, {:id => @post.to_param, :post => valid_attributes}, valid_session
         response.should redirect_to(@post)
       end
     end
 
     describe "with invalid params" do
-      it "assigns the post as @post" do
+      xit "assigns the post as @post" do
         # Trigger the behavior that occurs when invalid params are submitted
         Post.any_instance.stub(:save).and_return(false)
         Post.any_instance.stub(:errors).and_return(:some => ["errors"])
@@ -81,7 +74,7 @@ describe PostsController do
         assigns(:post).should eq(@post)
       end
 
-      it "re-renders the 'edit' template" do
+      xit "re-renders the 'edit' template" do
         # Trigger the behavior that occurs when invalid params are submitted
         Post.any_instance.stub(:save).and_return(false)
         Post.any_instance.stub(:errors).and_return(:some => ["errors"])
