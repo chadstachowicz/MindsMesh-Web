@@ -23,10 +23,15 @@ $("form.new_reply textarea").live("keydown", function(e) {
   }
 });
 
+// new post / new reply
+
 $("form.new_reply").live("ajax:success", function(e, data) {
   $(this).closest(".post").find(".replies").append(data).find(".best_in_place").best_in_place();
 });
 
+$("#new_post").live("ajax:success", function(e, data) {
+  $("#posts").prepend(data).find(".best_in_place").best_in_place();
+});
 
 //_reply
 
@@ -55,6 +60,7 @@ $("#new_post").live("ajax:beforeSend", function(e) {
     $(this).find('#topic_user_id').click();
     return false;
   }
+  $(this).find('textarea').val('');
 });
 
 //like

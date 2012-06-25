@@ -1,5 +1,0 @@
-<% if @post.errors.any? %>
-  alert("<%= j @post.errors.full_messages.join(',') %>");
-<% else %>
-  window.location.reload();
-<% end %>

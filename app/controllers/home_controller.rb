@@ -49,7 +49,8 @@ class HomeController < ApplicationController
   def create_post
     topic_user = current_user.topic_users.find(params[:topic_user_id])
     @post = topic_user.posts.create(params[:post])
-    respond_to { |f| f.js }
+    #respond_to { |f| f.js }
+    render @post
   end
 
   def more_posts

@@ -214,6 +214,10 @@ describe HomeController do
           post :create_post, {topic_user_id: @topic_user.to_param, post: {text: Faker::Lorem.sentence}}, valid_session
           assigns(:post).should be_a(Post)
         end
+        it "response renders the post template" do
+          post :create_post, {topic_user_id: @topic_user.to_param, post: {text: Faker::Lorem.sentence}}, valid_session
+          response.should render_template("posts/_post")
+        end
       end
     end
 
