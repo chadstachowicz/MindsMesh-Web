@@ -33,6 +33,8 @@ $("#new_post").live("ajax:success", function(e, data) {
 $("form.new_reply").live("ajax:success", function(e, data) {
   $(this).closest(".post").find(".replies").append(data).find(".best_in_place").best_in_place();
   $(this).closest(".post").find(".reply:last").effect("highlight", {}, 1200);
+  var c = $(this).closest(".post").find(".reply").length;
+  $(this).closest(".post").find(".replybutton span").html(c);
 });
 
 //_reply
@@ -67,8 +69,7 @@ $("#new_post").live("ajax:beforeSend", function(e) {
 
 //like
 $(".likebutton").live("ajax:success", function(e, data) {
-  var m = Number($(this).text()) || 0;
-  $(this).html( $(this).html().replace(m, data) );
+  $(this).find("span").html(data);
 });
 
 //best in place

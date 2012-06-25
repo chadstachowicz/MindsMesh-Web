@@ -27,8 +27,21 @@
         <%= link_to '<i class="icon-trash"></i> <i>remove</i>'.html_safe, post, remote: true, method: :delete, data: { confirm: 'Removing a post cannot be undone. Are you sure?' } if can_update_post %>
       </div>
       <div class="group-right">
-        <%= link_to "<i class='icon-thumbs-up'></i> <span>#{post.likes.size}</span>".html_safe, like_post_path(post), remote: true, method: 'put', class: 'btn likebutton', rel: 'tooltip', title: 'like this?' %>
-        <%= link_to "<i class='icon-comment-alt'></i> #{post.replies.size}".html_safe, "#", class: 'btn', rel: 'tooltip', title: 'reply to this post!', data: { scroll_to_reply: "#new_reply_#{post.id}" } %>
+        <%= link_to "<i class='icon-thumbs-up'></i> <span>#{post.likes.size}</span>".html_safe,
+                    like_post_path(post),
+                    remote: true,
+                    method: 'put',
+                    class: 'btn likebutton',
+                    rel: 'tooltip',
+                    title: 'like this?'
+                    %>
+        <%= link_to "<i class='icon-comment-alt'></i> <span>#{post.replies.size}</span>".html_safe,
+                    "#",
+                    class: 'btn replybutton',
+                    rel: 'tooltip',
+                    title: 'reply to this post!',
+                    data: { scroll_to_reply: "#new_reply_#{post.id}" }
+                    %>
       </div>
       <div class="clear"></div>
     </div>
