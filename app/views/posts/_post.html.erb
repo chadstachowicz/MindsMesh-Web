@@ -34,37 +34,9 @@
     </div>
   </div>
   <div class="replies">
-    <%= div_for(post.replies) do |reply| %>
-      <% can_update_reply = can? :update, reply %>
-      <div class="image">
-        <%= link_to image_tag(reply.user.photo_url, width: 16), reply.user %>
-      </div>
-      <p class="post-title">
-        <%= link_to reply.user.name, reply.user %>
-        <i>replied <%= time_ago_in_words(reply.created_at) %> ago</i>
-      </p>
-      <table style="width:100%">
-        <tr>
-          <td>
-          <%= best_in_place_if can_update_reply, reply, :text, type: :textarea, activator: "#edit_reply_#{reply.id}" %>
-          </td>
-          <td width="7">
-          </td>
-        </tr>
-      </table>
-      <div class="actions reply_actions">
-        <div class="group-left">
-          <%= link_to '<i class="icon-edit"></i> edit this reply'.html_safe, post, id: "edit_reply_#{reply.id}" if can_update_reply %>
-          <%= link_to '<i class="icon-trash"></i> <i>remove</i>'.html_safe, reply, remote: true, method: :delete, data: { confirm: 'Removing cannot be undone. Are you sure?' } if can_update_reply %>
-        </div>
-        <div class="group-right">
-          <%= link_to "<i class='icon-thumbs-up'></i> <span>#{reply.likes.size}</span>".html_safe, like_reply_path(reply), remote: true, method: 'put', class: 'btn likebutton', rel: 'tooltip', title: 'like this?' %>
-        </div>
-      </div>
-      <div class="clear"></div>
-    <% end %>
+    <%= render post.replies, can_update_post: can_update_post %>
   </div>
-  <%= form_for(post.replies.build, url: replies_post_path(post), html: {id: "new_reply_#{post.id}"}) do |f| %>
+  <%= form_for(post.replies.build, url: replies_post_path(post), remote: true, html: {id: "new_reply_#{post.id}"}) do |f| %>
     <%= f.text_area :text %>
   <% end %>
 </div>

@@ -3,6 +3,8 @@ $("#posts a.more").live("ajax:beforeSend", function() {
   $(this).fadeOut('fast');
 });
 
+//_post -> new reply
+
 $("form.new_reply textarea").live("focus", function(e) {
   $(this).switchClass('', 'long', 1000);
 });
@@ -14,10 +16,19 @@ $("form.new_reply textarea").live("keydown", function(e) {
       $(this).focus();
     }
     else {
-      $(this).closest('form').submit().remove();
+      $(this).closest('form').submit();
+      $(this).val('');
+      return false;
     }
   }
 });
+
+$("form.new_reply").live("ajax:success", function(e, data) {
+  $(this).closest(".post").find(".replies").append(data).find(".best_in_place").best_in_place();
+});
+
+
+//_reply
 
 $("a[data-scroll-to-reply]").live("click", function() {
   var sel = $(this).data('scroll-to-reply');

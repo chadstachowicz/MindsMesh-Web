@@ -116,9 +116,10 @@ describe PostsController do
         }.to change(current_user.replies, :count).by(1)
       end
 
-      it "redirects to the related post" do
-        post :replies, {id: @post.to_param, reply: {text: Faker::Lorem.sentence}}, valid_session
-        response.should redirect_to(@post)
+      it "renders the post html" do
+        t = Faker::Lorem.sentence
+        post :replies, {id: @post.to_param, reply: {text: t}}, valid_session
+        response.should render_template("replies/_reply")
       end
     end
 

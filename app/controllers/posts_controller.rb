@@ -22,7 +22,7 @@ class PostsController < ApplicationController
     reply = @post.replies.build(params[:reply])
     reply.user = current_user
     reply.save!
-    redirect_to @post
+    render reply
   end
 
   # PUT /posts/1/like
