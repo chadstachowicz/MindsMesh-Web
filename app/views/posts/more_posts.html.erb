@@ -1,8 +1,8 @@
-<% content_for :html do %>
+<div class="posts_pack">
 <% if @posts.any? %>
   <%= render @posts %>
   <%= link_to "MORE",
-              {action: 'more_posts', format: 'js', before: @posts.last.id},
+              {action: 'more_posts', before: @posts.last.id},
               class: "more btn btn-inverse btn-large",
               data: {disable_with: "loading..."},
               remote: true
@@ -10,5 +10,4 @@
 <% else %>
 <h3><center>sorry, no posts were found</center></h3>
 <% end %>
-<% end %>
-$("#posts").append("<%= j yield(:html) %>").find(".best_in_place").best_in_place();
+</div>

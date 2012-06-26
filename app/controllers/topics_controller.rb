@@ -36,7 +36,7 @@ class TopicsController < ApplicationController
   def more_posts
     authorize! :read_posts, @topic #TODO: test this
     @posts = @topic.posts.as_feed(params.slice(:limit, :before))
-    respond_to { |f| f.js { render '/posts/more_posts' } }
+    render '/posts/more_posts', layout: false
   end
 
   # GET /topics/new

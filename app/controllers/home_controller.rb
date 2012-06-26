@@ -48,13 +48,12 @@ class HomeController < ApplicationController
 
   def create_post
     topic_user = current_user.topic_users.find(params[:topic_user_id])
-    @post = topic_user.posts.create(params[:post])
-    #respond_to { |f| f.js }
+    @post = Post.create_with!(topic_user, params[:post])
     render @post
   end
 
   def more_posts
     @posts = current_user.posts_feed(params.slice(:limit, :before))
-    respond_to { |f| f.js { render '/posts/more_posts' } }
+    render '/posts/more_posts', layout: false
   end
 end

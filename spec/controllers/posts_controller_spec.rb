@@ -24,8 +24,9 @@ describe PostsController do
     { text: Faker::Lorem.sentence }
   end
 
-  before(:each) do
-    @post = Fabricate(:post, topic_user: Fabricate(:topic_user, user: current_user_master), user: current_user_master)
+  before do
+    topic_user = Fabricate(:topic_user, user: current_user_master)
+    @post = Fabricate(:post, topic: topic_user.topic, user: topic_user.user)
     stub!(:current_user).and_return(current_user_master)
   end
 

@@ -1,7 +1,6 @@
 class TopicUser < ActiveRecord::Base
   belongs_to :topic
   belongs_to :user
-  has_many :posts
   attr_accessible :role, :topic_id, :user_id
   validates_presence_of :topic
   validates_presence_of :user

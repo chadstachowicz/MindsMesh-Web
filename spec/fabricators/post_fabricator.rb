@@ -1,6 +1,5 @@
 Fabricator(:post) do
-  topic_user
-  topic nil
-  user nil
+  topic
+  user
   text { Faker::Lorem.sentence }
 end

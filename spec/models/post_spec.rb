@@ -2,34 +2,19 @@ require 'spec_helper'
 
 describe Post do
 
+  def valid_attributes
+    { text: Faker::Lorem.sentence }
+  end
+
   describe "associations" do
     describe "understands" do
-      {user: User, topic: Topic, topic_user: TopicUser, replies: Array, likes: Array}.each do |assoc, clazz|
+      #{user: User, topic: Topic, topic_user: TopicUser, replies: Array, likes: Array}.each do |assoc, clazz|
+      {user: User, topic: Topic, replies: Array, likes: Array}.each do |assoc, clazz|
         it assoc do
           post = Fabricate(:post)
           post.should respond_to(assoc)
           post.send(assoc).should be_a(clazz)
         end
-      end
-    end
-    describe "validating topic and user" do
-      it "valid from topic_user" do
-        post = Fabricate.build(:post, topic: nil, user: nil, topic_user: Fabricate(:topic_user))
-        post.should be_valid
-      end
-      it "valid from topic && user" do
-        post = Fabricate.build(:post, topic: Fabricate(:topic), user: Fabricate(:user), topic_user: nil)
-        post.should be_valid
-      end
-      it "invalid from only topic" do
-        post = Fabricate.build(:post, topic: Fabricate(:topic), user: nil, topic_user: nil)
-        post.should_not be_valid
-        post.errors[:user].should_not be_empty
-      end
-      it "invalid from only topic" do
-        post = Fabricate.build(:post, topic: nil, user: Fabricate(:user), topic_user: nil)
-        post.should_not be_valid
-        post.errors[:topic].should_not be_empty
       end
     end
     describe "validating has_many" do
@@ -43,9 +28,6 @@ describe Post do
         post.likes.size.should ==3
         post.likes.sample.should be_a Like
       end
-    end
-    it "doubt" do
-      "should I validate counters with size?".should be_true
     end
   end
 
@@ -66,12 +48,29 @@ describe Post do
   end
 
   describe "custom scopes" do
+    pending "test these with real data"
     it "before" do
       Post.before(nil).should be_a(ActiveRecord::Relation)
-      "test these decently".should be_true
     end
     it "as_feed" do
       Post.as_feed.should be_a(ActiveRecord::Relation)
     end
+  end
+
+  describe "custom constructors" do
+
+    it "create_with creates an associated post" do
+      topic_user = Fabricate(:topic_user)
+      -> {
+        Post.create_with!(topic_user, valid_attributes)
+      }.should change(Post, :count).by(1)
+      -> {
+        Post.create_with!(topic_user, valid_attributes)
+      }.should change(topic_user.topic.posts, :count).by(1)
+      -> {
+        Post.create_with!(topic_user, valid_attributes)
+      }.should change(topic_user.user.posts, :count).by(1)
+    end
+
   end
 end

@@ -1,7 +1,6 @@
 class Post < ActiveRecord::Base
   belongs_to :topic
   belongs_to :user
-  belongs_to :topic_user
   has_many :replies
   has_many :likes, as: :likable
   attr_accessible :text
@@ -10,10 +9,10 @@ class Post < ActiveRecord::Base
   validates_presence_of :text
   validates_length_of :text, minimum: 10
 
-  before_validation on: :create do
-    if topic_user.present? && (topic.nil? || user.nil?)
-      self.topic = topic_user.topic
-      self.user  = topic_user.user
+  def self.create_with!(topic_user, attrs)
+    Post.create!(attrs) do |p|
+      p.topic = topic_user.topic
+      p.user  = topic_user.user
     end
   end
 

@@ -159,14 +159,14 @@ describe HomeController do
   end
 
   describe "rendering" do
+    before(:each) do
+      @topic_user = Fabricate(:topic_user, user: current_user_master)
+      3.times do
+        Fabricate(:post, topic: @topic_user.topic, user: @topic_user.user)
+      end
+    end
 
     describe "GET 'user'" do
-      before(:each) do
-        @topic_user = Fabricate(:topic_user, user: current_user_master)
-        3.times do
-          Fabricate(:post, topic_user: @topic_user, text: Faker::Lorem.sentence)
-        end
-      end
       it "renders posts" do
         get 'user', {}, valid_session
         assigns(:posts).size.should == 3
@@ -174,45 +174,18 @@ describe HomeController do
     end
 
     describe "POST create_post" do
-      before(:each) do
-        @topic_user = Fabricate(:topic_user, user: current_user_master)
-      end
       describe "with invalid params" do
         it "doesn't create a post" do
           -> do
             post :create_post, {topic_user_id: @topic_user.to_param, post: {}}, valid_session
-          end.should change { @topic_user.posts.count }.by(0)
-        end
-        it "renders show template" do
-          post :create_post, {topic_user_id: @topic_user.to_param, post: {}}, valid_session
-          assigns(:post).should be_a(Post)
-          assigns(:post).errors.should_not be_empty
+          end.should raise_error(ActiveRecord::RecordInvalid)
         end
       end
       describe "with valid params" do
         it "creates a post" do
           -> do
             post :create_post, {topic_user_id: @topic_user.to_param, post: {text: Faker::Lorem.sentence}}, valid_session
-          end.should change { Post.count }.by(1)
-        end
-        it "creates a post associated with current_user" do
-          -> do
-            post :create_post, {topic_user_id: @topic_user.to_param, post: {text: Faker::Lorem.sentence}}, valid_session
-          end.should change { current_user_master.posts.count }.by(1)
-        end
-        it "creates a post associated with @topic_user" do
-          -> do
-            post :create_post, {topic_user_id: @topic_user.to_param, post: {text: Faker::Lorem.sentence}}, valid_session
-          end.should change { @topic_user.posts.count }.by(1)
-        end
-        it "creates a post associated with @topic_user.topic" do
-          -> do
-            post :create_post, {topic_user_id: @topic_user.to_param, post: {text: Faker::Lorem.sentence}}, valid_session
-          end.should change { @topic_user.topic.posts.count }.by(1)
-        end
-        it "creates a post associated with @topic_user" do
-          post :create_post, {topic_user_id: @topic_user.to_param, post: {text: Faker::Lorem.sentence}}, valid_session
-          assigns(:post).should be_a(Post)
+          end.should change(Post, :count).by(1)
         end
         it "response renders the post template" do
           post :create_post, {topic_user_id: @topic_user.to_param, post: {text: Faker::Lorem.sentence}}, valid_session
@@ -222,21 +195,14 @@ describe HomeController do
     end
 
     describe "GET more_posts" do
-      before(:each) do
-        @topic_user = Fabricate(:topic_user, user: current_user_master)
-      end
       describe "empty set" do
         it "renders template" do
           get :more_posts, {format: 'js'}, valid_session
           response.should render_template("posts/more_posts")
+          response.should_not render_template("layouts/application")
         end
       end
       describe "with posts" do
-        before(:each) do
-          3.times do
-            Fabricate(:post, topic_user: @topic_user, text: Faker::Lorem.sentence)
-          end
-        end
         it "with some posts" do
           get :more_posts, {}, valid_session
           assigns(:posts).size.should == 3

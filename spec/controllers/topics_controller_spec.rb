@@ -37,6 +37,7 @@ describe TopicsController do
       topic = Topic.create! valid_attributes
       get :show, {:id => topic.to_param}, valid_session
       assigns(:topic).should eq(topic)
+      assigns(:topic).should be_present
     end
   end
 
@@ -167,29 +168,40 @@ describe TopicsController do
   end
 
   describe "GET more_posts" do
-    before(:each) do
-      @topic_user = Fabricate(:topic_user, user: current_user_master)
-      @topic = @topic_user.topic
+  
+    before do
+      topic_user = Fabricate(:topic_user, user: current_user_master)
+      @topic = topic_user.topic
+      @posts = []
+      3.times do
+        @posts << Fabricate(:post, topic: topic_user.topic, user: topic_user.user)
+        @posts << Fabricate(:post, user: topic_user.user)
+        Fabricate(:post, topic: topic_user.topic)
+        Fabricate(:post)
+      end
     end
     describe "empty set" do
       it "renders template" do
-        get :more_posts, {id: @topic.to_param, format: 'js'}, valid_session
+        get :more_posts, {id: Fabricate(:topic).to_param}, valid_session
         response.should render_template("posts/more_posts")
+        response.should_not render_template("layouts/application")
+      end
+      it "renders template" do
+        get :more_posts, {id: Fabricate(:topic).to_param}, valid_session
+        assigns(:posts).size.should == 0
       end
     end
     describe "with posts" do
-      before(:each) do
-        3.times do
-          Fabricate(:post, topic_user: @topic_user, text: Faker::Lorem.sentence)
-        end
+      it "validating existing of other posts in the database" do
+        Post.count.should == 12
       end
       it "with some posts" do
         get :more_posts, {id: @topic.to_param}, valid_session
-        assigns(:posts).size.should == 3
+        assigns(:posts).size.should == 6
       end
       it "applying before" do
-        get :more_posts, {id: @topic.to_param, before: Post.last.id}, valid_session
-        assigns(:posts).size.should == 2
+        get :more_posts, {id: @topic.to_param, before: @posts.last.id}, valid_session
+        assigns(:posts).size.should == 5
       end
       it "applying limit" do
         get :more_posts, {id: @topic.to_param, limit: 1}, valid_session

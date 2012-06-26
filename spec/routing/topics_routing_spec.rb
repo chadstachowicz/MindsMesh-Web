@@ -20,7 +20,7 @@ describe TopicsController do
     end
 
     it "routes to #more_posts" do
-      get("/topics/1/more_posts").should route_to("topics#more_posts", :id => "1", :format => 'js')
+      get("/topics/1/more_posts").should route_to("topics#more_posts", :id => "1")
     end
 
 

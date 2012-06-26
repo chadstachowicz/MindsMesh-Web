@@ -2,6 +2,15 @@
 $("#posts a.more").live("ajax:beforeSend", function() {
   $(this).fadeOut('fast');
 });
+$("#posts a.more").live("ajax:success", function(e, data) {
+  $("#posts").append(data).find(".best_in_place").best_in_place();
+  $('#posts .posts_pack:last').effect("highlight", {}, 1200);
+});
+
+
+
+
+
 
 //_post -> new reply
 

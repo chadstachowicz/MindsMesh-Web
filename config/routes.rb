@@ -6,7 +6,7 @@ Lyrne::Application.routes.draw do
     member do
       put :join
       #get :posts, format: 'js'
-      get :more_posts, format: 'js'
+      get :more_posts
     end
   end
   resources :posts, except: [:new, :create, :edit] do

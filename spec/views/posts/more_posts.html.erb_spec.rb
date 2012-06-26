@@ -19,12 +19,6 @@ describe "posts/more_posts" do
       render
       rendered.should_not include(">MORE<")
     end
-
-    it "renders best in place" do
-      render
-      rendered.should include('find(".best_in_place").best_in_place()')
-      rendered.should_not render_template("posts/_post")
-    end
   end
 
   describe "with posts" do

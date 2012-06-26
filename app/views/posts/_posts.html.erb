@@ -6,7 +6,7 @@
   <% if posts.any? %>
     <%= render posts %>
     <%= link_to "MORE",
-                {action: 'more_posts', format: 'js', before: posts.last.id},
+                {action: 'more_posts', format: 'html', before: posts.last.id},
                 class: "more btn btn-inverse btn-large",
                 data: {disable_with: "loading..."},
                 remote: true

@@ -70,14 +70,12 @@ ActiveRecord::Schema.define(:version => 20120623202244) do
   create_table "posts", :force => true do |t|
     t.integer  "topic_id"
     t.integer  "user_id"
-    t.integer  "topic_user_id"
     t.text     "text"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   add_index "posts", ["topic_id"], :name => "index_posts_on_topic_id"
-  add_index "posts", ["topic_user_id"], :name => "index_posts_on_topic_user_id"
   add_index "posts", ["user_id"], :name => "index_posts_on_user_id"
 
   create_table "replies", :force => true do |t|
