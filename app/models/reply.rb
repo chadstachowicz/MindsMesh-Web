@@ -6,4 +6,5 @@ class Reply < ActiveRecord::Base
   validates_presence_of :post
   validates_presence_of :user
   validates_presence_of :text
+  #scope :includes_all , includes(:user, :likes)
 end

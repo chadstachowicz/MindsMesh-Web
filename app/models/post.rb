@@ -16,7 +16,7 @@ class Post < ActiveRecord::Base
     end
   end
 
-  default_scope includes(:user)
+  #scope :includes_all , includes(:user, :topic, :replies, :likes)
 
   def self.before(id)
     id ? where("posts.id < ?", id) : scoped

@@ -163,7 +163,7 @@ describe PostsController do
       -> {
         put :like, {:id => @post.to_param}, valid_session
         put :like, {:id => @post.to_param}, valid_session
-      }.should change(current_user.likes, :count).by(1)
+      }.should change(Like, :count).by(1)
     end
 
     it "renders current likes count" do

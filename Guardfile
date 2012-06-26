@@ -8,8 +8,8 @@ guard 'rspec', :version => 2, :cli => '--drb' do
   # Rails example
 
   # too generic
-  #watch(%r{^app/(.+)\.rb$})                           { |m| "spec/#{m[1]}_spec.rb" }
-  #watch(%r{^app/(.*)(\.erb|\.haml)$})                 { |m| "spec/#{m[1]}#{m[2]}_spec.rb" }
+  watch(%r{^app/(.+)\.rb$})                           { |m| "spec/#{m[1]}_spec.rb" }
+  watch(%r{^app/(.*)(\.erb|\.haml)$})                 { |m| "spec/#{m[1]}#{m[2]}_spec.rb" }
 
   # controllers
   watch(%r{^app/controllers/(.+)_(controller)\.rb$})  { |m| [

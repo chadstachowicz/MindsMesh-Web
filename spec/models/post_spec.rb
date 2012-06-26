@@ -8,10 +8,10 @@ describe Post do
 
   describe "associations" do
     describe "understands" do
-      #{user: User, topic: Topic, topic_user: TopicUser, replies: Array, likes: Array}.each do |assoc, clazz|
       {user: User, topic: Topic, replies: Array, likes: Array}.each do |assoc, clazz|
         it assoc do
           post = Fabricate(:post)
+          post.should be_valid
           post.should respond_to(assoc)
           post.send(assoc).should be_a(clazz)
         end
