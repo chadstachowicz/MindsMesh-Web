@@ -7,13 +7,14 @@ class Post < ActiveRecord::Base
   attr_accessible :text
   validates_presence_of :topic
   validates_presence_of :user
-  validates_presence_of :topic_user
   validates_presence_of :text
   validates_length_of :text, minimum: 10
 
   before_validation on: :create do
-    self.user_id  = topic_user.user_id
-    self.topic_id = topic_user.topic_id
+    if topic_user.present? && (topic.nil? || user.nil?)
+      self.topic = topic_user.topic
+      self.user  = topic_user.user
+    end
   end
 
   default_scope includes(:user)
