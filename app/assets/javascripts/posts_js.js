@@ -11,11 +11,7 @@ $("form.new_reply textarea").live("focus", function(e) {
 
 $("form.new_reply textarea").live("keydown", function(e) {
   if (e.keyCode == 13 && !e.shiftKey && !e.ctrlKey) {
-    if ($(this).val().length < 10) {
-      alert('a reasonable reply should have at least 10 letters');
-      $(this).focus();
-    }
-    else {
+    if ($(this).val().trim().length > 0) {
       $(this).closest('form').submit();
       $(this).val('');
       return false;
