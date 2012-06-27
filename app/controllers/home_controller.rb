@@ -16,6 +16,7 @@ class HomeController < ApplicationController
   def guest_create_eur
     authorize! :home_guest, nil
     @entity_user_request = current_user.entity_user_requests.where(params[:entity_user_request]).first_or_initialize
+    @entity_user_request.generate_and_mail_new_token
     @entity_user_request.save
   end
 

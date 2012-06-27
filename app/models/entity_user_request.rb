@@ -8,26 +8,30 @@ class EntityUserRequest < ActiveRecord::Base
   validates_presence_of :user
   validates_presence_of :email
   validates_uniqueness_of :email, scope: :entity_id
+  validates_uniqueness_of :user_id, scope: :entity_id
 
   validates_email_format_of :email
   validate do
-    errors[:email] << "'#{email}' is not a valid @uncc.edu email address" unless errors[:email].any? || email.include?("@uncc.edu")
+    errors[:email] << "'#{email}' is not a valid @uncc.edu email address" unless errors[:email].any? || email.downcase.include?("@uncc.edu")
   end
 
   def to_param
     confirmation_token
   end
 
-  before_save do
-    self.email = email.downcase
+  def generate_and_mail_new_token
     self.confirmation_token = Digest::MD5.hexdigest(Time.now.to_s)
     #TODO: send email
   end
 
+  before_save do
+    self.email = email.downcase
+  end
+
   def confirm
     transaction do
-      entity.entity_users.create do |su|
-        su.user_id = user.id#force select, so it validates that user exists
+      entity.entity_users.create do |eu|
+        eu.user_id = user.id#force select, so it validates that user exists
         #su.b_student = true
       end
       user.roles += ['user']
