@@ -2,16 +2,17 @@ require 'spec_helper'
 
 describe Like do
   describe "associations" do
-    describe "understands" do
+    describe "understands belongs_to" do
       {user: User, likable: ActiveRecord::Base}.each do |assoc, clazz|
         it assoc do
-          like = Fabricate(:like)
-          like.should respond_to(assoc)
-          like.send(assoc).should be_a(clazz)
+          record = Fabricate(:like)
+          record.should be_valid
+          record.should respond_to(assoc)
+          record.send(assoc).should be_a(clazz)
         end
       end
     end
-    describe "validating polymorphic likable" do
+    describe "understands belongs_to polymorphic likable" do
       %w(post reply).each do |likable_type|
         it "#{likable_type} is likable" do
           likable = Fabricate(likable_type)

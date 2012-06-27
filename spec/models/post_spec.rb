@@ -7,26 +7,27 @@ describe Post do
   end
 
   describe "associations" do
-    describe "understands" do
-      {user: User, topic: Topic, replies: Array, likes: Array}.each do |assoc, clazz|
+    describe "understands belongs_to" do
+      {user: User, topic: Topic}.each do |assoc, clazz|
         it assoc do
-          post = Fabricate(:post)
-          post.should be_valid
-          post.should respond_to(assoc)
-          post.send(assoc).should be_a(clazz)
+          record = Fabricate(:post)
+          record.should be_valid
+          record.should respond_to(assoc)
+          record.send(assoc).should be_a(clazz)
         end
       end
     end
-    describe "validating has_many" do
-      it "replies" do
-        post = Fabricate.build(:post) { replies count: 3 }
-        post.replies.size.should ==3
-        post.replies.sample.should be_a Reply
+    describe "understands has_many" do
+      before do
+        @record_class = :post
       end
-      it "likes" do
-        post = Fabricate.build(:post) { likes count: 3 }
-        post.likes.size.should ==3
-        post.likes.sample.should be_a Like
+      {replies: Reply, likes: Like}.each do |assoc, clazz|
+        it assoc do
+          record = Fabricate.build(@record_class) { send(assoc, count: 3) }
+          record.should respond_to(assoc)
+          record.send(assoc).should be_a Array
+          record.send(assoc).sample.should be_a clazz
+        end
       end
     end
   end

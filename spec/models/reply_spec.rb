@@ -2,8 +2,8 @@ require 'spec_helper'
 
 describe Reply do
   describe "associations" do
-    describe "understands" do
-      {user: User, post: Post, likes: Array}.each do |assoc, clazz|
+    describe "understands belongs_to" do
+      {user: User, post: Post}.each do |assoc, clazz|
         it assoc do
           reply = Fabricate(:reply)
           reply.should respond_to(assoc)
@@ -11,11 +11,17 @@ describe Reply do
         end
       end
     end
-    describe "validating has_many" do
-      it "likes" do
-        reply = Fabricate.build(:reply) { likes count: 3 }
-        reply.likes.size.should ==3
-        reply.likes.sample.should be_a Like
+    describe "understands has_many" do
+      before do
+        @record_class = :reply
+      end
+      {likes: Like}.each do |assoc, clazz|
+        it assoc do
+          record = Fabricate.build(@record_class) { send(assoc, count: 3) }
+          record.should respond_to(assoc)
+          record.send(assoc).should be_a Array
+          record.send(assoc).sample.should be_a clazz
+        end
       end
     end
   end
