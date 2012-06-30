@@ -39,7 +39,7 @@ describe 'Home' do
       -> do
         -> do
           visit home_user_entity_path(User.first.entity_user_requests.first.confirmation_token)
-        end.should change { EntityUserRequest.count }.by(-1)
+        end.should change { EntityUserRequest.count }.by(0)
       end.should change { EntityUser.count }.by(1)
       current_path.should == home_user_path
     end

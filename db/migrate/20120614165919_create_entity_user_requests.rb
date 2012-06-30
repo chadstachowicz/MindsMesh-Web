@@ -6,6 +6,7 @@ class CreateEntityUserRequests < ActiveRecord::Migration
       t.string :email
       t.string :confirmation_token
       t.datetime :last_email_sent_at
+      t.datetime :confirmed_at
 
       t.timestamps
     end

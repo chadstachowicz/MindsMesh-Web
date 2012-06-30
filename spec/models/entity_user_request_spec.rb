@@ -72,19 +72,32 @@ describe EntityUserRequest do
         eur.generate_and_mail_new_token
         }.should change(eur, :confirmation_token)
     end
+    describe "confirmed?" do
+      it "returns true or false" do
+        eur = Fabricate.build(:entity_user_request)
+        [true, false].should include(eur.confirmed?)
+      end
+    end
     describe "confirm" do
       before do
         @eur = Fabricate(:entity_user_request)
       end
-      it "should remove itself" do
+      it "should not remove itself" do
         -> {
           @eur.confirm
-        }.should change(EntityUserRequest, :count).by(-1)
+        }.should_not change(EntityUserRequest, :count)
       end
       it "should change user's role" do
         -> {
           @eur.confirm
         }.should change(@eur.user, :roles).from([]).to(['user'])
+      end
+      it "should return user's id" do
+        @eur.confirm.should ==@eur.user.id
+      end
+      it "should raise an exception if already confirmed" do
+        @eur.confirm.should be_a(Integer)
+        @eur.confirm.should be_false
       end
     end
   end

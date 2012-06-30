@@ -68,12 +68,6 @@ describe HomeController do
           get "user_entity", {confirmation_token: entity_user_request.confirmation_token}
         }.to change(entity_user_request.entity.entity_users, :count).by(1)
       end
-      it "destroys that confirmation_token" do
-        entity_user_request = Fabricate(:entity_user_request)
-        expect {
-          get "user_entity", {confirmation_token: entity_user_request.confirmation_token}
-        }.to change(EntityUserRequest, :count).by(-1)
-      end
       it "redirects_to home_user_path" do
         entity_user_request = Fabricate(:entity_user_request)
         get "user_entity", {confirmation_token: entity_user_request.confirmation_token}
