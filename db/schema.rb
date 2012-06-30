@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120623202244) do
+ActiveRecord::Schema.define(:version => 20120627200836) do
 
   create_table "entities", :force => true do |t|
     t.string   "name"
@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(:version => 20120623202244) do
     t.string   "email"
     t.string   "confirmation_token"
     t.datetime "last_email_sent_at"
+    t.datetime "confirmed_at"
     t.datetime "created_at",         :null => false
     t.datetime "updated_at",         :null => false
   end
@@ -77,6 +78,23 @@ ActiveRecord::Schema.define(:version => 20120623202244) do
 
   add_index "posts", ["topic_id"], :name => "index_posts_on_topic_id"
   add_index "posts", ["user_id"], :name => "index_posts_on_user_id"
+
+  create_table "questionnaires", :force => true do |t|
+    t.integer  "user_id"
+    t.text     "q1"
+    t.text     "q2"
+    t.text     "q3"
+    t.text     "q4"
+    t.text     "q5"
+    t.text     "q6"
+    t.text     "q7"
+    t.text     "q8"
+    t.text     "q9"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "questionnaires", ["user_id"], :name => "index_questionnaires_on_user_id"
 
   create_table "replies", :force => true do |t|
     t.integer  "post_id"

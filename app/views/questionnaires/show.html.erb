@@ -1,0 +1,17 @@
+<%= link_to '< Previous', @previous %>
+<%= link_to 'Next >',     @next, style: 'float:right' %>
+<br /><br />
+<%= link_to '< Back to List All', questionnaires_path %>
+
+<hr />
+
+<%= image_tag @questionnaire.user.photo_url, width: 50 %>
+<%= link_to @questionnaire.user.name, @questionnaire.user, style: 'font-size:20px' %>
+
+<hr />
+
+<% Questionnaire::AVAILABLE_QUESTIONS.each do |q| %>
+<p><b><%= q.to_s.capitalize %>: <%= raw Questionnaire::QUESTIONS[q] %></b></p>
+<p class="lead" style="padding-left: 25px"><%= @questionnaire.send(q) || "<i>[not answered]</i>".html_safe %></p>
+<hr />
+<% end %>
