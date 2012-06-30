@@ -31,7 +31,7 @@ describe "Topics" do
   describe "PUT /topics/1/join" do
 
     it "capybara: joins a topic as a student" do
-      capybara_current_user_user!
+      capybara_current_user_client!
       @topic = Fabricate(:topic, entity: Entity.first)
 
       #sees the page

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "home/guest_create_eur.js.erb" do
+describe "home/user_create_eur.js.erb" do
 
   it "renders the create entity_user_requests remote form" do
     current_user = Fabricate(:user)

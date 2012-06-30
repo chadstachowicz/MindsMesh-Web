@@ -27,16 +27,16 @@ Lyrne::Application.routes.draw do
   get "home/index"
   post "home/index" => "home#create_post"
   
-  get "home/basic"
+  get "home/guest"
   get "session/logout"
   get "/auth/:provider/callback" => "session#create"
 
-  get "home/guest"
-  post "home/guest_create_eur"#, format: 'js'
+  get "home/user"
+  post "home/user_create_eur"
   get "home/user_entity/:confirmation_token" => "home#user_entity", as: 'home_user_entity'
 
   
-  get "home/user"
+  get "home/client"
   get "home/moderator"
   get "home/manager"
   get "home/admin"

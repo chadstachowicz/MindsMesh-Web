@@ -41,7 +41,7 @@ class EntityUserRequest < ActiveRecord::Base
         eu.user_id = user.id#force select, so it validates that user exists
         #su.b_student = true
       end
-      user.roles += ['user']
+      user.roles += ['client']
       user.save
       update_attribute(:confirmed_at, Time.now)
       user.id

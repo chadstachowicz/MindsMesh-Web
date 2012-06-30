@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
   has_many :likes
   validates_presence_of :name
 
-  ROLES = %w(basic guest user moderator manager admin master)
+  ROLES = %w(guest user client moderator manager admin master)
 
   def roles
     roles_s.to_s.split.map &:to_s
@@ -29,9 +29,9 @@ class User < ActiveRecord::Base
     false
   end
 
-  def basic?;     false;             end #when you don't have a current_user, it's a guest
-  def guest?;     roles.empty?;      end #must have zero roles to be a user
-  def user?;      role?(:user);      end
+  def guest?;     false;             end #when you don't have a current_user, it's a guest
+  def user?;      roles.empty?;      end #must have zero roles to be a user
+  def client?;    role?(:client);    end
   def moderator?; role?(:moderator); end
   def manager?;   role?(:manager);   end
   def admin?;     role?(:admin);     end

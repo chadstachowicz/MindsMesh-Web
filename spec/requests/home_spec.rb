@@ -7,13 +7,13 @@ describe 'Home' do
 
     it "capybara: from login page until becomes a student" do
       Fabricate(:entity)
-      # I'm a basic (no account)
+      # I'm a guest (no account)
       visit home_index_path
-      current_path.should == home_basic_path
+      current_path.should == home_guest_path
 
       # - login (creating user)
       click_link('login with facebook')
-      current_path.should == home_guest_path
+      current_path.should == home_user_path
 
       # - submits email to become a user
       #submits invalid email
@@ -24,7 +24,7 @@ describe 'Home' do
       page.should have_content('alert(')
 
       #submits valid email
-      visit home_guest_path
+      visit home_user_path
       -> do
         fill_in('entity_user_request_email', with: "#{Faker::Internet.user_name}@uncc.edu")
         click_button 'Register'
@@ -41,7 +41,7 @@ describe 'Home' do
           visit home_user_entity_path(User.first.entity_user_requests.first.confirmation_token)
         end.should change { EntityUserRequest.count }.by(0)
       end.should change { EntityUser.count }.by(1)
-      current_path.should == home_user_path
+      current_path.should == home_client_path
     end
   end
 end

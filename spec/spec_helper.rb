@@ -79,8 +79,8 @@ def current_user_master
   @current_user_master ||= Fabricate(:user, roles_s: 'master')
 end
 
-def current_user_user
-  @current_user_user ||= Fabricate(:user, roles_s: 'user')
+def current_user_client
+  @current_user_client ||= Fabricate(:user, roles_s: 'client')
 end
 
 def valid_session

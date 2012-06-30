@@ -16,8 +16,8 @@
       </a>
       <div class="menu">
         <% if current_user %>
-        <%= link_to "Home Guest",     home_guest_path     if current_user.guest? %>
         <%= link_to "Home User",      home_user_path      if current_user.user? %>
+        <%= link_to "Home",           home_client_path    if current_user.client? %>
         <%= link_to "Home Moderator", home_moderator_path if current_user.moderator? %>
         <%= link_to "Home Manager",   home_teacher_path   if current_user.manager? %>
         <%= link_to "Home Admin",     home_admin_path     if current_user.admin? %>

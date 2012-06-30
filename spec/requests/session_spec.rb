@@ -8,7 +8,7 @@ describe "Session" do
 
       # I'm a guest
       visit home_index_path
-      current_path.should == home_basic_path
+      current_path.should == home_guest_path
 
       -> do
         -> do
@@ -16,7 +16,7 @@ describe "Session" do
           click_link('login with facebook')
         end.should change { User.count }.by(1)
       end.should change { Login.count }.by(1)
-      current_path.should == home_guest_path
+      current_path.should == home_user_path
     end
   end
 

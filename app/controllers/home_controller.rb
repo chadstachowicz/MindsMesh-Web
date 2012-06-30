@@ -3,18 +3,18 @@ class HomeController < ApplicationController
     redirect_to_landing_home_page
   end
 
-  def basic
-    authorize! :home_basic, nil
-  end
-
   def guest
     authorize! :home_guest, nil
+  end
+
+  def user
+    authorize! :home_user, nil
     @entity = Entity.first
     @entity_user_request = @entity.entity_user_requests.build
   end
 
-  def guest_create_eur
-    authorize! :home_guest, nil
+  def user_create_eur
+    authorize! :home_user, nil
     @entity_user_request = current_user.entity_user_requests.where(params[:entity_user_request]).first_or_initialize
     @entity_user_request.generate_and_mail_new_token
     @entity_user_request.save
@@ -26,8 +26,8 @@ class HomeController < ApplicationController
     redirect_to_landing_home_page
   end
 
-  def user
-    authorize! :home_user, nil
+  def client
+    authorize! :home_client, nil
     @posts = current_user.posts_feed
   end
 

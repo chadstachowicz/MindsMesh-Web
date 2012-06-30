@@ -1,0 +1,38 @@
+<% if current_user.topic_users.size.zero? %>
+<h3>content for when you have not joined any topics</h3>
+<% else %>
+<%= render '/posts/new_post', topic_user: nil %>
+<% end %>
+<%= render '/posts/posts', posts: @posts, title: "My Mesh" %>
+
+<% content_for :pageheader do %>
+<div class="page-header">
+  <h3>Home#user</h3>
+</div>
+<% end %>
+
+<% content_for :sidebar do %>
+<%= render '/home/feedback' %>
+<section>
+  <h2>My Topics</h2>
+  <div>
+    <ul>
+      <% current_user.topic_users.each do |topic_user| %>
+        <% topic = topic_user.topic %>
+        <li><%= link_to topic.name, topic, title: topic.name, rel: 'tooltip', class: 'roman-icon' %></li>
+      <% end %>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <h2>All Topics</h2>
+  <div>
+    <ul>
+      <% Topic.all.each do |topic| %>
+        <li><%= link_to topic.name, topic, title: topic.name, rel: 'tooltip', class: 'roman-icon' %></li>
+      <% end %>
+    </ul>
+  </div>
+</section>
+<% end %>

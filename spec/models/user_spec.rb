@@ -5,7 +5,7 @@ describe User do
   describe "roles" do
 
     before(:each) do
-      @user = Fabricate.build(:user, roles_s: 'user master')
+      @user = Fabricate.build(:user, roles_s: 'client master')
     end
 
     it "should be an array" do
@@ -14,7 +14,8 @@ describe User do
 
     it "should match given role methods properly" do
       @user.guest?.should     be_false
-      @user.user?.should      be_true
+      @user.user?.should      be_false
+      @user.client?.should    be_true
       @user.moderator?.should be_false
       @user.manager?.should   be_false
       @user.admin?.should     be_false
@@ -32,26 +33,26 @@ describe User do
       -> { @user.role?(:cool) }.should raise_error(RuntimeError)
     end
 
-    it "should return false for guest" do
-      @user.role?(:guest).should           be_false
-      @user.role?(:guest, :manager).should be_true
+    it "should return false for user" do
+      @user.role?(:user).should           be_false
+      @user.role?(:user, :manager).should be_true
     end
 
     it "should return false for empty" do
       @user.role?().should be_false
     end
 
-    it "should return false for basic" do
-      @user.role?(:basic).should           be_false
-      @user.role?(:basic, :user).should    be_false
-      @user.role?(:basic, :manager).should be_true
+    it "should return false for guest" do
+      @user.role?(:guest).should           be_false
+      @user.role?(:guest, :client).should  be_false
+      @user.role?(:guest, :manager).should be_true
     end
 
     it "should check if at least one role match" do
       @user.role?(:admin, :master).should be_true
       @user.role?(:admin).should          be_true
       @user.role?(:master).should         be_false
-      @user.role?(:user).should           be_false
+      @user.role?(:client).should         be_false
     end
 
   end

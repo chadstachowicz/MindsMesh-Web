@@ -2,15 +2,15 @@ class Ability
   include CanCan::Ability
   
   def initialize(current_user)
-    return basic unless current_user
+    return guest unless current_user
     @current_user = current_user
     #
     can [:read], User do |user|
       current_user == user
     end
     #
-    guest     if current_user.guest?
     user      if current_user.user?
+    client    if current_user.client?
     moderator if current_user.moderator?
     manager   if current_user.manager?
     admin     if current_user.admin?
@@ -24,16 +24,16 @@ class Ability
     end
   end
 
-  def basic
-    can :home_basic
-  end
-
   def guest
     can :home_guest
   end
 
   def user
     can :home_user
+  end
+
+  def client
+    can :home_client
     #TODO: stop testing only as a master
     can [:read, :join], Topic do |topic|
       topic.entity.entity_users.where(user_id: @current_user.id).exists?
