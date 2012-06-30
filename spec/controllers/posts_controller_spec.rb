@@ -168,7 +168,7 @@ describe PostsController do
 
     it "renders current likes count" do
       put :like, {:id => @post.to_param}, valid_session
-      response.body.should == @post.likes.size.to_s
+      response.body.should == @post.reload.likes.size.to_s
     end
 
   end

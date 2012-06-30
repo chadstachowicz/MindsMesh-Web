@@ -100,7 +100,7 @@ describe RepliesController do
 
     it "renders nothing" do
       put :like, {:id => @reply.to_param}, valid_session
-      response.body.should == @reply.likes.size.to_s
+      response.body.should == @reply.reload.likes.size.to_s
     end
 
   end

@@ -29,7 +29,7 @@ class PostsController < ApplicationController
   def like
     #doesn't do anything if user already liked it
     Like.create user: current_user, likable: @post
-    render text: @post.likes.size
+    render text: @post.reload.likes.size
   end
 
   # PUT /posts/1

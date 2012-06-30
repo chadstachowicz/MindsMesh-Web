@@ -15,7 +15,7 @@ class RepliesController < ApplicationController
   def like
     #doesn't do anything if user already liked it
     Like.create user: current_user, likable: @reply
-    render text: @reply.likes.size
+    render text: @reply.reload.likes.size
     #render js: "setTimeout( function() {$('#reply_#{@reply.id} span').html('#{@reply.likes.size}')}, 500)"
   end
 
