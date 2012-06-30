@@ -4,14 +4,6 @@ describe HomeController do
 
   describe "authorization" do
 
-    describe "GET 'index'" do
-      it "returns http success" do
-        get 'index'
-        response.should be_redirect
-        #pending "this is an action for logical decisions"
-      end
-    end
-
     describe "GET 'guest'" do
       it "returns http success if not logged in" do
         get 'guest'
@@ -94,7 +86,7 @@ describe HomeController do
       it "denies access not in role" do
         session[:user_id] = Fabricate(:user).id
         get 'client'
-        response.should redirect_to(denied_path)
+        response.should redirect_to(home_user_path)
       end
     end
 

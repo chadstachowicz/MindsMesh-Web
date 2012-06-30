@@ -1,6 +1,12 @@
 class HomeController < ApplicationController
-  def index
+  def denied
     redirect_to_landing_home_page
+  end
+
+  def client
+    return redirect_to_landing_home_page if !current_user || current_user.user?
+    authorize! :home_client, nil
+    @posts = current_user.posts_feed
   end
 
   def guest
@@ -24,11 +30,6 @@ class HomeController < ApplicationController
     eur = EntityUserRequest.find_by_confirmation_token!(params[:confirmation_token])
     session[:user_id] = eur.confirm
     redirect_to_landing_home_page
-  end
-
-  def client
-    authorize! :home_client, nil
-    @posts = current_user.posts_feed
   end
 
   def moderator

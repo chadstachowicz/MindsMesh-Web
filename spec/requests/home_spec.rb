@@ -8,7 +8,7 @@ describe 'Home' do
     it "capybara: from login page until becomes a student" do
       Fabricate(:entity)
       # I'm a guest (no account)
-      visit home_index_path
+      visit root_path
       current_path.should == home_guest_path
 
       # - login (creating user)

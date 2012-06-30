@@ -1,13 +1,13 @@
 Lyrne::Application.routes.draw do
 
+  #general resources, most of these have permissions
   resources :questionnaires, only: [:index, :show, :destroy]
-
   resources :topic_users
-
+  resources :entities
+  resources :users, only: [:index, :show, :edit, :update, :destroy]
   resources :topics do
     member do
       put :join
-      #get :posts, format: 'js'
       get :more_posts
     end
   end
@@ -22,33 +22,32 @@ Lyrne::Application.routes.draw do
       put 'like'
     end
   end
-  resources :entities
   
-  get "home/index"
-  post "home/index" => "home#create_post"
-  
+  #creating an account
   get "home/guest"
   get "session/logout"
   get "/auth/:provider/callback" => "session#create"
 
+  #relating to an entity
   get "home/user"
   post "home/user_create_eur"
   get "home/user_entity/:confirmation_token" => "home#user_entity", as: 'home_user_entity'
 
+  #client, a user associated to entity
+  get '/' => 'home#client', as: 'home_client'
+  get "home/more_posts"
+  post "home/create_post"
   
-  get "home/client"
+  #questionnaire
+  post "home/feedback"
+
+
+  #other roles
   get "home/moderator"
   get "home/manager"
   get "home/admin"
   get "home/master"
 
-  get "home/more_posts", format: 'js'
-  post "home/create_post", format: 'js'
-  
-  post "home/feedback"
-
-
-  resources :users, only: [:index, :show, :edit, :update, :destroy]
-  root to: "home#index"
-  get "home/index", as: 'denied'
+  root to: "home#client"
+  get "home/denied", as: 'denied'
 end

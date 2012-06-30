@@ -7,7 +7,7 @@ describe "Session" do
       Fabricate(:entity)
 
       # I'm a guest
-      visit home_index_path
+      visit root_path
       current_path.should == home_guest_path
 
       -> do

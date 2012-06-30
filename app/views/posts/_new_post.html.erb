@@ -1,5 +1,5 @@
 <section>
-  <%= form_for Post.new, url: home_index_path(format: 'js'), remote: true do |f| %>
+  <%= form_for Post.new, url: home_create_post_path(format: 'js'), remote: true do |f| %>
     <div class="head">
       <h1>Question or comment</h1>
       <% if topic_user.present? %>
