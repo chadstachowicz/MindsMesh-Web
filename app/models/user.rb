@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  attr_accessible :name, :photo_url, :roles_s
+  attr_accessible :name, :photo_url
   has_many :logins
   has_many :entity_user_requests
   has_many :entity_users
@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
   has_many :replies
   has_many :likes
   validates_presence_of :name
-  
+
   ROLES_MAP = {
                 master:    16,
                 admin:     8,

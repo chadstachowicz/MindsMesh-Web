@@ -4,6 +4,8 @@ class CreatePosts < ActiveRecord::Migration
       t.references :topic
       t.references :user
       t.text :text
+      t.integer :likes_count, default: 0
+      t.integer :replies_count, default: 0
 
       t.timestamps
     end

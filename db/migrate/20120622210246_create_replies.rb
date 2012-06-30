@@ -4,6 +4,7 @@ class CreateReplies < ActiveRecord::Migration
       t.references :post
       t.references :user
       t.text :text
+      t.integer :likes_count, default: 0
 
       t.timestamps
     end

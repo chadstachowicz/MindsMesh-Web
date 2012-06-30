@@ -1,6 +1,6 @@
 class Reply < ActiveRecord::Base
-  belongs_to :post
-  belongs_to :user
+  belongs_to :post, counter_cache: true
+  belongs_to :user, counter_cache: true
   has_many :likes, as: :likable
   attr_accessible :text
   validates_presence_of :post

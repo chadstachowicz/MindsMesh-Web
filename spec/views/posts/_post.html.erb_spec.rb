@@ -2,11 +2,7 @@ require 'spec_helper'
 
 describe "posts/_post" do
   before(:each) do
-    @post = assign(:post, Fabricate(:post))
-    @count = 3
-    @replies = (1..@count).to_a.map {
-      Fabricate(:reply, post: @post)
-    }
+    @post = assign(:post, Fabricate(:post) { replies count: 3 } )
     view.stub!(:post).and_return(@post)
     controller.stub!(:current_user).and_return(current_user_master)
   end
@@ -18,10 +14,7 @@ describe "posts/_post" do
 
   it "renders replies correctly" do
     render
-    assert_select "div.reply", count: @count
-    @replies.each do |reply|
-      rendered.should include(reply.text)
-    end
+    assert_select "div.reply", count: @post.replies.count
   end
 
   it "has post text" do

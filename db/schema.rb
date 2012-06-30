@@ -72,8 +72,10 @@ ActiveRecord::Schema.define(:version => 20120627200836) do
     t.integer  "topic_id"
     t.integer  "user_id"
     t.text     "text"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.integer  "likes_count",   :default => 0
+    t.integer  "replies_count", :default => 0
+    t.datetime "created_at",                   :null => false
+    t.datetime "updated_at",                   :null => false
   end
 
   add_index "posts", ["topic_id"], :name => "index_posts_on_topic_id"
@@ -100,8 +102,9 @@ ActiveRecord::Schema.define(:version => 20120627200836) do
     t.integer  "post_id"
     t.integer  "user_id"
     t.text     "text"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.integer  "likes_count", :default => 0
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
   end
 
   add_index "replies", ["post_id"], :name => "index_replies_on_post_id"
@@ -122,8 +125,10 @@ ActiveRecord::Schema.define(:version => 20120627200836) do
     t.integer  "entity_id"
     t.string   "name"
     t.string   "slug"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.integer  "topic_users_count", :default => 0
+    t.integer  "posts_count",       :default => 0
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
   end
 
   add_index "topics", ["entity_id"], :name => "index_topics_on_entity_id"
@@ -131,9 +136,13 @@ ActiveRecord::Schema.define(:version => 20120627200836) do
   create_table "users", :force => true do |t|
     t.string   "name"
     t.string   "photo_url"
-    t.integer  "roles_mask", :default => 0
-    t.datetime "created_at",                :null => false
-    t.datetime "updated_at",                :null => false
+    t.integer  "roles_mask",        :default => 0
+    t.integer  "posts_count",       :default => 0
+    t.integer  "replies_count",     :default => 0
+    t.integer  "likes_count",       :default => 0
+    t.integer  "topic_users_count", :default => 0
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
   end
 
 end
