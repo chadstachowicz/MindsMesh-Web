@@ -1,5 +1,7 @@
 Lyrne::Application.routes.draw do
 
+  resources :questionnaires, only: [:index, :show, :destroy]
+
   resources :topic_users
 
   resources :topics do
@@ -42,6 +44,8 @@ Lyrne::Application.routes.draw do
 
   get "home/more_posts", format: 'js'
   post "home/create_post", format: 'js'
+  
+  post "home/feedback"
 
 
   resources :users, only: [:index, :show, :edit, :update, :destroy]

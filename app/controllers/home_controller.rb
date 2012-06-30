@@ -57,4 +57,10 @@ class HomeController < ApplicationController
     @posts = current_user.posts_feed(params.slice(:limit, :before))
     render '/posts/more_posts', layout: false
   end
+
+  def feedback
+    feedback_questionaire = Questionnaire.where(user_id: current_user.id).first_or_initialize
+    feedback_questionaire.update_attribute(params[:name], params[:value])
+    render nothing: true
+  end
 end

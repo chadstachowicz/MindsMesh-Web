@@ -1,6 +1,7 @@
 .clear { clear:both; }
 
 $green: #46a546;
+$yellow: #ffc40d;
 
 a {
   color: #666;
@@ -490,6 +491,18 @@ span.best_in_place {
         font-size: 13px;
         font-weight: 600;
         width: 100%;
+      }
+    }
+    &.questionnaire {
+      background: #333;
+      color: #fff;
+      padding: 0 10px;
+      border-radius: 4px;
+      .field {
+        padding: 10px 0;
+        border-bottom: #fff solid 2px;
+        &:last-child { border-bottom: none; }
+        textarea:focus{ border-color: $yellow; }
       }
     }
     h1 {

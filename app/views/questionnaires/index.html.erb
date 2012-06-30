@@ -1,0 +1,39 @@
+<h1>Listing questionnaires</h1>
+
+<table style="width: 100%;" border=1 cellpadding=5>
+  <tr>
+    <th>User</th>
+    <th>Q1</th>
+    <th>Q2</th>
+    <th>Q3</th>
+    <th>Q4</th>
+    <th>Q5</th>
+    <th>Q6</th>
+    <th>Q7</th>
+    <th>Q8</th>
+    <th>Q9</th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @questionnaires.each do |questionnaire| %>
+  <tr>
+    <td>
+      <%= image_tag questionnaire.user.photo_url, width: 50 %>
+      <br />
+      <%= link_to questionnaire.user.name, questionnaire.user %>
+    </td>
+    <td><%= questionnaire.q1 %></td>
+    <td><%= questionnaire.q2 %></td>
+    <td><%= questionnaire.q3 %></td>
+    <td><%= questionnaire.q4 %></td>
+    <td><%= questionnaire.q5 %></td>
+    <td><%= questionnaire.q6 %></td>
+    <td><%= questionnaire.q7 %></td>
+    <td><%= questionnaire.q8 %></td>
+    <td><%= questionnaire.q9 %></td>
+    <td><%= link_to 'Show', questionnaire %></td>
+    <td><%= link_to 'Destroy', questionnaire, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
