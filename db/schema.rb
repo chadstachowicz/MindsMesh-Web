@@ -131,9 +131,9 @@ ActiveRecord::Schema.define(:version => 20120627200836) do
   create_table "users", :force => true do |t|
     t.string   "name"
     t.string   "photo_url"
-    t.string   "roles_s"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.integer  "roles_mask", :default => 0
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
   end
 
 end

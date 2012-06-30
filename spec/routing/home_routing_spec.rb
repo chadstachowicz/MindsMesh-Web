@@ -22,7 +22,7 @@ describe HomeController do
     it "routes to #user_create_eur" do
       post("/home/user_create_eur").should route_to("home#user_create_eur")
     end
-
+=begin
     it "routes to #moderator" do
       get("/home/moderator").should route_to("home#moderator")
     end
@@ -38,7 +38,7 @@ describe HomeController do
     it "routes to #master" do
       get("/home/master").should route_to("home#master")
     end
-
+=end
 
 
 

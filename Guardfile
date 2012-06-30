@@ -12,10 +12,10 @@ guard 'rspec', :version => 2, :cli => '--drb' do
   watch(%r{^app/(.*)(\.erb|\.haml)$})                 { |m| "spec/#{m[1]}#{m[2]}_spec.rb" }
 
   # controllers
-  watch(%r{^app/controllers/(.+)_(controller)\.rb$})  { |m| [
-                                             "spec/#{m[2]}s/#{m[1]}_#{m[2]}_spec.rb",
-                                             "spec/requests/#{m[1]}_spec.rb"
-                                             ] }
+  #watch(%r{^app/controllers/(.+)_(controller)\.rb$})  { |m| [
+                                             #"spec/#{m[2]}s/#{m[1]}_#{m[2]}_spec.rb",
+                                             #"spec/requests/#{m[1]}_spec.rb"
+                                             #] }
                                              #,"spec/acceptance/#{m[1]}_spec.rb"
 
   # not used
@@ -23,7 +23,7 @@ guard 'rspec', :version => 2, :cli => '--drb' do
   #watch(%r{^lib/(.+)\.rb$})     { |m| "spec/lib/#{m[1]}_spec.rb" }
 
   # routes
-  watch('config/routes.rb')                           { "spec/routing" }
+  watch('config/routes.rb')                   { "spec/routing" }
   watch(%r{^spec/routing/(.+)_routing\.rb$})  { |m| "spec/routing/#{m[1]}_routing_spec.rb" }
   
   # controllers

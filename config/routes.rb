@@ -43,10 +43,10 @@ Lyrne::Application.routes.draw do
 
 
   #other roles
-  get "home/moderator"
-  get "home/manager"
-  get "home/admin"
-  get "home/master"
+  #get "home/moderator"
+  #get "home/manager"
+  #get "home/admin"
+  #get "home/master"
 
   root to: "home#client"
   get "home/denied", as: 'denied'

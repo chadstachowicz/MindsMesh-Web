@@ -4,7 +4,7 @@ class HomeController < ApplicationController
   end
 
   def client
-    return redirect_to_landing_home_page if !current_user || current_user.user?
+    return redirect_to_landing_home_page unless current_user
     authorize! :home_client, nil
     @posts = current_user.posts_feed
   end
@@ -31,7 +31,7 @@ class HomeController < ApplicationController
     session[:user_id] = eur.confirm
     redirect_to_landing_home_page
   end
-
+=begin
   def moderator
     authorize! :home_moderator, nil
   end
@@ -47,7 +47,7 @@ class HomeController < ApplicationController
   def master
     authorize! :home_master, nil
   end
-
+=end
   def create_post
     topic_user = current_user.topic_users.find(params[:topic_user_id])
     @post = Post.create_with!(topic_user, params[:post])

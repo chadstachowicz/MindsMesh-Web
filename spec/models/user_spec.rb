@@ -2,71 +2,73 @@ require 'spec_helper'
 
 describe User do
 
-  describe "roles" do
-
-    before(:each) do
-      @user = Fabricate.build(:user, roles_s: 'client master')
+  describe "roles_mask" do
+    before do
+      @user = Fabricate.build(:user)
     end
 
-    it "should be an array" do
-      @user.roles.should be_instance_of(Array)
+    describe "roles getter" do
+
+      it "should be an array" do
+        @user.roles.should be_instance_of(Array)
+        @user.roles.should be ==['user']
+        @user.roles.should_not be_empty
+      end
+
+      it "should save correctly" do
+        @user.roles_mask.should be_zero
+        @user.roles = [:client]
+        @user.roles_mask.should == 1
+        @user.roles = [:client, :master]
+        @user.roles_mask.should == 17
+        @user.roles = [:master]
+        @user.roles_mask.should == 16
+      end
     end
 
-    it "should match given role methods properly" do
-      @user.guest?.should     be_false
-      @user.user?.should      be_false
-      @user.client?.should    be_true
-      @user.moderator?.should be_false
-      @user.manager?.should   be_false
-      @user.admin?.should     be_false
-      @user.master?.should    be_true
-    end
-  end
+    describe "roles= setter" do
+      
+      it "should raise for unkown type" do
+        -> {
+          roles = ['admin', 'lalala']
+          @user.roles = roles
+        }.should raise_error(RuntimeError)
+      end
 
-  describe "role?" do
-    
-    before(:each) do
-      @user = Fabricate.build(:user, roles_s: 'manager admin')
-    end
+      it "should set correctly" do
+        @user.roles = User::ROLES_MAP.keys
+        @user.roles.should == User::ROLES_MAP.keys.map(&:to_s)
+        @user.roles_mask.should == 31
+      end
 
-    it "should raise for unkown type" do
-      -> { @user.role?(:cool) }.should raise_error(RuntimeError)
     end
 
-    it "should return false for user" do
-      @user.role?(:user).should           be_false
-      @user.role?(:user, :manager).should be_true
+    describe "{role}?" do
+
+      it "should work" do
+        @user.should_not be_client
+        @user.should_not be_moderator
+        @user.should_not be_manager
+        @user.should_not be_admin
+        @user.should_not be_master
+      end
+
+      it "should always include in lesser roles" do
+        @user.roles += ['moderator']
+        @user.should     be_client
+        @user.should     be_moderator
+        @user.should_not be_manager
+        @user.should_not be_admin
+        @user.should_not be_master
+
+        @user.roles += ['master']
+        @user.should     be_client
+        @user.should     be_moderator
+        @user.should     be_manager
+        @user.should     be_admin
+        @user.should     be_master
+      end
     end
-
-    it "should return false for empty" do
-      @user.role?().should be_false
-    end
-
-    it "should return false for guest" do
-      @user.role?(:guest).should           be_false
-      @user.role?(:guest, :client).should  be_false
-      @user.role?(:guest, :manager).should be_true
-    end
-
-    it "should check if at least one role match" do
-      @user.role?(:admin, :master).should be_true
-      @user.role?(:admin).should          be_true
-      @user.role?(:master).should         be_false
-      @user.role?(:client).should         be_false
-    end
-
-  end
-
-  describe "roles=" do
-    
-    it "should raise for unkown type" do
-      user = Fabricate.build(:user)
-      user.roles.should be_empty
-      roles = ['admin', 'manager']
-      user.roles = roles
-      user.roles.should == roles
-    end
-
   end
 
   describe "posts_feed" do

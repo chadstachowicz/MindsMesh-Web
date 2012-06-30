@@ -24,7 +24,6 @@ describe HomeController do
         response.should be_success
       end
       it "denies access not in role" do
-        session[:user_id] = Fabricate(:user, roles_s: 'user').id
         get 'user'
         response.should redirect_to(denied_path)
       end
@@ -47,7 +46,6 @@ describe HomeController do
         }.to change(current_user.entity_user_requests, :count).by(1)
       end
       it "denies access not in role" do
-        session[:user_id] = Fabricate(:user, roles_s: 'user').id
         post 'user_create_eur'
         response.should redirect_to(denied_path)
       end
@@ -79,17 +77,17 @@ describe HomeController do
 
     describe "GET 'client'" do
       it "returns http success if in role" do
-        session[:user_id] = Fabricate(:user, roles_s: 'client').id
+        session[:user_id] = Fabricate(:user, roles: ['client']).id
         get 'client'
         response.should be_success
       end
       it "denies access not in role" do
         session[:user_id] = Fabricate(:user).id
         get 'client'
-        response.should redirect_to(home_user_path)
+        response.should redirect_to(denied_path)
       end
     end
-
+=begin
     describe "GET 'moderator'" do
       it "returns http success if in role" do
         session[:user_id] = Fabricate(:user, roles_s: 'moderator').id
@@ -141,7 +139,7 @@ describe HomeController do
         response.should redirect_to(denied_path)
       end
     end
-    
+=end
   end
 
   describe "rendering" do

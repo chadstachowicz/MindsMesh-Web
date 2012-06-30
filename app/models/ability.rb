@@ -5,14 +5,10 @@ class Ability
     return guest unless current_user
     @current_user = current_user
     #
-    can [:read], User do |user|
-      current_user == user
-    end
-    #
-    user      if current_user.user?
+    user
     client    if current_user.client?
-    moderator if current_user.moderator?
-    manager   if current_user.manager?
+    #moderator if current_user.moderator?
+    #manager   if current_user.manager?
     admin     if current_user.admin?
     master    if current_user.master?
 
@@ -30,6 +26,10 @@ class Ability
 
   def user
     can :home_user
+
+    can [:read], User do |user|
+      current_user == user
+    end
   end
 
   def client
@@ -49,7 +49,7 @@ class Ability
       msg.user_id == @current_user.id
     end
   end
-
+=begin
   def moderator
     can :home_moderator
     #they are considered students in the topics they are in
@@ -61,7 +61,7 @@ class Ability
     #they are considered students in the topics they are in
     #but that logic is not being invoked here
   end
-
+=end
   def admin
     can :home_admin
     can :manage, Topic
@@ -69,7 +69,7 @@ class Ability
   end
 
   def master
-    can :home_master
+    #can :home_master
     can :manage, :all
     cannot :destroy, User
   end

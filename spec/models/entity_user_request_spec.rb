@@ -90,7 +90,7 @@ describe EntityUserRequest do
       it "should change user's role" do
         -> {
           @eur.confirm
-        }.should change(@eur.user, :roles).from([]).to(['client'])
+        }.should change(@eur.user, :roles).from(['user']).to(['client', 'user'])
       end
       it "should return user's id" do
         @eur.confirm.should ==@eur.user.id

@@ -11,12 +11,12 @@ class ApplicationController < ActionController::Base
 
   def redirect_to_landing_home_page
     return redirect_to :home_guest     unless current_user
-    return redirect_to :home_user      if current_user.user?
     return redirect_to :root           if current_user.client?
-    return redirect_to :home_moderator if current_user.moderator?
-    return redirect_to :home_manager   if current_user.manager?
-    return redirect_to :home_admin     if current_user.admin?
-    return redirect_to :home_master    if current_user.master?
+    #return redirect_to :home_moderator if current_user.moderator?
+    #return redirect_to :home_manager   if current_user.manager?
+    #return redirect_to :home_admin     if current_user.admin?
+    #return redirect_to :home_master    if current_user.master?
+    return redirect_to :home_user
   end
 
   rescue_from CanCan::AccessDenied do |exception|

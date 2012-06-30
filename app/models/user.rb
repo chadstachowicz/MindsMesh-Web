@@ -8,37 +8,56 @@ class User < ActiveRecord::Base
   has_many :replies
   has_many :likes
   validates_presence_of :name
-
-  ROLES = %w(guest user client moderator manager admin master)
+  
+  ROLES_MAP = {
+                master:    16,
+                admin:     8,
+                manager:   4,
+                moderator: 2,
+                client:    1,
+                user:      0
+              }
 
   def roles
-    roles_s.to_s.split.map &:to_s
-  end
-
-  def roles=(roles)
-    self.roles_s = roles.compact.join(' ')
-  end
-
-  def role?(*given_roles)
-    given_roles = given_roles.map(&:to_s)
-    return false if given_roles.size == 1 && given_roles.include?('guest')
-    given_roles.each do |given_role|
-      raise "unknown #{given_role} role" unless ROLES.include?(given_role)
-      return true if roles.include?(given_role)
+    r = []
+    roles_mask2 = roles_mask #|| 0
+    User::ROLES_MAP.each do |role, mask|
+      if roles_mask2 >= mask
+        r << role
+        roles_mask2 -= mask
+      end
     end
-    false
+    #puts "roles_mask #{roles_mask} translates: #{r.map &:to_s}".green
+    raise "omg!!" if roles_mask2 > 0
+    r.map &:to_s
   end
 
-  def guest?;     false;             end #when you don't have a current_user, it's a guest
-  def user?;      roles.empty?;      end #must have zero roles to be a user
-  def client?;    role?(:client);    end
-  def moderator?; role?(:moderator); end
-  def manager?;   role?(:manager);   end
-  def admin?;     role?(:admin);     end
-  def master?;    role?(:master);    end
+  def roles=(given_roles)
+    given_roles = given_roles.compact.map(&:to_sym)
+    self.roles_mask = 0
+    given_roles.each do |given_role|
+      raise "unknown role: #{given_role}" unless User::ROLES_MAP.keys.include?(given_role)
+      self.roles_mask += User::ROLES_MAP[given_role]
+    end
+    #puts "roles: #{given_roles} store as: #{self.roles_mask}".yellow
+    self.roles_mask
+  end
+
+  def client?;    role_is?(:client);    end
+  def moderator?; role_is?(:moderator); end
+  def manager?;   role_is?(:manager);   end
+  def admin?;     role_is?(:admin);     end
+  def master?;    role_is?(:master);    end
 
 
   def posts_feed(options={})
     Post.where(topic_id: topic_users.map(&:topic_id)).as_feed(options)
+  end
+
+  private
+
+  #user matches the mininum requirement
+  def role_is?(given_role)
+    roles_mask >= User::ROLES_MAP[given_role]
   end
 end
