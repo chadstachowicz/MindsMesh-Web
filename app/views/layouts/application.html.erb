@@ -18,10 +18,10 @@
       <div class="menu">
         <%= link_to "Register",       home_user_path      if not current_user.client? %>
         <%= link_to "Home",           root_path           if current_user.client? %>
-        <%= link_to "Home Moderator", home_moderator_path if current_user.moderator? %>
-        <%= link_to "Home Manager",   home_manager_path   if current_user.manager? %>
-        <%= link_to "Home Admin",     home_admin_path     if current_user.admin? %>
-        <%= link_to "Home Master",    home_master_path    if current_user.master? %>
+        <%#= link_to "Home Moderator", home_moderator_path if current_user.moderator? %>
+        <%#= link_to "Home Manager",   home_manager_path   if current_user.manager? %>
+        <%#= link_to "Home Admin",     home_admin_path     if current_user.admin? %>
+        <%#= link_to "Home Master",    home_master_path    if current_user.master? %>
         <div class="user">
           <div class="image">
             <%= image_tag current_user.photo_url, width: 50, alt: '' %>
