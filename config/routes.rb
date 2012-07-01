@@ -26,7 +26,7 @@ Lyrne::Application.routes.draw do
   #creating an account
   get "home/guest"
   get "session/logout"
-  get "/auth/:provider/callback" => "session#create"
+  match "/auth/:provider/callback" => "session#create"
 
   #relating to an entity
   get "home/user"
