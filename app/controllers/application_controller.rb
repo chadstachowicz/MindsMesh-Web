@@ -3,6 +3,10 @@ class ApplicationController < ActionController::Base
 
   protected
 
+  before_filter do
+    logger.info "Custom: #{custom_log_hash}"
+  end
+
   helper_method :current_user
 
   def current_user
@@ -33,6 +37,12 @@ class ApplicationController < ActionController::Base
       type.js   { render nothing: true, status: 404 } 
       type.all  { render nothing: true, status: 404 } 
     end
+  end
+
+  private
+
+  def custom_log_hash
+    {'session' => session.to_hash.except("_csrf_token")}
   end
 
 end
