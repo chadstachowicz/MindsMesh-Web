@@ -1,5 +1,4 @@
 Fabricator(:topic) do
   entity
-  name "MyString"
-  slug "MyString"
+  name { Faker::Lorem.sentence }
 end

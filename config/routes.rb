@@ -2,8 +2,9 @@ Mindsmesh::Application.routes.draw do
 
   #general resources, most of these have permissions
   resources :questionnaires, only: [:index, :show, :destroy]
-  resources :topic_users
   resources :entities
+  
+  resources :topic_users
   resources :users, only: [:index, :show, :edit, :update, :destroy] do
     member do
       get :more_posts

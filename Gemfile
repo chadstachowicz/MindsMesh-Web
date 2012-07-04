@@ -8,6 +8,7 @@ gem 'cancan'
 gem 'validates_email_format_of'
 gem 'colorize'
 gem 'best_in_place'
+gem 'friendly_id'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
