@@ -16,5 +16,4 @@
 /public/assets
 /public/system
 /config/settings.yml
-/config/database.yml
 /app/assets/stylesheets/scaffolds.css.scss
