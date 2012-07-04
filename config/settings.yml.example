@@ -20,6 +20,8 @@ test:
 
 production:
   <<: *defaults
-  domain: site.com
+  domain: mindsmesh.com
   facebook:
-    <<: *facebook
+    key: lala
+    secret: lala
+    options: {}
