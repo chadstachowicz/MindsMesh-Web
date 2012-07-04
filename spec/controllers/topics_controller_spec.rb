@@ -174,6 +174,9 @@ describe TopicsController do
       @topic = topic_user.topic
       @posts = []
       3.times do
+        #these should be tested in the model
+        #these should be tested in the model
+        #these should be tested in the model
         @posts << Fabricate(:post, topic: topic_user.topic, user: topic_user.user)
         @posts << Fabricate(:post, user: topic_user.user)
         Fabricate(:post, topic: topic_user.topic)
@@ -183,8 +186,8 @@ describe TopicsController do
     describe "empty set" do
       it "renders template" do
         get :more_posts, {id: Fabricate(:topic).to_param}, valid_session
-        response.should render_template("posts/more_posts")
-        response.should_not render_template("layouts/application")
+        response.should render_template("posts/more_posts")#these should be tested in the view
+        response.should_not render_template("layouts/application")#these should be tested in the view
       end
       it "renders template" do
         get :more_posts, {id: Fabricate(:topic).to_param}, valid_session

@@ -14,7 +14,7 @@ class TopicsController < ApplicationController
   def show
     @topic_user  = @topic.topic_users.where(user_id: current_user.id).first
     @topic_users = @topic.topic_users.order("role DESC").limit(10)
-    @posts         = @topic.posts.order("id DESC").limit(10)
+    @posts         = @topic.posts.as_feed(params.slice(:limit, :before))
     @post = Post.new
     respond_with(@topic)
   end

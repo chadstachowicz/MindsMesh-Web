@@ -11,7 +11,15 @@ class UsersController < ApplicationController
 
   # GET /users/1
   def show
+    @posts = @user.posts.as_feed(params.slice(:limit, :before))
+    @topic_users = @user.topic_users
     respond_with(@user)
+  end
+
+  # GET /users/1/more_posts.js
+  def more_posts
+    @posts = @user.posts.as_feed(params.slice(:limit, :before))
+    render '/posts/more_posts', layout: false
   end
 
   # GET /users/1/edit

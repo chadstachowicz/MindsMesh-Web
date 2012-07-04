@@ -1,5 +1,9 @@
 class Ability
   include CanCan::Ability
+
+  def guest
+    can :home_guest
+  end
   
   def initialize(current_user)
     return guest unless current_user
@@ -18,18 +22,12 @@ class Ability
     can [:destroy], Post do |post|
       post.user_id == current_user.id
     end
-  end
 
-  def guest
-    can :home_guest
+    can [:show, :more_posts], User
   end
 
   def user
     can :home_user
-
-    can [:read], User do |user|
-      current_user == user
-    end
   end
 
   def client

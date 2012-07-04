@@ -2,16 +2,14 @@ require 'spec_helper'
 
 describe "users/show" do
   before(:each) do
-    @user = assign(:user, stub_model(User,
-      :name => "Name",
-      :photo_url => "Photo Url"
-    ))
+    @user = Fabricate(:user) { posts count: 3 }
+    assign(:posts, @user.posts)
+    assign(:topic_users, @user.topic_users)#zero items :()
+
+    controller.stub!(:current_user).and_return(current_user_client)
   end
 
-  it "renders attributes in <p>" do
+  it "renders" do
     render
-    # Run the generator again with the --webrat flag if you want to use webrat matchers
-    rendered.should match(/Name/)
-    rendered.should match(/Photo Url/)
   end
 end

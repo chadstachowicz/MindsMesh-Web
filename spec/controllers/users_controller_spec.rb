@@ -113,4 +113,24 @@ describe UsersController do
   end
 =end
 
+  describe "GET more_posts" do
+  
+    before do
+      @user = Fabricate(:user) { posts count: 3 }
+    end
+
+    describe "empty set" do
+      it "renders template" do
+        get :more_posts, {id: @user.to_param}, valid_session
+        response.should render_template("posts/more_posts")
+        response.should_not render_template("layouts/application")
+      end
+      it "renders template" do
+        get :more_posts, {id: @user.to_param}, valid_session
+        assigns(:posts).size.should == 3
+      end
+    end
+
+  end
+
 end

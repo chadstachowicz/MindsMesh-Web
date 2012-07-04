@@ -4,7 +4,11 @@ Lyrne::Application.routes.draw do
   resources :questionnaires, only: [:index, :show, :destroy]
   resources :topic_users
   resources :entities
-  resources :users, only: [:index, :show, :edit, :update, :destroy]
+  resources :users, only: [:index, :show, :edit, :update, :destroy] do
+    member do
+      get :more_posts
+    end
+  end
   resources :topics do
     member do
       put :join

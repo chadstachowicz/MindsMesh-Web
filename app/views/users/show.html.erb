@@ -1,13 +1,31 @@
-<p>
-  <b>Name:</b>
-  <%= @user.name %>
-</p>
-
-<p>
-  <b>Photo url:</b>
-  <%= @user.photo_url %>
-</p>
+<%= image_tag @user.photo_url, width: 100 %>
 
 
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+<%= render '/posts/posts', posts: @posts, title: "#{@user.name.split.first}'s Mesh" %>
+
+
+
+<% content_for :pageheader do %>
+<div class="page-header">
+  <h3><%= @user.name %></h3>
+</div>
+<% end %>
+
+<% content_for :sidebar do %>
+
+<section>
+  <h2>Topics</h2>
+  <div>
+    <ul>
+      <% @topic_users.each do |topic_user| %>
+        <li>
+          <% topic = topic_user.topic %>
+          <%= link_to topic do %>
+            <%= topic.name %>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</section>
+<% end %>
