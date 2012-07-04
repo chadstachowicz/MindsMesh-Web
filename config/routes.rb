@@ -1,4 +1,4 @@
-Lyrne::Application.routes.draw do
+Mindsmesh::Application.routes.draw do
 
   #general resources, most of these have permissions
   resources :questionnaires, only: [:index, :show, :destroy]

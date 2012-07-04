@@ -4,4 +4,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-Lyrne::Application.load_tasks
+Mindsmesh::Application.load_tasks
