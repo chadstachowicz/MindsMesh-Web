@@ -1,10 +1,16 @@
+mindsmesh_colors = {
+  blue: '#08c',
+  green: '#46A546'
+}
+highlight_options = {color:mindsmesh_colors.green};
+
 //_posts
 $("#posts a.more").live("ajax:beforeSend", function() {
   $(this).fadeOut('fast');
 });
 $("#posts a.more").live("ajax:success", function(e, data) {
   $("#posts").append(data).find(".best_in_place").best_in_place();
-  $('#posts .posts_pack:last').effect("highlight", {}, 1200);
+  $('#posts .posts_pack:last').effect("highlight", highlight_options, 1200);
 });
 
 
@@ -32,12 +38,12 @@ $("form.new_reply textarea").live("keydown", function(e) {
 
 $("#new_post").live("ajax:success", function(e, data) {
   $("#posts").prepend(data).find(".best_in_place").best_in_place();
-  $('.post:first').effect("highlight", {}, 1200);
+  $('.post:first').effect("highlight", highlight_options, 1200);
 });
 
 $("form.new_reply").live("ajax:success", function(e, data) {
   $(this).closest(".post").find(".replies").append(data).find(".best_in_place").best_in_place();
-  $(this).closest(".post").find(".reply:last").effect("highlight", {}, 1200);
+  $(this).closest(".post").find(".reply:last").effect("highlight", highlight_options, 1200);
   var c = $(this).closest(".post").find(".reply").length;
   $(this).closest(".post").find(".replybutton span").html(c);
 });

@@ -11,12 +11,14 @@ class HomeController < ApplicationController
 
   def guest
     authorize! :home_guest, nil
+    render layout: 'home_guest_and_user'
   end
 
   def user
     authorize! :home_user, nil
     @entity = Entity.first
     @entity_user_request = @entity.entity_user_requests.build
+    render layout: 'home_guest_and_user'
   end
 
   def user_create_eur

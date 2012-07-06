@@ -1,3 +1,3 @@
 jQuery ->
   $("a[rel=popover]").popover()
-  $(".tooltip, a[rel=tooltip]").tooltip({animation: false, placement: 'left'})
+  $(".tooltip, a[rel=tooltip], .tooltiped").tooltip({animation: false, placement: 'top'})

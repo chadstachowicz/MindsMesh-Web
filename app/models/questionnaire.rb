@@ -6,12 +6,12 @@ class Questionnaire < ActiveRecord::Base
   AVAILABLE_QUESTIONS = [:q1, :q2, :q3, :q4, :q6]
 
   QUESTIONS = {
-    q1: 'How would you <span class="label label-warning">rate</span> BrainsMesh?',
-    q2: 'What you <span class="label label-warning">like</span> the most about BrainsMesh?',
-    q3: 'What do you <span class="label label-warning">not like</span> about BrainsMesh?',
+    q1: 'How would you <span class="label label-warning">rate</span> MindsMesh?',
+    q2: 'What you <span class="label label-warning">like</span> the most about MindsMesh?',
+    q3: 'What do you <span class="label label-warning">not like</span> about MindsMesh?',
     q4: 'How do you usually do <span class="label label-warning">group studying</span> ?',
-    q5: 'Do you have an <span class="label label-warning">ipad</span> ? Other tablet? Use it <span class="label label-warning">frequently</span> ? What are your favorite apps?',
-    q6: 'What would you <span class="label label-warning">ask us</span> to add?'
+    q5: 'Would you like to see MindsMesh on <span class="label label-warning">mobile</span> and <span class="label label-warning">tablet</span> devices ? Which platform?',
+    q6: 'What would you like us to <span class="label label-warning">add</span> ?'
   }
 
   def sample_blank_question

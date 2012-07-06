@@ -13,26 +13,24 @@
 
 <% content_for :sidebar do %>
 <%= render '/home/feedback' %>
-<section>
-  <h2>My Topics</h2>
-  <div>
-    <ul>
-      <% current_user.topic_users.each do |topic_user| %>
-        <% topic = topic_user.topic %>
-        <li><%= link_to topic.name, topic, title: topic.name, rel: 'tooltip', class: 'roman-icon' %></li>
-      <% end %>
-    </ul>
-  </div>
-</section>
 
-<section>
-  <h2>All Topics</h2>
-  <div>
-    <ul>
-      <% Topic.all.each do |topic| %>
-        <li><%= link_to topic.name, topic, title: topic.name, rel: 'tooltip', class: 'roman-icon' %></li>
-      <% end %>
-    </ul>
-  </div>
-</section>
+<div class="well blue-well">
+  <ul class="nav nav-list">
+    <li class="nav-header">
+      my topics
+    </li>
+    <% current_user.topic_users.each do |topic_user| %>
+      <% topic = topic_user.topic %>
+      <%= li link_to(icon_text('book', topic.name), topic) %>
+    <% end %>
+    <li class="divider"></li>
+    <li class="nav-header">
+      topics in UNCC
+    </li>
+    <% all_other_topics.each do |topic| %>
+      <%= li link_to(icon_text('book', topic.name), topic) %>
+    <% end %>
+  </ul>
+</div>
+
 <% end %>

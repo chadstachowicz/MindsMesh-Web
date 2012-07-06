@@ -5,7 +5,7 @@ class CreateLogins < ActiveRecord::Migration
       t.string :provider
       t.string :uid
       t.string :permissions_s
-      t.string :auth_s
+      t.text :auth_s
 
       t.timestamps
     end

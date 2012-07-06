@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "home/user.html.erb" do
+describe "home/user.haml" do
 
   it "renders the edit user form" do
     @entity = Fabricate(:entity)

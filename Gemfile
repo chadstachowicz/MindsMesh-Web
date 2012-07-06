@@ -9,6 +9,7 @@ gem 'validates_email_format_of'
 gem 'colorize'
 gem 'best_in_place'
 gem 'friendly_id'
+gem 'haml'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'

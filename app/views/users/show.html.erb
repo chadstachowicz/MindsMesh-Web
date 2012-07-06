@@ -1,7 +1,7 @@
-<%= image_tag @user.photo_url, width: 100 %>
+<%= image_tag @user.photo_url, width: 100 if @posts.blank? %>
 
 
-<%= render '/posts/posts', posts: @posts, title: "#{@user.name.split.first}'s Mesh" %>
+<%= render '/posts/posts', posts: @posts %>
 
 
 
@@ -13,19 +13,16 @@
 
 <% content_for :sidebar do %>
 
-<section>
-  <h2>Topics</h2>
-  <div>
-    <ul>
-      <% @topic_users.each do |topic_user| %>
-        <li>
-          <% topic = topic_user.topic %>
-          <%= link_to topic do %>
-            <%= topic.name %>
-          <% end %>
-        </li>
-      <% end %>
-    </ul>
-  </div>
-</section>
+<div class="well blue-well">
+
+  <ul class="nav nav-list">
+    <li class="nav-header">
+      topics
+    </li>
+    <% @topic_users.each do |topic_user| %>
+      <% topic = topic_user.topic %>
+      <%= li link_to(icon_text('book', topic.name), topic) %>
+    <% end %>
+  </ul>
+</div>
 <% end %>

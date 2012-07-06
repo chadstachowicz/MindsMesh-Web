@@ -13,7 +13,7 @@ describe "Session" do
       -> do
         -> do
           # - login (creating user)
-          click_link('login with facebook')
+          click_link('login_facebook')
         end.should change { User.count }.by(1)
       end.should change { Login.count }.by(1)
       current_path.should == home_user_path

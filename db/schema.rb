@@ -61,7 +61,7 @@ ActiveRecord::Schema.define(:version => 20120627200836) do
     t.string   "provider"
     t.string   "uid"
     t.string   "permissions_s"
-    t.string   "auth_s"
+    t.text     "auth_s"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
   end

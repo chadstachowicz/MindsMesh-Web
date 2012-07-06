@@ -12,14 +12,14 @@ describe 'Home' do
       current_path.should == home_guest_path
 
       # - login (creating user)
-      click_link('login with facebook')
+      click_link('login_facebook')
       current_path.should == home_user_path
 
       # - submits email to become a user
       #submits invalid email
       -> do
         fill_in('entity_user_request_email', with: Faker::Internet.email)
-        click_button 'Register'
+        click_button 'entity_user_request_submit'
       end.should change { EntityUserRequest.count }.by(0)
       page.should have_content('alert(')
 
@@ -27,7 +27,7 @@ describe 'Home' do
       visit home_user_path
       -> do
         fill_in('entity_user_request_email', with: "#{Faker::Internet.user_name}@uncc.edu")
-        click_button 'Register'
+        click_button 'entity_user_request_submit'
       end.should change { EntityUserRequest.count }.by(1)
       page.should have_content('replaceWith')
 

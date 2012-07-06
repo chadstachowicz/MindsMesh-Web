@@ -1,0 +1,5 @@
+#entity-email
+  = form_for @entity_user_request, url: home_user_create_eur_path(format: 'js'), remote: true do |f|
+    = f.hidden_field :entity_id
+    = f.text_field :email, placeholder: "joe@uncc.edu"
+    = submit_tag '', id: 'entity_user_request_submit'

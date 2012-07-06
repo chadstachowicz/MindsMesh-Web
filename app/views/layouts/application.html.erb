@@ -7,38 +7,64 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-
-
+  <div id="header-bg">
+  </div>
   <div class="wrap clear">
+    
     <header>
-      <a href="/" title="Logo">
-        <%= image_tag 'template1/logo.png' %>
-      </a>
-      <% if current_user %>
-      <div class="menu">
-        <%= link_to "Register",       home_user_path      if not current_user.client? %>
-        <%= link_to "Home",           root_path           if current_user.client? %>
-        <%#= link_to "Home Moderator", home_moderator_path if current_user.moderator? %>
-        <%#= link_to "Home Manager",   home_manager_path   if current_user.manager? %>
-        <%#= link_to "Home Admin",     home_admin_path     if current_user.admin? %>
-        <%#= link_to "Home Master",    home_master_path    if current_user.master? %>
-        <div class="user">
-          <div class="image">
-            <%= image_tag current_user.photo_url, width: 50, alt: '' %>
-          </div>
-          <%= current_user.name %>
-          <ul>
-            <li><%= link_to "Log out", session_logout_path %></li>
-          </ul>
-        </div>
+      <div id="header-logo">
       </div>
-      <% end %>
+      <%= link_to '', '/', id: 'logo' %>
+      <ul class="nav nav-pills">
+        <li class="active1"><a href="/" class="pill">HOME</a></li>
+        <li><a href="#" class="pill">HELP</a></li>
+
+        <% if current_user %>
+          <%#= link_to "Home",           root_path           if current_user.client? %>
+          <%#= link_to "Home Moderator", home_moderator_path if current_user.moderator? %>
+          <%#= link_to "Home Manager",   home_manager_path   if current_user.manager? %>
+          <%#= link_to "Home Admin",     home_admin_path     if current_user.admin? %>
+          <%#= link_to "Home Master",    home_master_path    if current_user.master? %>
+          <li class="dropdown">
+            <a class="pill dropdown-toggle" data-toggle="dropdown" href="#">
+              MY ACCOUNT
+              <i class="icon-caret-down"></i>
+            </a>
+            <ul class="dropdown-menu">
+              <li class="profile">
+                <%= link_to current_user do %>
+                  <div class="content">
+                    <div class="circle">
+                      <%= image_tag current_user.photo_url, width: 40, alt: '' %>
+                    </div>
+                    <b><%= current_user.name %></b>
+                    <small>Go to my profile page</small>
+                    <div class='clear'>
+                    </div>
+                  </div>
+                <% end %>
+              </li>
+              <li class="divider"></li>
+              <%= li link_to icon_text('sitemap', "Action"), '#' %>
+              <%= li link_to icon_text('picture', "Another action"), '#' %>
+              <%= li link_to icon_text('plane', "Something else here"), '#' %>
+              <li class="divider"></li>
+              <%= li link_to icon_text('signout', "Sign Out"), session_logout_path %>
+            </ul>
+          </li>
+
+        <% end %>
+      </ul>
     </header>
 
     <%= "<div class='alert alert-success'><a class='close' data-dismiss='alert' href='#'>×</a><b>#{notice}</b></div>".html_safe if notice %>
     <%= "<div class='alert alert-error'><a class='close' data-dismiss='alert' href='#'>×</a><b>#{alert}</b></div>".html_safe   if alert %>
 
-    <%= yield(:pageheader) %>
+    <%#= yield(:pageheader) %>
+
+    <% if content_for? :full %>
+      <%= yield :full %>
+    <% else %>
 
     <div id="main">
       <%= yield %>
@@ -52,19 +78,9 @@
       <% end %>
       <%= yield(:sidebar) %>
     </div>
+    <% end %>
 
-    <footer>
-      <div class="inner">
-        <a href="#" title="">Random</a>
-        <a href="#" title="">Items</a>
-        <a href="#" title="">Such As</a>
-        <a href="#" title="">FAQ</a>
-        <a href="#" title="">Terms of Service</a>
-        <a href="#" title="">Advertisng</a>
-
-        <span class="info">Copyright Mindsmesh 2012</span>
-      </div>
-    </footer>
+    <%= render '/footer' %>
   </div>
 
 </body>
