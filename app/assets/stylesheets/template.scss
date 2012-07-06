@@ -2,7 +2,6 @@
 .float-right { float: right; }
 
 $green: #46a546;
-$yellow: #ffc40d;
 
 a {
   color: #666;
@@ -13,6 +12,15 @@ span.best_in_place {
   display: block;
 }
 
+
+#main {
+  width: 720px;
+  float: left;
+}
+#sidebar {
+  width: 280px;
+  float: right;
+}
 
 
 
@@ -203,59 +211,3 @@ span.best_in_place {
   display:block;border-radius: 0;
 }
 
-
-
-section {
-  background: #fff;
-  border: 1px solid #dbdbdb;
-  margin-bottom: 30px;
-}
-
-#main {
-  width: 720px;
-  float: left;
-}
-#sidebar {
-  width: 280px;
-  float: right;
-  /*TODO: remove section*/
-  section {
-    background: #faf4e1;
-    border: 1px solid #e6cc7e;
-    margin-bottom: 30px;
-    position: relative;
-
-    &.questionnaire {
-      background: #333;
-      color: #fff;
-      padding: 0 10px;
-      border-radius: 4px;
-      .field {
-        padding: 10px 0;
-        border-bottom: #fff solid 2px;
-        &:last-child { border-bottom: none; }
-        textarea:focus{ border-color: $yellow; }
-      }
-    }
-
-    &.block {
-      border: none;
-      background: none;
-      .btn-large {
-        display: block;
-      }
-    }
-    h1 {
-      display: block;
-      background: #aaa;
-      padding: 10px;
-      color: #b7993f;
-    }
-    h2 {
-      display: block;
-      background: #eee4c2;
-      padding: 5px 10px;
-      color: #b7993f;
-    }
-  }
-}

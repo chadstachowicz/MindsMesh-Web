@@ -2,11 +2,11 @@
   <% if @topic_user.present? %>
     <%= render '/posts/new_post', topic_user: @topic_user if @topic_user.present? %>
   <% else %>
-  <h3>you cannot write posts in this topic yet, you need to join this topic in order to do so</h3>
+  <h4>you cannot write posts in this topic yet, you need to join this topic in order to do so</h4>
   <% end %>
   <%= render '/posts/posts', posts: @posts %>
 <% else %>
-<h3>you cannot read posts in this topic yet, you need to join this topic in order to do so</h3>
+<h4>you cannot read posts in this topic yet, you need to join this topic in order to do so</h4>
 <% end %>
 
 

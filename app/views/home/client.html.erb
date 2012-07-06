@@ -1,5 +1,6 @@
-<% if current_user.topic_users.size.zero? %>
-<h3>content for when you have not joined any topics</h3>
+<%# length forces select * instead of counts, for the list is needed in this request %>
+<% if current_user.topic_users.length.zero? %>
+<h4>content for when you have not joined any topics</h4>
 <% else %>
 <%= render '/posts/new_post', topic_user: nil %>
 <% end %>
@@ -12,7 +13,7 @@
 <% end %>
 
 <% content_for :sidebar do %>
-<%= render '/home/feedback' %>
+<%= render '/home/feedback' if (current_user.posts.size+current_user.replies.size) > 2 %>
 
 <div class="well blue-well">
   <ul class="nav nav-list">
