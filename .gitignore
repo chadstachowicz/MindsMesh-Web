@@ -15,5 +15,6 @@
 /tmp
 /public/assets
 /public/system
+/config/database.yml
 /config/settings.yml
 /app/assets/stylesheets/scaffolds.css.scss

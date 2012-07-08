@@ -1,6 +1,7 @@
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
 
+if Rails.env.development?
 user_master = User.first
 
 if user_master.nil?
@@ -29,4 +30,5 @@ else
     puts "Seeded.".green
     puts "Users: #{User.count} | Entities: #{Entity.count} | Topic: #{Topic.count}".green
   end
+end
 end

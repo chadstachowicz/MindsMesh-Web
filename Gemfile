@@ -10,6 +10,8 @@ gem 'colorize'
 gem 'best_in_place'
 gem 'friendly_id'
 gem 'haml'
+gem 'capistrano'
+gem 'unicorn'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
