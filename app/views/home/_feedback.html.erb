@@ -15,7 +15,7 @@
       </span>
     </div>
   </div>
-<% elsif [:q2, :q3, :q4, :q5, :q6].include? q %>
+<% elsif [:q2, :q3, :q4, :q5, :q6, :q7].include? q %>
   <div class="field">
     <p><%= raw Questionnaire::QUESTIONS[q] %></p>
     <%= text_area_tag q, '', class: 'input-block-level' %>
