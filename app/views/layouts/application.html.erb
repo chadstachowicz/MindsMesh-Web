@@ -25,15 +25,16 @@
           <%#= link_to "Home Manager",   home_manager_path   if current_user.manager? %>
           <%#= link_to "Home Admin",     home_admin_path     if current_user.admin? %>
           <%#= link_to "Home Master",    home_master_path    if current_user.master? %>
+          <%= render 'notifications/dropdown' %>
           <li class="dropdown">
             <a class="pill dropdown-toggle" data-toggle="dropdown" href="#">
               MY ACCOUNT
               <i class="icon-caret-down"></i>
             </a>
             <ul class="dropdown-menu">
-              <li class="profile">
+              <li>
                 <%= link_to current_user do %>
-                  <div class="content">
+                  <div class="profile">
                     <div class="circle">
                       <%= image_tag current_user.photo_url, width: 40, alt: '' %>
                     </div>

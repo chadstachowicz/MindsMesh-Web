@@ -1,5 +1,7 @@
 Mindsmesh::Application.routes.draw do
 
+  resources :notifications, only: [:show]
+
   #general resources, most of these have permissions
   resources :questionnaires, only: [:index, :show, :destroy]
   resources :entities

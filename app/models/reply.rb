@@ -7,4 +7,13 @@ class Reply < ActiveRecord::Base
   validates_presence_of :user
   validates_presence_of :text
   #scope :includes_all , includes(:user, :likes)
+
+  after_create do
+    Notification.notify_owner(post.user_id,
+                              post,
+                              Notification::ACTION_REPLIED,
+                              post.replies.count
+                              )
+  end
+  
 end

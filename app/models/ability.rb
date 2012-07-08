@@ -46,6 +46,9 @@ class Ability
     can [:update, :destroy], [Post, Reply] do |msg|
       msg.user_id == @current_user.id
     end
+    can [:show], Notification do |notification|
+      notification.user_id == @current_user.id
+    end
   end
 =begin
   def moderator

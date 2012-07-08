@@ -29,7 +29,11 @@
 // Example:
 // @linkColor: #ff0000;
 
-
+.label,
+.badge {
+  &-white         { background-color: @white;color:@grayDark; }
+  &-white[href]   { background-color: darken(@white, 10%);color:darken(@grayDark, 10%); }
+}
 
 .well.blue-well {
   background-color: @infoBackground;

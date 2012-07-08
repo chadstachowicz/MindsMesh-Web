@@ -15,6 +15,5 @@ describe RepliesController do
       delete("/replies/1").should route_to("replies#destroy", :id => "1")
     end
 
-
   end
 end

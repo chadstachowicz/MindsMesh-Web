@@ -42,4 +42,12 @@ describe Like do
       like.errors[:user_id].should_not be_empty
     end
   end
+
+  describe "hooks" do
+    it "notifies owner" do
+      ->{
+        Fabricate(:like)
+      }.should change(Notification, :count).by(1)
+    end
+  end
 end

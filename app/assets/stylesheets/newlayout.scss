@@ -43,6 +43,7 @@ header {
 		left: auto;
 		right: 0;
 		width:220px;
+    color: #333;
     &::after {
       position: absolute;
       top: -6px;
@@ -53,19 +54,30 @@ header {
       border-left: 6px solid transparent;
       content: '';
     }
-		.content {
-			padding-right: 15px;
-			margin-top: 5px;
-			margin-right: 0;
-			line-height: 20px;
-			.circle, img { border-radius: 40px; }
-			img { float:left;margin-right:20px; }
-			b { color: #333; }
-			small { display: block;font-size: 11px; }
-      &:hover {
-        b, small { color: #fff; }
+    .profile {
+      padding-right: 15px;
+      margin-top: 5px;
+      margin-right: 0;
+      line-height: 20px;
+      .circle, img { border-radius: 40px; }
+      img { float:left;margin-right:20px; }
+      b { color: #333; }
+      small { display: block;font-size: 11px; }
+    }
+    a:hover {
+      b, small { color: #fff; }
+    }
+    &.dropdown-notifications {
+      font-size: 10px;
+
+      .content {
+        margin: 12px 0 3px;
+        line-height: 15px;
+        white-space: normal;
+        position: relative;
+        small { position: absolute; top: -12px; right: 0;font-size:8px;font-family: verdana;font-weight: bold }
       }
-		}
+    }
 	}
 }
 #header-bg {

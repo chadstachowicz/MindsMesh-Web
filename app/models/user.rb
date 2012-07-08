@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
   has_many :posts
   has_many :replies
   has_many :likes
+  has_many :notifications
   validates_presence_of :name
 
   ROLES_MAP = {

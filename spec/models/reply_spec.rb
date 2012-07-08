@@ -41,4 +41,12 @@ describe Reply do
       reply.errors[:text].should be_empty
     end
   end
+
+  describe "hooks" do
+    it "notifies owner" do
+      ->{
+        Fabricate(:reply)
+      }.should change(Notification, :count).by(1)
+    end
+  end
 end

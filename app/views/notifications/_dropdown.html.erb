@@ -1,0 +1,16 @@
+<li class="dropdown">
+<a class="pill dropdown-toggle" data-toggle="dropdown" href="#">
+  <span class="badge badge-white"><%= current_user.notifications.unread.size %></span>
+  NOTIFICATIONS
+  <i class="icon-caret-down"></i>
+</a>
+<ul class="dropdown-menu dropdown-notifications">
+
+  <li class="nav-header">unread notifications</li>
+  <%= render current_user.notifications.unread.limit(4) %>
+  <li class="divider"></li>
+  <li class="nav-header">read notifications</li>
+  <%= render current_user.notifications.read.limit(6) %>
+
+</ul>
+</li>
