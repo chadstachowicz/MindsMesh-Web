@@ -6,15 +6,20 @@ Rails.application.config.middleware.use OmniAuth::Builder do
   unless Rails.env.production?
     
     domain = Settings.env["domain"]
-    fb_data =  {uid: '12345',
-                info: { email: 'bob@example.com',
-                        link: 'http://facebook.com/bob',
+    fb_mock = {
+                uid: '12345',
+                info: {
                         gender: 'male',
-                        image: "http://#{domain}/assets/profile-photo.jpg"
-                      }
-               }
+                        name: "Bob Example"
+                },
+                credentials: {
+                  token: "AAAAAAAA",
+                  expires_at: 3.months.ago.to_i,
+                  expires: true
+                }
+              }
 
     OmniAuth.config.test_mode = true
-    OmniAuth.config.add_mock('facebook', fb_data)
+    OmniAuth.config.add_mock('facebook', fb_mock)
   end
 end

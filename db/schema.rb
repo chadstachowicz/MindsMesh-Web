@@ -60,26 +60,28 @@ ActiveRecord::Schema.define(:version => 20120707052544) do
     t.integer  "user_id"
     t.string   "provider"
     t.string   "uid"
-    t.string   "permissions_s"
     t.text     "auth_s"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
+  add_index "logins", ["provider", "uid"], :name => "index_logins_on_provider_and_uid"
   add_index "logins", ["user_id"], :name => "index_logins_on_user_id"
 
   create_table "notifications", :force => true do |t|
     t.integer  "user_id"
-    t.boolean  "b_read",       :default => false
+    t.boolean  "b_read",           :default => false
     t.string   "action"
     t.integer  "target_id"
     t.string   "target_type"
-    t.integer  "actors_count", :default => 0
+    t.integer  "actors_count",     :default => 0
     t.string   "text"
-    t.datetime "created_at",                      :null => false
-    t.datetime "updated_at",                      :null => false
+    t.string   "fb_apprequest_id"
+    t.datetime "created_at",                          :null => false
+    t.datetime "updated_at",                          :null => false
   end
 
+  add_index "notifications", ["fb_apprequest_id"], :name => "index_notifications_on_fb_apprequest_id"
   add_index "notifications", ["target_type", "target_id"], :name => "index_notifications_on_target_type_and_target_id"
   add_index "notifications", ["user_id"], :name => "index_notifications_on_user_id"
 
@@ -161,7 +163,10 @@ ActiveRecord::Schema.define(:version => 20120707052544) do
 
   create_table "users", :force => true do |t|
     t.string   "name"
-    t.string   "photo_url"
+    t.string   "gender"
+    t.string   "fb_id"
+    t.string   "fb_token"
+    t.datetime "fb_expires_at"
     t.integer  "roles_mask",        :default => 0
     t.integer  "posts_count",       :default => 0
     t.integer  "replies_count",     :default => 0

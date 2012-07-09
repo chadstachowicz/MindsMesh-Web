@@ -8,10 +8,12 @@ class CreateNotifications < ActiveRecord::Migration
       t.string :target_type
       t.integer :actors_count, default: 0
       t.string :text
+      t.string :fb_apprequest_id
 
       t.timestamps
     end
     add_index :notifications, :user_id
+    add_index :notifications, :fb_apprequest_id
     add_index :notifications, [:target_type, :target_id]
   end
 end

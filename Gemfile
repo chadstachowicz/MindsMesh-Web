@@ -12,6 +12,7 @@ gem 'friendly_id'
 gem 'haml'
 gem 'capistrano'
 gem 'unicorn'
+gem 'koala'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'

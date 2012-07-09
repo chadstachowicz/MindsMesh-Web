@@ -1,5 +1,8 @@
 Fabricator(:user) do
   name { Faker::Name.name }
-  photo_url "MyString"
+  gender "male"
+  fb_id "12345"
+  fb_token "AAAAA"
+  fb_expires_at DateTime.yesterday
   roles_mask 0
 end

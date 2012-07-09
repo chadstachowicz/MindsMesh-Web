@@ -1,4 +1,4 @@
 Fabricator(:like) do
   user
-  likable { Fabricate([:post, :reply].sample) }
+  likable { Fabricate(:post) }
 end

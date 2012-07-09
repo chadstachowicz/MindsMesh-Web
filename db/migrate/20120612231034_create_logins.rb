@@ -4,11 +4,11 @@ class CreateLogins < ActiveRecord::Migration
       t.belongs_to :user
       t.string :provider
       t.string :uid
-      t.string :permissions_s
       t.text :auth_s
 
       t.timestamps
     end
     add_index :logins, :user_id
+    add_index :logins, [:provider, :uid]
   end
 end

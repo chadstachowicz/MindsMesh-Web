@@ -9,6 +9,9 @@ class User < ActiveRecord::Base
   has_many :likes
   has_many :notifications
   validates_presence_of :name
+  validates_presence_of :fb_id
+  validates_presence_of :fb_token
+  validates_presence_of :fb_expires_at
 
   ROLES_MAP = {
                 master:    16,
@@ -50,6 +53,15 @@ class User < ActiveRecord::Base
   def admin?;     role_is?(:admin);     end
   def master?;    role_is?(:master);    end
 
+  def photo_url
+    return "/assets/user.jpg" unless Rails.env.production?
+    "http://graph.facebook.com/#{fb_id}/picture?type=square"
+  end
+
+  def fb_api
+    return false if fb_expires_at < Time.now
+    @fb_api ||= Koala::Facebook::API.new(fb_token)
+  end
 
   def posts_feed(options={})
     topic_ids = topic_users.map(&:topic_id)

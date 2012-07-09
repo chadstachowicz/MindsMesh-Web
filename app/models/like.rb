@@ -8,8 +8,7 @@ class Like < ActiveRecord::Base
   validates_uniqueness_of :user_id, scope: [:likable_type, :likable_id]
 
   after_create do
-    Notification.notify_owner(likable.user_id,
-                              likable,
+    Notification.notify_owner(likable,
                               Notification::ACTION_LIKED,
                               likable.likes.count
                               )

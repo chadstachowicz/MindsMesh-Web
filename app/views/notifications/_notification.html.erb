@@ -2,7 +2,7 @@
   <%= link_to notification do %>
     <div class="content">
       <b><%= pluralize(notification.actors_count, 'person') %></b>
-      <%= notification.action_as_verb.html_safe %>
+      <%= notification.action_as_verb_html.html_safe %>
       <small><%= time_ago_in_words notification.updated_at %> ago</small>
     </div>
   <% end %>

@@ -71,11 +71,34 @@ describe User do
     end
   end
 
-  describe "posts_feed" do
-    
-    it "should return a query for posts" do
-      user = Fabricate.build(:user)
-      user.posts_feed.should be_instance_of(ActiveRecord::Relation)
+  describe "custom methods" do
+
+    describe "basic" do
+      describe "photo_url" do
+        it "brings string" do
+          User.new.photo_url.should be_a String
+        end
+      end
+    end
+
+    describe "external api" do
+      describe "fb_api" do
+        it "should not work for expired token" do
+          Fabricate.build(:user, fb_expires_at: DateTime.yesterday).fb_api.should be_false
+        end
+        it "should bring api object for unexpired token" do
+          Fabricate.build(:user, fb_expires_at: DateTime.tomorrow).fb_api.should be_a Koala::Facebook::API
+        end
+      end
+    end
+
+    describe "relational" do
+      describe "posts_feed" do
+        it "should return a query for posts" do
+          user = Fabricate.build(:user)
+          user.posts_feed.should be_instance_of(ActiveRecord::Relation)
+        end
+      end
     end
 
   end
