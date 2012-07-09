@@ -2,6 +2,9 @@ class Settings
   include Singleton
 
   class << self
+    def mindsmesh_com?
+      env['domain'] == "mindsmesh.com"
+    end
     def env;         all[Rails.env];     end;
     def development; all['development']; end;
     def test;        all['test'];        end;
