@@ -13,8 +13,9 @@ class Notification < ActiveRecord::Base
   validates_presence_of :text
 
   # TODO: test this
-  scope :unread, where(b_read: false)
-  scope :read,   where(b_read: true)
+  scope :sorted, order('updated_at DESC')
+  scope :unread, sorted.where(b_read: false)
+  scope :read,   sorted.where(b_read: true)
 
 
   before_validation do
