@@ -1,8 +1,8 @@
 class PostsController < ApplicationController
   respond_to :html#, :json, :xml
 
-  load_and_authorize_resource except: [:replies, :like]
-  load_resource only: [:replies, :like, :update]
+  load_and_authorize_resource except: [:like]
+  load_resource only: [:like, :update]
 
   # GET /posts
   def index
@@ -16,9 +16,7 @@ class PostsController < ApplicationController
   end
 
   # POST /posts/1/replies
-  def replies
-    #if you are authorized to read it, you can also reply, always
-    authorize! :read, @post
+  def create_reply
     reply = @post.replies.build(params[:reply])
     reply.user = current_user
     reply.save!

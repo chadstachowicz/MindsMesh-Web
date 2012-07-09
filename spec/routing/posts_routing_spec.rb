@@ -19,8 +19,8 @@ describe PostsController do
       delete("/posts/1").should route_to("posts#destroy", :id => "1")
     end
 
-    it "routes to #replies" do
-      post("/posts/1/replies").should route_to("posts#replies", :id => "1")
+    it "routes to #create_reply" do
+      post("/posts/1/replies").should route_to("posts#create_reply", :id => "1")
     end
     
     it "routes to #like" do

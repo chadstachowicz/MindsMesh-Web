@@ -20,7 +20,7 @@ Mindsmesh::Application.routes.draw do
   end
   resources :posts, except: [:new, :create, :edit] do
     member do
-      post 'replies'
+      post 'replies', action: 'create_reply'
       put 'like'
     end
   end

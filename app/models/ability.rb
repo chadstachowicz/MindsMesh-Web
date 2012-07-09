@@ -40,7 +40,7 @@ class Ability
     can [:read_posts], Topic do |topic|
       topic.topic_users.where(user_id: @current_user.id).exists?
     end
-    can [:read], Post do |post|
+    can [:read, :create_reply], Post do |post|
       post.topic.topic_users.where(user_id: @current_user.id).exists?
     end
     can [:update, :destroy], [Post, Reply] do |msg|
