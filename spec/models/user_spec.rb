@@ -94,8 +94,12 @@ describe User do
 
     describe "relational" do
       describe "posts_feed" do
-        it "should return a query for posts" do
+        it "should return an empty array if you don't have topics" do
           user = Fabricate.build(:user)
+          user.posts_feed.should == []
+        end
+        it "should return a query for posts if you have topics" do
+          user = Fabricate(:topic_user).user
           user.posts_feed.should be_instance_of(ActiveRecord::Relation)
         end
       end

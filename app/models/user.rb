@@ -65,7 +65,7 @@ class User < ActiveRecord::Base
 
   def posts_feed(options={})
     topic_ids = topic_users.map(&:topic_id)
-    return Post.scoped if topic_ids.empty?
+    return [] if topic_ids.empty?
     Post.where(topic_id: topic_ids).as_feed(options)
   end
 
