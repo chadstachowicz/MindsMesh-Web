@@ -55,7 +55,7 @@ class User < ActiveRecord::Base
 
   def photo_url
     return "/assets/user.jpg" unless Rails.env.production?
-    "http://graph.facebook.com/#{fb_id}/picture?type=square"
+    "https://graph.facebook.com/#{fb_id}/picture?type=square"
   end
 
   def fb_api
