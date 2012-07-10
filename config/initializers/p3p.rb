@@ -1,0 +1,1 @@
+P3p.install_policy 'OTI COR DEV PSAi HIS OUR IND ONL UNI COM'
