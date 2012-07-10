@@ -11,7 +11,6 @@ gem 'best_in_place'
 gem 'friendly_id'
 gem 'haml'
 gem 'capistrano'
-gem 'unicorn'
 gem 'koala'
 gem 'newrelic_rpm'
 
@@ -22,6 +21,10 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
   gem 'therubyracer', :platform => :ruby
   gem 'twitter-bootstrap-rails'
+end
+
+group :production do
+  gem 'unicorn'
 end
 
 group :development, :test do
