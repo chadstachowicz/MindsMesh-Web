@@ -1,13 +1,13 @@
 class User < ActiveRecord::Base
-  attr_accessible :name, :photo_url
-  has_many :logins
-  has_many :entity_user_requests
-  has_many :entity_users
-  has_many :topic_users
-  has_many :posts
-  has_many :replies
-  has_many :likes
-  has_many :notifications
+  attr_accessible :name
+  has_many :logins,               dependent: :destroy
+  has_many :entity_user_requests, dependent: :destroy
+  has_many :entity_users,         dependent: :destroy
+  has_many :topic_users,          dependent: :destroy
+  has_many :posts,                dependent: :destroy
+  has_many :replies,              dependent: :destroy
+  has_many :likes,                dependent: :destroy
+  has_many :notifications,        dependent: :destroy
   validates_presence_of :name
   validates_presence_of :fb_id
   validates_presence_of :fb_token

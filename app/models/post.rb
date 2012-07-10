@@ -1,8 +1,8 @@
 class Post < ActiveRecord::Base
   belongs_to :topic, counter_cache: true
   belongs_to :user, counter_cache: true
-  has_many :replies
-  has_many :likes, as: :likable
+  has_many :replies, dependent: :destroy
+  has_many :likes,   dependent: :destroy, as: :likable
   attr_accessible :text
   validates_presence_of :topic
   validates_presence_of :user

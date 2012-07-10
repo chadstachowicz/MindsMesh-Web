@@ -3,8 +3,8 @@ class Topic < ActiveRecord::Base
   friendly_id :slug
 
   belongs_to :entity
-  has_many :topic_users
-  has_many :posts
+  has_many :topic_users, dependent: :destroy
+  has_many :posts,       dependent: :destroy
   attr_accessible :name, :slug, :entity_id
   validates_presence_of :name
   validates_presence_of :slug
