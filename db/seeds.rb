@@ -1,6 +1,10 @@
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
 
+
+entity = Entity.first || Entity.create!(name: "UNCC")
+puts "validated UNCC or at least one entity".green
+
 if Rails.env.development?
 user_master = User.first
 
@@ -10,7 +14,6 @@ elsif Topic.count > 0
   puts "you already seeded this database".red
 else
   Entity.transaction do
-    entity = Entity.create! name: "UNCC"
 
     entity.entity_users.create! { |eu| eu.user = user_master }
     
