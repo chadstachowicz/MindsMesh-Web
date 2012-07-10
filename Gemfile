@@ -13,6 +13,7 @@ gem 'haml'
 gem 'capistrano'
 gem 'unicorn'
 gem 'koala'
+gem 'newrelic_rpm'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
