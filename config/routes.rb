@@ -1,5 +1,11 @@
 Mindsmesh::Application.routes.draw do
 
+  get "/privacy" => "pages#privacy"
+  get "/terms"   => "pages#privacy"
+  get "/support" => "pages#privacy"
+  get "/faq"     => "pages#privacy"
+  get "/about"   => "pages#privacy"
+
   resources :notifications, only: [:show]
 
   #general resources, most of these have permissions
