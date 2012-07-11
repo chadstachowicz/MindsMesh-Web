@@ -1,6 +1,0 @@
-<% if @entity_user_request.errors.any? %>
-  alert("<%= j @entity_user_request.errors.full_messages.join(',') %>");
-<% else %>
-  alert("please, check your email box for a confirmation link");
-  $("form:first").replaceWith("<%= j link_to 'click here to confirm your email', home_user_entity_path(@entity_user_request.confirmation_token), style: 'font-size:20px' %>");
-<% end %>

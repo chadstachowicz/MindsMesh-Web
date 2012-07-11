@@ -21,6 +21,9 @@ test:
 production:
   <<: *defaults
   domain: mindsmesh.com
+  sendgrid:
+    username: lala 
+    password: lala
   facebook:
     key: lala
     secret: lala

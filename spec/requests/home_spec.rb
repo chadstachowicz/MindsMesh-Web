@@ -2,7 +2,6 @@ require 'spec_helper'
 
 describe 'Home' do
 
-
   describe "GET /home/user" do
 
     it "capybara: from login page until becomes a student" do
@@ -21,7 +20,7 @@ describe 'Home' do
         fill_in('entity_user_request_email', with: Faker::Internet.email)
         click_button 'entity_user_request_submit'
       end.should change { EntityUserRequest.count }.by(0)
-      page.should have_content('alert(')
+      page.should have_content('valid')
 
       #submits valid email
       visit home_user_path
@@ -29,7 +28,7 @@ describe 'Home' do
         fill_in('entity_user_request_email', with: "#{Faker::Internet.user_name}@uncc.edu")
         click_button 'entity_user_request_submit'
       end.should change { EntityUserRequest.count }.by(1)
-      page.should have_content('replaceWith')
+      page.should have_content('true')
 
       # - clicks the confirmation email (currently mocked in the view)
       #clicks invalid link

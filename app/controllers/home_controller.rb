@@ -11,25 +11,26 @@ class HomeController < ApplicationController
 
   def guest
     authorize! :home_guest, nil
-    render layout: 'home_guest_and_user'
+    render layout: 'home_guest'
   end
 
   def user
     authorize! :home_user, nil
     @entity = Entity.first
     @entity_user_request = @entity.entity_user_requests.build
-    render layout: 'home_guest_and_user'
   end
 
   def user_create_eur
     authorize! :home_user, nil
-    @entity_user_request = current_user.entity_user_requests.where(params[:entity_user_request]).first_or_initialize
-    @entity_user_request.generate_and_mail_new_token
-    @entity_user_request.save
+    eur = current_user.entity_user_requests.where(params[:entity_user_request]).first_or_initialize
+    eur.generate_and_mail_new_token
+    logger.info text = eur.save ? 'true' : eur.errors.full_messages.to_sentence.to_s
+    render text: text
   end
 
   def user_entity
     eur = EntityUserRequest.find_by_confirmation_token!(params[:confirmation_token])
+    #for user logged in
     session[:user_id] = eur.confirm
     redirect_to_landing_home_page
   end

@@ -20,10 +20,11 @@ class EntityUserRequest < ActiveRecord::Base
   end
 
   def generate_and_mail_new_token
-    self.last_email_sent_at = Time.now
-    self.confirmation_token = Digest::MD5.hexdigest(Time.now.to_s)
-    save
-    #TODO: send email and write a test for it
+    transaction do
+      self.last_email_sent_at = Time.now
+      self.confirmation_token = Digest::MD5.hexdigest(Time.now.to_s)
+      MyMail.confirmation(self).deliver if save
+    end
   end
 
   before_save do

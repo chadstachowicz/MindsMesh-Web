@@ -1,3 +1,13 @@
+ActionMailer::Base.smtp_settings = {
+  user_name:            Settings.env['sendgrid']['username'],
+  password:             Settings.env['sendgrid']['password'],
+  domain:               Settings.env['domain'],
+  address:              "smtp.sendgrid.net",
+  port:                 587,
+  authentication:       :plain,
+  enable_starttls_auto: true
+}
+
 Mindsmesh::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
