@@ -17,7 +17,10 @@
       </div>
       <%= link_to '', '/', id: 'logo' %>
       <ul class="nav nav-pills">
-        <li class="active1"><a href="/" class="pill">HOME</a></li>
+        <%= li link_to("JOIN UNCC", home_user_path, class: 'pill'),
+            {class: 'active'} if
+            current_user.entity_users.size<2 %>
+        <%= li link_to("HOME", root_path, class: 'pill') %>
 
         <% if current_user %>
           <%#= link_to "Home",           root_path           if current_user.client? %>

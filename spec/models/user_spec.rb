@@ -15,7 +15,7 @@ describe User do
 
   describe "associations" do
     describe "understands has_many" do
-      {logins: Login, entity_user_requests: EntityUserRequest, entity_users: EntityUser, topic_users: TopicUser, posts: Post, replies: Reply, likes: Like, notifications: Notification}.each do |assoc, clazz|
+      {logins: Login, entity_user_requests: EntityUserRequest, entity_users: EntityUser, entities: Entity, topic_users: TopicUser, posts: Post, replies: Reply, likes: Like, notifications: Notification}.each do |assoc, clazz|
         it assoc do
           record = Fabricate.build(:user) { send(assoc, count: 3) }
           record.should respond_to(assoc)

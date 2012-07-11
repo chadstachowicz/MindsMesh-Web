@@ -2,10 +2,12 @@ class Topic < ActiveRecord::Base
   extend FriendlyId
   friendly_id :slug
 
+  attr_accessible :name, :slug, :entity_id, :self_joining
+
   belongs_to :entity
   has_many :topic_users, dependent: :destroy
   has_many :posts,       dependent: :destroy
-  attr_accessible :name, :slug, :entity_id
+
   validates_presence_of :name
   validates_presence_of :slug
   validates_presence_of :entity

@@ -1,5 +1,7 @@
 class Entity < ActiveRecord::Base
-  attr_accessible :name, :slug
+
+  attr_accessible :name, :slug, :self_joining
+
   has_many :entity_user_requests, dependent: :destroy
   has_many :entity_users, 		  dependent: :destroy
   has_many :topics, 			  dependent: :destroy

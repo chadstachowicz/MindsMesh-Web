@@ -24,13 +24,7 @@
       <% topic = topic_user.topic %>
       <%= li link_to(icon_text('book', topic.name), topic) %>
     <% end %>
-    <li class="divider"></li>
-    <li class="nav-header">
-      topics in UNCC
-    </li>
-    <% all_other_topics.each do |topic| %>
-      <%= li link_to(icon_text('book', topic.name), topic) %>
-    <% end %>
+    <%= render '/topics_my_entities' %>
   </ul>
 </div>
 

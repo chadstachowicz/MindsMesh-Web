@@ -2,22 +2,22 @@
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
 
 
-entity = Entity.first || Entity.create!(name: "UNCC")
-puts "validated UNCC or at least one entity".green
+Entity.transaction do
 
-if Rails.env.development?
-user_master = User.first
-
-if user_master.nil?
-  puts "you must login with one user, so we can set them as master".red
-elsif Topic.count > 0
-  puts "you already seeded this database".red
-else
-  Entity.transaction do
-
-    entity.entity_users.create! { |eu| eu.user = user_master }
+  if Entity.count == 0
+    entity = Entity.create!(name: "PUBLIC", self_joining: true)
+    puts "Created Entity Public".green
     
+    entity.topics.create!(name: "General", self_joining: true)
+    puts "Created Entity General".green
+
+    Entity.create!(name: "UNCC", self_joining: false)
+    puts "Created Entity UNCC".green
+  end
+
+  if Rails.env.development?
     ls = []
+    entity = Entity.first
 
     ls << (entity.topics.create! name: 'Physics 1 (2301-001)')
     ls << (entity.topics.create! name: 'Physics 1 (2301-002)')
@@ -30,8 +30,8 @@ else
     ls << (entity.topics.create! name: 'Organic Chemistry 1 (0330-003)')
     ls.each { |record| puts record.name.green }
 
-    puts "Seeded.".green
-    puts "Users: #{User.count} | Entities: #{Entity.count} | Topic: #{Topic.count}".green
   end
+
 end
-end
+puts "Seeded.".green
+puts "Entities: #{Entity.count} | Topic: #{Topic.count}".green

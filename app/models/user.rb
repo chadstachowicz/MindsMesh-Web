@@ -8,6 +8,9 @@ class User < ActiveRecord::Base
   has_many :replies,              dependent: :destroy
   has_many :likes,                dependent: :destroy
   has_many :notifications,        dependent: :destroy
+
+  has_many :entities, through: :entity_users
+
   validates_presence_of :name
   validates_presence_of :fb_id
   validates_presence_of :fb_token
