@@ -2,6 +2,19 @@ require 'spec_helper'
 
 describe User do
 
+  describe "associations" do
+    describe "understands has_many" do
+      {logins: Login, entity_user_requests: EntityUserRequest, entity_users: EntityUser, topic_users: TopicUser, posts: Post, replies: Reply, likes: Like, notifications: Notification}.each do |assoc, clazz|
+        it assoc do
+          record = Fabricate.build(:user) { send(assoc, count: 3) }
+          record.should respond_to(assoc)
+          record.send(assoc).should be_a Array
+          record.send(assoc).sample.should be_a clazz
+        end
+      end
+    end
+  end
+
   describe "roles_mask" do
     before do
       @user = Fabricate.build(:user)
