@@ -122,25 +122,25 @@ header {
 	width:745px;height:400px;
 	background: asset-url('template2/entity_email.png', image) no-repeat;
 	position: relative;
-}
-#entity_user_request_email {
-	border:none !important;
-	box-shadow: none;
-	position:absolute;
-	width:160px;height:20px;
-	left:260px;top: 315px;
-	line-height:18px;
-	font-size:16px;
-}
-#entity_user_request_submit {
-	border:none !important;
-	box-shadow: none;
-	position:absolute;
-	background: none;
-	width:45px;height:45px;
-	left:440px;top: 310px;
-	line-height:18px;
-	font-size:16px;
+  #email {
+    border:none !important;
+    box-shadow: none;
+    position:absolute;
+    width:160px;height:20px;
+    left:260px;top: 315px;
+    line-height:18px;
+    font-size:16px;
+  }
+  #submit {
+    border:none !important;
+    box-shadow: none;
+    position:absolute;
+    background: none;
+    width:45px;height:45px;
+    left:440px;top: 310px;
+    line-height:18px;
+    font-size:16px;
+  }
 }
 
 //footer

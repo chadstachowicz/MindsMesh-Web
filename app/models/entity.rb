@@ -6,6 +6,14 @@ class Entity < ActiveRecord::Base
   has_many :entity_users, 		  dependent: :destroy
   has_many :topics, 			  dependent: :destroy
   validates_presence_of :name
+  validates_presence_of :slug
+
+
+  before_validation :slugify
+
+  def slugify
+    self.slug = name.parameterize if self.slug.blank?
+  end
 
   scope :non_self_joinings, where(self_joining: false)
   scope :self_joinings,     where(self_joining: true)

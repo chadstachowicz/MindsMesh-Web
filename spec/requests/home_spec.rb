@@ -5,7 +5,7 @@ describe 'Home' do
   describe "GET /home/user" do
 
     it "capybara: from login page until becomes a student" do
-      Fabricate(:entity)
+      Fabricate(:entity, slug: 'uncc')
       # I'm a guest (no account)
       visit root_path
       current_path.should == home_guest_path
@@ -17,16 +17,16 @@ describe 'Home' do
       # - submits email to become a user
       #submits invalid email
       -> do
-        fill_in('entity_user_request_email', with: Faker::Internet.email)
-        click_button 'entity_user_request_submit'
+        fill_in('email', with: Faker::Internet.email)
+        click_button 'submit'
       end.should change { EntityUserRequest.count }.by(0)
       page.should have_content('valid')
 
       #submits valid email
       visit home_user_path
       -> do
-        fill_in('entity_user_request_email', with: "#{Faker::Internet.user_name}@uncc.edu")
-        click_button 'entity_user_request_submit'
+        fill_in('email', with: "#{Faker::Internet.user_name}@uncc.edu")
+        click_button 'submit'
       end.should change { EntityUserRequest.count }.by(1)
       page.should have_content('true')
 

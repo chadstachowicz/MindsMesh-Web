@@ -2,9 +2,6 @@ require 'spec_helper'
 
 describe "home/user.haml" do
   pending "this view cannot be tested because of content_for :full"
-  it "" do
-    true.should =="this logic should consider any university, not only UNCC"
-  end
 =begin
   it "renders the edit user form" do
     @entity = Fabricate(:entity)

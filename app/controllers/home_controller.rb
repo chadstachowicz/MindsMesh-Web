@@ -16,15 +16,14 @@ class HomeController < ApplicationController
 
   def user
     authorize! :home_user, nil
-    @entity = Entity.first
-    @entity_user_request = @entity.entity_user_requests.build
   end
 
   def user_create_eur
     authorize! :home_user, nil
-    eur = current_user.entity_user_requests.where(params[:entity_user_request]).first_or_initialize
+    entity_uncc = Entity.find_by_slug('uncc')
+    eur = current_user.entity_user_requests.where(entity_id: entity_uncc.id, email: params[:email]).first_or_initialize
     eur.generate_and_mail_new_token
-    logger.info text = eur.save ? 'true' : eur.errors.full_messages.to_sentence.to_s
+    text = eur.save ? 'true' : eur.errors.full_messages.to_sentence.to_s
     render text: text
   end
 

@@ -48,11 +48,12 @@ describe Entity do
     end
   end
 
-  describe "simple field validations" do
-    it "requires name" do
-      entity = Fabricate.build(:entity, name: nil)
-      entity.should_not be_valid
-      entity.errors[:name].should_not be_empty
+  describe "hooks" do
+    it "slugfies" do
+      e = Fabricate.build(:entity)
+      -> {
+        e.valid?
+      }.should change(e, :slug)
     end
   end
 

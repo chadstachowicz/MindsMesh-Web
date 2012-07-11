@@ -19,7 +19,6 @@ describe HomeController do
     describe "GET 'user'" do
       it "returns http success if in role" do
         session[:user_id] = Fabricate(:user).id
-        Fabricate(:entity)
         get 'user'
         response.should be_success
       end
@@ -32,17 +31,11 @@ describe HomeController do
     describe "POST 'user_create_eur'" do
       it "should create a request" do
         current_user = Fabricate(:user)
-
         session[:user_id] = current_user.id
+        Fabricate(:entity, slug: 'uncc')
 
         expect {
-          post 'user_create_eur', {
-            format: 'js',
-            entity_user_request: {
-              entity_id: Fabricate(:entity).id,
-              email: "#{Faker::Internet.user_name}@uncc.edu"
-            }
-          }
+          post 'user_create_eur', {email: "#{Faker::Internet.user_name}@uncc.edu"}
         }.to change(current_user.entity_user_requests, :count).by(1)
       end
       it "denies access not in role" do
