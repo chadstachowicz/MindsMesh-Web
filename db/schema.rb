@@ -16,8 +16,9 @@ ActiveRecord::Schema.define(:version => 20120707052544) do
   create_table "entities", :force => true do |t|
     t.string   "name"
     t.string   "slug"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.boolean  "self_joining",    :default => false
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
   end
 
   create_table "entity_user_requests", :force => true do |t|
@@ -153,10 +154,11 @@ ActiveRecord::Schema.define(:version => 20120707052544) do
     t.integer  "entity_id"
     t.string   "name"
     t.string   "slug"
+    t.boolean  "self_joining",      :default => false
     t.integer  "topic_users_count", :default => 0
     t.integer  "posts_count",       :default => 0
-    t.datetime "created_at",                       :null => false
-    t.datetime "updated_at",                       :null => false
+    t.datetime "created_at",                           :null => false
+    t.datetime "updated_at",                           :null => false
   end
 
   add_index "topics", ["entity_id"], :name => "index_topics_on_entity_id"

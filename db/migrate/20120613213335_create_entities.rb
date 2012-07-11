@@ -3,6 +3,7 @@ class CreateEntities < ActiveRecord::Migration
     create_table :entities do |t|
       t.string :name
       t.string :slug
+      t.boolean :self_joining, default: false
 
       t.timestamps
     end

@@ -4,6 +4,7 @@ class CreateTopics < ActiveRecord::Migration
       t.belongs_to :entity
       t.string :name
       t.string :slug
+      t.boolean :self_joining, default: false
       t.integer :topic_users_count, default: 0
       t.integer :posts_count, default: 0
 

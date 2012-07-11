@@ -13,6 +13,8 @@ class User < ActiveRecord::Base
   validates_presence_of :fb_token
   validates_presence_of :fb_expires_at
 
+  after_create :joins_self_joining_entities
+
   ROLES_MAP = {
                 master:    16,
                 admin:     8,
@@ -70,6 +72,10 @@ class User < ActiveRecord::Base
   end
 
   private
+
+  def joins_self_joining_entities
+    Entity.self_joinings.each { |e| e.user_join!(self) }
+  end
 
   #user matches the mininum requirement
   def role_is?(given_role)

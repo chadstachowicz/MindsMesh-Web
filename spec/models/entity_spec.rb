@@ -2,6 +2,36 @@ require 'spec_helper'
 
 describe Entity do
 
+  describe "custom methods" do
+    
+    pending "make a user_leave! method, this would require unexisting UI logic"
+
+    describe "user_join!" do
+      before do
+        @entity = Fabricate(:entity)
+        @user=Fabricate(:user)
+      end
+      it "creates an entity_user" do
+        ->{
+          ->{
+            @entity.user_join!(@user)
+          }.should change(@user.entity_users, :count).by(1)
+        }.should change(@entity.entity_users, :count).by(1)
+      end
+      it "raises an exception if called twice" do
+        @entity.user_join!(@user)
+        ->{
+          @entity.user_join!(@user)
+        }.should raise_error(ActiveRecord::RecordInvalid)
+       end
+      it "should change user's role" do
+        -> {
+          @entity.user_join!(@user)
+        }.should change(@user, :roles).from(['user']).to(['client', 'user'])
+      end
+    end
+  end
+
   describe "associations" do
     describe "understands has_many" do
       before do

@@ -38,12 +38,7 @@ class EntityUserRequest < ActiveRecord::Base
   def confirm
     return false if confirmed?
     transaction do
-      entity.entity_users.create do |eu|
-        eu.user_id = user.id#force select, so it validates that user exists
-        #su.b_student = true
-      end
-      user.roles += ['client']
-      user.save
+      entity.user_join!(user)
       update_attribute(:confirmed_at, Time.now)
       user.id
     end

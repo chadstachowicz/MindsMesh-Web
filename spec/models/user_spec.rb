@@ -2,6 +2,17 @@ require 'spec_helper'
 
 describe User do
 
+  describe "hooks" do
+    describe "after_create" do
+      it "joins self-joining entities" do
+        entity1 = Fabricate(:entity, self_joining: false)
+        entity2 = Fabricate(:entity, self_joining: true)
+        user=Fabricate(:user)
+        user.entity_users.map(&:entity).should == [entity2]
+      end
+    end
+  end
+
   describe "associations" do
     describe "understands has_many" do
       {logins: Login, entity_user_requests: EntityUserRequest, entity_users: EntityUser, topic_users: TopicUser, posts: Post, replies: Reply, likes: Like, notifications: Notification}.each do |assoc, clazz|

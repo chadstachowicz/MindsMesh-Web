@@ -87,15 +87,15 @@ describe EntityUserRequest do
           @eur.confirm
         }.should_not change(EntityUserRequest, :count)
       end
-      it "should change user's role" do
-        -> {
-          @eur.confirm
-        }.should change(@eur.user, :roles).from(['user']).to(['client', 'user'])
-      end
       it "should return user's id" do
         @eur.confirm.should ==@eur.user.id
       end
-      it "should raise an exception if already confirmed" do
+      it "should change confirmed_at" do
+        -> {
+          @eur.confirm
+        }.should change(@eur, :confirmed_at)
+      end
+      it "should return false if already confirmed" do
         @eur.confirm.should be_a(Integer)
         @eur.confirm.should be_false
       end
