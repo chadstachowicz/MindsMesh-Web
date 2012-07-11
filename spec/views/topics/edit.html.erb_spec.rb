@@ -14,7 +14,7 @@ describe "topics/edit" do
 
     # Run the generator again with the --webrat flag if you want to use webrat matchers
     assert_select "form", :action => topics_path(@topic), :method => "post" do
-      assert_select "input#topic_entity_id"
+      assert_select "select#topic_entity_id"
       assert_select "input#topic_name", :name => "topic[name]"
       assert_select "input#topic_slug", :name => "topic[slug]"
     end

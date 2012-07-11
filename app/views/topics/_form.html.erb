@@ -13,7 +13,7 @@
 
   <div class="field">
     <%= f.label :entity %><br />
-    <%= f.text_field :entity_id %>
+    <%= f.select :entity_id, Entity.all.map { |e| [e.name, e.id] } %>
   </div>
   <div class="field">
     <%= f.label :name %><br />
@@ -23,6 +23,12 @@
     <%= f.label :slug %><br />
     <%= f.text_field :slug %>
   </div>
+  <div class="field">
+    <%= f.label :self_joining %><br />
+    <%= f.check_box :self_joining %>
+  </div>
+
+
   <div class="actions">
     <%= f.submit %>
   </div>
