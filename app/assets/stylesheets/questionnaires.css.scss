@@ -22,8 +22,6 @@ section {
     border-radius: 4px;
     .field {
       padding: 10px 0;
-      border-bottom: #fff solid 2px;
-      &:last-child { border-bottom: none; }
       textarea:focus{ border-color: $yellow; }
     }
   }
