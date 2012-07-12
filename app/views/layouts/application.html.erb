@@ -22,9 +22,11 @@
       </div>
       <%= link_to '', '/', id: 'logo' %>
       <ul class="nav nav-pills">
+        <% if current_user %>
         <%= li link_to("JOIN UNCC", home_user_path, class: 'pill'),
             {class: 'active'} if
             current_user.entity_users.size<2 %>
+        <% end %>
         <%= li link_to("HOME", root_path, class: 'pill') %>
 
         <% if current_user %>
