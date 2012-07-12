@@ -26,11 +26,13 @@ $("form.new_reply textarea").live("focus", function(e) {
 
 $("form.new_reply textarea").live("keydown", function(e) {
   if (e.keyCode == 13 && !e.shiftKey && !e.ctrlKey) {
-    if ($(this).val().trim().length > 0) {
+    
+    if (  $.trim($(this).val()).length > 0) {
       $(this).closest('form').submit();
       $(this).val('');
       return false;
     }
+    
   }
 });
 
@@ -52,9 +54,8 @@ $("form.new_reply").live("ajax:success", function(e, data) {
 
 $("a[data-scroll-to-reply]").live("click", function() {
   var sel = $(this).data('scroll-to-reply');
-  $('body').animate({scrollTop: $(sel).offset().top-150}, 1000, function() {
-    $(sel).find('textarea').focus();
-  });
+  $('body').scrollTo( sel, 'fast', {offset:-150} );
+  $(sel).find('textarea').focus();
   return false;
 });
 
