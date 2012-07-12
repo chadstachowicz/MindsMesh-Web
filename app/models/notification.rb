@@ -69,6 +69,7 @@ class Notification < ActiveRecord::Base
     end
     
     set_fb_apprequest_id(@api_returned_hash)
+    logger.info "FB_GRAPH_API: post apprequest ok: id = #{id} fb: #{fb_apprequest_id}"
     save!
   end
 
@@ -93,7 +94,6 @@ class Notification < ActiveRecord::Base
   def post_fb_apprequest
     begin
       @api_returned_hash = target.user.fb_api.put_connections('me', 'apprequests', message: facebook_message, data: id)
-      logger.info "FB_GRAPH_API: post apprequest ok: notification_id = #{id}"
     rescue Exception => exc
       logger.info "FB_GRAPH_API: post apprequest error: #{exc.message}"
     end
