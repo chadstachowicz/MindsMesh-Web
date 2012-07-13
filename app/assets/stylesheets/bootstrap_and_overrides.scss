@@ -5,6 +5,16 @@
 
 // See http://twitter.github.com/bootstrap/less.html
 
+// Block level inputs
+.input-block-level {
+  display: block;
+  width: 100%;
+  min-height: 28px;
+  -moz-box-sizing:    border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing:         border-box;
+}
+
 .badge-white         { background-color: $white;color:$grayDark; }
 .badge-white[href]   { background-color: darken($white, 10%);color:darken($grayDark, 10%); }
 

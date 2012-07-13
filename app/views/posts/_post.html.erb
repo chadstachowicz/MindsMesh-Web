@@ -60,11 +60,9 @@
       <div class="clear"></div>
     </div>
   </div>
-  <% unless post.replies.size.zero? %>
   <div class="replies">
     <%= render post.replies, can_update_post: can_update_post %>
   </div>
-  <% end %>
   <% if can? :create_reply, post %>
   <%= form_for(post.replies.build, url: replies_post_path(post), remote: true, html: {id: "new_reply_#{post.id}"}) do |f| %>
     <%= f.text_area :text %>
