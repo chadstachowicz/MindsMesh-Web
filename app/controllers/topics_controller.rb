@@ -1,12 +1,9 @@
 class TopicsController < ApplicationController
   respond_to :html#, :json, :xml
-
-  load_and_authorize_resource except: [:more_posts]
-  load_resource only: [:more_posts]
+  load_and_authorize_resource
 
   # GET /topics
   def index
-    @topics = Topic.all
     respond_with(@topics)
   end
 
@@ -34,7 +31,6 @@ class TopicsController < ApplicationController
 
   # GET /topics/1/more_posts.js
   def more_posts
-    authorize! :read_posts, @topic #TODO: test this
     @posts = @topic.posts.as_feed(params.slice(:limit, :before))
     render '/posts/more_posts', layout: false
   end

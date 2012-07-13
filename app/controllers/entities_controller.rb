@@ -1,11 +1,9 @@
 class EntitiesController < ApplicationController
   respond_to :html#, :json, :xml
-
   load_and_authorize_resource
 
   # GET /entities
   def index
-    @entities = Entity.all
     respond_with(@entities)
   end
 

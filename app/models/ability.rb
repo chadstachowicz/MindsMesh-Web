@@ -33,11 +33,11 @@ class Ability
   def client
     can :home_client
     #TODO: stop testing only as a master
-    can [:read, :join], Topic do |topic|
+    can [:show, :join], Topic do |topic|
       topic.entity.entity_users.where(user_id: @current_user.id).exists?
     end
     #TODO: stop testing only as a master
-    can [:read_posts], Topic do |topic|
+    can [:more_posts], Topic do |topic|
       topic.topic_users.where(user_id: @current_user.id).exists?
     end
     can [:read, :create_reply], Post do |post|

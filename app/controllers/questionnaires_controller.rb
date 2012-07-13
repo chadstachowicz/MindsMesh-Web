@@ -4,7 +4,6 @@ class QuestionnairesController < ApplicationController
 
   # GET /questionnaires
   def index
-    @questionnaires = Questionnaire.all
     respond_with(@questionnaires)
   end
 

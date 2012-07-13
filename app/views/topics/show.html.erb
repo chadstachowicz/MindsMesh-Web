@@ -1,4 +1,4 @@
-<% if can? :read_posts, @topic %>
+<% if can? :more_posts, @topic %>
   <% if @topic_user.present? %>
     <%= render '/posts/new_post', topic_user: @topic_user if @topic_user.present? %>
   <% else %>
