@@ -23,7 +23,12 @@ class EntityUserRequest < ActiveRecord::Base
     transaction do
       self.last_email_sent_at = Time.now
       self.confirmation_token = Digest::MD5.hexdigest(Time.now.to_s)
-      MyMail.confirmation(self).deliver if save
+      
+      if save && Rails.env.development?
+        confirm
+      else
+        MyMail.confirmation(self).deliver
+      end
     end
   end
 
