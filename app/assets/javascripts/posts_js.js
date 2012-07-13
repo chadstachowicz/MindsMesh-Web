@@ -43,11 +43,16 @@ $("#new_post").live("ajax:success", function(e, data) {
   $('.post:first').effect("highlight", highlight_options, 1200);
 });
 
-$("form.new_reply").live("ajax:success", function(e, data) {
-  $(this).closest(".post").find(".replies").append(data).find(".best_in_place").best_in_place();
-  $(this).closest(".post").find(".reply:last").effect("highlight", highlight_options, 1200);
-  var c = $(this).closest(".post").find(".reply").length;
-  $(this).closest(".post").find(".replybutton span").html(c);
+$("form.new_reply").live("ajax:complete", function(e, data) {
+  if (data.status == 200) {
+    $(this).closest(".post").find(".replies").append(data).find(".best_in_place").best_in_place();
+    $(this).closest(".post").find(".reply:last").effect("highlight", highlight_options, 1200);
+    var c = $(this).closest(".post").find(".reply").length;
+    $(this).closest(".post").find(".replybutton span").html(c);
+  } else {
+    bad_reply =  {e: e, data: data};
+    alert("an error #"+data.status+" has occurred.\n\n"+data.responseText);
+  }
 });
 
 //_reply

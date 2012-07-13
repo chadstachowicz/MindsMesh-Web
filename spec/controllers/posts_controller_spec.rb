@@ -106,16 +106,10 @@ describe PostsController do
       end
     end
 
-    describe "invalid params throw exception resulting in 500 error" do
-      it "without text" do
-        -> {
-          post :create_reply, {id: @post.to_param, reply: {}}, valid_session
-        }.should raise_error(ActiveRecord::RecordInvalid)
-      end
-      it "without reply" do
-        -> {
-          post :create_reply, {id: @post.to_param}, valid_session
-        }.should raise_error(ActiveRecord::RecordInvalid)
+    describe "invalid params" do
+      it "status should be 422" do
+        post :create_reply, {id: @post.to_param}, valid_session
+        response.status.should == 422
       end
     end
 

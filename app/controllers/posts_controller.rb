@@ -19,8 +19,11 @@ class PostsController < ApplicationController
   def create_reply
     reply = @post.replies.build(params[:reply])
     reply.user = current_user
-    reply.save!
-    render reply
+    if reply.save
+      render reply
+    else
+      render status: 422, text: reply.errors.full_messages.to_sentence
+    end
   end
 
   # PUT /posts/1/like
