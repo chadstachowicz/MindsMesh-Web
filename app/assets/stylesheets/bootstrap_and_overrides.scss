@@ -1,0 +1,24 @@
+@import "bootstrap";
+@import "font-awesome";
+@import "font-awesome-ie7";
+@import "bootstrap-responsive";
+
+// See http://twitter.github.com/bootstrap/less.html
+
+.badge-white         { background-color: $white;color:$grayDark; }
+.badge-white[href]   { background-color: darken($white, 10%);color:darken($grayDark, 10%); }
+
+.well.blue-well {
+  background-color: $infoBackground;
+  border-color:     $infoText;
+  .nav .nav-header {
+    color: $infoText;
+  }
+  .divider {
+    border-color: $infoText;
+  }
+  a:hover {
+    color: $white;
+    background-color: $linkColor;
+  }
+}

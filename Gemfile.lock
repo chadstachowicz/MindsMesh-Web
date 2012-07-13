@@ -34,6 +34,7 @@ GEM
     best_in_place (1.1.2)
       jquery-rails
       rails (~> 3.1)
+    bootstrap-sass (2.0.4.0)
     builder (3.0.0)
     cancan (1.6.7)
     capistrano (2.12.0)
@@ -71,6 +72,9 @@ GEM
     faraday (0.8.1)
       multipart-post (~> 1.1)
     ffi (1.0.11)
+    font-awesome-sass-rails (2.0.0.0)
+      railties (>= 3.1.1)
+      sass-rails (>= 3.1.1)
     friendly_id (4.0.6)
     guard (1.1.1)
       listen (>= 0.4.2)
@@ -213,11 +217,6 @@ GEM
       polyglot (>= 0.3.1)
     turn (0.9.5)
       ansi
-    twitter-bootstrap-rails (2.1.0)
-      actionpack (>= 3.1)
-      less-rails (~> 2.2.2)
-      railties (>= 3.1)
-      therubyracer (~> 0.10.1)
     tzinfo (0.3.33)
     uglifier (1.2.4)
       execjs (>= 0.3.0)
@@ -235,6 +234,7 @@ PLATFORMS
 
 DEPENDENCIES
   best_in_place
+  bootstrap-sass
   cancan
   capistrano
   capybara
@@ -243,6 +243,7 @@ DEPENDENCIES
   database_cleaner
   fabrication
   faker
+  font-awesome-sass-rails
   friendly_id
   guard-rspec
   haml
@@ -265,7 +266,6 @@ DEPENDENCIES
   template_rider
   therubyracer
   turn
-  twitter-bootstrap-rails
   uglifier (>= 1.0.3)
   unicorn
   validates_email_format_of

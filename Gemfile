@@ -20,7 +20,9 @@ group :assets do
   gem 'less-rails'
   gem 'uglifier', '>= 1.0.3'
   gem 'therubyracer', :platform => :ruby
-  gem 'twitter-bootstrap-rails'
+  #gem 'twitter-bootstrap-rails'
+  gem 'bootstrap-sass'
+  gem 'font-awesome-sass-rails'
 end
 
 group :production do
