@@ -1,5 +1,7 @@
 Mindsmesh::Application.routes.draw do
 
+  match "/delayed_job" => DelayedJobWeb, :anchor => false
+  
   get "/privacy" => "pages#privacy"
   get "/terms"   => "pages#privacy"
   get "/support" => "pages#privacy"

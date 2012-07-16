@@ -13,6 +13,9 @@ gem 'haml'
 gem 'capistrano'
 gem 'koala'
 gem 'newrelic_rpm'
+gem 'daemons'
+gem 'delayed_job_active_record'
+gem 'delayed_job_web'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'

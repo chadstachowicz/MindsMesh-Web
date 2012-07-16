@@ -1,4 +1,6 @@
 require "bundler/capistrano"
+require "delayed/recipes"
+
 
 server "50.116.44.225", :web, :app, :db, primary: true
 
@@ -11,6 +13,14 @@ set :use_sudo, false
 set :scm, "git"
 set :repository, "git@github.com:yakko/#{application}.git"
 set :branch, "master"
+
+#custom begin
+set :rails_env, "production" #added for delayed job
+
+after "deploy:stop",    "delayed_job:stop"
+after "deploy:start",   "delayed_job:start"
+after "deploy:restart", "delayed_job:restart"
+#custom end
 
 default_run_options[:pty] = true
 ssh_options[:forward_agent] = true
