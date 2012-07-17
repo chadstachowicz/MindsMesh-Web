@@ -42,14 +42,43 @@ describe Notification do
     end
   end
   describe "custom class methods" do
+=begin
     describe "notify_owner" do
       it "works" do
         reply = Fabricate(:reply)
         post = reply.post
-        Notification.notify_owner(post,
-                                  Notification::ACTION_REPLIED,
-                                  post.replies.count
-                                  )
+        -> {
+          Notification.notify_owner(
+            post,
+            Notification::ACTION_REPLIED,
+            post.replies.count
+          )
+        }.should change(Notification, :count)
+      end
+    end
+=end
+    describe "notify_users_involved_in_post" do
+      it "works" do
+        post = Fabricate(:post)
+        -> {
+          Notification.notify_users_involved_in_post(
+            post,
+            Notification::ACTION_REPLIED,
+            999
+          )
+        }.should change(Notification, :count)
+      end
+    end
+    describe "notify_users_in_topic" do
+      it "works" do
+        topic = Fabricate(:topic_user).topic
+        -> {
+          Notification.notify_users_in_topic(
+            topic,
+            Notification::ACTION_POSTED,
+            10
+          )
+        }.should change(Notification, :count)
       end
     end
   end

@@ -7,6 +7,7 @@ class Topic < ActiveRecord::Base
   belongs_to :entity
   has_many :topic_users, dependent: :destroy
   has_many :posts,       dependent: :destroy
+  has_many :users, through: :topic_users
 
   validates_presence_of :name
   validates_presence_of :slug

@@ -9,10 +9,11 @@ class Reply < ActiveRecord::Base
   #scope :includes_all , includes(:user, :likes)
 
   after_create do
-    Notification.notify_owner(post,
-                              Notification::ACTION_REPLIED,
-                              post.replies.count
-                              )
+    Notification.notify_users_involved_in_post(
+      post,
+      Notification::ACTION_REPLIED,
+      post.replies.count
+    )
   end
   
 end

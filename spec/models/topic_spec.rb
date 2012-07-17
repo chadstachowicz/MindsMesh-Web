@@ -1,6 +1,34 @@
 require 'spec_helper'
 
 describe Topic do
+
+
+  describe "associations" do
+    describe "understands belongs_to" do
+      {entity: Entity}.each do |assoc, clazz|
+        it assoc do
+          record = Fabricate(:topic)
+          record.should be_valid
+          record.should respond_to(assoc)
+          record.send(assoc).should be_a(clazz)
+        end
+      end
+    end
+    describe "understands has_many" do
+      before do
+        @record_class = :topic
+      end
+      {topic_users: TopicUser, posts: Post, users: User}.each do |assoc, clazz|
+        it assoc do
+          record = Fabricate.build(@record_class) { send(assoc, count: 3) }
+          record.should respond_to(assoc)
+          record.send(assoc).should be_a Array
+          record.send(assoc).sample.should be_a clazz
+        end
+      end
+    end
+  end
+
   it "slugfies" do
   	t = Fabricate.build(:topic)
   	-> {

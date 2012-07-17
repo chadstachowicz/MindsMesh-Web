@@ -19,7 +19,11 @@ class Notification < ActiveRecord::Base
 
 
   before_validation do
-    self.text = target.text[0..60]
+    self.text = if target.respond_to?(:text)
+      target.text[0..60]
+    else
+      target.name[0..60]
+    end
   end
 
   def mark_as_read
@@ -38,7 +42,9 @@ class Notification < ActiveRecord::Base
 
   def action_as_verb_html
     #case action
-    if action == ACTION_REPLIED
+    if action == ACTION_POSTED
+      "posts in <u>#{truncate text, length: 35}</u> in the last 3 days"
+    elsif action == ACTION_REPLIED
       "replied to <u>#{truncate text, length: 55}</u>"
     elsif action == ACTION_LIKED
       "thought <u>#{truncate text, length: 40}</u> was intelligent"
@@ -46,9 +52,10 @@ class Notification < ActiveRecord::Base
   end
 
   # TODO: test this
+  ACTION_POSTED = 'posted'
   ACTION_REPLIED = 'replied'
   ACTION_LIKED = 'liked'
-
+=begin
   #this model is only intended to nofity a target's owner for the time being
   def self.notify_owner(target, action, new_actors_count)
     n = where(target_type: target.class, target_id: target.id, action: action).first_or_initialize(user: target.user)
@@ -56,6 +63,26 @@ class Notification < ActiveRecord::Base
     n.actors_count = new_actors_count
     n.save!
     n.notify_on_facebook!
+  end
+=end
+  def self.notify_users_involved_in_post(post, action, new_actors_count)
+    User.find(post.user_ids_involved).each do |user|
+      n = where(target_type: post.class.name, target_id: post.id, action: action).first_or_initialize(user: user)
+      n.b_read = false
+      n.actors_count = new_actors_count
+      n.save!
+      n.notify_on_facebook!
+    end
+  end
+
+  def self.notify_users_in_topic(topic, action, new_actors_count)
+    topic.users.each do |user|
+      n = where(target_type: topic.class.name, target_id: topic.id, action: action).first_or_initialize(user: user)
+      n.b_read = false
+      n.actors_count = new_actors_count
+      n.save!
+      n.notify_on_facebook!
+    end
   end
 
   def notify_on_facebook!

@@ -74,4 +74,25 @@ describe Post do
     end
 
   end
+
+  describe "custom methods" do
+
+    describe "user_ids_involved" do
+      pending "test this with mocks"
+      it "works" do
+        p = Post.new
+        p.user_ids_involved.should == [p.user_id]
+      end
+    end
+
+  end
+
+  describe "hooks" do
+    it "notifies users in topic" do
+      topic = Fabricate(:topic_user).topic
+      ->{
+        Fabricate(:post, topic: topic)
+      }.should change(Notification, :count).by(1)
+    end
+  end
 end
