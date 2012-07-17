@@ -65,24 +65,46 @@ class Notification < ActiveRecord::Base
     n.notify_on_facebook!
   end
 =end
-  def self.notify_users_involved_in_post(post, action, new_actors_count)
-    User.find(post.user_ids_involved).each do |user|
-      n = where(target_type: post.class.name, target_id: post.id, action: action).first_or_initialize(user: user)
-      n.b_read = false
-      n.actors_count = new_actors_count
-      n.save!
-      n.notify_on_facebook!
+  def self.notify_users_involved_in_post(post_id, action)
+    post = Post.find(post_id) rescue nil
+    if post
+      new_actors_count = (action == ACTION_REPLIED) ? post.replies.size : post.likes.size
+      User.find(post.user_ids_involved).each do |user|
+        notify_user(user, post, action, new_actors_count)
+=begin
+        n = where(target_type: post.class.name, target_id: post.id, action: action).first_or_initialize(user: user)
+        n.b_read = false
+        n.actors_count = new_actors_count
+        n.save!
+        n.notify_on_facebook!
+=end
+      end
     end
   end
 
-  def self.notify_users_in_topic(topic, action, new_actors_count)
-    topic.users.each do |user|
-      n = where(target_type: topic.class.name, target_id: topic.id, action: action).first_or_initialize(user: user)
-      n.b_read = false
-      n.actors_count = new_actors_count
-      n.save!
-      n.notify_on_facebook!
+  def self.notify_users_in_topic(topic_id, action)
+    topic = Topic.find(topic_id) rescue nil
+    if topic
+      new_actors_count = topic.posts.where('created_at > ?', 3.day.ago).count
+      topic.users.each do |user|
+        notify_user(user, topic, action, new_actors_count)
+=begin
+        n = where(target_type: topic.class.name, target_id: topic.id, action: action).first_or_initialize(user: user)
+        n.b_read = false
+        n.actors_count = new_actors_count
+        n.save!
+        n.notify_on_facebook!
+=end
+      end
     end
+  end
+
+  def self.notify_user(user, target, action, new_actors_count)
+    n = where(target_type: target.class.name, target_id: target.id, action: action).first_or_initialize(user: user)
+    n.b_read = false
+    n.actors_count = new_actors_count
+    n.save!
+    n.notify_on_facebook!
   end
 
   def notify_on_facebook!

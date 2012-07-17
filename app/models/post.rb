@@ -39,9 +39,8 @@ class Post < ActiveRecord::Base
 
   after_create do
     Notification.notify_users_in_topic(
-      topic,
-      Notification::ACTION_POSTED,
-      topic.posts.where('created_at > ?', 3.day.ago).count
+      topic_id,
+      Notification::ACTION_POSTED
     )
   end
 

@@ -8,12 +8,11 @@ class Like < ActiveRecord::Base
   validates_uniqueness_of :user_id, scope: [:likable_type, :likable_id]
 
   after_create do
-    a_post = likable.is_a?(Reply) ? likable.post : likable
+    a_post_id = likable.is_a?(Reply) ? likable.post_id : likable.id
 
     Notification.notify_users_involved_in_post(
-      a_post,
-      Notification::ACTION_LIKED,
-      likable.likes.count
+      a_post_id,
+      Notification::ACTION_LIKED
     )
   end
 

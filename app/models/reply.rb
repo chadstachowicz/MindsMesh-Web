@@ -10,9 +10,8 @@ class Reply < ActiveRecord::Base
 
   after_create do
     Notification.notify_users_involved_in_post(
-      post,
-      Notification::ACTION_REPLIED,
-      post.replies.count
+      post_id,
+      Notification::ACTION_REPLIED
     )
   end
   

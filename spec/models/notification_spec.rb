@@ -62,9 +62,8 @@ describe Notification do
         post = Fabricate(:post)
         -> {
           Notification.notify_users_involved_in_post(
-            post,
-            Notification::ACTION_REPLIED,
-            999
+            post.id,
+            Notification::ACTION_REPLIED
           )
         }.should change(Notification, :count)
       end
@@ -74,9 +73,8 @@ describe Notification do
         topic = Fabricate(:topic_user).topic
         -> {
           Notification.notify_users_in_topic(
-            topic,
-            Notification::ACTION_POSTED,
-            10
+            topic.id,
+            Notification::ACTION_POSTED
           )
         }.should change(Notification, :count)
       end
