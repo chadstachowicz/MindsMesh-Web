@@ -9,6 +9,8 @@ class Post < ActiveRecord::Base
   validates_presence_of :text
   validates_length_of :text, minimum: 10
 
+  after_create :lazy_notify
+
   #scope :includes_all , includes(:user, :topic, :replies, :likes)
   class << self
     def create_with!(topic_user, attrs)
@@ -37,11 +39,8 @@ class Post < ActiveRecord::Base
     ].flatten.uniq
   end
 
-  after_create do
-    Notification.notify_users_in_topic(
-      topic_id,
-      Notification::ACTION_POSTED
-    )
+  def lazy_notify
+    Notify.create(target: self) unless Rails.env.test?
   end
 
 end

@@ -24,7 +24,7 @@ describe Notification do
     end
     describe "notify_on_facebook!" do
       it "stores a fb_apprequest_id" do
-        Fabricate(:reply)
+        Fabricate(:notification)
         n = Notification.last
         ->{
           n.notify_on_facebook!

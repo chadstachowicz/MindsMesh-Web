@@ -108,7 +108,6 @@ class Notification < ActiveRecord::Base
   end
 
   def notify_on_facebook!
-
     if Rails.env.production?
       raise "notification must be saved to invoke this method" if new_record?
       delete_fb_apprequest

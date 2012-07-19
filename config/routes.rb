@@ -1,5 +1,7 @@
 Mindsmesh::Application.routes.draw do
 
+  resources :notifies, only: [:index, :destroy]
+
   match "/delayed_job" => DelayedJobWeb, :anchor => false
   
   get "/privacy" => "pages#privacy"

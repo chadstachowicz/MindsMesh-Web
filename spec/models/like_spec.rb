@@ -44,10 +44,10 @@ describe Like do
   end
 
   describe "hooks" do
-    it "notifies owner" do
-      ->{
-        Fabricate(:like)
-      }.should change(Notification, :count).by(1)
+    it "schedules notifications" do
+      a = Fabricate.build(:like)
+      a.should_receive(:lazy_notify).once
+      a.save
     end
   end
 end

@@ -1,0 +1,17 @@
+<h1>Listing notifies</h1>
+
+<table>
+  <tr>
+    <th>Target type</th>
+    <th>Target</th>
+    <th></th>
+  </tr>
+
+<% @notifies.each do |notify| %>
+  <tr>
+    <td><%= notify.target_type %></td>
+    <td><%= notify.target_id %></td>
+    <td><%= link_to 'Destroy', notify, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>

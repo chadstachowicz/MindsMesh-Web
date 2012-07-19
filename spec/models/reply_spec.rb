@@ -43,10 +43,10 @@ describe Reply do
   end
 
   describe "hooks" do
-    it "notifies owner" do
-      ->{
-        Fabricate(:reply)
-      }.should change(Notification, :count).by(1)
+    it "schedules notifications" do
+      a = Fabricate.build(:reply)
+      a.should_receive(:lazy_notify).once
+      a.save
     end
   end
 end

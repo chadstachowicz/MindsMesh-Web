@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120716034709) do
+ActiveRecord::Schema.define(:version => 20120719062324) do
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -101,6 +101,15 @@ ActiveRecord::Schema.define(:version => 20120716034709) do
   add_index "notifications", ["fb_apprequest_id"], :name => "index_notifications_on_fb_apprequest_id"
   add_index "notifications", ["target_type", "target_id"], :name => "index_notifications_on_target_type_and_target_id"
   add_index "notifications", ["user_id"], :name => "index_notifications_on_user_id"
+
+  create_table "notifies", :force => true do |t|
+    t.string   "target_type"
+    t.integer  "target_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "notifies", ["target_type"], :name => "index_notifies_on_target_type"
 
   create_table "posts", :force => true do |t|
     t.integer  "topic_id"

@@ -88,11 +88,10 @@ describe Post do
   end
 
   describe "hooks" do
-    it "notifies users in topic" do
-      topic = Fabricate(:topic_user).topic
-      ->{
-        Fabricate(:post, topic: topic)
-      }.should change(Notification, :count).by(1)
+    it "schedules notifications" do
+      a = Fabricate.build(:post)
+      a.should_receive(:lazy_notify).once
+      a.save
     end
   end
 end

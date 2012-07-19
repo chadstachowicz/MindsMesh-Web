@@ -8,11 +8,10 @@ class Reply < ActiveRecord::Base
   validates_presence_of :text
   #scope :includes_all , includes(:user, :likes)
 
-  after_create do
-    Notification.notify_users_involved_in_post(
-      post_id,
-      Notification::ACTION_REPLIED
-    )
+  after_create :lazy_notify
+
+  def lazy_notify
+    Notify.create(target: self) unless Rails.env.test?
   end
   
 end
