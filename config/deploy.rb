@@ -15,12 +15,13 @@ set :branch, "master"
 #custom begin
 set :whenever_command, "bundle exec whenever"
 require "whenever/capistrano"
-
+=begin
 require "delayed/recipes"
 set :rails_env, "production" #added for delayed job
 after "deploy:stop",    "delayed_job:stop"
 after "deploy:start",   "delayed_job:start"
 after "deploy:restart", "delayed_job:restart"
+=end
 #custom end
 
 default_run_options[:pty] = true
