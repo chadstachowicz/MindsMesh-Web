@@ -5,8 +5,8 @@ every 2.minutes do
   rake "when:2minutes"
 end
 
-every 6.hours do
-  rake "when:6hours"
+every 30.minutes do
+  rake "when:30minutes"
 end
 
 # Learn more: http://github.com/javan/whenever
