@@ -13,6 +13,15 @@
 
 <% content_for :sidebar do %>
 
+<% if current_user.master? %>
+  <%= link_to 'log in as',
+              session_switch_path(user_id: @user),
+              method: 'put',
+              class: 'btn btn-large btn-danger input-block-level',
+              data: {disable_with: "hold on..."}
+              %>
+<% end %>
+
 <div class="well blue-well">
 
   <ul class="nav nav-list">

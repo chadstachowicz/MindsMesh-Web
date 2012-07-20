@@ -43,6 +43,7 @@ Mindsmesh::Application.routes.draw do
   #creating an account
   get "home/guest"
   get "session/logout"
+  put "session/switch"
   match "/auth/:provider/callback" => "session#create"
 
   #relating to an entity
