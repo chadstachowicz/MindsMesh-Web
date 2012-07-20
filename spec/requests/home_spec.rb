@@ -12,10 +12,11 @@ describe 'Home' do
 
       # - login (creating user)
       click_link('login_facebook')
-      current_path.should == home_user_path
+      current_path.should == home_client_path
 
       # - submits email to become a user
       #submits invalid email
+      visit home_user_path
       -> do
         fill_in('email', with: Faker::Internet.email)
         click_button 'submit'

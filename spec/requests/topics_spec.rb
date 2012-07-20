@@ -31,7 +31,7 @@ describe "Topics" do
   describe "PUT /topics/1/join" do
 
     it "capybara: joins a topic as a student" do
-      capybara_current_user_client!
+      capybara_current_user!
       @topic = Fabricate(:topic, entity: Entity.first)
 
       #sees the page
@@ -42,11 +42,11 @@ describe "Topics" do
       -> do
         click_link 'join this topic'
         current_path.should == topic_path(@topic)
-      end.should change { TopicUser.count }.by(1)
+      end.should change(TopicUser, :count).by(1)
       -> do
         click_link 'leave this topic'
         current_path.should == topic_path(@topic)
-      end.should change { TopicUser.count }.by(-1)
+      end.should change(TopicUser, :count).by(-1)
     end
 
   end

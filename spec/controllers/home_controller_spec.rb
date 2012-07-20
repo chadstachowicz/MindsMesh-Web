@@ -70,14 +70,13 @@ describe HomeController do
 
     describe "GET 'client'" do
       it "returns http success if in role" do
-        session[:user_id] = Fabricate(:user, roles: ['client']).id
+        session[:user_id] = Fabricate(:user).id
         get 'client'
         response.should be_success
       end
       it "denies access not in role" do
-        session[:user_id] = Fabricate(:user).id
         get 'client'
-        response.should redirect_to(denied_path)
+        response.should redirect_to(home_guest_path)
       end
     end
 =begin

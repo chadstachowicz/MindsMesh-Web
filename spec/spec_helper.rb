@@ -76,11 +76,11 @@ end
 # free to delete them.
 
 def current_user_master
-  @current_user_master ||= Fabricate(:user, roles: ['master'])
+  @current_user_master ||= Fabricate(:user, role: :master)
 end
 
-def current_user_client
-  @current_user_client ||= Fabricate(:user, roles: ['client'])
+def current_user
+  @current_user ||= Fabricate(:user)
 end
 
 def valid_session

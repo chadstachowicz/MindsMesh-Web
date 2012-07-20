@@ -18,41 +18,23 @@ class User < ActiveRecord::Base
 
   after_create :joins_self_joining_entities
 
-  ROLES_MAP = {
-                master:    16,
-                admin:     8,
-                manager:   4,
-                moderator: 2,
-                client:    1,
-                user:      0
-              }
 
-  def roles
-    r = []
-    roles_mask2 = roles_mask #|| 0
-    User::ROLES_MAP.each do |role, mask|
-      if roles_mask2 >= mask
-        r << role
-        roles_mask2 -= mask
-      end
-    end
-    #puts "roles_mask #{roles_mask} translates: #{r.map &:to_s}".green
-    raise "omg!!" if roles_mask2 > 0
-    r.map &:to_s
+  ROLES = {
+            master:    4,
+            admin:     3,
+            manager:   2,
+            moderator: 1
+          }
+
+  def role
+    ROLES.key(role_i)
   end
 
-  def roles=(given_roles)
-    given_roles = given_roles.compact.map(&:to_sym)
-    self.roles_mask = 0
-    given_roles.each do |given_role|
-      raise "unknown role: #{given_role}" unless User::ROLES_MAP.keys.include?(given_role)
-      self.roles_mask += User::ROLES_MAP[given_role]
-    end
-    #puts "roles: #{given_roles} store as: #{self.roles_mask}".yellow
-    self.roles_mask
+  def role=(given_role)
+    self.role_i = 0 if given_role.nil?
+    self.role_i = ROLES[given_role.to_sym] || 0
   end
 
-  def client?;    role_is?(:client);    end
   def moderator?; role_is?(:moderator); end
   def manager?;   role_is?(:manager);   end
   def admin?;     role_is?(:admin);     end
@@ -81,7 +63,7 @@ class User < ActiveRecord::Base
   end
 
   #user matches the mininum requirement
-  def role_is?(given_role)
-    roles_mask >= User::ROLES_MAP[given_role]
+  def role_is?(given_role_i)
+    role_i >= User::ROLES[given_role_i]
   end
 end

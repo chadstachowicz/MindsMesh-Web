@@ -10,7 +10,6 @@ class Ability
     @current_user = current_user
     #
     user
-    client    if current_user.client?
     #moderator if current_user.moderator?
     #manager   if current_user.manager?
     admin     if current_user.admin?
@@ -28,9 +27,6 @@ class Ability
 
   def user
     can :home_user
-  end
-
-  def client
     can :home_client
     #TODO: stop testing only as a master
     can [:show, :join], Topic do |topic|

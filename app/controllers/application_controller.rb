@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
   def redirect_to_landing_home_page
     return redirect_to '/auth/facebook' if params['signed_request']
     return redirect_to :home_guest     unless current_user
-    return redirect_to :root           if current_user.client?
+    return redirect_to :root           if current_user
     #return redirect_to :home_moderator if current_user.moderator?
     #return redirect_to :home_manager   if current_user.manager?
     #return redirect_to :home_admin     if current_user.admin?

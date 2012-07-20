@@ -6,7 +6,7 @@ describe "users/show" do
     assign(:posts, @user.posts)
     assign(:topic_users, @user.topic_users)#zero items :()
 
-    controller.stub!(:current_user).and_return(current_user_client)
+    controller.stub!(:current_user).and_return(current_user)
   end
 
   it "renders" do

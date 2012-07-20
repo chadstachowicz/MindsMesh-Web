@@ -4,8 +4,8 @@ describe "home/client.html.erb" do
   
   before do
     assign(:posts, [])
-    view.stub!(:current_user).and_return(current_user_client)
-    controller.stub!(:current_user).and_return(current_user_client)
+    view.stub!(:current_user).and_return(current_user)
+    controller.stub!(:current_user).and_return(current_user)
   end
 
   it "renders templates without posts" do
@@ -25,10 +25,10 @@ describe "home/client.html.erb" do
   end
 
   it "renders new_post when user has topics" do
-    Fabricate(:topic_user, user: current_user_client)
-    current_user_client.reload
-    view.stub!(:current_user).and_return(current_user_client)
-    controller.stub!(:current_user).and_return(current_user_client)
+    Fabricate(:topic_user, user: current_user)
+    current_user.reload
+    view.stub!(:current_user).and_return(current_user)
+    controller.stub!(:current_user).and_return(current_user)
     render
     view.should render_template("posts/_new_post")
   end

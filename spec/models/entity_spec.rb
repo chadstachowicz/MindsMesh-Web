@@ -24,11 +24,6 @@ describe Entity do
           @entity.user_join!(@user)
         }.should raise_error(ActiveRecord::RecordInvalid)
        end
-      it "should change user's role" do
-        -> {
-          @entity.user_join!(@user)
-        }.should change(@user, :roles).from(['user']).to(['client', 'user'])
-      end
     end
   end
 

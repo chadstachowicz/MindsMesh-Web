@@ -26,72 +26,19 @@ describe User do
     end
   end
 
-  describe "roles_mask" do
+  describe "role_i" do
     before do
       @user = Fabricate.build(:user)
     end
 
-    describe "roles getter" do
-
-      it "should be an array" do
-        @user.roles.should be_instance_of(Array)
-        @user.roles.should be ==['user']
-        @user.roles.should_not be_empty
+    User::ROLES.keys.each do |role|
+      it "get/set/? #{role}" do
+        @user.send("#{role}?").should_not be_true
+        @user.role = role
+        @user.role.should ==role
+        @user.send("#{role}?").should be_true
       end
 
-      it "should save correctly" do
-        @user.roles_mask.should be_zero
-        @user.roles = [:client]
-        @user.roles_mask.should == 1
-        @user.roles = [:client, :master]
-        @user.roles_mask.should == 17
-        @user.roles = [:master]
-        @user.roles_mask.should == 16
-      end
-    end
-
-    describe "roles= setter" do
-      
-      it "should raise for unkown type" do
-        -> {
-          roles = ['admin', 'lalala']
-          @user.roles = roles
-        }.should raise_error(RuntimeError)
-      end
-
-      it "should set correctly" do
-        @user.roles = User::ROLES_MAP.keys
-        @user.roles.should == User::ROLES_MAP.keys.map(&:to_s)
-        @user.roles_mask.should == 31
-      end
-
-    end
-
-    describe "{role}?" do
-
-      it "should work" do
-        @user.should_not be_client
-        @user.should_not be_moderator
-        @user.should_not be_manager
-        @user.should_not be_admin
-        @user.should_not be_master
-      end
-
-      it "should always include in lesser roles" do
-        @user.roles += ['moderator']
-        @user.should     be_client
-        @user.should     be_moderator
-        @user.should_not be_manager
-        @user.should_not be_admin
-        @user.should_not be_master
-
-        @user.roles += ['master']
-        @user.should     be_client
-        @user.should     be_moderator
-        @user.should     be_manager
-        @user.should     be_admin
-        @user.should     be_master
-      end
     end
   end
 

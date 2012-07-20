@@ -23,7 +23,6 @@ class Entity < ActiveRecord::Base
   def user_join!(user)
     transaction do
       entity_users.create! user: user
-      user.roles += ['client']
       user.save!
     end
   end

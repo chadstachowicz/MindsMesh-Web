@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120719062324) do
+ActiveRecord::Schema.define(:version => 20120720063508) do
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -109,8 +109,6 @@ ActiveRecord::Schema.define(:version => 20120719062324) do
     t.datetime "updated_at",  :null => false
   end
 
-  add_index "notifies", ["target_type"], :name => "index_notifies_on_target_type"
-
   create_table "posts", :force => true do |t|
     t.integer  "topic_id"
     t.integer  "user_id"
@@ -194,7 +192,7 @@ ActiveRecord::Schema.define(:version => 20120719062324) do
     t.string   "fb_id"
     t.string   "fb_token"
     t.datetime "fb_expires_at"
-    t.integer  "roles_mask",        :default => 0
+    t.integer  "role_i",            :default => 0
     t.integer  "posts_count",       :default => 0
     t.integer  "replies_count",     :default => 0
     t.integer  "likes_count",       :default => 0
