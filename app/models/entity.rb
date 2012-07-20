@@ -1,4 +1,6 @@
 class Entity < ActiveRecord::Base
+  extend FriendlyId
+  friendly_id :slug
 
   attr_accessible :name, :slug, :self_joining
 
