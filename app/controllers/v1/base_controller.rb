@@ -3,7 +3,7 @@ class V1::BaseController < ApplicationController
   def render_404
     render json: {error: {message: "invalid url", code: 404}}, status: :not_found
   end
-  
+
   protected
 
   def authenticate
@@ -12,6 +12,6 @@ class V1::BaseController < ApplicationController
     return render json: {error: {message: "access_token param does not match any users", code: 1002}}, status: :forbidden if @current_user.nil?
   end
 
-  rescue_from ActiveRecord::RecordNotFound,     with: :render_404
+  rescue_from ActiveRecord::RecordNotFound, with: :render_404
 
 end
