@@ -1,5 +1,9 @@
 Mindsmesh::Application.routes.draw do
 
+  api_version(:module => "V1", :path=>"v1") do
+    get '/home/posts'
+  end
+
   resources :notifies, only: [:index, :destroy]
 
   match "/delayed_job" => DelayedJobWeb, :anchor => false
