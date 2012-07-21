@@ -2,12 +2,17 @@ require 'spec_helper'
 
 describe V1::TopicsController do
 
+  before do
+    topic_user = Fabricate(:topic_user)
+    @topic = topic_user.topic
+    @valid_params = {id: @topic.to_param, access_token: topic_user.user.id}
+  end
+
   describe "show" do
 
     it "with valid params" do
-      topic = Fabricate(:topic)
-      V1::TopicPresenter.should_receive(:new).with(topic)
-      get :show, {id: topic.to_param}
+      V1::TopicPresenter.should_receive(:new).with(@topic)
+      get :show, @valid_params
       response.status.should == 200
     end
     
@@ -16,14 +21,13 @@ describe V1::TopicsController do
   describe "posts" do
 
     it "with valid params" do
-      topic = Fabricate(:topic)
       V1::PostPresenter.should_receive(:array).with([])
-      get :posts, {id: topic.to_param}
+      get :posts, @valid_params
       response.status.should == 200
     end
     
   end
-  
+
 =begin
   describe "batch" do
     

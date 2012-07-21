@@ -1,7 +1,5 @@
 class V1::HomeController < V1::BaseController
 
-  before_filter :authenticate
-
   def posts
     posts = @current_user.posts_feed(params.slice(:limit, :before))
     render json: V1::PostPresenter.array(posts)
@@ -10,6 +8,16 @@ class V1::HomeController < V1::BaseController
   def posts_with_parents
     posts = @current_user.posts_feed(params.slice(:limit, :before))
     render json: V1::PostPresenter.array(posts).map(&:with_parents)
+  end
+
+  def entities
+    entities = @current_user.entities
+    render json: V1::EntityPresenter.array(entities)
+  end
+
+  def entities_with_children
+    entities = @current_user.entities
+    render json: V1::EntityPresenter.array(entities).map { |ep| ep.with_topics_and_topic_users(@current_user) }
   end
 
 end

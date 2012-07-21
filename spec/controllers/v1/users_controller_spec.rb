@@ -2,12 +2,16 @@ require 'spec_helper'
 
 describe V1::UsersController do
 
+  def valid_params
+    {access_token: Fabricate(:user).id}
+  end
+
   describe "show" do
 
     it "with valid params" do
       user = Fabricate(:user)
       V1::UserPresenter.should_receive(:new).with(user)
-      get :show, {id: user.to_param}
+      get :show, valid_params.merge({id: user.to_param})
       response.status.should == 200
     end
     
@@ -22,7 +26,7 @@ describe V1::UsersController do
       entity = topic.entity
       Fabricate(:entity_user, entity: entity, user: user)
 
-      get :with_children, {id: user.to_param}
+      get :with_children, valid_params.merge({id: user.to_param})
       response.status.should == 200
       response.body.should include 'topic_users'
       response.body.should include topic.name
@@ -37,7 +41,7 @@ describe V1::UsersController do
     it "with valid params" do
       user = Fabricate(:user)
       V1::PostPresenter.should_receive(:array).with([])
-      get :posts, {id: user.to_param}
+      get :posts, valid_params.merge({id: user.to_param})
       response.status.should == 200
     end
     

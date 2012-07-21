@@ -12,6 +12,14 @@ describe "api_v1" do
         get("/v1/home/posts/with_parents").should route_to("v1/home#posts_with_parents")
       end
 
+      it "routes to #entities" do
+        get("/v1/home/entities").should route_to("v1/home#entities")
+      end
+      
+      it "routes to #entities_with_children" do
+        get("/v1/home/entities/with_children").should route_to("v1/home#entities_with_children")
+      end
+
     end
     describe "posts" do
 

@@ -1,5 +1,7 @@
 class V1::BaseController < ApplicationController
 
+  before_filter :authenticate, except: :render_404
+
   def render_404
     render json: {error: {message: "invalid url", code: 404}}, status: :not_found
   end
