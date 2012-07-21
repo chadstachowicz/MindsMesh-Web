@@ -10,18 +10,18 @@ Mindsmesh::Application.routes.draw do
       member do
         get :posts
       end
-      collection do
-        get :batch
-      end
+      #collection do
+      #  get :batch
+      #end
     end
     resources :users, only: [:show] do
       member do
         get :with_children
         get :posts
       end
-      collection do
-        get :batch
-      end
+      #collection do
+      #  get :batch
+      #end
     end
     get '/home/posts'
     get '/home/posts/with_parents' => 'home#posts_with_parents'

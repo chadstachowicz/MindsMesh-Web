@@ -42,7 +42,8 @@ describe V1::UsersController do
     end
     
   end
-
+  
+=begin
   describe "batch" do
     
     it "with invalid params" do
@@ -58,5 +59,6 @@ describe V1::UsersController do
     end
 
   end
+=end
 
 end

@@ -23,7 +23,8 @@ describe V1::TopicsController do
     end
     
   end
-
+  
+=begin
   describe "batch" do
     
     it "with invalid params" do
@@ -39,5 +40,6 @@ describe V1::TopicsController do
     end
 
   end
+=end
 
 end
