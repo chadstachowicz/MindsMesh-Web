@@ -3,6 +3,7 @@ class V1::BasePresenter
 
   def initialize(model)
     self.m = model
+    super()
   end
 
   def self.array(models)

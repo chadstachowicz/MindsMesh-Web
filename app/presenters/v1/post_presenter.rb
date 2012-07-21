@@ -11,4 +11,10 @@ class V1::PostPresenter < V1::BasePresenter
     })
   end
 
+  def with_children
+    as_json.merge({
+      replies: m.replies.map { |r| r.as_json.merge({ user: V1::UserPresenter.new(r.user) }) }
+    })
+  end
+
 end

@@ -4,8 +4,23 @@ describe "api_v1" do
   describe "routing" do
     describe "home" do
       
-      it "routes to #index" do
+      it "routes to #posts" do
         get("/v1/home/posts").should route_to("v1/home#posts")
+      end
+      
+      it "routes to #posts_with_includes" do
+        get("/v1/home/posts/with_includes").should route_to("v1/home#posts_with_includes")
+      end
+
+    end
+    describe "posts" do
+
+      it "routes to #show" do
+        get("/v1/posts/1").should route_to("v1/posts#show", :id => "1")
+      end
+
+      it "routes to #with_children" do
+        get("/v1/posts/1/with_children").should route_to("v1/posts#with_children", :id => "1")
       end
 
     end
