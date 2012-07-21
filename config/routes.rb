@@ -18,6 +18,7 @@ Mindsmesh::Application.routes.draw do
       end
     end
     get '/home/posts'
+    get '*path' => 'base#render_404'
 
   end
 

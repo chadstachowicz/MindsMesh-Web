@@ -1,7 +1,7 @@
 class V1::TopicsController < V1::BaseController
   
   def batch
-  	return render json: {error: {message: "this operation requires topic_ids param separated between underscores. example: 1_12_312_4", code: 4001}} if params[:topic_ids].blank?
+  	return render json: {error: {message: "this operation requires topic_ids param separated between underscores. example: 1_12_312_4", code: 4001}}, status: :not_acceptable if params[:topic_ids].blank?
   	topics = Topic.where(id: params[:topic_ids].split('_'))
   	render json: V1::TopicPresenter.array(topics)
   end

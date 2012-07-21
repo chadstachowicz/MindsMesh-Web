@@ -8,4 +8,8 @@ class V1::BasePresenter
   def self.array(models)
     models.map { |m| new m }
   end
+
+  def ==(presenter)
+    m == presenter.m
+  end
 end
