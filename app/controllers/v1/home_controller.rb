@@ -1,6 +1,5 @@
 class V1::HomeController < V1::BaseController
 
-
   before_filter :authenticate
 
   def posts

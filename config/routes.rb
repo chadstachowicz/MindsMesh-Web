@@ -1,7 +1,13 @@
 Mindsmesh::Application.routes.draw do
 
   api_version(:module => "V1", :path=>"v1") do
+    resources :users, only: [:index, :show] do
+      member do
+        get :posts
+      end
+    end
     get '/home/posts'
+
   end
 
   resources :notifies, only: [:index, :destroy]
