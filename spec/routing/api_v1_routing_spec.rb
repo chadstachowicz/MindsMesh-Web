@@ -30,6 +30,10 @@ describe "api_v1" do
         get("/v1/users/1").should route_to("v1/users#show", :id => "1")
       end
 
+      it "routes to #with_children" do
+        get("/v1/users/1/with_children").should route_to("v1/users#with_children", :id => "1")
+      end
+
       it "routes to #posts" do
         get("/v1/users/1/posts").should route_to("v1/users#posts", :id => "1")
       end

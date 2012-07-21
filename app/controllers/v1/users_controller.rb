@@ -7,7 +7,11 @@ class V1::UsersController < V1::BaseController
   end
 
   def show
-  	render json: V1::UserPresenter.new(user)
+    render json: V1::UserPresenter.new(user)
+  end
+
+  def with_children
+    render json: V1::UserPresenter.new(user).with_children
   end
 
   def posts

@@ -16,6 +16,7 @@ Mindsmesh::Application.routes.draw do
     end
     resources :users, only: [:show] do
       member do
+        get :with_children
         get :posts
       end
       collection do

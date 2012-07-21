@@ -13,6 +13,25 @@ describe V1::UsersController do
     
   end
 
+  describe "with_children" do
+
+    it "with valid params" do
+      topic_user = Fabricate(:topic_user)
+      user  = topic_user.user
+      topic = topic_user.topic
+      entity = topic.entity
+      Fabricate(:entity_user, entity: entity, user: user)
+
+      get :with_children, {id: user.to_param}
+      response.status.should == 200
+      response.body.should include 'topic_users'
+      response.body.should include topic.name
+      response.body.should include 'entity_users'
+      response.body.should include entity.name
+    end
+    
+  end
+
   describe "posts" do
 
     it "with valid params" do

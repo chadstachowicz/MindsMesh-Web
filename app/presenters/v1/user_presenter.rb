@@ -11,5 +11,12 @@ class V1::UserPresenter < V1::BasePresenter
     	photo_url: m.photo_url
     }
   end
+
+  def with_children
+    as_json.merge({
+      topic_users: m.topic_users.map { |tu| tu.as_json.merge({ topic: V1::TopicPresenter.new(tu.topic) }) },
+      entity_users: m.entity_users.map { |eu| eu.as_json.merge({ entity: V1::EntityPresenter.new(eu.entity) }) },
+    })
+  end
   
 end
