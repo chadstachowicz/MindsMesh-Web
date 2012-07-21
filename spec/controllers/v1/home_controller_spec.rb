@@ -28,11 +28,11 @@ describe V1::HomeController do
 
   end
 
-  describe "posts_with_includes" do
+  describe "posts_with_parents" do
 
     it "with one post" do
       post = Fabricate(:post, user: @topic_user.user, topic: @topic_user.topic)
-      get :posts_with_includes, @valid_params
+      get :posts_with_parents, @valid_params
       response.status.should == 200
       response.body.should include @topic_user.user.name
       response.body.should include @topic_user.topic.name

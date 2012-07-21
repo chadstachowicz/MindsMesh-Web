@@ -8,8 +8,8 @@ describe "api_v1" do
         get("/v1/home/posts").should route_to("v1/home#posts")
       end
       
-      it "routes to #posts_with_includes" do
-        get("/v1/home/posts/with_includes").should route_to("v1/home#posts_with_includes")
+      it "routes to #posts_with_parents" do
+        get("/v1/home/posts/with_parents").should route_to("v1/home#posts_with_parents")
       end
 
     end

@@ -1,6 +1,11 @@
 Mindsmesh::Application.routes.draw do
 
   api_version(:module => "V1", :path=>"v1") do
+    resources :posts, only: [:show] do
+      member do
+        get :with_children
+      end
+    end
     resources :topics, only: [:show] do
       member do
         get :posts
@@ -18,7 +23,7 @@ Mindsmesh::Application.routes.draw do
       end
     end
     get '/home/posts'
-    get '/home/posts_with_includes'
+    get '/home/posts/with_parents' => 'home#posts_with_parents'
     get '*path' => 'base#render_404'
 
   end
