@@ -21,16 +21,16 @@ class Notify < ActiveRecord::Base
   end
 
   def run_post
-    Notification.notify_users_in_topic(target.topic_id, Notification::ACTION_POSTED)
+    Notification.notify_users_in_topic(target.topic_id, Notification::ACTION_POSTED, target.user_id)
   end
 
   def run_reply
-    Notification.notify_users_involved_in_post(target.post_id, Notification::ACTION_REPLIED)
+    Notification.notify_users_involved_in_post(target.post_id, Notification::ACTION_REPLIED, target.user_id)
   end
 
   def run_like
     a_post_id = target.likable.is_a?(Reply) ? target.likable.post_id : target.likable.id
-    Notification.notify_users_involved_in_post(a_post_id, Notification::ACTION_LIKED)
+    Notification.notify_users_involved_in_post(a_post_id, Notification::ACTION_LIKED, target.user_id)
   end
 
 

@@ -50,7 +50,7 @@ class User < ActiveRecord::Base
   end
 
   def fb_api
-    return false if fb_expires_at < Time.now
+    return :expired if fb_expires_at < Time.now
     @fb_api ||= Koala::Facebook::API.new(fb_token)
   end
 

@@ -69,7 +69,7 @@ describe User do
     describe "external api" do
       describe "fb_api" do
         it "should not work for expired token" do
-          Fabricate.build(:user, fb_expires_at: DateTime.yesterday).fb_api.should be_false
+          Fabricate.build(:user, fb_expires_at: DateTime.yesterday).fb_api.should == :expired
         end
         it "should bring api object for unexpired token" do
           Fabricate.build(:user, fb_expires_at: DateTime.tomorrow).fb_api.should be_a Koala::Facebook::API

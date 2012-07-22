@@ -26,12 +26,6 @@ class Notification < ActiveRecord::Base
     end
   end
 
-  def mark_as_read
-  	self.b_read = true
-    delete_fb_apprequest
-    save!
-  end
-
   def facebook_message
     "#{pluralize(actors_count, 'person')} #{action_as_verb}"
   end
@@ -65,73 +59,55 @@ class Notification < ActiveRecord::Base
     n.notify_on_facebook!
   end
 =end
-  def self.notify_users_involved_in_post(post_id, action)
+
+  def self.notify_users_involved_in_post(post_id, action, ignore_user_id)
     post = Post.find(post_id) rescue nil
     if post
       new_actors_count = (action == ACTION_REPLIED) ? post.replies.size : post.likes.size
-      User.find(post.user_ids_involved).each do |user|
-        notify_user(user, post, action, new_actors_count)
-=begin
-        n = where(target_type: post.class.name, target_id: post.id, action: action).first_or_initialize(user: user)
-        n.b_read = false
-        n.actors_count = new_actors_count
-        n.save!
-        n.notify_on_facebook!
-=end
+      user_ids = post.user_ids_involved
+      user_ids.delete(ignore_user_id)
+      User.find(user_ids).each do |user|
+        notify_user!(user, post, action, new_actors_count)
       end
     end
   end
 
-  def self.notify_users_in_topic(topic_id, action)
+  def self.notify_users_in_topic(topic_id, action, ignore_user_id)
     topic = Topic.find(topic_id) rescue nil
     if topic
       new_actors_count = topic.posts.where('created_at > ?', 3.day.ago).count
       topic.users.each do |user|
-        notify_user(user, topic, action, new_actors_count)
-=begin
-        n = where(target_type: topic.class.name, target_id: topic.id, action: action).first_or_initialize(user: user)
-        n.b_read = false
-        n.actors_count = new_actors_count
-        n.save!
-        n.notify_on_facebook!
-=end
+        notify_user!(user, topic, action, new_actors_count) unless user.id == ignore_user_id
       end
     end
   end
 
-  def self.notify_user(user, target, action, new_actors_count)
+  def self.notify_user!(user, target, action, new_actors_count)
     n = where(target_type: target.class.name, target_id: target.id, action: action).first_or_initialize(user: user)
     n.b_read = false
     n.actors_count = new_actors_count
-    n.save!
+    n.save! #ensure it's persisted
     n.notify_on_facebook!
   end
 
+  def mark_as_read!
+    self.b_read = true
+    api_delete_fb_apprequest
+    save!
+  end
+  
   def notify_on_facebook!
-    if Rails.env.production?
-      raise "notification must be saved to invoke this method" if new_record?
-      delete_fb_apprequest
-      post_fb_apprequest
-    else
-      @api_returned_hash = {"request"=>rand(999), "to"=>["123"]}
-    end
-    
-    set_fb_apprequest_id(@api_returned_hash)
-    logger.info "FB_GRAPH_API: post apprequest ok: id = #{id} fb: #{fb_apprequest_id}"
+    api_delete_fb_apprequest
+    api_post_fb_apprequest
     save!
   end
 
-  def set_fb_apprequest_id(h)
-    self.fb_apprequest_id = "#{h['request']}_#{h['to'].first}"
-  end
-
-  private
-
-  def delete_fb_apprequest
-    if Rails.env.production? && fb_apprequest_id.present?
+  def api_delete_fb_apprequest
+    raise "must be persisted to invoke this method" if new_record?
+    if self.fb_apprequest_id.present?
       begin
         target.user.fb_api.delete_object(fb_apprequest_id)
-        logger.info "FB_GRAPH_API: delete apprequest ok: #{fb_apprequest_id}" 
+        logger.info "FB_GRAPH_API: delete apprequest ok: #{fb_apprequest_id}"
       rescue Exception => exc
         logger.info "FB_GRAPH_API: delete apprequest error: #{exc.message}"
       end
@@ -139,9 +115,11 @@ class Notification < ActiveRecord::Base
     self.fb_apprequest_id = nil
   end
 
-  def post_fb_apprequest
+  def api_post_fb_apprequest
     begin
-      @api_returned_hash = target.user.fb_api.put_connections('me', 'apprequests', message: facebook_message, data: id)
+      h = target.user.fb_api.put_connections('me', 'apprequests', message: facebook_message, data: id)
+      self.fb_apprequest_id = "#{h['request']}_#{h['to'].first}"
+      logger.info "FB_GRAPH_API: post apprequest ok: #{fb_apprequest_id}"
     rescue Exception => exc
       logger.info "FB_GRAPH_API: post apprequest error: #{exc.message}"
     end

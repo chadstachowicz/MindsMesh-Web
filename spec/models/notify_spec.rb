@@ -61,7 +61,7 @@ describe Notify do
       end
       it "works" do
         Notification.stub(:notify_users_in_topic)
-        Notification.should_receive(:notify_users_in_topic).with(@notify.target.topic_id, Notification::ACTION_POSTED).once
+        Notification.should_receive(:notify_users_in_topic).with(@notify.target.topic_id, Notification::ACTION_POSTED, @notify.target.user_id).once
   	  	@notify.run_post
   	  end
   	end

@@ -3,5 +3,5 @@ Fabricator(:user) do
   gender "male"
   fb_id "12345"
   fb_token "AAAAA"
-  fb_expires_at DateTime.yesterday
+  fb_expires_at DateTime.tomorrow
 end
