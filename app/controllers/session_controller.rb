@@ -12,8 +12,12 @@ class SessionController < ApplicationController
   end
 
   def switch
-  	if current_user.master?
-  	  session[:user_id] = params[:user_id]
+    if params[:user_id] && current_user.master?
+      session[:master_id] = session[:user_id]
+  	  session[:user_id]   = params[:user_id]
+    elsif session[:master_id]
+      session[:user_id]   = session[:master_id]
+      session[:master_id] = nil
   	end
   	redirect_to root_path
   end

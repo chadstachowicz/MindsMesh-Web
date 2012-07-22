@@ -13,14 +13,6 @@
 
 <% content_for :sidebar do %>
 
-<% if current_user.master? %>
-  <%= link_to 'log in as',
-              session_switch_path(user_id: @user),
-              method: 'put',
-              class: 'btn btn-large btn-danger input-block-level',
-              data: {disable_with: "hold on..."}
-              %>
-<% end %>
 
 <div class="well blue-well">
 
@@ -31,6 +23,15 @@
     <% @topic_users.each do |topic_user| %>
       <% topic = topic_user.topic %>
       <%= li link_to(icon_text('book', topic.name), topic) %>
+    <% end %>
+    
+    <% if current_user.master? %>
+      <li class="nav-header">master</li>
+      <%= li link_to  icon_text('user', 'log in as'),
+                      session_switch_path(user_id: @user),
+                      method: 'put',
+                      data: {disable_with: "hold on..."}
+                      %>
     <% end %>
   </ul>
 </div>
