@@ -86,6 +86,7 @@ Mindsmesh::Application.routes.draw do
   get '/' => 'home#client', as: 'home_client'
   get "home/more_posts"
   post "home/create_post"
+  post "home/change_access_token"
   
   #questionnaire
   post "home/feedback"

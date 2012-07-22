@@ -197,4 +197,14 @@ describe HomeController do
     
   end
 
+  describe "change_access_token" do
+    it "delegates the method to the user" do
+      controller.stub(:current_user).and_return(current_user_master)
+      current_user_master.stub(:change_access_token)
+      current_user_master.should_receive(:change_access_token).once
+      post :change_access_token, {}, valid_session
+      response.body.should be_blank
+    end
+  end
+
 end

@@ -16,8 +16,12 @@ class User < ActiveRecord::Base
   validates_presence_of :fb_token
   validates_presence_of :fb_expires_at
 
+  before_create :change_access_token
   after_create :joins_self_joining_entities
 
+  def change_access_token
+    self.access_token = Digest::MD5.hexdigest(Time.now.to_s)
+  end
 
   ROLES = {
             master:    4,

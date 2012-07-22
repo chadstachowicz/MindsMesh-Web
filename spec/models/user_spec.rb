@@ -3,6 +3,12 @@ require 'spec_helper'
 describe User do
 
   describe "hooks" do
+    describe "before_create" do
+      it "change_access_token" do
+        User.any_instance.should_receive(:change_access_token).once
+        Fabricate(:user)
+      end
+    end
     describe "after_create" do
       it "joins self-joining entities" do
         entity1 = Fabricate(:entity, self_joining: false)
@@ -48,6 +54,14 @@ describe User do
       describe "photo_url" do
         it "brings string" do
           User.new.photo_url.should be_a String
+        end
+      end
+      describe "change_access_token" do
+        it "works" do
+          user = Fabricate.build(:user)
+          -> {
+            user.change_access_token
+          }.should change(user, :access_token)
         end
       end
     end

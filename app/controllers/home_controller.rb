@@ -50,6 +50,12 @@ class HomeController < ApplicationController
     authorize! :home_master, nil
   end
 =end
+
+  def change_access_token
+    current_user.change_access_token
+    render nothing: true
+  end
+
   def create_post
     topic_user = current_user.topic_users.find(params[:topic_user_id])
     @post = Post.create_with!(topic_user, params[:post])

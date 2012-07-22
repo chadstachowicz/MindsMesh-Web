@@ -22,6 +22,9 @@ describe HomeController do
     it "routes to #user_create_eur" do
       post("/home/user_create_eur").should route_to("home#user_create_eur")
     end
+    it "routes to #change_access_token" do
+      post("/home/change_access_token").should route_to("home#change_access_token")
+    end
 =begin
     it "routes to #moderator" do
       get("/home/moderator").should route_to("home#moderator")
