@@ -17,15 +17,6 @@
 
 <div class="well blue-well">
   <ul class="nav nav-list">
-    <li class="nav-header">
-      mobile
-    </li>
-    <%= li link_to(icon_text('eye-close', "Sign Out All My Mobile Devices"),
-                   home_change_access_token_path,
-                   remote: true,
-                   method: :post,
-                   onclick: "$(this).find('span').html('All mobiles require login again!')")
-                   %>
 
     <li class="nav-header">
       my topics
@@ -35,6 +26,16 @@
       <%= li link_to(icon_text('book', topic.name), topic) %>
     <% end %>
     <%= render '/topics_my_entities' %>
+    <li class="divider"></li>
+    <li class="nav-header">
+      mobile
+    </li>
+    <%= li link_to(icon_text('eye-close', "Sign Out All My Mobile Devices"),
+                   home_change_access_token_path,
+                   remote: true,
+                   method: :post,
+                   onclick: "$(this).find('span').html('All mobiles require login again!')")
+                   %>
   </ul>
 </div>
 
