@@ -53,6 +53,7 @@ class HomeController < ApplicationController
 
   def change_access_token
     current_user.change_access_token
+    current_user.save
     render nothing: true
   end
 

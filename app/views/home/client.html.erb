@@ -23,6 +23,7 @@
     <%= li link_to(icon_text('eye-close', "Sign Out All My Mobile Devices"),
                    home_change_access_token_path,
                    remote: true,
+                   method: :post,
                    onclick: "$(this).find('span').html('All mobiles require login again!')")
                    %>
 
