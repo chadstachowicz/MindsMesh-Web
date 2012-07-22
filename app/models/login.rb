@@ -22,6 +22,7 @@ class Login < ActiveRecord::Base
       login.user.fb_expires_at = Time.at(auth['credentials']['expires_at'])
       login.save!
       login.user.save!
+      login.user.touch #expires all cache that users user.updated_at
       login
     end
   end
