@@ -20,7 +20,11 @@
     <li class="nav-header">
       mobile
     </li>
-    <%= li link_to(icon_text('eye-close', "Sign Out All My Mobile Devices"), home_change_access_token_path, remote: true, onclick: "$(this).html('All mobiles require login again!')") %>
+    <%= li link_to(icon_text('eye-close', "Sign Out All My Mobile Devices"),
+                   home_change_access_token_path,
+                   remote: true,
+                   onclick: "$(this).find('span').html('All mobiles require login again!')")
+                   %>
 
     <li class="nav-header">
       my topics

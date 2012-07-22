@@ -3,9 +3,9 @@ module ApplicationHelper
     content_tag(:li, content, options)
   end
   def text_icon(text, icon)
-  	"#{text} <i class='icon-#{icon}'></i>".html_safe
+  	"<span>#{text}</span> <i class='icon-#{icon}'></i>".html_safe
   end
   def icon_text(icon, text)
-  	"<i class='icon-#{icon}'></i> #{text}".html_safe
+  	"<i class='icon-#{icon}'></i> <span>#{text}</span>".html_safe
   end
 end

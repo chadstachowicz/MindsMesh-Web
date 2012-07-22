@@ -6,7 +6,7 @@
   <div>
     <em>
       <%= time_ago_in_words(post.created_at) %> ago
-      <%= link_to 'single page <i class="icon-external-link"></i>'.html_safe,
+      <%= link_to text_icon('single page', 'external-link'),
                   post,
                   target: '_blank' unless request.url == post_url(post).to_s
                   %>
@@ -31,11 +31,11 @@
     </table>
     <div class="actions post_actions">
       <div class="group-left">
-        <%= link_to '<i class="icon-edit"></i> <i>edit this post</i>'.html_safe,
+        <%= link_to icon_text('edit', 'edit this post'),
                     post,
                     id: "edit_post_#{post.id}" if can_update_post
                     %>
-        <%= link_to '<i class="icon-trash"></i> <i>remove</i>'.html_safe,
+        <%= link_to icon_text('trash', 'remove'),
                     post,
                     remote: true,
                     method: :delete,
@@ -43,14 +43,14 @@
                     %>
       </div>
       <div class="group-right">
-        <%= link_to "<i class='icon-thumbs-up'></i> <span>#{post.likes.size}</span>".html_safe,
+        <%= link_to icon_text('thumbs-up', post.likes.size),
                     like_post_path(post),
                     remote: true,
                     method: 'put',
                     class: 'btn likebutton tooltiped',
                     title: 'like this?'
                     %>
-        <%= link_to "<i class='icon-comment-alt'></i> <span>#{post.replies.size}</span>".html_safe,
+        <%= link_to icon_text('comment-alt', post.replies.size),
                     "#",
                     class: 'btn replybutton tooltiped',
                     title: 'reply to this post!',

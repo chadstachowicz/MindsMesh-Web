@@ -23,11 +23,11 @@
   </table>
   <div class="actions reply_actions">
     <div class="group-left">
-      <%= link_to '<i class="icon-edit"></i> edit this reply'.html_safe,
+      <%= link_to icon_text('edit', 'edit this reply'),
                   '#',
                   id: "edit_reply_#{reply.id}" if can_update_reply
                   %>
-      <%= link_to '<i class="icon-trash"></i> <i>remove</i>'.html_safe,
+      <%= link_to icon_text('trash', 'remove'),
                   reply,
                   remote: true,
                   method: :delete,
@@ -35,7 +35,7 @@
                   %>
     </div>
     <div class="group-right">
-      <%= link_to "<i class='icon-thumbs-up'></i> <span>#{reply.likes.size}</span>".html_safe,
+      <%= link_to icon_text('thumbs-up', reply.likes.size),
                   like_reply_path(reply),
                   remote: true,
                   method: 'put',
