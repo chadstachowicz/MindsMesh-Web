@@ -3,7 +3,7 @@ class Login < ActiveRecord::Base
   attr_accessible :auth_s, :provider, :uid
   validates_presence_of :provider
   validates_presence_of :uid
-  validates_presence_of :auth_s
+  #validates_presence_of :auth_s
 
   def self.auth!(auth)
     raise "invalid facebook login" if auth.nil?
@@ -12,24 +12,52 @@ class Login < ActiveRecord::Base
 
       login.auth_s = auth.to_json
       #login.permissions = "email"
-      
-      login.build_user if login.new_record?
+      login.update_with_facebook_data!(
+        auth["info"]["name"],
+        auth["info"]["gender"],
+        auth['credentials']['token'],
+        Time.at(auth['credentials']['expires_at'])
+      )
+      return login
+    end
+  end
 
-      login.user.name          = auth["info"]["name"]
-      login.user.gender        = auth["info"]["gender"]
-      login.user.fb_id         = login.uid
-      login.user.fb_token      = auth['credentials']['token']
-      login.user.fb_expires_at = Time.at(auth['credentials']['expires_at'])
-      login.save!
-      login.user.save!
-      login.user.touch #expires all cache that users user.updated_at
-      login
+  def self.with_access_token!(fb_token, fb_expires_at)
+    return :invalid if fb_token.blank?
+    fb_expires_at = fb_expires_at ? Time.at(fb_expires_at) : 1.month.from_now
+
+    transaction do
+      fb_api = Koala::Facebook::API.new(fb_token)
+      me = fb_api.get_object('me')
+
+      login = Login.where(provider: 'facebook', uid: me["id"]).first_or_initialize
+      login.update_with_facebook_data!(
+        me["name"],
+        me["gender"],
+        fb_token,
+        fb_expires_at
+      )
+      return login
     end
   end
 
   def auth
     return :auth_nil if auth_s.nil?
     JSON.load(auth_s)
+  end
+
+  def update_with_facebook_data!(name, gender, token, expires_at)
+    self.build_user if new_record?
+    #      
+    self.user.name          = name
+    self.user.gender        = gender
+    self.user.fb_id         = self.uid
+    self.user.fb_token      = token
+    self.user.fb_expires_at = expires_at
+    #take a look at the 3 lines below with .persisted?
+    self.save!
+    self.user.save!
+    self.user.touch #expires all cache that users user.updated_at
   end
 
 end

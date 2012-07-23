@@ -11,7 +11,7 @@ class V1::BaseController < ApplicationController
   def authenticate
     return render json: {error: {message: "this operation requires access_token param", code: 1001}}, status: :unauthorized if params[:access_token].blank?
     @current_user ||= User.where(id: params[:access_token]).first
-    return render json: {error: {message: "access_token param does not match any users", code: 1002}}, status: :forbidden if @current_user.nil?
+    return render json: {error: {message: "access_token param not found in our servers", code: 1002}}, status: :unauthorized if @current_user.nil?
   end
 
   rescue_from ActiveRecord::RecordNotFound, with: :render_404

@@ -21,6 +21,17 @@ describe "api_v1" do
       end
 
     end
+    describe "session" do
+
+      it "routes to #login" do
+        post("/v1/session/login").should route_to("v1/session#login")
+      end
+
+      it "routes to #me" do
+        get("/v1/session/me").should route_to("v1/session#me")
+      end
+
+    end
     describe "posts" do
 
       it "routes to #show" do

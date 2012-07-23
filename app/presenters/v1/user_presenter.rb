@@ -18,5 +18,9 @@ class V1::UserPresenter < V1::BasePresenter
       entity_users: m.entity_users.map { |eu| eu.as_json.merge({ entity: V1::EntityPresenter.new(eu.entity) }) },
     })
   end
+
+  def as_me
+    {access_token: m.id}.merge(with_children)
+  end
   
 end

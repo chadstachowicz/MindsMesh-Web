@@ -1,6 +1,5 @@
 Fabricator(:login) do
   user
-  provider "MyString"
+  provider "facebook"
   uid "MyString"
-  auth_s "MyString"
 end

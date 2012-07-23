@@ -23,6 +23,8 @@ Mindsmesh::Application.routes.draw do
       #  get :batch
       #end
     end
+    post '/session/login'
+    get '/session/me'
     get '/home/posts'
     get '/home/posts/with_parents' => 'home#posts_with_parents'
     get '/home/entities'
