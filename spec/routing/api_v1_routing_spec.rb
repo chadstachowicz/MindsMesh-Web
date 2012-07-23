@@ -42,6 +42,10 @@ describe "api_v1" do
         get("/v1/posts/1/with_children").should route_to("v1/posts#with_children", :id => "1")
       end
 
+      it "routes to #create" do
+        post("/v1/posts").should route_to("v1/posts#create")
+      end
+
     end
     describe "users" do
 
