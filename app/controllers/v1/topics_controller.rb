@@ -17,6 +17,11 @@ class V1::TopicsController < V1::BaseController
   	render json: V1::PostPresenter.array(posts)
   end
 
+  def posts_with_parents
+    posts = topic.posts.as_feed(params.slice(:limit, :before))
+    render json: V1::PostPresenter.array(posts).map(&:with_parents)
+  end
+
   private
 
   def topic
