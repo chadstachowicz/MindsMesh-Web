@@ -43,7 +43,10 @@ class ApplicationController < ActionController::Base
   private
 
   def custom_log_hash
-    {'session' => session.to_hash.except("_csrf_token")}
+    {
+      'ip' => request.remote_ip,
+      'session' => session.to_hash.except("_csrf_token")
+    }
   end
 
 end
