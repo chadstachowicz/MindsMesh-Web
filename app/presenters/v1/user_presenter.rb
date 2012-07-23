@@ -20,7 +20,7 @@ class V1::UserPresenter < V1::BasePresenter
   end
 
   def as_me
-    {access_token: m.id}.merge(with_children)
+    {access_token: m.access_token}.merge(with_children)
   end
   
 end

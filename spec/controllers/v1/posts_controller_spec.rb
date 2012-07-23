@@ -3,7 +3,7 @@ require 'spec_helper'
 describe V1::PostsController do
 
   def valid_params
-    {access_token: Fabricate(:user).id}
+    {access_token: Fabricate(:user).access_token}
   end
 
   describe "show" do

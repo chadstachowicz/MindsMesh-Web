@@ -9,7 +9,7 @@ describe V1::HomeController do
     end
 
     def valid_params
-      {access_token: @current_user.id}
+      {access_token: @current_user.access_token}
     end
 
     describe "posts" do
@@ -54,7 +54,7 @@ describe V1::HomeController do
     end
 
     def valid_params
-      {access_token: @current_user.id}
+      {access_token: @current_user.access_token}
     end
 
     describe "entities" do

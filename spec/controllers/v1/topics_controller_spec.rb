@@ -5,7 +5,7 @@ describe V1::TopicsController do
   before do
     topic_user = Fabricate(:topic_user)
     @topic = topic_user.topic
-    @valid_params = {id: @topic.to_param, access_token: topic_user.user.id}
+    @valid_params = {id: @topic.to_param, access_token: topic_user.user.access_token}
   end
 
   describe "show" do

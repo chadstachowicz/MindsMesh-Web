@@ -17,7 +17,7 @@ describe V1::HomeController do
       end
       it "with a valid access_token" do
         user = Fabricate(:user)
-        get :posts, {access_token: user.id}
+        get :posts, {access_token: user.access_token}
         response.status.should == 200
         assigns(:current_user).should eq(user)
       end

@@ -1,13 +1,19 @@
 require 'spec_helper'
 
 describe V1::SessionController do
+
+  def valid_params
+    @user = Fabricate(:user)
+    {access_token: @user.access_token}
+  end
+
   describe "me" do
     it "works" do
-      user = Fabricate(:user)
       V1::UserPresenter.any_instance.should_not_receive(:as_me)
 
-      get :me, {access_token: user.id}
+      get :me, valid_params
       response.status.should == 200
+      response.body.should include @user.access_token
     end
   end
 
