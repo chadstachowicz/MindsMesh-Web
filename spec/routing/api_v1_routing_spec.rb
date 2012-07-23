@@ -60,6 +60,10 @@ describe "api_v1" do
       it "routes to #posts" do
         get("/v1/users/1/posts").should route_to("v1/users#posts", :id => "1")
       end
+
+      it "routes to #posts_with_parents" do
+        get("/v1/users/1/posts/with_parents").should route_to("v1/users#posts_with_parents", :id => "1")
+      end
       
       #it "routes to #batch" do
       #  get("/v1/users/batch").should route_to("v1/users#batch")

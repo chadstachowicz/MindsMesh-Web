@@ -18,6 +18,7 @@ Mindsmesh::Application.routes.draw do
       member do
         get :with_children
         get :posts
+        get 'posts/with_parents', action: 'posts_with_parents'
       end
       #collection do
       #  get :batch
