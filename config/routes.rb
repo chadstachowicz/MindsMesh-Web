@@ -3,12 +3,13 @@ Mindsmesh::Application.routes.draw do
   api_version(:module => "V1", :path=>"v1") do
     resources :posts, only: [:show, :create] do
       member do
-        get :with_children
+        get 'with_children'
       end
     end
     resources :topics, only: [:show] do
       member do
-        get :posts
+        get 'posts'
+        get 'posts/with_parents', action: 'posts_with_parents'
       end
       #collection do
       #  get :batch
@@ -16,8 +17,8 @@ Mindsmesh::Application.routes.draw do
     end
     resources :users, only: [:show] do
       member do
-        get :with_children
-        get :posts
+        get 'with_children'
+        get 'posts'
         get 'posts/with_parents', action: 'posts_with_parents'
       end
       #collection do
