@@ -8,9 +8,10 @@ describe V1::UsersController do
 
   describe "show" do
 
-    it "404 not found" do
+    it "406 not found and other exceptions" do
       get :show, valid_params.merge({id: -1})
-      response.status.should == 404
+      response.status.should == 406
+      response.body.should include "ActiveRecord::RecordNotFound"
     end
     
   end

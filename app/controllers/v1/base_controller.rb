@@ -14,6 +14,18 @@ class V1::BaseController < ApplicationController
     return render json: {error: {message: "access_token param not found in our servers", code: 1002}}, status: :unauthorized if @current_user.nil?
   end
 
-  rescue_from ActiveRecord::RecordNotFound, with: :render_404
+  rescue_from Exception, with: :render_406
+
+  def render_406(exception)
+    data =  {
+              error: {
+                message: exception.message,
+                code: 1000,
+                exception: exception.class.name,
+                params: params
+              }
+            }
+    render json: data, status: :not_acceptable
+  end
 
 end
