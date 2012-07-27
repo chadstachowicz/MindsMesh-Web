@@ -5,7 +5,8 @@ class Notify < ActiveRecord::Base
 
   def self.run_all(target_types)
     while n = Notify.where(target_type: target_types).limit(1).first do
-      puts "starting notify #{n.id}" unless Rails.env.test?
+      now = Time.now.strftime('%H:%M:%S')
+      puts "starting notify #{n.id} at #{now}" unless Rails.env.test?
       n.run
     end
   end
