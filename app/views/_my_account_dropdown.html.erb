@@ -1,0 +1,31 @@
+<li class="dropdown">
+  <a class="pill dropdown-toggle" data-toggle="dropdown" href="#">
+    MY ACCOUNT
+    <i class="icon-caret-down"></i>
+  </a>
+  <ul class="dropdown-menu">
+    <% if session[:master_id] %>
+      <%= li link_to  icon_text('user', 'back to self'),
+                      session_switch_path,
+                      method: 'put',
+                      data: {disable_with: "hold on..."}
+                      %>
+      <li class="divider"></li>
+    <% end %>
+    <li>
+      <%= link_to current_user do %>
+        <div class="profile">
+          <div class="circle">
+            <%= image_tag current_user.photo_url, width: 40, alt: '' %>
+          </div>
+          <b><%= current_user.name %></b>
+          <small>Go to my profile page</small>
+          <div class='clear'>
+          </div>
+        </div>
+      <% end %>
+    </li>
+    <li class="divider"></li>
+    <%= li link_to icon_text('signout', "Sign Out"), session_logout_path %>
+  </ul>
+</li>

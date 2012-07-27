@@ -3,6 +3,8 @@ $green: #46a546;
 $dark-green: #074132;
 $yellow: #ffc40d;
 
+table { width: 100%; }
+th, td { vertical-align: top; }
 
 body { background: #ECFAFF; }
 
@@ -11,6 +13,17 @@ body { background: #ECFAFF; }
   min-height: 100%;
   width: 1024px;
   margin: 0 auto;
+}
+
+//tablecontent
+#tablecontent {  }
+
+#sidebar_right { padding-left: 20px; }
+#sidebar_left  { padding-right: 20px; }
+
+.sidebar_content { display: none; }
+.sidebar {
+  width: 280px;
 }
 
 //header
@@ -232,7 +245,7 @@ footer {
 }
 
 //sidebar
-#sidebar {
+.sidebar {
   .input-block-level {
     margin-bottom:20px;
   }

@@ -9,15 +9,7 @@
 <h4>you cannot read posts in this topic yet, you need to join this topic in order to do so</h4>
 <% end %>
 
-
-
-<% content_for :pageheader do %>
-<div class="page-header">
-  <h3><%= @topic.name %></h3>
-</div>
-<% end %>
-
-<% content_for :sidebar do %>
+<div data-sidebar="right" class="sidebar_content">
 
 <% if @topic_user.nil? %>
   <%= link_to 'join this topic',
@@ -64,4 +56,4 @@
     <%= render '/topics_my_entities' %>
   </ul>
 </div>
-<% end %>
+</div>

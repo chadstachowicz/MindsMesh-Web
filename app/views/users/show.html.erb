@@ -4,15 +4,7 @@
 <%= render '/posts/posts', posts: @posts %>
 
 
-
-<% content_for :pageheader do %>
-<div class="page-header">
-  <h3><%= @user.name %></h3>
-</div>
-<% end %>
-
-<% content_for :sidebar do %>
-
+<div data-sidebar="right" class="sidebar_content">
 
 <div class="well blue-well">
 
@@ -36,4 +28,4 @@
     <% end %>
   </ul>
 </div>
-<% end %>
+</div>
