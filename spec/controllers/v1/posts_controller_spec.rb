@@ -31,12 +31,52 @@ describe V1::PostsController do
     
   end
 
+  describe "like" do
+
+    it "with valid params" do
+      post = Fabricate(:post)
+      Like.stub(:create)
+      Like.should_receive(:create)
+      get :like, @valid_params.merge({id: post.to_param})
+      response.status.should == 200
+    end
+
+    it "with invalid params" do
+      post = Fabricate(:post)
+      Fabricate(:like, likable: post, user: @me)
+      ->{
+      get :like, @valid_params.merge({id: post.to_param})
+      }.should_not change(Like, :count)
+      response.status.should == 200
+    end
+    
+  end
+
+  describe "unlike" do
+
+    it "with invalid params" do
+      post = Fabricate(:post)
+      Like.any_instance.should_not_receive(:destroy)
+      get :unlike, @valid_params.merge({id: post.to_param})
+      response.status.should == 200
+    end
+
+    it "with valid params" do
+      post = Fabricate(:post)
+      Fabricate(:like, likable: post, user: @me)
+      Like.any_instance.should_receive(:destroy)
+      get :unlike, @valid_params.merge({id: post.to_param})
+      response.status.should == 200
+    end
+    
+  end
+
   describe "create" do
 
     it "with valid params" do
       topic_user = Fabricate(:topic_user, user: @me)
       V1::PostPresenter.any_instance.should_receive(:as_json)
-      prms = {topic_user_id: topic_user.id, post: {text: Faker::Name.name}}
+      prms = {topic_user_id: topic_user.id, post: {text: Faker::Lorem.sentence}}
 
       get :create, @valid_params.merge(prms)
       response.status.should == 200

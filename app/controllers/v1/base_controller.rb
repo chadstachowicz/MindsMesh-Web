@@ -17,6 +17,7 @@ class V1::BaseController < ApplicationController
   rescue_from Exception, with: :render_406
 
   def render_406(exception)
+    return raise if exception.class == RSpec::Mocks::MockExpectationError
     data =  {
               error: {
                 message: exception.message,

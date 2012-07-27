@@ -1,24 +1,22 @@
 == MINDSMESH.COM
 
 == API ROUTES
-
            with_children_v1_post GET    /v1/posts/:id/with_children(.:format)           V1/posts#with_children
+                    like_v1_post POST   /v1/posts/:id/like(.:format)                    V1/posts#like
+                  unlike_v1_post POST   /v1/posts/:id/unlike(.:format)                  V1/posts#unlike
                         v1_posts POST   /v1/posts(.:format)                             V1/posts#create
                          v1_post GET    /v1/posts/:id(.:format)                         V1/posts#show
-                         
                   posts_v1_topic GET    /v1/topics/:id/posts(.:format)                  V1/topics#posts
      posts_with_parents_v1_topic GET    /v1/topics/:id/posts/with_parents(.:format)     V1/topics#posts_with_parents
                         v1_topic GET    /v1/topics/:id(.:format)                        V1/topics#show
-
            with_children_v1_user GET    /v1/users/:id/with_children(.:format)           V1/users#with_children
                    posts_v1_user GET    /v1/users/:id/posts(.:format)                   V1/users#posts
       posts_with_parents_v1_user GET    /v1/users/:id/posts/with_parents(.:format)      V1/users#posts_with_parents
                          v1_user GET    /v1/users/:id(.:format)                         V1/users#show
-
                 v1_session_login POST   /v1/session/login(.:format)                     v1/session#login
                    v1_session_me GET    /v1/session/me(.:format)                        v1/session#me
-
                    v1_home_posts GET    /v1/home/posts(.:format)                        v1/home#posts
       v1_home_posts_with_parents GET    /v1/home/posts/with_parents(.:format)           V1/home#posts_with_parents
                 v1_home_entities GET    /v1/home/entities(.:format)                     v1/home#entities
   v1_home_entities_with_children GET    /v1/home/entities/with_children(.:format)       V1/home#entities_with_children
+

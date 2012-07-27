@@ -20,7 +20,7 @@ class User < ActiveRecord::Base
   after_create :joins_self_joining_entities
 
   def change_access_token
-    self.access_token = Digest::MD5.hexdigest(Time.now.to_s)
+    self.access_token = Digest::MD5.hexdigest(Time.now.to_s+rand(999).to_s)
   end
 
   ROLES = {

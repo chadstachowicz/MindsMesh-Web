@@ -4,6 +4,8 @@ Mindsmesh::Application.routes.draw do
     resources :posts, only: [:show, :create] do
       member do
         get 'with_children'
+        post 'like'
+        post 'unlike'
       end
     end
     resources :topics, only: [:show] do

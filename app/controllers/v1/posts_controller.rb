@@ -4,14 +4,26 @@ class V1::PostsController < V1::BaseController
     render json: V1::PostPresenter.new(post)
   end
 
+  def with_children
+    render json: V1::PostPresenter.new(post).with_children
+  end
+
+  def like
+    #doesn't do anything if user already liked it
+    Like.create user: @current_user, likable: post
+    render json: {likes_count: post.reload.likes.size}
+  end
+
+  def unlike
+    #doesn't do anything if user never liked it
+    Like.where(user_id: @current_user.id, likable_type: post.class.name, likable_id: post.id).first.try(:destroy)
+    render json: {likes_count: post.reload.likes.size}
+  end
+
   def create
     topic_user = @current_user.topic_users.find(params[:topic_user_id])
     post = Post.create_with!(topic_user, params[:post])
     render json: V1::PostPresenter.new(post)
-  end
-
-  def with_children
-    render json: V1::PostPresenter.new(post).with_children
   end
 
   private
