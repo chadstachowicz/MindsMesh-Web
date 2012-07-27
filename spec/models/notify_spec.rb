@@ -1,6 +1,12 @@
 require 'spec_helper'
 
 describe Notify do
+
+  before do
+    Koala::Facebook::API.any_instance.stub(delete_object: 'stub')
+    Koala::Facebook::API.any_instance.stub(put_connections: 'stub')
+  end
+
   describe "field validations" do
     it "requires target" do
       notify = Notify.new
