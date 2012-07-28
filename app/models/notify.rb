@@ -22,8 +22,7 @@ class Notify < ActiveRecord::Base
   end
 
   def run_post
-    topic_user = TopicUser.where(topic_id: target.topic_id, user_id: target.user_id).first
-    Notification.notify_users_in_topic_user(topic_user, Notification::ACTION_POSTED, topic_user.user_id)
+    Notification.notify_users_in_topic(target.topic, Notification::ACTION_POSTED, target.user_id)
   end
 
   def run_reply
