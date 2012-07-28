@@ -19,11 +19,7 @@ class Notification < ActiveRecord::Base
 
 
   before_validation do
-    self.text = if target.respond_to?(:text)
-      target.text[0..60]
-    else
-      target.name[0..60]
-    end
+    self.text = self.text[0..60] unless self.text.blank?
   end
 
   def facebook_message
@@ -60,30 +56,25 @@ class Notification < ActiveRecord::Base
   end
 =end
 
-  def self.notify_users_involved_in_post(post_id, action, ignore_user_id)
-    post = Post.find(post_id) rescue nil
-    if post
-      new_actors_count = (action == ACTION_REPLIED) ? post.replies.size : post.likes.size
-      user_ids = post.user_ids_involved
-      user_ids.delete(ignore_user_id)
-      User.find(user_ids).each do |user|
-        notify_user!(user, post, action, new_actors_count)
-      end
+  def self.notify_users_involved_in_post(post, action, ignore_user_id)
+    new_actors_count = (action == ACTION_REPLIED) ? post.replies.size : post.likes.size
+    user_ids = post.user_ids_involved
+    user_ids.delete(ignore_user_id)
+    User.find(user_ids).each do |user|
+      notify_user!(user, post, action, post.text, new_actors_count)
     end
   end
 
-  def self.notify_users_in_topic(topic_id, action, ignore_user_id)
-    topic = Topic.find(topic_id) rescue nil
-    if topic
-      new_actors_count = topic.posts.where('created_at > ?', 3.day.ago).count
-      topic.users.each do |user|
-        notify_user!(user, topic, action, new_actors_count) unless user.id == ignore_user_id
-      end
+  def self.notify_users_in_topic_user(topic_user, action, ignore_user_id)
+    topic = topic_user.topic
+    new_actors_count = topic.posts.where('created_at > ?', 3.day.ago).count
+    topic.users.each do |user|
+      notify_user!(user, topic_user, action, topic.name, new_actors_count) unless user.id == ignore_user_id
     end
   end
 
-  def self.notify_user!(user, target, action, new_actors_count)
-    n = where(target_type: target.class.name, target_id: target.id, action: action).first_or_initialize(user: user)
+  def self.notify_user!(user, target, action, text, new_actors_count)
+    n = where(target_type: target.class.name, target_id: target.id, action: action).first_or_initialize(user: user, text: text)
     n.b_read = false
     n.actors_count = new_actors_count
     n.save! #ensure it's persisted
