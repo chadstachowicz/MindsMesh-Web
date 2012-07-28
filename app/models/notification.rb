@@ -69,7 +69,7 @@ class Notification < ActiveRecord::Base
     topic = topic_user.topic
     new_actors_count = topic.posts.where('created_at > ?', 3.day.ago).count
     topic.users.each do |user|
-      notify_user!(user, topic_user, action, topic.name, new_actors_count) unless user.id == ignore_user_id
+      notify_user!(user, topic, action, topic.name, new_actors_count) unless user.id == ignore_user_id
     end
   end
 
