@@ -97,7 +97,7 @@ class Notification < ActiveRecord::Base
     raise "must be persisted to invoke this method" if new_record?
     if self.fb_apprequest_id.present?
       begin
-        target.user.fb_api.delete_object(fb_apprequest_id)
+        user.fb_api.delete_object(fb_apprequest_id)
         logger.info "FB_GRAPH_API: delete apprequest ok: #{fb_apprequest_id}"
       rescue Exception => exc
         logger.info "FB_GRAPH_API: delete apprequest error: #{exc.message}"
@@ -108,7 +108,7 @@ class Notification < ActiveRecord::Base
 
   def api_post_fb_apprequest
     begin
-      h = target.user.fb_api.put_connections('me', 'apprequests', message: facebook_message, data: id)
+      h = user.fb_api.put_connections('me', 'apprequests', message: facebook_message, data: id)
       self.fb_apprequest_id = "#{h['request']}_#{h['to'].first}"
       logger.info "FB_GRAPH_API: post apprequest ok: #{fb_apprequest_id}"
     rescue Exception => exc
