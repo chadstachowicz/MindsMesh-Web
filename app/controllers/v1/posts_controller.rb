@@ -28,6 +28,13 @@ class V1::PostsController < V1::BaseController
     render json: {likes_count: post.reload.likes.size}
   end
 
+  def create_reply
+    reply = post.replies.build(params[:reply])
+    reply.user = @current_user
+    reply.save!
+    render json: reply
+  end
+
   def create
     topic_user = @current_user.topic_users.find(params[:topic_user_id])
     post = Post.create_with!(topic_user, params[:post])

@@ -1,7 +1,6 @@
 Mindsmesh::Application.routes.draw do
 
   api_version(:module => "V1", :path=>"v1") do
-    resources :replies
     resources :posts, only: [:show, :create] do
       member do
         get 'with_children'
@@ -9,6 +8,7 @@ Mindsmesh::Application.routes.draw do
         get 'likes/with_parents', action: 'likes_with_parents'
         post 'like'
         post 'unlike'
+        post 'replies', action: 'create_reply'
       end
     end
     resources :topics, only: [:show] do

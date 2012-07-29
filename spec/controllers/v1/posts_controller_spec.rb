@@ -31,6 +31,29 @@ describe V1::PostsController do
     
   end
 
+  describe "likes" do
+
+    it "with valid params" do
+      like = Fabricate(:like, likable: Fabricate(:post))
+      post = like.likable
+      get :likes, @valid_params.merge({id: post.to_param})
+      response.status.should == 200
+    end
+    
+  end
+
+  describe "likes_with_parents" do
+
+    it "with valid params" do
+      like = Fabricate(:like, likable: Fabricate(:post))
+      post = like.likable
+      get :likes_with_parents, @valid_params.merge({id: post.to_param})
+      response.status.should == 200
+      response.body.should include like.user.name
+    end
+    
+  end
+
   describe "like" do
 
     it "with valid params" do
@@ -79,6 +102,22 @@ describe V1::PostsController do
       prms = {topic_user_id: topic_user.id, post: {text: Faker::Lorem.sentence}}
 
       get :create, @valid_params.merge(prms)
+      response.status.should == 200
+    end
+    
+  end
+
+  describe "create_reply" do
+
+    it "with invalid params" do
+      post = Fabricate(:post)
+      get :create_reply, @valid_params.merge({id: post.to_param})
+      response.status.should == 406
+    end
+
+    it "with valid params" do
+      post = Fabricate(:post)
+      get :create_reply, @valid_params.merge({id: post.to_param, reply: {text: 'a'}})
       response.status.should == 200
     end
     
