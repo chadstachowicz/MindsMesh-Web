@@ -100,7 +100,7 @@ Mindsmesh::Application.routes.draw do
   get "home/user_entity/:confirmation_token" => "home#user_entity", as: 'home_user_entity'
 
   #client, a user associated to entity
-  get "fb_canvas" => 'home#fb_canvas'
+  match "fb_canvas" => 'home#fb_canvas'
   get '/' => 'home#client', as: 'home_client'
   get "home/more_posts"
   post "home/create_post"
