@@ -3,6 +3,11 @@ class HomeController < ApplicationController
     redirect_to_landing_home_page
   end
 
+  def fb_canvas
+    return redirect_to '/auth/facebook' if params[:fb_source]
+    redirect_to_landing_home_page
+  end
+
   def client
     return redirect_to_landing_home_page unless current_user
     authorize! :home_client, nil
