@@ -72,6 +72,28 @@ describe "api_v1" do
       end
 
     end
+    describe "replies" do
+
+      it "routes to #show" do
+        get("/v1/replies/1").should route_to("v1/replies#show", :id => "1")
+      end
+
+      it "routes to #likes" do
+        get("/v1/replies/1/likes").should route_to("v1/replies#likes", :id => "1")
+      end
+      
+      it "routes to #likes_with_parents" do
+        get("/v1/replies/1/likes/with_parents").should route_to("v1/replies#likes_with_parents", :id => "1")
+      end
+
+      it "routes to #like" do
+        post("/v1/replies/1/like").should route_to("v1/replies#like", :id => "1")
+      end
+
+      it "routes to #unlike" do
+        post("/v1/replies/1/unlike").should route_to("v1/replies#unlike", :id => "1")
+      end
+    end
     describe "users" do
 
       it "routes to #show" do

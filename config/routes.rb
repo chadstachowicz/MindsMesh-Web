@@ -11,6 +11,14 @@ Mindsmesh::Application.routes.draw do
         post 'replies', action: 'create_reply'
       end
     end
+    resources :replies, only: [:show] do
+      member do
+        get 'likes'
+        get 'likes/with_parents', action: 'likes_with_parents'
+        post 'like'
+        post 'unlike'
+      end
+    end
     resources :topics, only: [:show] do
       member do
         get 'posts'
