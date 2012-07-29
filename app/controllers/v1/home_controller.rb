@@ -20,4 +20,9 @@ class V1::HomeController < V1::BaseController
     render json: V1::EntityPresenter.array(entities).map { |ep| ep.with_topics_and_topic_users(@current_user) }
   end
 
+  def topics
+    topics = @current_user.topics
+    render json: V1::TopicPresenter.array(topics)
+  end
+
 end

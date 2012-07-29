@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
   has_many :notifications,        dependent: :destroy
 
   has_many :entities, through: :entity_users
+  has_many :topics,   through: :topic_users
 
   validates_presence_of :name
   validates_presence_of :fb_id

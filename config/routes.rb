@@ -44,6 +44,7 @@ Mindsmesh::Application.routes.draw do
     get '/home/posts/with_parents' => 'home#posts_with_parents'
     get '/home/entities'
     get '/home/entities/with_children' => 'home#entities_with_children'
+    get '/home/topics'
     get '*path' => 'base#render_404'
 
   end
