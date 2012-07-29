@@ -42,6 +42,14 @@ describe "api_v1" do
         get("/v1/posts/1/with_children").should route_to("v1/posts#with_children", :id => "1")
       end
 
+      it "routes to #posts" do
+        get("/v1/posts/1/likes").should route_to("v1/posts#likes", :id => "1")
+      end
+      
+      it "routes to #posts_with_parents" do
+        get("/v1/posts/1/likes/with_parents").should route_to("v1/posts#likes_with_parents", :id => "1")
+      end
+
       it "routes to #like" do
         post("/v1/posts/1/like").should route_to("v1/posts#like", :id => "1")
       end

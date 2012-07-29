@@ -8,6 +8,14 @@ class V1::PostsController < V1::BaseController
     render json: V1::PostPresenter.new(post).with_children
   end
 
+  def likes
+    render json: V1::LikePresenter.array(post.likes)
+  end
+
+  def likes_with_parents
+    render json: V1::LikePresenter.array(post.likes).map(&:with_parents)
+  end
+
   def like
     #doesn't do anything if user already liked it
     Like.create user: @current_user, likable: post
