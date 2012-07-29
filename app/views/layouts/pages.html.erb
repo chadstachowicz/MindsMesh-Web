@@ -12,13 +12,28 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
 </head>
-<body>
+<body class="header_big">
+  <div id="header-bg">
+  </div>
   <div class="wrap clear">
-
-    <%= "<div class='alert alert-success'><a class='close' data-dismiss='alert' href='#'>×</a><b>#{notice}</b></div>".html_safe if notice %>
-    <%= "<div class='alert alert-error'><a class='close' data-dismiss='alert' href='#'>×</a><b>#{alert}</b></div>".html_safe   if alert %>
-
-    <%= yield %>
+    
+    <header>
+      <div id="header-logo">
+      </div>
+      <%= link_to '', '/', id: 'logo' %>
+      
+      <ul class="nav nav-pills">
+        <%= li link_to("HOME", root_path, class: 'pill') %>
+      </ul>
+    </header>
+    
+    <table id="tablecontent">
+      <tr>
+        <td id="main">
+          <%= yield %>
+        </td>
+      </tr>
+    </table>
 
     <%= render '/footer' %>
   </div>
