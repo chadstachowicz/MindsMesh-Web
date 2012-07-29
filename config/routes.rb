@@ -45,6 +45,7 @@ Mindsmesh::Application.routes.draw do
     get '/home/entities'
     get '/home/entities/with_children' => 'home#entities_with_children'
     get '/home/topics'
+    get '/home/search_topics'
     get '*path' => 'base#render_404'
 
   end

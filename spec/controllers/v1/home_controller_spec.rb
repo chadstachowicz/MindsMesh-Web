@@ -110,6 +110,16 @@ describe V1::HomeController do
       end
 
     end
+
+    describe "search_topics" do
+
+      it "works" do
+        User.any_instance.should_not_receive(:search_topics).with('a')
+        get :search_topics, @valid_params.merge(q: 'a')
+        response.status.should == 200
+      end
+
+    end
     
   end
 

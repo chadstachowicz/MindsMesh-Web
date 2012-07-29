@@ -7,7 +7,6 @@ describe V1::TopicsController do
     @topic = @topic_user.topic
     @valid_params = {id: @topic.to_param, access_token: @topic_user.user.access_token}
   end
-
   describe "show" do
 
     it "with valid params" do

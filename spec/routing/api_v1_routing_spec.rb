@@ -23,6 +23,11 @@ describe "api_v1" do
       it "routes to #topics" do
         get("/v1/home/topics").should route_to("v1/home#topics")
       end
+      
+      it "routes to #search_topics" do
+        get("/v1/home/search_topics").should route_to("v1/home#search_topics")
+      end
+      
 
     end
     describe "session" do

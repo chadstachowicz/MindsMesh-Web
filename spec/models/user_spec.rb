@@ -88,6 +88,22 @@ describe User do
           user.posts_feed.should be_instance_of(ActiveRecord::Relation)
         end
       end
+      describe "search_topics" do
+        it "works" do
+          eu     = Fabricate(:entity_user)
+          user   = eu.user
+          entity = eu.entity
+
+          john   = Fabricate(:topic, entity: entity, name: "John")
+          jonas  = Fabricate(:topic, entity: entity, name: "Jonas")
+          jeremy = Fabricate(:topic, entity: entity, name: "Jeremy")
+
+          user.search_topics('Jo').map(&:name).sort.should == [john, jonas].map(&:name).sort
+          user.search_topics('J').map(&:name).sort.should == [john, jonas, jeremy].map(&:name).sort
+          user.search_topics('').map(&:name).sort.should == [john, jonas, jeremy].map(&:name).sort
+          user.search_topics('mary').map(&:name).sort.should == [].map(&:name).sort
+        end
+      end
     end
 
   end

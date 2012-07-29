@@ -25,4 +25,9 @@ class V1::HomeController < V1::BaseController
     render json: V1::TopicPresenter.array(topics)
   end
 
+  def search_topics
+    topics = @current_user.search_topics(params[:q])
+    render json: V1::TopicPresenter.array(topics)
+  end
+
 end

@@ -61,6 +61,13 @@ class User < ActiveRecord::Base
     Post.where(topic_id: topic_ids).as_feed(options)
   end
 
+  def search_topics(q)
+    entity_ids = entities.pluck('entities.id')
+    topics = Topic.where(entity_id: entity_ids)
+    return topics if q.blank?
+    topics.where("name LIKE ?", "%#{q}%")
+  end
+
   private
 
   def joins_self_joining_entities
