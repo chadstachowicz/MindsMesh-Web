@@ -27,7 +27,6 @@ describe "api_v1" do
       it "routes to #search_topics" do
         get("/v1/home/search_topics").should route_to("v1/home#search_topics")
       end
-      
 
     end
     describe "session" do
@@ -138,6 +137,14 @@ describe "api_v1" do
 
       it "routes to #posts_with_parents" do
         get("/v1/topics/1/posts/with_parents").should route_to("v1/topics#posts_with_parents", :id => "1")
+      end
+
+      it "routes to #join" do
+        post("/v1/topics/1/join").should route_to("v1/topics#join", :id => "1")
+      end
+
+      it "routes to #leave" do
+        post("/v1/topics/1/leave").should route_to("v1/topics#leave", :id => "1")
       end
       
       

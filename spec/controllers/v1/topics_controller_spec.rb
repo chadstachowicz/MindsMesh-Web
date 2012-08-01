@@ -5,7 +5,8 @@ describe V1::TopicsController do
   before do
     @topic_user = Fabricate(:topic_user)
     @topic = @topic_user.topic
-    @valid_params = {id: @topic.to_param, access_token: @topic_user.user.access_token}
+    @me = @topic_user.user
+    @valid_params = {id: @topic.to_param, access_token: @me.access_token}
   end
   describe "show" do
 
@@ -40,6 +41,30 @@ describe V1::TopicsController do
     end
     
   end
+
+  describe "join" do
+
+    it "works" do
+      Topic.any_instance.stub(:user_join)
+      Topic.any_instance.should_receive(:user_join).with(@me)
+      post :join, @valid_params
+      response.status.should == 200
+    end
+    
+  end
+
+  describe "leave" do
+
+    it "works" do
+      Topic.any_instance.stub(:user_leave)
+      Topic.any_instance.should_receive(:user_leave).with(@me)
+      post :leave, @valid_params
+      response.status.should == 200
+    end
+    
+  end
+
+
 
 =begin
   describe "batch" do

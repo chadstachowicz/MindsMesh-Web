@@ -20,6 +20,10 @@ class Topic < ActiveRecord::Base
     topic_users.where(user_id: user.id).first_or_create
   end
 
+  def user_leave(user)
+    topic_users.where(user_id: user.id).first.try(:destroy)
+  end
+
 
   before_validation :slugify
 

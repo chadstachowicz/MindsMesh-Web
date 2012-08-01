@@ -35,17 +35,25 @@ describe Topic do
   	  t.valid?
   	}.should change(t, :slug)
   end
-
-  pending "remove duplicated logic from topics#join"
-
+  
   it "user_join" do
-  	u = Fabricate(:user)
-  	t = Fabricate(:topic)
+    t = Fabricate(:topic)
+    u = Fabricate(:entity_user, entity: t.entity).user
 
     ->{
       ->{
-  		t.user_join(u)
+      t.user_join(u)
       }.should change(u.topic_users, :count).by(1)
     }.should change(t.topic_users, :count).by(1)
+  end
+  
+  it "user_leave" do
+    tu = Fabricate(:topic_user)
+
+    ->{
+      ->{
+        tu.topic.user_leave(tu.user)
+      }.should change(tu.user.topic_users, :count).by(-1)
+    }.should change(tu.topic.topic_users, :count).by(-1)
   end
 end

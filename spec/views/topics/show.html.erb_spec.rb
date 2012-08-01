@@ -1,6 +1,8 @@
 require 'spec_helper'
 
 describe "topics/show" do
+  pending "test views with mocks is faster"
+=begin
   before(:each) do
     @topic = assign(:topic, Fabricate(:topic))
     assign(:topic_users, [
@@ -31,4 +33,5 @@ describe "topics/show" do
     view.should render_template("/posts/_new_post")
   end
 
+=end
 end

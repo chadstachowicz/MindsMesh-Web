@@ -3,8 +3,9 @@ require 'spec_helper'
 describe V1::UsersController do
 
   before do
+    @topic_user = Fabricate(:topic_user)
     @me = Fabricate(:user)
-    @user = Fabricate(:user)
+    @user = @topic_user.user
     @valid_params = {access_token: @me.access_token, id: @user.to_param}
   end
 
@@ -21,10 +22,8 @@ describe V1::UsersController do
   describe "with_children" do
 
     it "with valid params" do
-      topic_user = Fabricate(:topic_user, user: @user)
-      topic = topic_user.topic
+      topic = @topic_user.topic
       entity = topic.entity
-      Fabricate(:entity_user, entity: entity, user: @user)
 
       get :with_children, @valid_params
       response.status.should == 200

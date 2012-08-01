@@ -3,16 +3,17 @@ require 'spec_helper'
 describe V1::PostsController do
 
   before do
-    @me = Fabricate(:user)
+    @topic_user = Fabricate(:topic_user)
+    @post = Fabricate(:post, topic: @topic_user.topic)
+    @me = @topic_user.user
     @valid_params = {access_token: @me.access_token}
   end
 
   describe "show" do
 
     it "with valid params" do
-      post = Fabricate(:post)
-      V1::PostPresenter.should_receive(:new).with(post)
-      get :show, @valid_params.merge({id: post.to_param})
+      V1::PostPresenter.should_receive(:new).with(@post)
+      get :show, @valid_params.merge({id: @post.to_param})
       response.status.should == 200
     end
     
@@ -21,9 +22,8 @@ describe V1::PostsController do
   describe "with_children" do
 
     it "with valid params" do
-      reply = Fabricate(:reply)
-      post = reply.post
-      get :with_children, @valid_params.merge({id: post.to_param})
+      reply = Fabricate(:reply, post: @post)
+      get :with_children, @valid_params.merge({id: @post.to_param})
       response.status.should == 200
       response.body.should include 'replies'
       response.body.should include reply.text
@@ -34,9 +34,8 @@ describe V1::PostsController do
   describe "likes" do
 
     it "with valid params" do
-      like = Fabricate(:like, likable: Fabricate(:post))
-      post = like.likable
-      get :likes, @valid_params.merge({id: post.to_param})
+      like = Fabricate(:like, likable: @post)
+      get :likes, @valid_params.merge({id: @post.to_param})
       response.status.should == 200
     end
     
@@ -45,9 +44,8 @@ describe V1::PostsController do
   describe "likes_with_parents" do
 
     it "with valid params" do
-      like = Fabricate(:like, likable: Fabricate(:post))
-      post = like.likable
-      get :likes_with_parents, @valid_params.merge({id: post.to_param})
+      like = Fabricate(:like, likable: @post)
+      get :likes_with_parents, @valid_params.merge({id: @post.to_param})
       response.status.should == 200
       response.body.should include like.user.name
     end
@@ -57,18 +55,16 @@ describe V1::PostsController do
   describe "like" do
 
     it "with valid params" do
-      post = Fabricate(:post)
       Like.stub(:create)
       Like.should_receive(:create)
-      get :like, @valid_params.merge({id: post.to_param})
+      get :like, @valid_params.merge({id: @post.to_param})
       response.status.should == 200
     end
 
     it "with invalid params" do
-      post = Fabricate(:post)
-      Fabricate(:like, likable: post, user: @me)
+      Fabricate(:like, likable: @post, user: @me)
       ->{
-      get :like, @valid_params.merge({id: post.to_param})
+      get :like, @valid_params.merge({id: @post.to_param})
       }.should_not change(Like, :count)
       response.status.should == 200
     end
@@ -78,17 +74,15 @@ describe V1::PostsController do
   describe "unlike" do
 
     it "with invalid params" do
-      post = Fabricate(:post)
       Like.any_instance.should_not_receive(:destroy)
-      get :unlike, @valid_params.merge({id: post.to_param})
+      get :unlike, @valid_params.merge({id: @post.to_param})
       response.status.should == 200
     end
 
     it "with valid params" do
-      post = Fabricate(:post)
-      Fabricate(:like, likable: post, user: @me)
+      Fabricate(:like, likable: @post, user: @me)
       Like.any_instance.should_receive(:destroy)
-      get :unlike, @valid_params.merge({id: post.to_param})
+      get :unlike, @valid_params.merge({id: @post.to_param})
       response.status.should == 200
     end
     
@@ -97,9 +91,8 @@ describe V1::PostsController do
   describe "create" do
 
     it "with valid params" do
-      topic_user = Fabricate(:topic_user, user: @me)
       V1::PostPresenter.any_instance.should_receive(:as_json)
-      prms = {topic_user_id: topic_user.id, post: {text: Faker::Lorem.sentence}}
+      prms = {topic_user_id: @topic_user.id, post: {text: Faker::Lorem.sentence}}
 
       get :create, @valid_params.merge(prms)
       response.status.should == 200
@@ -110,14 +103,12 @@ describe V1::PostsController do
   describe "create_reply" do
 
     it "with invalid params" do
-      post = Fabricate(:post)
-      get :create_reply, @valid_params.merge({id: post.to_param})
+      get :create_reply, @valid_params.merge({id: @post.to_param})
       response.status.should == 406
     end
 
     it "with valid params" do
-      post = Fabricate(:post)
-      get :create_reply, @valid_params.merge({id: post.to_param, reply: {text: 'a'}})
+      get :create_reply, @valid_params.merge({id: @post.to_param, reply: {text: 'a'}})
       response.status.should == 200
     end
     

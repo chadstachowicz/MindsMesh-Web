@@ -19,6 +19,10 @@ describe TopicsController do
       put("/topics/1/join").should route_to("topics#join", :id => "1")
     end
 
+    it "routes to #leave" do
+      put("/topics/1/leave").should route_to("topics#leave", :id => "1")
+    end
+
     it "routes to #more_posts" do
       get("/topics/1/more_posts").should route_to("topics#more_posts", :id => "1")
     end

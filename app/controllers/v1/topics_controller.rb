@@ -22,6 +22,16 @@ class V1::TopicsController < V1::BaseController
     render json: V1::PostPresenter.array(posts).map(&:with_parents)
   end
 
+  def join
+    topic.user_join(@current_user)
+    render json: true
+  end
+
+  def leave
+    topic.user_leave(@current_user)
+    render json: true
+  end
+
   private
 
   def topic

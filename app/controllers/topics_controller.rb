@@ -18,14 +18,13 @@ class TopicsController < ApplicationController
 
   # PUT /topics/1/join
   def join
-    @topic_user = @topic.topic_users.where(user_id: current_user.id).first_or_initialize
-    if @topic_user.new_record?
-      @topic_user.save!
-      flash[:notice] = "you joined the topic"
-    else
-      @topic_user.destroy
-      flash[:notice] = "you left the topic"
-    end
+    @topic.user_join(current_user)
+    redirect_to @topic
+  end
+
+  # PUT /topics/1/leave
+  def leave
+    @topic.user_leave(current_user)
     redirect_to @topic
   end
 

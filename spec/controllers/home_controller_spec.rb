@@ -136,7 +136,8 @@ describe HomeController do
 
   describe "rendering" do
     before(:each) do
-      @topic_user = Fabricate(:topic_user, user: current_user_master)
+      @topic_user = Fabricate(:topic_user)
+      @valid_session = {user_id: @topic_user.user.id}
       3.times do
         Fabricate(:post, topic: @topic_user.topic, user: @topic_user.user)
       end
@@ -144,7 +145,7 @@ describe HomeController do
 
     describe "GET 'client'" do
       it "renders posts" do
-        get 'client', {}, valid_session
+        get 'client', {}, @valid_session
         assigns(:posts).size.should == 3
       end
     end
@@ -153,18 +154,18 @@ describe HomeController do
       describe "with invalid params" do
         it "doesn't create a post" do
           -> do
-            post :create_post, {topic_user_id: @topic_user.to_param, post: {}}, valid_session
+            post :create_post, {topic_user_id: @topic_user.to_param, post: {}}, @valid_session
           end.should raise_error(ActiveRecord::RecordInvalid)
         end
       end
       describe "with valid params" do
         it "creates a post" do
           -> do
-            post :create_post, {topic_user_id: @topic_user.to_param, post: {text: Faker::Lorem.sentence}}, valid_session
+            post :create_post, {topic_user_id: @topic_user.to_param, post: {text: Faker::Lorem.sentence}}, @valid_session
           end.should change(Post, :count).by(1)
         end
         it "response renders the post template" do
-          post :create_post, {topic_user_id: @topic_user.to_param, post: {text: Faker::Lorem.sentence}}, valid_session
+          post :create_post, {topic_user_id: @topic_user.to_param, post: {text: Faker::Lorem.sentence}}, @valid_session
           response.should render_template("posts/_post")
         end
       end
@@ -173,22 +174,22 @@ describe HomeController do
     describe "GET more_posts" do
       describe "empty set" do
         it "renders template" do
-          get :more_posts, {format: 'js'}, valid_session
+          get :more_posts, {format: 'js'}, @valid_session
           response.should render_template("posts/more_posts")
           response.should_not render_template("layouts/application")
         end
       end
       describe "with posts" do
         it "with some posts" do
-          get :more_posts, {}, valid_session
+          get :more_posts, {}, @valid_session
           assigns(:posts).size.should == 3
         end
         it "applying before" do
-          get :more_posts, {before: Post.last.id}, valid_session
+          get :more_posts, {before: Post.last.id}, @valid_session
           assigns(:posts).size.should == 2
         end
         it "applying limit" do
-          get :more_posts, {limit: 1}, valid_session
+          get :more_posts, {limit: 1}, @valid_session
           assigns(:posts).size.should == 1
         end
         #it "applying after"

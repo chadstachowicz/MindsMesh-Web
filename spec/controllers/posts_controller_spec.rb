@@ -7,9 +7,13 @@ describe PostsController do
   end
 
   before do
-    topic_user = Fabricate(:topic_user, user: current_user_master)
-    @post = Fabricate(:post, topic: topic_user.topic, user: topic_user.user)
-    stub!(:current_user).and_return(current_user_master)
+    @topic_user = Fabricate(:topic_user)
+    @post = Fabricate(:post, topic: @topic_user.topic, user: @topic_user.user)
+    stub!(:current_user).and_return(@topic_user.user)
+  end
+
+  def valid_session
+    {user_id: @topic_user.user}
   end
 
   describe "GET index" do

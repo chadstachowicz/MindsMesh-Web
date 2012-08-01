@@ -23,6 +23,8 @@ Mindsmesh::Application.routes.draw do
       member do
         get 'posts'
         get 'posts/with_parents', action: 'posts_with_parents'
+        post 'join'
+        post 'leave'
       end
       #collection do
       #  get :batch
@@ -75,6 +77,7 @@ Mindsmesh::Application.routes.draw do
   resources :topics do
     member do
       put :join
+      put :leave
       get :more_posts
     end
   end

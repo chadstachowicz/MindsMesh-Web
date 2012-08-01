@@ -3,14 +3,12 @@ require 'spec_helper'
 describe V1::HomeController do
 
   before do
-    @me = @current_user = Fabricate(:user)
-      @valid_params = {access_token: @current_user.access_token}
+    @topic_user = Fabricate(:topic_user)
+    @me = @topic_user.user
+    @valid_params = {access_token: @me.access_token}
   end
 
   describe "posts family" do
-    before do
-      @topic_user = Fabricate(:topic_user, user: @me)
-    end
 
     describe "posts" do
 
@@ -52,13 +50,7 @@ describe V1::HomeController do
     describe "entities" do
 
       it "works" do
-
-        entities = [
-          Fabricate(:entity_user, user: @current_user).entity,
-          Fabricate(:entity_user, user: @current_user).entity
-        ]
-
-        V1::EntityPresenter.should_receive(:array).with(entities)
+        V1::EntityPresenter.should_receive(:array)
         get :entities, @valid_params
         response.status.should == 200
         #assigns(:posts).should == [V1::PostPresenter.new(post)]
@@ -71,10 +63,7 @@ describe V1::HomeController do
 
       it "works" do
 
-        entities = [
-          (e1 = Fabricate(:entity_user, user: @current_user).entity),
-          (e2 = Fabricate(:entity_user, user: @current_user).entity)
-        ]
+        entities = @me.entities
         topics = []
 
         entities.each do |e|
@@ -83,12 +72,11 @@ describe V1::HomeController do
           end
         end
 
-        topics[2].user_join @current_user
+        topics[2].user_join @me
 
         get :entities_with_children, @valid_params
         response.status.should == 200
-        response.body.should include e1.name
-        response.body.should include e2.name
+        response.body.should include entities.first.name
         response.body.should include 'b_joined'
         #assigns(:posts).should == [V1::PostPresenter.new(post)]
         #I don't think it's necessary to validate the json rendering
@@ -103,8 +91,7 @@ describe V1::HomeController do
     describe "topics" do
 
       it "works" do
-        topic = Fabricate(:topic_user, user: @me).topic
-        V1::TopicPresenter.should_receive(:array).with([topic])
+        V1::TopicPresenter.should_receive(:array).with([@topic_user.topic])
         get :topics, @valid_params
         response.status.should == 200
       end
