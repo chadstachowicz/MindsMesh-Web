@@ -1,8 +1,9 @@
 <li class="dropdown">
-<a class="pill dropdown-toggle" data-toggle="dropdown" href="#">
-  <span class="badge badge-white"><%= current_user.notifications.unread.size %></span>
-  NOTIFICATIONS
-  <i class="icon-caret-down"></i>
+<a  href="#"
+    class="dropdown-toggle<%= ' inactive' if current_user.notifications.unread.size.zero? %>"
+    data-toggle="dropdown">
+    <i class="icon-bell"></i>
+    <small><%= current_user.notifications.unread.size %></small>
 </a>
 <ul class="dropdown-menu dropdown-notifications">
 

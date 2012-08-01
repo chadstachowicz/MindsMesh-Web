@@ -1,7 +1,9 @@
 <li class="dropdown">
-  <a class="pill dropdown-toggle" data-toggle="dropdown" href="#">
-    MY ACCOUNT
-    <i class="icon-caret-down"></i>
+  <a href="#"
+      class="dropdown-toggle"
+      data-toggle="dropdown">
+      <div class="circle"><%= image_tag current_user.photo_url, width: 16 %></div>
+      <%=  text_icon('My Account', 'caret-down') %>
   </a>
   <ul class="dropdown-menu">
     <% if session[:master_id] %>
@@ -12,19 +14,7 @@
                       %>
       <li class="divider"></li>
     <% end %>
-    <li>
-      <%= link_to current_user do %>
-        <div class="profile">
-          <div class="circle">
-            <%= image_tag current_user.photo_url, width: 40, alt: '' %>
-          </div>
-          <b><%= current_user.name %></b>
-          <small>Go to my profile page</small>
-          <div class='clear'>
-          </div>
-        </div>
-      <% end %>
-    </li>
+    <%= li link_to icon_text('user', "Go to my profile page"), current_user %>
     <li class="divider"></li>
     <%= li link_to icon_text('signout', "Sign Out"), session_logout_path %>
   </ul>

@@ -5,7 +5,7 @@
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
-  <%= favicon_link_tag asset_path('favicon.ico') %>
+  <%= favicon_link_tag '/favicon.ico' %>
 
   <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
   <!--[if lt IE 9]>
@@ -13,34 +13,32 @@
   <![endif]-->
 </head>
 <body class="header_small">
-  <div id="header-bg">
-  </div>
-  <div class="wrap clear">
-    
-    <header>
-      <div id="header-logo">
-      </div>
-      <%= link_to '', '/', id: 'logo' %>
-      <ul class="nav nav-pills">
-        <% if current_user %>
-        <%= li link_to("JOIN UNCC", home_user_path, class: 'pill'),
-            {class: 'active'} if
-            current_user.entity_users.size<2 %>
-        <% end %>
-        <%= li link_to("HOME", root_path, class: 'pill') %>
+
+  <div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+      <div class="container">
 
         <% if current_user %>
-          <%#= link_to "Home",           root_path           if current_user.client? %>
-          <%#= link_to "Home Moderator", home_moderator_path if current_user.moderator? %>
-          <%#= link_to "Home Manager",   home_manager_path   if current_user.manager? %>
-          <%#= link_to "Home Admin",     home_admin_path     if current_user.admin? %>
-          <%#= link_to "Home Master",    home_master_path    if current_user.master? %>
+        <ul class="nav">
+          <li><a id="logo" href="/"><%= image_tag('template2/header_small.png') %></a></li>
           <%= render '/notifications/dropdown' %>
-          <%= render '/my_account_dropdown' %>
+        </ul>
         <% end %>
-      </ul>
-    </header>
 
+        <ul class="nav pull-right">
+          <% if current_user %>
+            <%= li link_to(icon_text('group', "Join UNCC"), home_user_path) if current_user.entity_users.size<2 %>
+          <% end %>
+          <li><a href="/"><i class="icon-home"></i> Home</a></li>
+          <%= render '/my_account_dropdown' if current_user %>
+        </ul>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    
     <%= "<div class='alert alert-success'><a class='close' data-dismiss='alert' href='#'>×</a><b>#{notice}</b></div>".html_safe if notice %>
     <%= "<div class='alert alert-error'><a class='close' data-dismiss='alert' href='#'>×</a><b>#{alert}</b></div>".html_safe   if alert %>
 

@@ -1,9 +1,39 @@
 @import "bootstrap";
+body { padding-top: 60px; }
 @import "font-awesome";
 @import "font-awesome-ie7";
 @import "bootstrap-responsive";
 
+
 // See http://twitter.github.com/bootstrap/less.html
+
+
+$dark-green: #074132;
+
+
+
+.navbar-inner {
+  min-height: 38px !important;
+  background-color: $green;
+  background-image: none;
+  background-repeat: repeat-x;
+}
+.navbar .nav > li > a {
+  background-color: $green;
+  color:#fff;
+  font-size: 13px;
+  padding: 9px 7px;
+  font-weight:bold;
+  i { font-size:16px; }
+  &.inactive { font-size:16px;color:#363; }
+  &:hover {
+    background-color: $dark-green;
+    color:#fff !important;
+  }
+  small { position:absolute;right:3px;bottom:3px;font-size:11px; }
+}
+
+
 
 // Block level inputs
 .input-block-level {
