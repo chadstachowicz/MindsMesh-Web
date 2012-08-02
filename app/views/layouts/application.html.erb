@@ -42,8 +42,11 @@
     <%= "<div class='alert alert-success'><a class='close' data-dismiss='alert' href='#'>×</a><b>#{notice}</b></div>".html_safe if notice %>
     <%= "<div class='alert alert-error'><a class='close' data-dismiss='alert' href='#'>×</a><b>#{alert}</b></div>".html_safe   if alert %>
 
-    <table id="tablecontent">
+    <table id="tablecontent" cellpadding="0">
       <tr>
+        <td class='sidebar' id='sidebar_left'>
+          
+        </td>
         <td id="main">
           <%= yield %>
         </td>

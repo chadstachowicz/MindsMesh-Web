@@ -22,9 +22,18 @@ body { background: #ECFAFF; }
 #sidebar_left  { padding-right: 20px; }
 
 .sidebar_content { display: none; }
-.sidebar {
+#sidebar_right {
   width: 280px;
 }
+#sidebar_left {
+  width: 180px;
+  background:#fff;
+  border-top: 1px solid #EEE;
+  padding-top: 20px;
+}
+
+
+#main section { border-color: #EEE;margin-bottom:0; }
 
 //header1
 
@@ -162,6 +171,15 @@ footer {
 }
 
 //form#new_post
+#new_post_well {
+  border-radius: 0 8px 0 0;
+  border: 1px solid #EEE;
+  border-width: 0 1px 1px 0;
+  box-shadow: none;
+  margin: 0;
+  border-top-width: 1px;
+}
+
 #new_post {
   margin: 0 0 0 0;
 
