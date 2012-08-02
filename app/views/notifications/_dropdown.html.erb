@@ -1,6 +1,6 @@
 <li class="dropdown">
 <a  href="#"
-    class="dropdown-toggle<%= ' inactive' if current_user.notifications.unread.size.zero? %>"
+    class="dropdown-toggle <%= current_user.notifications.unread.size.zero? ? 'inactive' : 'active' %>"
     data-toggle="dropdown">
     <i class="icon-bell"></i>
     <small><%= current_user.notifications.unread.size %></small>

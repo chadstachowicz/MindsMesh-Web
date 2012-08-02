@@ -35,6 +35,21 @@ body { background: #ECFAFF; }
 
 #main section { border-color: #EEE;margin-bottom:0; }
 
+//.navbar
+.navbar .nav {
+  #logo { padding: 0px !important;margin-left:-40px; }
+
+  #myaccount {
+    padding-left:40px;
+    .circle {
+      position:absolute;left:7px;top:7px;
+      &, img { border-radius: 16px;clear:none;float:left;margin-right: 3px; }
+    }
+    
+  }
+}
+
+
 //header1
 
 body.header_big {
@@ -68,13 +83,6 @@ body.header_big {
     left:20px;top:20px;
     z-index:10;
   }
-}
-
-//header2
-
-.nav {
-  #logo { padding: 0px !important;margin-left:-40px; }
-  .circle, img { border-radius: 16px;clear:none;float:left;margin-right: 3px; }
 }
 
 //landing
