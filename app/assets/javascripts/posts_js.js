@@ -86,7 +86,7 @@ $("#new_post").live("ajax:beforeSend", function(e) {
 
 //like
 $(".likebutton").live("ajax:success", function(e, data) {
-  $(this).find("span").html(data);
+  $(this).closest('.post').find(".likebutton span").html(data);
 });
 
 //best in place
