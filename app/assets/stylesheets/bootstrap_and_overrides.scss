@@ -48,7 +48,7 @@ $dark-green: #074132;
 
 .badge-white         { background-color: $white;color:$grayDark; }
 .badge-white[href]   { background-color: darken($white, 10%);color:darken($grayDark, 10%); }
-
+/*
 .well.blue-well {
   background-color: $infoBackground;
   border-color:     $infoText;
@@ -58,6 +58,18 @@ $dark-green: #074132;
   .divider {
     border-color: $infoText;
   }
+  a:hover {
+    color: $white;
+    background-color: $linkColor;
+  }
+}
+*/
+
+.nav.blue-nav {
+  .nav-header {
+    color: $infoText;
+  }
+  a span { font-size:11px; }
   a:hover {
     color: $white;
     background-color: $linkColor;

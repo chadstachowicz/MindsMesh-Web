@@ -1,21 +1,19 @@
-<%= image_tag @user.photo_url, width: 100 if @posts.blank? %>
-
-
 <%= render '/posts/posts', posts: @posts %>
 
+<div data-sidebar="left" class="sidebar_content">
+  <div style="padding:0 0 20px 20px;">
 
-<div data-sidebar="right" class="sidebar_content">
+    <center><%= image_tag @user.photo_url('large') %></center>
+    
+  </div>
 
-<div class="well blue-well">
-
-  <ul class="nav nav-list">
+  <ul class="nav blue-nav nav-list">
     <li class="nav-header">
-      topics
+      <%= @user.name %>
     </li>
-    <% @topic_users.each do |topic_user| %>
-      <% topic = topic_user.topic %>
-      <%= li link_to(icon_text('book', topic.name), topic) %>
-    <% end %>
+    <%= li link_to  icon_text('facebook-sign', 'facebook profile'),
+                    @user.fb_url,
+                    target: '_blank' %>
     
     <% if current_user.master? %>
       <li class="nav-header">master</li>
@@ -24,8 +22,21 @@
                       method: 'put',
                       data: {disable_with: "hold on..."}
                       %>
-      <%= li icon_text('barcode', @user.access_token) %>
+      <%= li @user.access_token, style: 'font-size:9px;' %>
     <% end %>
   </ul>
 </div>
+
+<div data-sidebar="right" class="sidebar_content">
+
+  <ul class="nav blue-nav nav-list">
+    <li class="nav-header">
+      topics
+    </li>
+    <% @topic_users.each do |topic_user| %>
+      <% topic = topic_user.topic %>
+      <%= li link_to(icon_text('book', topic.name), topic) %>
+    <% end %>
+  </ul>
+
 </div>

@@ -45,9 +45,15 @@ class User < ActiveRecord::Base
   def admin?;     role_is?(:admin);     end
   def master?;    role_is?(:master);    end
 
-  def photo_url
+  #this should be in a presenter
+  def photo_url(picture_type='square')
     return "/assets/user.jpg" unless Rails.env.production?
-    "https://graph.facebook.com/#{fb_id}/picture?type=square"
+    "https://graph.facebook.com/#{fb_id}/picture?type=#{picture_type}"
+  end
+
+  #this should be in a presenter
+  def fb_url
+    "http://facebook.com/#{fb_id}"
   end
 
   def fb_api

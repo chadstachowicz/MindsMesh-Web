@@ -1,35 +1,28 @@
 <%# length forces select * instead of counts, for the list is needed in this request %>
 <% if current_user.topic_users.length.zero? %>
-<h4>content for when you have not joined any topics</h4>
+<h4 class="message">content for when you have not joined any topics</h4>
 <% else %>
 <%= render '/posts/new_post', topic_user: nil %>
 <% end %>
 <%= render '/posts/posts', posts: @posts, title: "My Mesh" %>
 
-<div data-sidebar="right" class="sidebar_content">
-<%= render '/home/feedback' if (current_user.posts.size+current_user.replies.size) > 2 %>
-
-<div class="well blue-well">
-  <ul class="nav nav-list">
+<div data-sidebar="left" class="sidebar_content">
+  <div style="height:130px;">
+  </div>
+  <ul class="nav blue-nav nav-list">
 
     <li class="nav-header">
       my topics
     </li>
     <% current_user.topic_users.each do |topic_user| %>
       <% topic = topic_user.topic %>
-      <%= li link_to(icon_text('book', topic.name), topic) %>
+      <%= li link_to(icon_text('book', topic.name), topic, class: 'tooltiped', title: topic.name) %>
     <% end %>
-    <%= render '/topics_my_entities' %>
-    <li class="divider"></li>
-    <li class="nav-header">
-      mobile
-    </li>
-    <%= li link_to(icon_text('eye-close', "Sign Out All My Mobile Devices"),
-                   home_change_access_token_path,
-                   remote: true,
-                   method: :post,
-                   onclick: "$(this).find('span').html('All mobiles require login again!')")
-                   %>
   </ul>
 </div>
+<div data-sidebar="right" class="sidebar_content">
+  <%= render '/home/feedback' if (current_user.posts.size+current_user.replies.size) > 2 %>
+  <ul class="nav blue-nav nav-list">
+    <%= render '/topics_my_entities' %>
+  </ul>
 </div>

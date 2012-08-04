@@ -30,9 +30,17 @@ body { background: #ECFAFF; }
   background:#fff;
   border-top: 1px solid #EEE;
   padding-top: 20px;
+  .nav-list { width: 100%; }
 }
 
+#main .message {
+  background: white;
+  border: #EEE solid 1px;
+  border-width: 1px 1px 0 1px;
+  padding: 20px;
+}
 #main section { border-color: #EEE;margin-bottom:0; }
+
 
 //.navbar
 .navbar .nav {
@@ -148,6 +156,8 @@ footer {
 
 }
 
+
+
 //well
 .well {
   padding: 10px 0;
@@ -155,7 +165,7 @@ footer {
     li {
       line-height:30px;
       font-size:12px;
-      &.nav-header { font-size:20px; }
+      &.nav-header { font-size:16px; }
       a {
         .circle, img { border-radius: 30px; }
         i { font-size:16px; }
@@ -179,12 +189,14 @@ footer {
 
 //form#new_post
 #new_post_well {
+  background-color: #EEE;
   border-radius: 0 8px 0 0;
   border: 1px solid #EEE;
   border-width: 0 1px 1px 0;
   box-shadow: none;
-  margin: 0;
   border-top-width: 1px;
+  margin: 0;
+  padding: 15px 0;
 }
 
 #new_post {
