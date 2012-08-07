@@ -14,7 +14,9 @@ $dark-green: #074132;
 
 .navbar-inner {
   min-height: 38px !important;
-  background: none $green repeat-x !important;
+  background-image: none !important;
+  background-color: $green !important;
+  background-repeat: repeat-x !important;
 }
 .navbar .nav > li > a {
   background-color: $green;

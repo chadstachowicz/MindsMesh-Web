@@ -18,19 +18,16 @@
     <% if topic_user.blank? %>
       <div class="modal hide" id="new_post_modal">
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">×</button>
-          <h3>Where do you want that question to show up?</h3>
+          <h3>Pick a Topic</h3>
         </div>
         <div class="modal-body">
 
           <% current_user.topic_users.includes(:topic).each do |tu| %>
-            <p style="margin:10px;">
-              <a href="#" class="btn btn-primary newpostbutton" data-dismiss="modal" data-topic-user-id="<%= tu.id %>"><%= tu.topic.name %></a>
-            </p>
+            <a href="#" class="btn btn-primary newpostbutton input-block-level" data-dismiss="modal" data-topic-user-id="<%= tu.id %>"><%= tu.topic.name %></a>
           <% end %>
         </div>
         <div class="modal-footer">
-          <a href="#" class="btn" data-dismiss="modal">Go Back</a>
+          <a href="#" class="btn" data-dismiss="modal">Change Text</a>
         </div>
       </div>
     <% end %>

@@ -243,6 +243,15 @@ footer {
     float:right;
     width:150px;
   }
+  #new_post_modal {
+    width: 350px;
+    .modal-body {
+      max-height: 200px;
+      overflow-y:scroll;
+      .btn { margin-bottom: 15px; }
+    }
+
+  }
 
 }
 
