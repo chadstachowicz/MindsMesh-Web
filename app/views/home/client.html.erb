@@ -7,8 +7,6 @@
 <%= render '/posts/posts', posts: @posts, title: "My Mesh" %>
 
 <div data-sidebar="left" class="sidebar_content">
-  <div style="height:130px;">
-  </div>
   <ul class="nav blue-nav nav-list">
 
     <li class="nav-header">
@@ -16,7 +14,7 @@
     </li>
     <% current_user.topic_users.each do |topic_user| %>
       <% topic = topic_user.topic %>
-      <%= li link_to(icon_text('book', topic.name), topic, class: 'tooltiped', title: topic.name) %>
+        <%= li link_to(icon_text('book', truncate(topic.name, length: 28)), topic, class: 'tooltiped', title: topic.name) %>
     <% end %>
   </ul>
 </div>

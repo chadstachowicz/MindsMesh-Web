@@ -1,26 +1,38 @@
-<div class="well" id="new_post_well">
+<div id="new_post_wrapper">
   <%= form_for Post.new, url: home_create_post_path(format: 'js'), remote: true do |f| %>
-    <% if topic_user.present? %>
-    <%= hidden_field_tag :topic_user_id, topic_user.id %>
-    <% else %>
-    <%= select_tag :topic_user_id,
-               options_for_select(
-               current_user.topic_users.includes(:topic).map { |tu| [tu.topic.name, tu.id]}),
-               prompt: "Select a Course" %>
-    <% end %>
-    <ul class="nav nav-list">
-      <li class="nav-header">
-        Question or comment
-      </li>
-      <li>
-        <%= f.text_area :text, class: 'input-block-level' %>
-      </li>
-      <li>
-        <div>
-          <%= f.submit nil, class: "btn btn-success btn-large float-right clear" %>
+    <%= hidden_field_tag :topic_user_id, topic_user.try(:id) %>
+    <h3 class="title">QUESTION OR COMMENT</h3>
+    <%= f.text_area :text, class: 'input-block-level' %>
+    <div>
+      <% if topic_user.present? %>
+        <%= f.submit  nil,
+                      id: 'new_post_create',
+                      class: "btn btn-success btn-large float-right clear"
+                      %>
+      <% else %>
+        <a class="btn btn-success btn-large" id="new_post_create">Create Post</a>
+      <% end %>
+    </div>
+    <div class="clear">
+    </div>
+    <% if topic_user.blank? %>
+      <div class="modal hide" id="new_post_modal">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">×</button>
+          <h3>Where do you want that question to show up?</h3>
         </div>
-        <div class="clear"></div>
-      </li>
-    </ul>
+        <div class="modal-body">
+
+          <% current_user.topic_users.includes(:topic).each do |tu| %>
+            <p style="margin:10px;">
+              <a href="#" class="btn btn-primary newpostbutton" data-dismiss="modal" data-topic-user-id="<%= tu.id %>"><%= tu.topic.name %></a>
+            </p>
+          <% end %>
+        </div>
+        <div class="modal-footer">
+          <a href="#" class="btn" data-dismiss="modal">Go Back</a>
+        </div>
+      </div>
+    <% end %>
   <% end %>
 </div>

@@ -11,20 +11,20 @@
                       like_post_path(post),
                       remote: true,
                       method: 'put',
-                      class: 'btn likebutton tooltiped',
+                      class: 'btn btn-mini likebutton tooltiped',
                       title: 'like this?'
                       %>
           <%= link_to icon_text('comment-alt', post.replies.size),
                       "#",
-                      class: 'btn replybutton tooltiped',
+                      class: 'btn btn-mini replybutton tooltiped',
                       title: 'reply to this post!',
                       data: { scroll_to_reply: "#new_reply_#{post.id}" } if can? :create_reply, post
                       %>
 
-          <button class="btn dropdown-toggle" data-toggle="dropdown">
+          <button class="btn btn-mini dropdown-toggle" data-toggle="dropdown">
             <span class="caret"></span>
           </button>
-          <ul class="dropdown-menu">
+          <ul class="dropdown-menu post_actions">
 
             <%= li link_to  icon_text('thumbs-up', "like this (#{post.likes.size})"),
                             like_post_path(post),
