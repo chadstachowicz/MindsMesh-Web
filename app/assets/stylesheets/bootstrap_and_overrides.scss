@@ -13,10 +13,8 @@ $dark-green: #074132;
 
 
 .navbar-inner {
-  min-height: 38px !important;
-  background-image: none !important;
-  background-color: $green !important;
-  background-repeat: repeat-x !important;
+  min-height: 38px;
+  @include gradient-vertical($green, $green);
 }
 .navbar .nav > li > a {
   background-color: $green;
