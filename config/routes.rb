@@ -1,55 +1,59 @@
 Mindsmesh::Application.routes.draw do
+  
+  namespace 'api' do
 
-  api_version(:module => "V1", :path=>"v1") do
-    resources :posts, only: [:show, :create] do
-      member do
-        get 'with_children'
-        get 'likes'
-        get 'likes/with_parents', action: 'likes_with_parents'
-        post 'like'
-        post 'unlike'
-        post 'replies', action: 'create_reply'
+    api_version(:module => "V1", :path=>"v1") do
+      resources :posts, only: [:show, :create] do
+        member do
+          get 'with_children'
+          get 'likes'
+          get 'likes/with_parents', action: 'likes_with_parents'
+          post 'like'
+          post 'unlike'
+          post 'replies', action: 'create_reply'
+        end
       end
-    end
-    resources :replies, only: [:show] do
-      member do
-        get 'likes'
-        get 'likes/with_parents', action: 'likes_with_parents'
-        post 'like'
-        post 'unlike'
+      resources :replies, only: [:show] do
+        member do
+          get 'likes'
+          get 'likes/with_parents', action: 'likes_with_parents'
+          post 'like'
+          post 'unlike'
+        end
       end
-    end
-    resources :topics, only: [:show] do
-      member do
-        get 'posts'
-        get 'posts/with_parents', action: 'posts_with_parents'
-        post 'join'
-        post 'leave'
+      resources :topics, only: [:show] do
+        member do
+          get 'posts'
+          get 'posts/with_parents', action: 'posts_with_parents'
+          post 'join'
+          post 'leave'
+        end
+        #collection do
+        #  get :batch
+        #end
       end
-      #collection do
-      #  get :batch
-      #end
-    end
-    resources :users, only: [:show] do
-      member do
-        get 'with_children'
-        get 'posts'
-        get 'posts/with_parents', action: 'posts_with_parents'
+      resources :users, only: [:show] do
+        member do
+          get 'with_children'
+          get 'posts'
+          get 'posts/with_parents', action: 'posts_with_parents'
+        end
+        #collection do
+        #  get :batch
+        #end
       end
-      #collection do
-      #  get :batch
-      #end
-    end
-    post '/session/login'
-    get '/session/me'
-    get '/home/posts'
-    get '/home/posts/with_parents' => 'home#posts_with_parents'
-    get '/home/entities'
-    get '/home/entities/with_children' => 'home#entities_with_children'
-    get '/home/topics'
-    get '/home/search_topics'
-    get '*path' => 'base#render_404'
+      post '/session/login'
+      get '/session/me'
+      get '/home/posts'
+      get '/home/posts/with_parents' => 'home#posts_with_parents'
+      get '/home/entities'
+      get '/home/entities/with_children' => 'home#entities_with_children'
+      get '/home/topics'
+      post '/home/search_topics'
+      match '*path' => 'base#render_404'
 
+    end
+    
   end
 
   resources :notifies, only: [:index, :destroy]
