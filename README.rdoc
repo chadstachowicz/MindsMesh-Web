@@ -1,97 +1,100 @@
 == MINDSMESH.COM
 
 == ROUTES
-
-           with_children_v1_post GET    /v1/posts/:id/with_children(.:format)           V1/posts#with_children
-                   likes_v1_post GET    /v1/posts/:id/likes(.:format)                   V1/posts#likes
-      likes_with_parents_v1_post GET    /v1/posts/:id/likes/with_parents(.:format)      V1/posts#likes_with_parents
-                    like_v1_post POST   /v1/posts/:id/like(.:format)                    V1/posts#like
-                  unlike_v1_post POST   /v1/posts/:id/unlike(.:format)                  V1/posts#unlike
-                 replies_v1_post POST   /v1/posts/:id/replies(.:format)                 V1/posts#create_reply
-                        v1_posts POST   /v1/posts(.:format)                             V1/posts#create
-                         v1_post GET    /v1/posts/:id(.:format)                         V1/posts#show
-                  likes_v1_reply GET    /v1/replies/:id/likes(.:format)                 V1/replies#likes
-     likes_with_parents_v1_reply GET    /v1/replies/:id/likes/with_parents(.:format)    V1/replies#likes_with_parents
-                   like_v1_reply POST   /v1/replies/:id/like(.:format)                  V1/replies#like
-                 unlike_v1_reply POST   /v1/replies/:id/unlike(.:format)                V1/replies#unlike
-                        v1_reply GET    /v1/replies/:id(.:format)                       V1/replies#show
-                  posts_v1_topic GET    /v1/topics/:id/posts(.:format)                  V1/topics#posts
-     posts_with_parents_v1_topic GET    /v1/topics/:id/posts/with_parents(.:format)     V1/topics#posts_with_parents
-                        v1_topic GET    /v1/topics/:id(.:format)                        V1/topics#show
-           with_children_v1_user GET    /v1/users/:id/with_children(.:format)           V1/users#with_children
-                   posts_v1_user GET    /v1/users/:id/posts(.:format)                   V1/users#posts
-      posts_with_parents_v1_user GET    /v1/users/:id/posts/with_parents(.:format)      V1/users#posts_with_parents
-                         v1_user GET    /v1/users/:id(.:format)                         V1/users#show
-                v1_session_login POST   /v1/session/login(.:format)                     v1/session#login
-                   v1_session_me GET    /v1/session/me(.:format)                        v1/session#me
-                   v1_home_posts GET    /v1/home/posts(.:format)                        v1/home#posts
-      v1_home_posts_with_parents GET    /v1/home/posts/with_parents(.:format)           V1/home#posts_with_parents
-                v1_home_entities GET    /v1/home/entities(.:format)                     v1/home#entities
-  v1_home_entities_with_children GET    /v1/home/entities/with_children(.:format)       V1/home#entities_with_children
-                              v1 GET    /v1/*path(.:format)                             V1/base#render_404
-                              
-                        notifies GET    /notifies(.:format)                             notifies#index
-                          notify DELETE /notifies/:id(.:format)                         notifies#destroy
-                     delayed_job        /delayed_job(.:format)                          DelayedJobWeb
-                         privacy GET    /privacy(.:format)                              pages#privacy
-                           terms GET    /terms(.:format)                                pages#privacy
-                         support GET    /support(.:format)                              pages#privacy
-                             faq GET    /faq(.:format)                                  pages#privacy
-                           about GET    /about(.:format)                                pages#privacy
-                    notification GET    /notifications/:id(.:format)                    notifications#show
-                  questionnaires GET    /questionnaires(.:format)                       questionnaires#index
-                   questionnaire GET    /questionnaires/:id(.:format)                   questionnaires#show
-                                 DELETE /questionnaires/:id(.:format)                   questionnaires#destroy
-                        entities GET    /entities(.:format)                             entities#index
-                                 POST   /entities(.:format)                             entities#create
-                      new_entity GET    /entities/new(.:format)                         entities#new
-                     edit_entity GET    /entities/:id/edit(.:format)                    entities#edit
-                          entity GET    /entities/:id(.:format)                         entities#show
-                                 PUT    /entities/:id(.:format)                         entities#update
-                                 DELETE /entities/:id(.:format)                         entities#destroy
-                     topic_users GET    /topic_users(.:format)                          topic_users#index
-                                 POST   /topic_users(.:format)                          topic_users#create
-                  new_topic_user GET    /topic_users/new(.:format)                      topic_users#new
-                 edit_topic_user GET    /topic_users/:id/edit(.:format)                 topic_users#edit
-                      topic_user GET    /topic_users/:id(.:format)                      topic_users#show
-                                 PUT    /topic_users/:id(.:format)                      topic_users#update
-                                 DELETE /topic_users/:id(.:format)                      topic_users#destroy
-                 more_posts_user GET    /users/:id/more_posts(.:format)                 users#more_posts
-                           users GET    /users(.:format)                                users#index
-                       edit_user GET    /users/:id/edit(.:format)                       users#edit
-                            user GET    /users/:id(.:format)                            users#show
-                                 PUT    /users/:id(.:format)                            users#update
-                                 DELETE /users/:id(.:format)                            users#destroy
-                      join_topic PUT    /topics/:id/join(.:format)                      topics#join
-                more_posts_topic GET    /topics/:id/more_posts(.:format)                topics#more_posts
-                          topics GET    /topics(.:format)                               topics#index
-                                 POST   /topics(.:format)                               topics#create
-                       new_topic GET    /topics/new(.:format)                           topics#new
-                      edit_topic GET    /topics/:id/edit(.:format)                      topics#edit
-                           topic GET    /topics/:id(.:format)                           topics#show
-                                 PUT    /topics/:id(.:format)                           topics#update
-                                 DELETE /topics/:id(.:format)                           topics#destroy
-                    replies_post POST   /posts/:id/replies(.:format)                    posts#create_reply
-                       like_post PUT    /posts/:id/like(.:format)                       posts#like
-                           posts GET    /posts(.:format)                                posts#index
-                            post GET    /posts/:id(.:format)                            posts#show
-                                 PUT    /posts/:id(.:format)                            posts#update
-                                 DELETE /posts/:id(.:format)                            posts#destroy
-                      like_reply PUT    /replies/:id/like(.:format)                     replies#like
-                           reply PUT    /replies/:id(.:format)                          replies#update
-                                 DELETE /replies/:id(.:format)                          replies#destroy
-                      home_guest GET    /home/guest(.:format)                           home#guest
-                  session_logout GET    /session/logout(.:format)                       session#logout
-                  session_switch PUT    /session/switch(.:format)                       session#switch
-                                        /auth/:provider/callback(.:format)              session#create
-                       home_user GET    /home/user(.:format)                            home#user
-            home_user_create_eur POST   /home/user_create_eur(.:format)                 home#user_create_eur
-                home_user_entity GET    /home/user_entity/:confirmation_token(.:format) home#user_entity
-                     home_client GET    /                                               home#client
-                 home_more_posts GET    /home/more_posts(.:format)                      home#more_posts
-                home_create_post POST   /home/create_post(.:format)                     home#create_post
-        home_change_access_token POST   /home/change_access_token(.:format)             home#change_access_token
-                   home_feedback POST   /home/feedback(.:format)                        home#feedback
-                            root        /                                               home#client
-                          denied GET    /home/denied(.:format)                          home#denied
-
+           with_children_api_v1_post GET    /api/v1/posts/:id/with_children(.:format)        api/V1/posts#with_children
+                   likes_api_v1_post GET    /api/v1/posts/:id/likes(.:format)                api/V1/posts#likes
+      likes_with_parents_api_v1_post GET    /api/v1/posts/:id/likes/with_parents(.:format)   api/V1/posts#likes_with_parents
+                    like_api_v1_post POST   /api/v1/posts/:id/like(.:format)                 api/V1/posts#like
+                  unlike_api_v1_post POST   /api/v1/posts/:id/unlike(.:format)               api/V1/posts#unlike
+                 replies_api_v1_post POST   /api/v1/posts/:id/replies(.:format)              api/V1/posts#create_reply
+                        api_v1_posts POST   /api/v1/posts(.:format)                          api/V1/posts#create
+                         api_v1_post GET    /api/v1/posts/:id(.:format)                      api/V1/posts#show
+                  likes_api_v1_reply GET    /api/v1/replies/:id/likes(.:format)              api/V1/replies#likes
+     likes_with_parents_api_v1_reply GET    /api/v1/replies/:id/likes/with_parents(.:format) api/V1/replies#likes_with_parents
+                   like_api_v1_reply POST   /api/v1/replies/:id/like(.:format)               api/V1/replies#like
+                 unlike_api_v1_reply POST   /api/v1/replies/:id/unlike(.:format)             api/V1/replies#unlike
+                        api_v1_reply GET    /api/v1/replies/:id(.:format)                    api/V1/replies#show
+                  posts_api_v1_topic GET    /api/v1/topics/:id/posts(.:format)               api/V1/topics#posts
+     posts_with_parents_api_v1_topic GET    /api/v1/topics/:id/posts/with_parents(.:format)  api/V1/topics#posts_with_parents
+                   join_api_v1_topic POST   /api/v1/topics/:id/join(.:format)                api/V1/topics#join
+                  leave_api_v1_topic POST   /api/v1/topics/:id/leave(.:format)               api/V1/topics#leave
+                        api_v1_topic GET    /api/v1/topics/:id(.:format)                     api/V1/topics#show
+           with_children_api_v1_user GET    /api/v1/users/:id/with_children(.:format)        api/V1/users#with_children
+                   posts_api_v1_user GET    /api/v1/users/:id/posts(.:format)                api/V1/users#posts
+      posts_with_parents_api_v1_user GET    /api/v1/users/:id/posts/with_parents(.:format)   api/V1/users#posts_with_parents
+                         api_v1_user GET    /api/v1/users/:id(.:format)                      api/V1/users#show
+                api_v1_session_login POST   /api/v1/session/login(.:format)                  api/v1/session#login
+                   api_v1_session_me GET    /api/v1/session/me(.:format)                     api/v1/session#me
+                   api_v1_home_posts GET    /api/v1/home/posts(.:format)                     api/v1/home#posts
+      api_v1_home_posts_with_parents GET    /api/v1/home/posts/with_parents(.:format)        api/V1/home#posts_with_parents
+                api_v1_home_entities GET    /api/v1/home/entities(.:format)                  api/v1/home#entities
+  api_v1_home_entities_with_children GET    /api/v1/home/entities/with_children(.:format)    api/V1/home#entities_with_children
+                  api_v1_home_topics GET    /api/v1/home/topics(.:format)                    api/v1/home#topics
+           api_v1_home_search_topics POST   /api/v1/home/search_topics(.:format)             api/v1/home#search_topics
+                              api_v1        /api/v1/*path(.:format)                          api/V1/base#render_404
+                            notifies GET    /notifies(.:format)                              notifies#index
+                              notify DELETE /notifies/:id(.:format)                          notifies#destroy
+                         delayed_job        /delayed_job(.:format)                           DelayedJobWeb
+                             privacy GET    /privacy(.:format)                               pages#privacy
+                               terms GET    /terms(.:format)                                 pages#privacy
+                             support GET    /support(.:format)                               pages#privacy
+                                 faq GET    /faq(.:format)                                   pages#privacy
+                               about GET    /about(.:format)                                 pages#privacy
+                        notification GET    /notifications/:id(.:format)                     notifications#show
+                      questionnaires GET    /questionnaires(.:format)                        questionnaires#index
+                       questionnaire GET    /questionnaires/:id(.:format)                    questionnaires#show
+                                     DELETE /questionnaires/:id(.:format)                    questionnaires#destroy
+                            entities GET    /entities(.:format)                              entities#index
+                                     POST   /entities(.:format)                              entities#create
+                          new_entity GET    /entities/new(.:format)                          entities#new
+                         edit_entity GET    /entities/:id/edit(.:format)                     entities#edit
+                              entity GET    /entities/:id(.:format)                          entities#show
+                                     PUT    /entities/:id(.:format)                          entities#update
+                                     DELETE /entities/:id(.:format)                          entities#destroy
+                         topic_users GET    /topic_users(.:format)                           topic_users#index
+                                     POST   /topic_users(.:format)                           topic_users#create
+                      new_topic_user GET    /topic_users/new(.:format)                       topic_users#new
+                     edit_topic_user GET    /topic_users/:id/edit(.:format)                  topic_users#edit
+                          topic_user GET    /topic_users/:id(.:format)                       topic_users#show
+                                     PUT    /topic_users/:id(.:format)                       topic_users#update
+                                     DELETE /topic_users/:id(.:format)                       topic_users#destroy
+                     more_posts_user GET    /users/:id/more_posts(.:format)                  users#more_posts
+                               users GET    /users(.:format)                                 users#index
+                           edit_user GET    /users/:id/edit(.:format)                        users#edit
+                                user GET    /users/:id(.:format)                             users#show
+                                     PUT    /users/:id(.:format)                             users#update
+                                     DELETE /users/:id(.:format)                             users#destroy
+                          join_topic PUT    /topics/:id/join(.:format)                       topics#join
+                         leave_topic PUT    /topics/:id/leave(.:format)                      topics#leave
+                    more_posts_topic GET    /topics/:id/more_posts(.:format)                 topics#more_posts
+                              topics GET    /topics(.:format)                                topics#index
+                                     POST   /topics(.:format)                                topics#create
+                           new_topic GET    /topics/new(.:format)                            topics#new
+                          edit_topic GET    /topics/:id/edit(.:format)                       topics#edit
+                               topic GET    /topics/:id(.:format)                            topics#show
+                                     PUT    /topics/:id(.:format)                            topics#update
+                                     DELETE /topics/:id(.:format)                            topics#destroy
+                        replies_post POST   /posts/:id/replies(.:format)                     posts#create_reply
+                           like_post PUT    /posts/:id/like(.:format)                        posts#like
+                               posts GET    /posts(.:format)                                 posts#index
+                                post GET    /posts/:id(.:format)                             posts#show
+                                     PUT    /posts/:id(.:format)                             posts#update
+                                     DELETE /posts/:id(.:format)                             posts#destroy
+                          like_reply PUT    /replies/:id/like(.:format)                      replies#like
+                               reply PUT    /replies/:id(.:format)                           replies#update
+                                     DELETE /replies/:id(.:format)                           replies#destroy
+                          home_guest GET    /home/guest(.:format)                            home#guest
+                      session_logout GET    /session/logout(.:format)                        session#logout
+                      session_switch PUT    /session/switch(.:format)                        session#switch
+                                            /auth/:provider/callback(.:format)               session#create
+                           home_user GET    /home/user(.:format)                             home#user
+                home_user_create_eur POST   /home/user_create_eur(.:format)                  home#user_create_eur
+                    home_user_entity GET    /home/user_entity/:confirmation_token(.:format)  home#user_entity
+                           fb_canvas        /fb_canvas(.:format)                             home#fb_canvas
+                         home_client GET    /                                                home#client
+                     home_more_posts GET    /home/more_posts(.:format)                       home#more_posts
+                    home_create_post POST   /home/create_post(.:format)                      home#create_post
+            home_change_access_token POST   /home/change_access_token(.:format)              home#change_access_token
+                       home_feedback POST   /home/feedback(.:format)                         home#feedback
+                                root        /                                                home#client
+                              denied GET    /home/denied(.:format)                           home#denied
