@@ -1,4 +1,5 @@
 require "bundler/capistrano"
+load "config/recipes/db_backups"
 
 server "50.116.44.225", :web, :app, :db, primary: true
 
