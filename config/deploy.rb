@@ -1,7 +1,9 @@
 require "bundler/capistrano"
 load "config/recipes/db_backups"
 
-server "50.116.44.225", :web, :app, :db, primary: true
+role :web, "50.116.44.225"
+role :app, "50.116.44.225"
+role :db,  "50.116.44.225", primary: true
 
 set :application, "mindsmesh"
 set :user, "deployer"
