@@ -3,7 +3,7 @@ require 'spec_helper'
 describe TopicsController do
 
   def valid_attributes
-    {name: Faker::Name.name, entity_id: Fabricate(:entity).id}
+    {title: Faker::Name.name, number: 10, entity_id: Fabricate(:entity).id}
   end
 
   describe "GET index" do

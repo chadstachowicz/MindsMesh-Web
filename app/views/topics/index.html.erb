@@ -3,6 +3,8 @@
 <table>
   <tr>
     <th>Entity</th>
+    <th>Title</th>
+    <th>Number</th>
     <th>Name</th>
     <th>Slug</th>
     <th>Self-Joining</th>
@@ -13,6 +15,8 @@
 <% @topics.each do |topic| %>
   <tr>
     <td><%= topic.entity.name %></td>
+    <td><%= topic.title %></td>
+    <td><%= topic.number %></td>
     <td><%= link_to topic.name, topic %></td>
     <td><%= topic.slug %></td>
     <td><%= 'yes' if topic.self_joining? %></td>

@@ -1,4 +1,5 @@
 Fabricator(:topic) do
   entity
-  name { Faker::Lorem.sentence }
+  title { Faker::Lorem.sentence }
+  number { rand 9999 }
 end

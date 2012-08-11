@@ -29,11 +29,17 @@ describe Topic do
     end
   end
 
-  it "slugfies" do
-  	t = Fabricate.build(:topic)
-  	-> {
-  	  t.valid?
-  	}.should change(t, :slug)
+  it "calls compose_name_and_slugify" do
+    t = Fabricate.build(:topic)
+    t.should_receive(:compose_name_and_slugify)
+    t.valid?
+  end
+
+  it "slugifies" do
+    t = Fabricate.build(:topic)
+    t.slug.should be_nil
+    t.name.should be_nil
+    t.should be_valid
   end
   
   it "user_join" do

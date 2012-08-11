@@ -2,7 +2,7 @@ class Topic < ActiveRecord::Base
   extend FriendlyId
   friendly_id :slug
 
-  attr_accessible :name, :slug, :entity_id, :self_joining
+  attr_accessible :name, :slug, :entity_id, :self_joining, :title, :number
 
   belongs_to :entity
   has_many :topic_users, dependent: :destroy
@@ -10,6 +10,8 @@ class Topic < ActiveRecord::Base
   has_many :users, through: :topic_users
 
   validates_presence_of :name
+  validates_presence_of :title
+  validates_presence_of :number
   validates_presence_of :slug
   validates_presence_of :entity
 
@@ -24,11 +26,11 @@ class Topic < ActiveRecord::Base
     topic_users.where(user_id: user.id).first.try(:destroy)
   end
 
+  before_validation :compose_name_and_slugify
 
-  before_validation :slugify
-
-  def slugify
-  	self.slug = name.parameterize if self.slug.blank?
+  def compose_name_and_slugify
+    self.name = "#{title} (#{number})" if self.name.blank?
+    self.slug = name.parameterize      if self.slug.blank?
   end
 
 end

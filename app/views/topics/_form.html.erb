@@ -16,12 +16,20 @@
     <%= f.select :entity_id, Entity.all.map { |e| [e.name, e.id] } %>
   </div>
   <div class="field">
+    <%= f.label :title %><br />
+    <%= f.text_field :title %>
+  </div>
+  <div class="field">
+    <%= f.label :number %><br />
+    <%= f.text_field :number %>
+  </div>
+  <div class="field">
     <%= f.label :name %><br />
-    <%= f.text_field :name %>
+    <%= f.text_field :name %> can leave blank
   </div>
   <div class="field">
     <%= f.label :slug %><br />
-    <%= f.text_field :slug %>
+    <%= f.text_field :slug %>  can leave blank
   </div>
   <div class="field">
     <%= f.label :self_joining %><br />
