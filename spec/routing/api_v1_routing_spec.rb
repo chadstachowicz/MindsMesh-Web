@@ -131,6 +131,10 @@ describe "api_v1" do
         get("/api/v1/topics/1").should route_to("api/v1/topics#show", :id => "1")
       end
 
+      it "routes to #create" do
+        post("/api/v1/topics").should route_to("api/v1/topics#create")
+      end
+
       it "routes to #posts" do
         get("/api/v1/topics/1/posts").should route_to("api/v1/topics#posts", :id => "1")
       end

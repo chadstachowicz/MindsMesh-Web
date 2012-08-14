@@ -8,6 +8,25 @@ describe Api::V1::TopicsController do
     @me = @topic_user.user
     @valid_params = {id: @topic.to_param, access_token: @me.access_token}
   end
+  
+  describe "create" do
+
+    it "with valid params" do
+      ent = Fabricate(:entity)
+      Api::V1::TopicPresenter.should_receive(:new).with(kind_of(Topic))
+      Topic.any_instance.should_receive(:user_join)
+      params = {access_token: @me.access_token,
+                topic: {entity_id: ent.id,
+                        title: Faker::Lorem.words(1).join,
+                        number: rand(999).to_s
+                        }
+                }
+      get :create, params
+      response.status.should == 200
+    end
+    
+  end
+  
   describe "show" do
 
     it "with valid params" do

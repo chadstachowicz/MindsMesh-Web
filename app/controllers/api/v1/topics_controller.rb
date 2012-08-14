@@ -9,8 +9,16 @@ module Api::V1
   end
 =end
 
+    def create
+      topic = Topic.new(params[:topic])
+      #topic.user = @current_user #TODO: add user_id field
+      topic.save!
+      topic.user_join(@current_user) #TODO: move this to a before create
+      render json: TopicPresenter.new(topic)
+    end
+
     def show
-    	render json: TopicPresenter.new(topic)
+      render json: TopicPresenter.new(topic)
     end
 
     def posts

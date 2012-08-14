@@ -21,7 +21,7 @@ Mindsmesh::Application.routes.draw do
           post 'unlike'
         end
       end
-      resources :topics, only: [:show] do
+      resources :topics, only: [:show, :create] do
         member do
           get 'posts'
           get 'posts/with_parents', action: 'posts_with_parents'
