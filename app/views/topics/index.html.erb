@@ -21,7 +21,7 @@
     <td><%= topic.slug %></td>
     <td><%= 'yes' if topic.self_joining? %></td>
     <td><%= link_to 'Edit', edit_topic_path(topic) %></td>
-    <td><%#= link_to 'Destroy', topic, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><%= link_to 'Destroy', topic, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
 <% end %>
 </table>
