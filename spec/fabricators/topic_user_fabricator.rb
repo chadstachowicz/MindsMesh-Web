@@ -1,5 +1,5 @@
 Fabricator(:topic_user) do
   topic
-  user { |tu| Fabricate(:entity_user, entity: tu[:topic].entity).user }
+  entity_user { |tu| tu[:topic].entity_user }
   role nil
 end

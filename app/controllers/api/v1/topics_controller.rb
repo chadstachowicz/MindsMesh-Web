@@ -10,10 +10,8 @@ module Api::V1
 =end
 
     def create
-      topic = Topic.new(params[:topic])
-      #topic.user = @current_user #TODO: add user_id field
-      topic.save!
-      topic.user_join(@current_user) #TODO: move this to a before create
+      topic = Topic.create!(params[:topic])
+      topic.entity_user_join(topic.entity_user)
       render json: TopicPresenter.new(topic)
     end
 
@@ -32,13 +30,15 @@ module Api::V1
     end
 
     def join
-      topic.user_join(@current_user)
-      render json: true
+      eu = EntityUser.eu(topic.entity_id, @current_user.id)
+      tu = topic.entity_user_join(eu)
+      render json: tu.persisted?
     end
 
     def leave
-      topic.user_leave(@current_user)
-      render json: true
+      eu = EntityUser.eu(topic.entity_id, @current_user.id)
+      tu = topic.entity_user_leave(eu)
+      render json: !tu.persisted?
     end
 
     private

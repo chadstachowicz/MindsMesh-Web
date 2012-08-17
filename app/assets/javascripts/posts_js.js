@@ -35,14 +35,14 @@ $("#new_post_create").live('click', function(e) {
     $('#new_post textarea').focus();
     return;
   }
-  if (! $(this).find('#topic_user_id').val()) {
+  if (! $(this).find('#post_topic_user_id').val()) {
     $('#new_post_modal').modal();
   }
 });
 
 $(".newpostbutton").live('click', function(e) {
   var tu_id = $(this).data('topic-user-id');
-  $("input#topic_user_id").val(tu_id);
+  $("input#post_topic_user_id").val(tu_id);
   $("#new_post").submit();
 });
 

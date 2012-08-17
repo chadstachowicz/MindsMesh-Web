@@ -18,13 +18,15 @@ class TopicsController < ApplicationController
 
   # PUT /topics/1/join
   def join
-    @topic.user_join(current_user)
+    eu = EntityUser.eu(@topic.entity_id, current_user.id)
+    @topic.entity_user_join(eu)
     redirect_to @topic
   end
 
   # PUT /topics/1/leave
   def leave
-    @topic.user_leave(current_user)
+    eu = EntityUser.eu(@topic.entity_id, current_user.id)
+    @topic.entity_user_leave(eu)
     redirect_to @topic
   end
 
@@ -47,6 +49,7 @@ class TopicsController < ApplicationController
   # POST /topics
   def create
     if @topic.save
+      @topic.entity_user_join(@topic.entity_user)
       flash[:notice] = "Topic successfully created."
     end
     respond_with(@topic, location: @topic)

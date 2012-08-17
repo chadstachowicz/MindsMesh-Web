@@ -18,7 +18,7 @@ module Api::V1
 
     def entities_with_children
       entities = @current_user.entities
-      render json: EntityPresenter.array(entities).map { |ep| ep.with_topics_and_topic_users(@current_user) }
+      render json: EntityPresenter.array(entities).map { |ep| ep.with_entity_user_and_topics(@current_user) }
     end
 
     def topics

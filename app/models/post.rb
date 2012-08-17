@@ -3,7 +3,7 @@ class Post < ActiveRecord::Base
   belongs_to :user, counter_cache: true
   has_many :replies, dependent: :destroy
   has_many :likes,   dependent: :destroy, as: :likable
-  attr_accessible :text
+  attr_accessible :text, :topic_user, :topic_user_id
   validates_presence_of :topic
   validates_presence_of :user
   validates_presence_of :text
@@ -13,13 +13,6 @@ class Post < ActiveRecord::Base
 
   #scope :includes_all , includes(:user, :topic, :replies, :likes)
   class << self
-    def create_with!(topic_user, attrs)
-      Post.create!(attrs) do |p|
-        p.topic = topic_user.topic
-        p.user  = topic_user.user
-      end
-    end
-
     def before(id)
       id ? where("posts.id < ?", id) : scoped
     end
@@ -38,6 +31,28 @@ class Post < ActiveRecord::Base
       replies.map { |r| r.likes.pluck(:user_id) }
     ].flatten.uniq
   end
+
+
+
+
+  attr_accessor :topic_user, :topic_user_id
+  before_validation :set_topic_user_correctly, on: :create
+
+  def set_topic_user_correctly
+    if topic_user_id
+      self.topic_user=TopicUser.find(topic_user_id)
+    end
+    if topic_user
+      self.topic  = topic_user.topic
+      self.user   = topic_user.user
+    end
+  end
+
+
+
+
+
+
 
   def lazy_notify
     Notify.create(target: self) unless Rails.env.test?

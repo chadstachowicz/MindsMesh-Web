@@ -3,20 +3,21 @@ require 'spec_helper'
 describe Api::V1::TopicsController do
 
   before do
-    @topic_user = Fabricate(:topic_user)
-    @topic = @topic_user.topic
-    @me = @topic_user.user
+    entity_user = Fabricate(:entity_user)
+    @topic      = Fabricate(:topic, entity_user: entity_user)
+    @topic_user = Fabricate(:topic_user, topic: @topic, entity_user: entity_user)
+    @me = entity_user.user
     @valid_params = {id: @topic.to_param, access_token: @me.access_token}
   end
   
   describe "create" do
 
     it "with valid params" do
-      ent = Fabricate(:entity)
+      eu = Fabricate(:entity_user, user: @me)
       Api::V1::TopicPresenter.should_receive(:new).with(kind_of(Topic))
-      Topic.any_instance.should_receive(:user_join)
+      Topic.any_instance.should_receive(:entity_user_join)
       params = {access_token: @me.access_token,
-                topic: {entity_id: ent.id,
+                topic: {entity_user_id: eu.id,
                         title: Faker::Lorem.words(1).join,
                         number: rand(999).to_s
                         }
@@ -26,7 +27,7 @@ describe Api::V1::TopicsController do
     end
     
   end
-  
+
   describe "show" do
 
     it "with valid params" do
@@ -64,9 +65,9 @@ describe Api::V1::TopicsController do
   describe "join" do
 
     it "works" do
-      Topic.any_instance.stub(:user_join)
-      Topic.any_instance.should_receive(:user_join).with(@me)
+      #Topic.any_instance.should_receive(:user_join)
       post :join, @valid_params
+      response.body.should == 'true'
       response.status.should == 200
     end
     
@@ -75,9 +76,9 @@ describe Api::V1::TopicsController do
   describe "leave" do
 
     it "works" do
-      Topic.any_instance.stub(:user_leave)
-      Topic.any_instance.should_receive(:user_leave).with(@me)
+      #Topic.any_instance.should_receive(:user_leave)
       post :leave, @valid_params
+      response.body.should == 'true'
       response.status.should == 200
     end
     

@@ -57,24 +57,7 @@ describe Post do
       Post.as_feed.should be_a(ActiveRecord::Relation)
     end
   end
-
-  describe "custom constructors" do
-
-    it "create_with creates an associated post" do
-      topic_user = Fabricate(:topic_user)
-      -> {
-        Post.create_with!(topic_user, valid_attributes)
-      }.should change(Post, :count).by(1)
-      -> {
-        Post.create_with!(topic_user, valid_attributes)
-      }.should change(topic_user.topic.posts, :count).by(1)
-      -> {
-        Post.create_with!(topic_user, valid_attributes)
-      }.should change(topic_user.user.posts, :count).by(1)
-    end
-
-  end
-
+  
   describe "custom methods" do
 
     describe "user_ids_involved" do

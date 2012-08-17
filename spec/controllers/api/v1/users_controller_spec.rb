@@ -3,9 +3,9 @@ require 'spec_helper'
 describe Api::V1::UsersController do
 
   before do
-    @topic_user = Fabricate(:topic_user)
-    @me = Fabricate(:user)
-    @user = @topic_user.user
+    @topic_user   = Fabricate(:topic_user)
+    @user         = @topic_user.user
+    @me           = @user
     @valid_params = {access_token: @me.access_token, id: @user.to_param}
   end
 
@@ -24,6 +24,9 @@ describe Api::V1::UsersController do
     it "with valid params" do
       topic = @topic_user.topic
       entity = topic.entity
+
+      #@topic_user.user.entities.should ==[@topic_user.topic.entity]
+      @topic_user.user.entities.should ==Entity.all
 
       get :with_children, @valid_params
       response.status.should == 200

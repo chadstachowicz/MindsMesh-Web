@@ -62,22 +62,21 @@ describe Api::V1::HomeController do
     describe "entities_with_children" do
 
       it "works" do
-
-        entities = @me.entities
+        eu = Fabricate(:entity_user, user: @me)
+        entities = [eu.entity]
         topics = []
 
         entities.each do |e|
           3.times do
-            topics << Fabricate(:topic, entity: e)
+            topics << Fabricate(:topic, entity_user: eu)
           end
         end
-
-        topics[2].user_join @me
 
         get :entities_with_children, @valid_params
         response.status.should == 200
         response.body.should include entities.first.name
         response.body.should include 'b_joined'
+        response.body.should include 'entity_user'
         #assigns(:posts).should == [V1::PostPresenter.new(post)]
         #I don't think it's necessary to validate the json rendering
       end

@@ -37,8 +37,7 @@ module Api::V1
     end
 
     def create
-      topic_user = @current_user.topic_users.find(params[:topic_user_id])
-      post = Post.create_with!(topic_user, params[:post])
+      post = Post.create!(params[:post])
       render json: PostPresenter.new(post)
     end
 

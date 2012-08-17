@@ -99,6 +99,10 @@ describe EntityUserRequest do
         @eur.confirm.should be_a(Integer)
         @eur.confirm.should be_false
       end
+      it "should invoke eu.joins_self_joinings_topics" do
+        EntityUser.any_instance.should_receive(:joins_self_joinings_topics)
+        @eur.confirm
+      end
     end
   end
 end

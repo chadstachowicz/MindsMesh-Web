@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120811161659) do
+ActiveRecord::Schema.define(:version => 20120814170228) do
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -186,6 +186,7 @@ ActiveRecord::Schema.define(:version => 20120811161659) do
     t.datetime "updated_at",                           :null => false
     t.string   "title"
     t.string   "number"
+    t.integer  "user_id"
   end
 
   add_index "topics", ["entity_id"], :name => "index_topics_on_entity_id"

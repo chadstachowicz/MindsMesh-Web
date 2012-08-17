@@ -32,7 +32,7 @@ describe "Topics" do
 
     it "capybara: joins a topic as a student" do
       capybara_current_user!
-      @topic = Fabricate(:topic, entity: Entity.first)
+      @topic = Fabricate(:topic, entity_user: EntityUser.first)
 
       #sees the page
       visit topic_path(@topic)

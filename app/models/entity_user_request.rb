@@ -43,9 +43,10 @@ class EntityUserRequest < ActiveRecord::Base
   def confirm
     return false if confirmed?
     transaction do
-      entity.user_join!(user)
+      entity_user = entity.user_join!(user)
       update_attribute(:confirmed_at, Time.now)
-      user.id
+      entity_user.joins_self_joinings_topics
+      return user.id
     end
   end
 end

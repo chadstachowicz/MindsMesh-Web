@@ -5,7 +5,7 @@ describe Topic do
 
   describe "associations" do
     describe "understands belongs_to" do
-      {entity: Entity}.each do |assoc, clazz|
+      {entity: Entity, user: User}.each do |assoc, clazz|
         it assoc do
           record = Fabricate(:topic)
           record.should be_valid
@@ -42,24 +42,26 @@ describe Topic do
     t.should be_valid
   end
   
-  it "user_join" do
+  it "entity_user_join and entity_user_leave" do
     t = Fabricate(:topic)
-    u = Fabricate(:entity_user, entity: t.entity).user
+    eu = Fabricate(:entity_user)
+    tu = nil
 
     ->{
       ->{
-      t.user_join(u)
-      }.should change(u.topic_users, :count).by(1)
+        tu = t.entity_user_join(eu)
+        tu.should be_kind_of(TopicUser)
+        tu.should be_persisted
+      }.should change(eu.user.topic_users, :count).by(1)
     }.should change(t.topic_users, :count).by(1)
-  end
-  
-  it "user_leave" do
-    tu = Fabricate(:topic_user)
 
     ->{
       ->{
-        tu.topic.user_leave(tu.user)
+        tu2 = tu.topic.entity_user_leave(eu)
+        tu2.should be_kind_of(TopicUser)
+        tu2.should_not be_persisted
       }.should change(tu.user.topic_users, :count).by(-1)
     }.should change(tu.topic.topic_users, :count).by(-1)
   end
+  
 end

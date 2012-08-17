@@ -94,9 +94,9 @@ describe User do
           user   = eu.user
           entity = eu.entity
 
-          john   = Fabricate(:topic, entity: entity, name: "John")
-          jonas  = Fabricate(:topic, entity: entity, name: "Jonas")
-          jeremy = Fabricate(:topic, entity: entity, name: "Jeremy")
+          john   = Fabricate(:topic, entity_user: eu, name: "John")
+          jonas  = Fabricate(:topic, entity_user: eu, name: "Jonas")
+          jeremy = Fabricate(:topic, entity_user: eu, name: "Jeremy")
 
           user.search_topics('Jo').map(&:name).sort.should == [john, jonas].map(&:name).sort
           user.search_topics('J').map(&:name).sort.should == [john, jonas, jeremy].map(&:name).sort

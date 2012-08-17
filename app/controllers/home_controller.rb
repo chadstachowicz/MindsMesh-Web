@@ -63,8 +63,7 @@ class HomeController < ApplicationController
   end
 
   def create_post
-    topic_user = current_user.topic_users.find(params[:topic_user_id])
-    @post = Post.create_with!(topic_user, params[:post])
+    @post = Post.create!(params[:post])
     render @post
   end
 

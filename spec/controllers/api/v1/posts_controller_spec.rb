@@ -92,7 +92,7 @@ describe Api::V1::PostsController do
 
     it "with valid params" do
       Api::V1::PostPresenter.any_instance.should_receive(:as_json)
-      prms = {topic_user_id: @topic_user.id, post: {text: Faker::Lorem.sentence}}
+      prms = {post: {topic_user_id: @topic_user.id, text: Faker::Lorem.sentence}}
 
       get :create, @valid_params.merge(prms)
       response.status.should == 200

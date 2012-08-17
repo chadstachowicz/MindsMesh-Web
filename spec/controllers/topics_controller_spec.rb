@@ -3,7 +3,8 @@ require 'spec_helper'
 describe TopicsController do
 
   def valid_attributes
-    {title: Faker::Name.name, number: 10, entity_id: Fabricate(:entity).id}
+    return @valid_attributes if @valid_attributes
+    @valid_attributes = {title: Faker::Name.name, number: rand(999), entity_user_id: Fabricate(:entity_user).id}
   end
 
   describe "GET index" do
@@ -25,9 +26,8 @@ describe TopicsController do
 
   describe "PUT join" do
     it "current_user joins the @topic" do
-      topic = Fabricate(:topic)
-      Topic.any_instance.stub(:user_join)
-      Topic.any_instance.should_not_receive(:user_join)
+      eu = Fabricate(:entity_user, user: current_user_master)
+      topic = Fabricate(:topic, entity_user: eu)
       get :join, {:id => topic.to_param}, valid_session
       response.should redirect_to(topic)
     end
@@ -35,9 +35,8 @@ describe TopicsController do
 
   describe "PUT leave" do
     it "current_user leaves the @topic" do
-      topic = Fabricate(:topic)
-      Topic.any_instance.stub(:user_join)
-      Topic.any_instance.should_not_receive(:user_leave)
+      eu = Fabricate(:entity_user, user: current_user_master)
+      topic = Fabricate(:topic, entity_user: eu)
       get :leave, {:id => topic.to_param}, valid_session
       response.should redirect_to(topic)
     end

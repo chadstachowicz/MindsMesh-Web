@@ -22,8 +22,9 @@ class Entity < ActiveRecord::Base
 
   def user_join!(user)
     transaction do
-      entity_users.create! user: user
+      eu = entity_users.create!(user: user)
       user.save!
+      return eu
     end
   end
 end

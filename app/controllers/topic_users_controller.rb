@@ -1,4 +1,6 @@
 class TopicUsersController < ApplicationController
+=begin
+
   respond_to :html#, :json, :xml
 
   load_and_authorize_resource
@@ -45,4 +47,5 @@ class TopicUsersController < ApplicationController
     @topic_user.destroy
     respond_with(@topic_user)
   end
+=end
 end

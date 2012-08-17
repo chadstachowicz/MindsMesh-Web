@@ -154,18 +154,18 @@ describe HomeController do
       describe "with invalid params" do
         it "doesn't create a post" do
           -> do
-            post :create_post, {topic_user_id: @topic_user.to_param, post: {}}, @valid_session
+            post :create_post, {post: {topic_user_id: @topic_user.to_param}}, @valid_session
           end.should raise_error(ActiveRecord::RecordInvalid)
         end
       end
       describe "with valid params" do
         it "creates a post" do
           -> do
-            post :create_post, {topic_user_id: @topic_user.to_param, post: {text: Faker::Lorem.sentence}}, @valid_session
+            post :create_post, {post: {topic_user_id: @topic_user.to_param, text: Faker::Lorem.sentence}}, @valid_session
           end.should change(Post, :count).by(1)
         end
         it "response renders the post template" do
-          post :create_post, {topic_user_id: @topic_user.to_param, post: {text: Faker::Lorem.sentence}}, @valid_session
+          post :create_post, {post: {topic_user_id: @topic_user.to_param, text: Faker::Lorem.sentence}}, @valid_session
           response.should render_template("posts/_post")
         end
       end
