@@ -22,11 +22,9 @@ $("form#new_post").live("ajax:success", function(e, data) {
 
 $("#new_post textarea").live("focus", function(e) {
   $(this).switchClass('', 'long', 'fast');
-/*
   $('body').addClass('new_post_exposed');
 }).live("blur", function(e) {
   $('body').removeClass('new_post_exposed');
-*/
 });
 
 $("#new_post_create").live('click', function(e) {
