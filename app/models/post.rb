@@ -18,7 +18,7 @@ class Post < ActiveRecord::Base
     end
 
     def as_feed(options={})
-      options = options.reverse_merge(limit: 3)
+      options = options.reverse_merge(limit: 10)
       order("id DESC").limit(options[:limit]).before(options[:before])
     end
   end
