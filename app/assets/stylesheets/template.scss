@@ -15,29 +15,113 @@ span.best_in_place {
 
 
 .post {
-  min-height: 70px;
-  border-bottom: 1px solid #dbdbdb;
+  border-bottom: 3px solid #eee;
   position: relative;
-  padding: 15px 0;
-  padding-left: 100px;
-  padding-right: 15px;
-  color: #646464;
+  padding: 10px 0;
+  padding-left: 130px;
+  padding-right: 60px;
+  color: #666;
   line-height: 1.4em;
-  .post-title a {
-    text-decoration: none;color: $green;
-    &:hover { text-decoration: underline; }
+  min-height: 200px;
+
+
+  &.pushpin_off {
+    .pushpin { display:none; }
+    &:hover .pushpin { display:block; }
   }
-  h3 i {
-    font-size: 13px;
+
+  .post_left {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 15px;
+
   }
-  p {
-    font-size:13px;
-    line-height:13px;
-    text-align: justify;
-    i {
-      font-size:13px;
+  &.hover .post_right {
+    .aa {
+      display: block;
     }
   }
+  .post_right {
+    position: absolute; 
+    top: 0;
+    right: 0;
+    padding: 15px;
+    li { list-style: none; }
+    a.pushpin {
+      font-size:16px;
+      width:20px;
+      height:20px;
+      &:hover i { text-decoration: none; }
+
+      position: absolute; 
+      top: 15px;
+      right: 35px;
+    }
+    .caret-down-holder {
+      position: absolute; 
+      top: 17px;
+      right: 65px;
+
+      a.caret-down {
+        width:20px;
+        height:20px;
+        i { font-size:18px; }
+        &:hover i { text-decoration: none;color:#333; }
+      }
+    }
+
+    .pins {
+      a {
+        width: 20px;
+        height:20px;
+        display:block;
+
+        text-align: center;
+        font-size:11px;
+        border: #fff solid 1px;
+        margin-bottom:1px;
+        &:hover {
+          border: #ccc solid 1px;
+          color:#666;
+          font-weight:bold;
+          text-decoration: none;
+        }
+      }
+    }
+
+    a.pinbutton {
+      font-size: 20px;margin-top:20px;display:block;
+    }
+    a.pinbutton i {
+      margin-top: auto; margin-right: auto; margin-bottom: auto; margin-left: auto;
+      font-size: 20px;
+    }
+    a.pinbutton:hover i {
+      font-size:24px;
+    }
+  }
+
+  .image {
+    &, img {
+      width: 100px;
+      height: 100px;
+    }
+
+  }
+
+
+  h3 {
+    i {
+      font-size: 13px;
+    }
+    a {
+      text-decoration: none;color: $green;
+      &:hover { text-decoration: underline; }
+    }
+  }
+
   .top-actions {
     float:right;
     /*
@@ -47,60 +131,65 @@ span.best_in_place {
     font-size:11px;
     line-height:11px;
   }
-  .actions {
-    margin-bottom:10px;
-    .group-left  { float:left;font-size:11px;line-height:11px;font-style: italic; }
-    .group-right {
-      float:right; 
-      a {
-        font-size:14px;
-        color: gray;
-        i { font-size:18px; }
-        &:hover { color: #000; }
-      }
-    }
+
+  .post-info {
+    margin: 5px 0;
+    .time { clear:both;float:right;margin-right:5px;font-weight:bold;color:#ccc; }
+    a:hover { text-decoration:none }
   }
-
-
 
   .replies {
     margin: 0px;
     border: 1px solid #dbdbdb;
     position: relative;
     .reply {
-      padding: 12px 5px 5px 40px;
+      padding: 1px 5px 5px 40px;
 
       font-size: 14px;
-      border-bottom: 1px dashed #dbdbdb;
       position: relative;
       min-height: 20px;
       line-height: 20px;
 
+      &:nth-child(even) {
+        background: #eee;
+      }
       &:last-child {
         border: none;
       }
 
-      p {
+
+
+      h5 {
+      font-weight:normal;
+        a {
+          text-decoration: none;color: $green;
+          &:hover { text-decoration: underline; }
+        }
         i {
-          font-size:12px;
+          font-size:10px;
         }
       }
 
       .image {
         display: block;
         position: absolute;
-        width: 30px;
-        height: 30px;
         top: 5px;
         left: 5px;
-        border: 1px solid #dbdbdb;
-        -moz-border-radius: 64px;
-        border-radius: 64px;
-        img {
-          -moz-border-radius: 30px;
-          border-radius: 30px;
+        &, img {
           width: 30px;
           height: 30px;
+        }
+      }
+
+      .caret-down-holder {
+        position: absolute; 
+        top: 0px;
+        right: 7px;
+        a.caret-down {
+          width:20px;
+          height:20px;
+          i { font-size:16px; }
+          &:hover i { text-decoration: none;color:#333; }
         }
       }
 
@@ -108,8 +197,18 @@ span.best_in_place {
   }
 
   form.new_reply {
+    display:none;
 
-    margin-bottom: 0;
+    margin: 10px 0 0;
+    position:relative;
+    img {
+      position:absolute;
+    }
+
+    p { 
+      padding-left: 60px;
+    }
+
     textarea {
       width: 100%;
       -webkit-box-sizing: border-box;
@@ -123,18 +222,17 @@ span.best_in_place {
       border-radius: 0;
       padding: 5px;
       margin: 0;
+
+      line-height: 16px;
       font-size: 14px;
+
       color: #646464;
       resize: vertical;
       height: 50px;
-      line-height: 25px;
       &:focus {
         box-shadow: none;
         outline: none;
         border-color: #95C557;
-      }
-      &.long {
-        height: 120px;
       }
     }
   }
@@ -143,59 +241,6 @@ span.best_in_place {
 
 
 
-
-
-
-
-
-.post a {
-  font-weight: 800;
-}
-
-.post:last-child {
-  border: none;
-}
-
-.post .image {
-  display: block;
-  position: absolute;
-  width: 64px;
-  height: 64px;
-  top: 15px;
-  left: 15px;
-  border: 3px solid #dbdbdb;
-  -moz-border-radius: 64px;
-  border-radius: 64px;
-}
-.post .image img {
-  -moz-border-radius: 64px;
-  border-radius: 64px;
-}
-.post .quote {
-  font-size: 14px;
-  line-height: 16px;
-  color: #AAA;
-  padding-left: 10px;
-}
-.post .arrow {
-  display: inline-block;
-  width: 0;
-  height: 0;
-  border-top: 8px solid transparent;
-  border-bottom: 8px solid transparent;
-  border-left: 8px solid #bababa;
-}
-
-
-
-.post .comments .comment.correct {
-  background: #ddecc9;
-  border: 2px solid $green;
-}
-.post .comments .comment .actions {
-  margin-top: 5px;
-  height: 16px;
-}
 
 
 

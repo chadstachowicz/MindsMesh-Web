@@ -207,7 +207,6 @@ footer {
     margin-bottom:0;
     padding-bottom:0;
   }
-  textarea { margin:15px 0; }
 }
 
 #new_post {
@@ -226,8 +225,9 @@ footer {
     box-sizing: border-box;
     /* Opera/IE 8+ */
 
+    margin:15px 0;
     font-size: 16px;
-    border: 1px solid #dbdbdb;
+    border: 1px solid #ccc;
     resize: vertical;
     height: 40px;
     &:focus {

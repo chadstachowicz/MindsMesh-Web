@@ -26,10 +26,17 @@ class PostsController < ApplicationController
     end
   end
 
-  # PUT /posts/1/like
+  # POST /posts/1/like
   def like
     #doesn't do anything if user already liked it
     Like.create user: current_user, likable: @post
+    render text: @post.reload.likes.size
+  end
+
+  # POST /posts/1/unlike
+  def unlike
+    #doesn't do anything if user already liked it
+    @post.likes.where(user_id: current_user.id).first.try(:destroy)
     render text: @post.reload.likes.size
   end
 

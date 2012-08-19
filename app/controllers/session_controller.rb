@@ -8,6 +8,11 @@ class SessionController < ApplicationController
   def create
     login = Login.auth! request.env["omniauth.auth"]
     session[:user_id] = login.user_id
+
+    cookies['user_id']    = login.user_id
+    cookies['user_photo'] = login.user.photo_url('large')
+    cookies['user_name']  = login.user.name
+    cookies['user_link']  = url_for(login.user)
     redirect_to_landing_home_page
   end
 

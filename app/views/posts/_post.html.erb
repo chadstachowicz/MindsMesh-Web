@@ -1,107 +1,142 @@
 <% can_update_post = can? :update, post %>
-<div class="post">
-  <div class="image">
-    <%= link_to image_tag(post.user.photo_url, width: 64), post.user %>
-  </div>
-  <div>
-    <div class="top-actions">
-        <div class="btn-group">
-
-          <%= link_to icon_text('thumbs-up', post.likes.size),
-                      like_post_path(post),
-                      remote: true,
-                      method: 'put',
-                      class: 'btn btn-mini likebutton tooltiped',
-                      title: 'like this?'
-                      %>
-          <%= link_to icon_text('comment-alt', post.replies.size),
-                      "#",
-                      class: 'btn btn-mini replybutton tooltiped',
-                      title: 'reply to this post!',
-                      data: { scroll_to_reply: "#new_reply_#{post.id}" } if can? :create_reply, post
-                      %>
-
-          <button class="btn btn-mini dropdown-toggle" data-toggle="dropdown">
-            <span class="caret"></span>
-          </button>
-          <ul class="dropdown-menu post_actions">
-
-            <%= li link_to  icon_text('thumbs-up', "like this (#{post.likes.size})"),
-                            like_post_path(post),
-                            remote: true,
-                            method: 'put',
-                            class: 'likebutton'
-                            %>
-            <%= li link_to  icon_text('comment-alt', "reply (#{post.replies.size})"),
-                            "#",
-                            class: 'replybutton',
-                            data: { scroll_to_reply: "#new_reply_#{post.id}" } if can? :create_reply, post
-                            %>
-            <li class="divider"></li>
-
-            <% if can_update_post %>
-            <%= li  link_to icon_text('edit', 'edit this post'),
-                            post,
-                            id: "edit_post_#{post.id}"
-                            %>
-            <%= li  link_to icon_text('trash', 'remove this post'),
-                            post,
-                            remote: true,
-                            method: :delete,
-                            data: { confirm: 'Removing a post cannot be undone. Are you sure?' }
-                            %>
-            <li class="divider"></li>
-            <% end %>
-
-            <%= li link_to  icon_text('external-link', 'view this in a full page'),
-                            post,
-                            target: '_blank' unless request.url == post_url(post).to_s
-                            %>
-            <%= li  link_to icon_text('signout', 'leave this topic'),
-                            leave_topic_path(post.topic),
-                            method: :put,
-                            data: { confirm: 'You will not see posts from this topic anymore. Are you sure?' }
-                            %>
-            <%= li link_to icon_text('signout', 'cancel'), 'javascript: void(0);' %>
-
-          </ul>
-        </div>
-    </div>
+<% pushpin_state = post.user_liked?(current_user) ? 'pushpin_on' : 'pushpin_off' %>
+<%= div_for(post, class: pushpin_state, data: {id: post.id}) do %>
 
 
-    <h3 class="post-title">
-      <%= link_to post.user.name, post.user %>
-      <i>posted on <%= link_to post.topic.name, post.topic %></i>
-      <small><%= time_ago_in_words(post.created_at) %> ago</small>
-    </h3>
-    <table style="width:100%">
-      <tr>
-        <td>
-          <%= best_in_place_if can_update_post,
-                               post,
-                               :text,
-                               type: :textarea,
-                               activator: "#edit_post_#{post.id}"
-                               %>
-        </td>
-        <td width="7">
-        </td>
-      </tr>
-    </table>
-    <div class="actions post_actions">
-      <div class="group-left">
-      </div>
-      <div class="group-right">
-      </div>
-      <div class="clear"></div>
+  <div class="post_left">
+    <div class="image">
+      <%= link_to image_tag(post.user.photo_url('large'), width: 64), post.user %>
     </div>
   </div>
+
+
+
+  <div class="post_right">
+
+
+
+    <%= link_to icon('pushpin'),
+                '#',
+                class: "pushpin",
+                title: "pin it if it's important"
+                %>
+
+
+
+    <div class="caret-down-holder">
+      <%= link_to icon('caret-down'),
+                  '#',
+                  class: 'caret-down dropdown-toggle',
+                  data: {toggle: "dropdown"}
+                  %>
+
+      <ul class="dropdown-menu">
+
+        <%= li link_to  icon_text('external-link', 'view this in a full page'),
+                        post,
+                        target: '_blank' unless request.url == post_url(post).to_s
+                        %>
+        <li class="divider"></li>
+
+        <% if can_update_post %>
+        <%= li  link_to icon_text('edit', 'edit this post'),
+                        post,
+                        id: "edit_post_#{post.id}"
+                        %>
+        <%= li  link_to icon_text('trash', 'remove this post'),
+                        post,
+                        remote: true,
+                        method: :delete,
+                        data: { confirm: 'Removing a post cannot be undone. Are you sure?' }
+                        %>
+        <li class="divider"></li>
+        <% end %>
+
+        <%= li  link_to icon_text('signout', 'leave this topic'),
+                        leave_topic_path(post.topic),
+                        method: :put,
+                        data: { confirm: 'You will not see posts from this topic anymore. Are you sure?' }
+                        %>
+      </ul>
+    </div>
+
+    <ul class="pins">
+    <% post.likes.order('created_at desc').limit(5).map(&:user).each do |u| %>
+      <%= li link_to  image_tag(u.photo_url, width: 20),
+                      u,
+                      title: u.name,
+                      data: {id: u.id}
+                      %>
+    <% end %>
+      <%= li link_to post.likes.size,
+                     '#',
+                     class: 'count',
+                     title: "#{post.likes.size} people pinned this post" #unless post.likes.size.zero?
+                     %>
+    </ul>
+
+
+
+  </div>
+
+
+
+
+
+
+
+  <h3>
+    <%= link_to post.user.name, post.user %>
+    <i> on <%= link_to post.topic.name, post.topic %></i>
+  </h3>
+  <table style="width:100%">
+    <tr>
+      <td>
+        <%= best_in_place_if can_update_post,
+                             post,
+                             :text,
+                             type: :textarea,
+                             activator: "#edit_post_#{post.id}"
+                             %>
+        
+      </td>
+      <td width="7">
+      </td>
+    </tr>
+  </table>
+
+  <div class="post-info">
+    <span class="time"><%= time_ago(post.created_at) %></span>
+    <div class="clear"></div>
+  </div>
+
+
+
+
+
+
   <div class="replies">
     <%= render post.replies, can_update_post: can_update_post %>
   </div>
+
+
+
+
+
+
+
+
   <% if can? :create_reply, post %>
-  <%= form_for(post.replies.build, url: replies_post_path(post), remote: true, html: {id: "new_reply_#{post.id}"}) do |f| %>
-    <%= f.text_area :text %>
+    <div class="post-info">
+      <%= link_to icon_text('circle-arrow-down', 'create a reply'),
+                  '#',
+                  class: 'show_reply_form'
+                  %>
+    </div>
+    <%= form_for(post.replies.build, url: replies_post_path(post), remote: true, html: {id: "new_reply_#{post.id}"}) do |f| %>
+      <%= image_tag current_user.photo_url, width: 50 %>
+      <p><%= f.text_area :text %></p>
+    <% end %>
   <% end %>
-  <% end %>
-</div>
+
+<% end %>

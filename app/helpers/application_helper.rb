@@ -6,6 +6,12 @@ module ApplicationHelper
   	"<span>#{text}</span> <i class='icon-#{icon}'></i>".html_safe
   end
   def icon_text(icon, text)
-  	"<i class='icon-#{icon}'></i> <span>#{text}</span>".html_safe
+    "<i class='icon-#{icon}'></i> <span>#{text}</span>".html_safe
+  end
+  def icon(icon)
+    "<i class='icon-#{icon}'></i>".html_safe
+  end
+  def time_ago(t)
+    "#{time_ago_in_words(t)} ago"
   end
 end

@@ -14,6 +14,7 @@
 //= require jquery-ui
 //= require jquery_ujs
 //= require jquery.scrollTo-min
+//= require jquery.cookie
 //= require bootstrap
 //= require jquery.purr
 //= require best_in_place

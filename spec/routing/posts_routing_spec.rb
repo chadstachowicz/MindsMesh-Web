@@ -24,7 +24,11 @@ describe PostsController do
     end
     
     it "routes to #like" do
-      put("/posts/1/like").should route_to("posts#like", :id => "1")
+      post("/posts/1/like").should route_to("posts#like", :id => "1")
+    end
+    
+    it "routes to #unlike" do
+      post("/posts/1/unlike").should route_to("posts#unlike", :id => "1")
     end
 
   end

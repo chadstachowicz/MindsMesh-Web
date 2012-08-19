@@ -1,5 +1,12 @@
 $(function() {
 
+
+  $("a[rel=popover]").popover()
+  //$(".tooltip, a[rel=tooltip], .tooltiped").tooltip({animation: false, placement: 'top'})
+  //$("#sidebar_left .tooltiped").tooltip({animation: true, placement: 'right'})
+  $("#sidebar_right .tooltiped").tooltip({animation: true, placement: 'left'})
+  $(".pushpin").tooltip({animation: true, placement: 'top'})
+
   $('#main div[data-sidebar]').each(function (i, el) {
 
     var html = "<td class='sidebar' id='sidebar_%side'>%html</td>";

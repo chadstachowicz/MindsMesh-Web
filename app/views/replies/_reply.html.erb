@@ -3,10 +3,34 @@
   <div class="image">
     <%= link_to image_tag(reply.user.photo_url, width: 16), reply.user %>
   </div>
-  <p class="post-title">
+
+  <div class="caret-down-holder">
+    <%= link_to icon('caret-down'),
+                '#',
+                class: 'caret-down dropdown-toggle',
+                data: {toggle: "dropdown"}
+                %>
+
+    <ul class="dropdown-menu reply_actions">
+
+      <%= li link_to  icon_text('edit', 'edit this reply'),
+                      '#',
+                      id: "edit_reply_#{reply.id}" if can_update_reply
+                      %>
+      <%= li link_to  icon_text('trash', 'remove'),
+                      reply,
+                      remote: true,
+                      method: :delete,
+                      data: { confirm: 'Removing cannot be undone. Are you sure?'} if can_update_reply || can_update_post
+                      %>
+
+    </ul>
+  </div>
+
+  <h5>
     <%= link_to reply.user.name, reply.user %>
-    <i>replied <%= time_ago_in_words(reply.created_at) %> ago</i>
-  </p>
+    <i>replied <%= time_ago(reply.created_at) %></i>
+  </h5>
   <table style="width:100%">
     <tr>
       <td>
@@ -21,20 +45,17 @@
       </td>
     </tr>
   </table>
+<% end %>
+
+
+<% if false %>
   <div class="actions reply_actions">
     <div class="group-left">
-      <%= link_to icon_text('edit', 'edit this reply'),
-                  '#',
-                  id: "edit_reply_#{reply.id}" if can_update_reply
-                  %>
-      <%= link_to icon_text('trash', 'remove'),
-                  reply,
-                  remote: true,
-                  method: :delete,
-                  data: { confirm: 'Removing cannot be undone. Are you sure?'} if can_update_reply || can_update_post
-                  %>
     </div>
     <div class="group-right">
+    </div>
+  </div>
+  <div class="clear"></div>
       <%= link_to icon_text('thumbs-up', reply.likes.size),
                   like_reply_path(reply),
                   remote: true,
@@ -43,7 +64,4 @@
                   rel: 'tooltip',
                   title: 'like this?'
                   %>
-    </div>
-  </div>
-  <div class="clear"></div>
 <% end %>

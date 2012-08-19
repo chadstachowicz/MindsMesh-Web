@@ -18,9 +18,13 @@ class Post < ActiveRecord::Base
     end
 
     def as_feed(options={})
-      options = options.reverse_merge(limit: 10)
+      options = options.reverse_merge(limit: 3)
       order("id DESC").limit(options[:limit]).before(options[:before])
     end
+  end
+
+  def user_liked?(user)
+    likes.exists?(user_id: user.id)
   end
 
   def user_ids_involved

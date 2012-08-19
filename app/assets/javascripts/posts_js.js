@@ -4,7 +4,11 @@ var highlight_options = {color: $green};
 
 
 
-
+$('.post').live('mouseover', function() {
+  $(this).addClass('hover')
+}).live('mouseout', function() {
+  $(this).removeClass('hover')
+});
 
 
 app1 = {}
@@ -16,7 +20,6 @@ $("form#new_post").live("ajax:success", function(e, data) {
   $("#posts").prepend(data).find(".best_in_place").best_in_place();
   $('.post:first').effect("highlight", highlight_options, 1200);
 });
-
 
 //_new_post
 
@@ -78,7 +81,7 @@ $(".post_actions a[data-method=delete]").live("ajax:beforeSend", function() {
 
 //_post -> reply
 $(".reply_actions a[data-method=delete]").live("ajax:beforeSend", function() {
-  $(this).closest(".reply").animate({opacity: 0}, "slow", function() {
+  $(this).closest(".reply").animate({opacity: 0}, "fast", function() {
     $(this).slideUp("fast");
   });
 });
@@ -96,8 +99,11 @@ $("#posts a.more").live("ajax:success", function(e, data) {
 
 //_post -> new reply
 
-$("form.new_reply textarea").live("focus", function(e) {
-  $(this).switchClass('', 'long', 'fast');
+
+
+$("a.show_reply_form").live("click", function() {
+  $(this).hide().closest('.post').find("form.new_reply").show().find('textarea').focus();
+  return false;
 });
 
 $("form.new_reply textarea").live("keydown", function(e) {
@@ -115,7 +121,7 @@ $("form.new_reply").live("ajax:complete", function(e, data) {
     $(this).closest(".post").find(".replies").append(data.responseText).find(".best_in_place").best_in_place();
     $(this).closest(".post").find(".reply:last").effect("highlight", highlight_options, 1200);
     var c = $(this).closest(".post").find(".reply").length;
-    $(this).closest(".post").find(".replybutton span").html(c);
+    $(this).closest(".post").find(".replybutton span").html(c);//TODO: new counter of replies
   } else {
     bad_reply =  {e: e, data: data};
     alert("an error #"+data.status+" has occurred.\n\n"+data.responseText);
@@ -132,8 +138,48 @@ $("a[data-scroll-to-reply]").live("click", function() {
 });
 
 //like
-$(".likebutton").live("ajax:success", function(e, data) {
-  $(this).closest('.post').find(".likebutton span").html(data);
+/*
+$(".pushpin").live("ajax:success", function(e, data) {
+  //$(this).closest('.post').find(".likebutton span").html(data);
+  alert('liked')
+});
+*/
+$(".pushpin").live("click", function() {
+  var div_post    = $(this).closest('.post');
+  var pushpin_on  = div_post.hasClass('pushpin_on');
+  var post_id     = div_post.data('id');
+  var action      = pushpin_on ? 'unlike' : 'like';
+  var url = "/posts/:id/:action".replace(':id', post_id).replace(':action', action);
+
+  $.post(url, function(data) {
+    div_post.find('.pins .count').html(data);
+    div_post.toggleClass('pushpin_on').toggleClass('pushpin_off');
+    pushpin_on  = div_post.hasClass('pushpin_on');
+
+
+    var cu_id = $.cookie('user_id');
+
+    if (pushpin_on) {
+      var template = '<li><a href="/users/:id" data-id=":id" title=":name"><img src=":photo" width="20"></a></li>';
+      template  = template.replace(':id', cu_id)
+                          .replace(':id', cu_id)
+                          .replace(':name',  $.cookie('user_name'))
+                          .replace(':photo', $.cookie('user_photo'));
+      div_post.find('.pins').prepend(template);
+    }
+    else
+    {
+      var sel = ".pins a[data-id=:id]".replace(':id', cu_id);
+      div_post.find(sel).closest('li').remove();
+    }
+    
+
+
+  });
+
+  //$(this).closest('.post').find(".likebutton span").html(data);
+  //alert('liked')
+  return false;
 });
 
     }

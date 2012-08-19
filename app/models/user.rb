@@ -47,7 +47,6 @@ class User < ActiveRecord::Base
 
   #this should be in a presenter
   def photo_url(picture_type='square')
-    return "/assets/user.jpg" unless Rails.env.production?
     "https://graph.facebook.com/#{fb_id}/picture?type=#{picture_type}"
   end
 
