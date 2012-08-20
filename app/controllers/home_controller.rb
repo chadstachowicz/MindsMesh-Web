@@ -1,4 +1,5 @@
 class HomeController < ApplicationController
+  #TODO: cancan this controller, and all controllers
   def denied
     redirect_to_landing_home_page
   end
@@ -8,22 +9,22 @@ class HomeController < ApplicationController
     redirect_to_landing_home_page
   end
 
-  def client
+  def index
     return redirect_to_landing_home_page unless current_user
     authorize! :home_client, nil
     @posts = current_user.posts_feed
   end
 
-  def guest
+  def login
     authorize! :home_guest, nil
     render layout: 'home_guest'
   end
 
-  def user
+  def entities
     authorize! :home_user, nil
   end
 
-  def user_create_eur
+  def create_entity_request
     authorize! :home_user, nil
     entity_uncc = Entity.find_by_slug('uncc')
     eur = current_user.entity_user_requests.where(entity_id: entity_uncc.id, email: params[:email]).first_or_initialize
@@ -32,7 +33,7 @@ class HomeController < ApplicationController
     render text: text
   end
 
-  def user_entity
+  def confirm_entity_request
     eur = EntityUserRequest.find_by_confirmation_token!(params[:confirmation_token])
     #for user logged in
     session[:user_id] = eur.confirm

@@ -26,8 +26,10 @@ span.best_in_place {
 
 
   &.pushpin_off {
-    .pushpin { display:none; }
-    &:hover .pushpin { display:block; }
+    .pushpin { color:#ccc }
+  }
+  &.pushpin_on {
+    .pushpin { color:#3A87AD; i { font-size:18px; } }
   }
 
   .post_left {

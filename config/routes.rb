@@ -99,19 +99,19 @@ Mindsmesh::Application.routes.draw do
   end
   
   #creating an account
-  get "home/guest"
+  get "home/login"
   get "session/logout"
   put "session/switch"
   match "/auth/:provider/callback" => "session#create"
 
   #relating to an entity
-  get "home/user"
-  post "home/user_create_eur"
-  get "home/user_entity/:confirmation_token" => "home#user_entity", as: 'home_user_entity'
+  get "home/entities"
+  post "home/entities" => "home#create_entity_request", as: 'home_create_entity_request'
+  get "home/confirm/:confirmation_token" => "home#confirm_entity_request", as: 'home_confirm_entity_request'
 
   #client, a user associated to entity
   match "fb_canvas" => 'home#fb_canvas'
-  get '/' => 'home#client', as: 'home_client'
+  get '/' => 'home#index', as: 'home_index'
   get "home/more_posts"
   post "home/create_post"
   post "home/change_access_token"
@@ -126,6 +126,6 @@ Mindsmesh::Application.routes.draw do
   #get "home/admin"
   #get "home/master"
 
-  root to: "home#client"
+  root to: "home#index"
   get "home/denied", as: 'denied'
 end

@@ -4,79 +4,79 @@ describe HomeController do
 
   describe "authorization" do
 
-    describe "GET 'guest'" do
+    describe "GET 'login'" do
       it "returns http success if not logged in" do
-        get 'guest'
+        get 'login'
         response.should be_success
       end
       it "denies access if logged in" do
         session[:user_id] = Fabricate(:user).id
-        get 'guest'
+        get 'login'
         response.should redirect_to(denied_path)
       end
     end
 
-    describe "GET 'user'" do
+    describe "GET 'entities'" do
       it "returns http success if in role" do
         session[:user_id] = Fabricate(:user).id
-        get 'user'
+        get 'entities'
         response.should be_success
       end
       it "denies access not in role" do
-        get 'user'
+        get 'entities'
         response.should redirect_to(denied_path)
       end
     end
 
-    describe "POST 'user_create_eur'" do
-      it "should create a request" do
+    describe "POST 'create_entity_request'" do
+      it "should create an EUR" do
         current_user = Fabricate(:user)
         session[:user_id] = current_user.id
         Fabricate(:entity, slug: 'uncc')
 
         expect {
-          post 'user_create_eur', {email: "#{Faker::Internet.user_name}@uncc.edu"}
+          get 'create_entity_request', {email: "#{Faker::Internet.user_name}@uncc.edu"}
         }.to change(current_user.entity_user_requests, :count).by(1)
       end
       it "denies access not in role" do
-        post 'user_create_eur'
+        get 'create_entity_request'
         response.should redirect_to(denied_path)
       end
     end
 
-    describe "GET 'user_entity'" do
+    describe "GET 'confirm_entity_request'" do
       it "creates a new entity_user" do
         entity_user_request = Fabricate(:entity_user_request)
         expect {
-          get "user_entity", {confirmation_token: entity_user_request.confirmation_token}
+          get "confirm_entity_request", {confirmation_token: entity_user_request.confirmation_token}
         }.to change(entity_user_request.entity.entity_users, :count).by(1)
       end
-      it "redirects_to home_client_path" do
+      it "redirects_to home_index_path" do
         entity_user_request = Fabricate(:entity_user_request)
-        get "user_entity", {confirmation_token: entity_user_request.confirmation_token}
-        response.should redirect_to(home_client_path)
+        get "confirm_entity_request", {confirmation_token: entity_user_request.confirmation_token}
+        response.should redirect_to(home_index_path)
       end
       it "logs in the user" do
         entity_user_request = Fabricate(:entity_user_request)
         session[:user_id].should be_nil
-        get "user_entity", {confirmation_token: entity_user_request.confirmation_token}
+        get "confirm_entity_request", {confirmation_token: entity_user_request.confirmation_token}
         session[:user_id].should ==entity_user_request.user_id
       end
       it "shows 404 message for invalid links" do
-        get "user_entity", {confirmation_token: 'aaa'}
+        get "confirm_entity_request", {confirmation_token: 'aaa'}
         response.should render_template("errors/404")
       end
     end
 
-    describe "GET 'client'" do
+    describe "GET 'index'" do
       it "returns http success if in role" do
         session[:user_id] = Fabricate(:user).id
-        get 'client'
+        get 'index'
         response.should be_success
       end
       it "denies access not in role" do
-        get 'client'
-        response.should redirect_to(home_guest_path)
+        get 'index'
+        response.should redirect_to(home_login_path)
       end
     end
 =begin
@@ -143,9 +143,9 @@ describe HomeController do
       end
     end
 
-    describe "GET 'client'" do
+    describe "GET 'index'" do
       it "renders posts" do
-        get 'client', {}, @valid_session
+        get 'index', {}, @valid_session
         assigns(:posts).size.should == 3
       end
     end

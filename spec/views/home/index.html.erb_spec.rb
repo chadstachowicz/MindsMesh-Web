@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "home/client.html.erb" do
+describe "home/index.html.erb" do
   
   before do
     assign(:posts, [])
@@ -30,7 +30,7 @@ describe "home/client.html.erb" do
     view.stub!(:current_user).and_return(current_user)
     controller.stub!(:current_user).and_return(current_user)
     render
-    view.should render_template("posts/_new_post")
+    rendered.should include("content for when you have not joined any topics")
   end
 
 end

@@ -7,20 +7,20 @@ describe HomeController do
       get("/home/denied").should route_to("home#denied")
     end
 
-    it "routes to #guest" do
-      get("/home/guest").should route_to("home#guest")
+    it "routes to #login" do
+      get("/home/login").should route_to("home#login")
     end
 
-    it "routes to #user" do
-      get("/home/user").should route_to("home#user")
+    it "routes to #entities" do
+      get("/home/entities").should route_to("home#entities")
     end
 
-    it "routes to #client" do
-      get("/").should route_to("home#client")
+    it "routes to #index" do
+      get("/").should route_to("home#index")
     end
 
-    it "routes to #user_create_eur" do
-      post("/home/user_create_eur").should route_to("home#user_create_eur")
+    it "routes to #create_entity_request" do
+      post("/home/entities").should route_to("home#create_entity_request")
     end
     it "routes to #change_access_token" do
       post("/home/change_access_token").should route_to("home#change_access_token")
