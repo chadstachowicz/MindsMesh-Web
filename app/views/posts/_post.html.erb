@@ -132,6 +132,7 @@
                   '#',
                   class: 'show_reply_form'
                   %>
+      <div class="clear"></div>
     </div>
     <%= form_for(post.replies.build, url: replies_post_path(post), remote: true, html: {id: "new_reply_#{post.id}"}) do |f| %>
       <%= image_tag current_user.photo_url, width: 50 %>

@@ -135,8 +135,9 @@ span.best_in_place {
   }
 
   .post-info {
-    margin: 5px 0;
-    .time { clear:both;float:right;margin-right:5px;font-weight:bold;color:#ccc; }
+    margin: 5px;
+    .time { clear:both;float:right;font-weight:bold;color:#ccc; }
+    .show_reply_form { clear:both;float:right; }
     a:hover { text-decoration:none }
   }
 
