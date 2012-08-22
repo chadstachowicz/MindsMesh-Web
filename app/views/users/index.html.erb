@@ -2,20 +2,16 @@
 
 <table>
   <tr>
+    <th></th>
     <th>Name</th>
-    <th>Photo url</th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th>Creation</th>
   </tr>
 
 <% @users.each do |user| %>
   <tr>
-    <td><%= user.name %></td>
-    <td><%= user.photo_url %></td>
-    <td><%= link_to 'Show', user %></td>
-    <td><%= link_to 'Edit', edit_user_path(user) %></td>
-    <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><%= image_tag user.photo_url, width: 25 %></td>
+    <td><%= link_to user.name, user %></td>
+    <td><%= l user.created_at %></td>
   </tr>
 <% end %>
 </table>

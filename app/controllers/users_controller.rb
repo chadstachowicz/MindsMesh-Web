@@ -4,7 +4,8 @@ class UsersController < ApplicationController
 
   # GET /users
   def index
-    respond_with(@users)
+    @users = @users.order(:id)
+    respond_with()
   end
 
   # GET /users/1
