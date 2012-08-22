@@ -30,13 +30,6 @@ class Topic < ActiveRecord::Base
     topic_users.where(user_id: entity_user1.user.id).first_or_initialize.destroy
   end
 
-  before_validation :compose_name_and_slugify
-
-  def compose_name_and_slugify
-    self.name = "#{title} (#{number})" if self.name.blank?
-    self.slug = name.parameterize      if self.slug.blank?
-  end
-
   attr_accessor :entity_user, :entity_user_id
   before_validation :set_entity_user_correctly, on: :create
 
@@ -48,6 +41,13 @@ class Topic < ActiveRecord::Base
       self.entity  = entity_user.entity
       self.user    = entity_user.user
     end
+  end
+
+  before_validation :compose_name_and_slugify
+
+  def compose_name_and_slugify
+    self.name = "#{entity.name} #{title} (#{number})" if self.name.blank?
+    self.slug = name.parameterize      if self.slug.blank?
   end
 
 end
