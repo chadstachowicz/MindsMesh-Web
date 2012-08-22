@@ -1,6 +1,0 @@
-- my_topics = current_user.topic_users.map(&:topic_id)
-- current_user.entities.includes(:topics).each do |entity|
-  %li.nav-header= "topics in #{entity.name}"
-  - topics = entity.topics.select { |t| not my_topics.include?(t.id) }.sort_by(&:name)
-  - topics.each do |topic|
-    = li link_to(icon_text('book', truncate(topic.name, length: 28)), topic, class: 'tooltiped', title: topic.name)

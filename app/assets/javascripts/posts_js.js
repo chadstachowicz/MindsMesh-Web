@@ -192,6 +192,31 @@ $(".pushpin").live("click", function() {
 
 
 
+app1.newtopic = {
+  init:
+    function() {
+
+$("form#new_topic").live("ajax:complete", function(e, data) {
+  var response = jQuery.parseJSON( data.responseText );
+  if (data.status == 201) {
+    window.location = "/topics/:slug".replace(':slug', response.slug);
+  } else {
+    $(this).find('.control-group').removeClass('error2')
+    $(this).find('span.help-inline').html('');
+    for(error_key in response.errors)
+    {
+      var sel = "#topic_:class".replace(':class', error_key);
+      var div_control_group = $(this).find(sel).closest('.control-group');
+      div_control_group.addClass('error2');
+      div_control_group.find('span.help-inline').html(response.errors[error_key][0]);
+    }
+  }
+});
+
+    }
+  //end app.newtopic.init()
+}
+//end app.newtopic
 
 
 
@@ -204,6 +229,7 @@ $(".pushpin").live("click", function() {
 
 app1.newpost.init();
 app1.posts.init();
+app1.newtopic.init();
 
 //best in place
 $(function() {

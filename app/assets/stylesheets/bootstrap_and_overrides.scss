@@ -33,6 +33,16 @@ $dark-green: #074132;
 }
 
 
+//form error
+
+.control-group.error2 {
+  background: $errorText;
+  padding: 5px 0;
+  label, span.help-inline { color:#fff; }
+}
+
+
+
 
 // Block level inputs
 .input-block-level {

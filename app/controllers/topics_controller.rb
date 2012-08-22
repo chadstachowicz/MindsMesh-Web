@@ -1,5 +1,5 @@
 class TopicsController < ApplicationController
-  respond_to :html#, :json, :xml
+  respond_to :html, :json#, :xml
   load_and_authorize_resource
 
   # GET /topics

@@ -1,0 +1,58 @@
+<a href="#new_topic_modal"
+   role="button"
+   class="btn btn-inverse input-block-level button_create_topic"
+   data-toggle="modal">Create Topic</a>
+
+<% my_topics = current_user.topic_users.map(&:topic_id) %>
+<% current_user.entities.includes(:topics).each do |entity| %>
+  <% topics = entity.topics.select { |t| not my_topics.include?(t.id) }.sort_by(&:name) %>
+  <ul class="nav blue-nav nav-list">
+    <li class="nav-header">
+      topics in <%= entity.name %>
+    </li>
+    <% topics.each do |topic| %>
+      <%= li link_to(icon_text('book', truncate(topic.name, length: 28)), topic, class: 'tooltiped', title: topic.name) %>
+    <% end %>
+  </ul>
+<% end %>
+
+<% if current_user.entities.to_a.any? %>
+<% @topic = Topic.new %>
+<%= form_for(@topic, html: {class: 'form-horizontal'}, remote: true, format: :json) do |f| %>
+  <div class="modal hide" id="new_topic_modal">
+    <div class="modal-header">
+      <h3>Create a new Class</h3>
+    </div>
+    <div class="modal-body">
+
+      <div class="control-group">
+        <%= f.label :entity_user, 'School', class: 'control-label' %>
+        <div class="controls">
+          <%= f.select :entity_user_id, current_user.entity_users.map { |eu| [eu.entity.name, eu.id] } %>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <%= f.label :title, nil, class: 'control-label' %>
+        <div class="controls">
+          <%= f.text_field :title, placeholder: "Introduction to Chemistry" %>
+          <span class="help-inline"></span>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <%= f.label :number, nil, class: 'control-label' %>
+        <div class="controls">
+          <%= f.text_field :number, placeholder: "CHEM 101" %>
+          <span class="help-inline"></span>
+        </div>
+      </div>
+
+    </div>
+    <div class="modal-footer">
+      <a href="#" class="btn" data-dismiss="modal">Cancel</a>
+      <%= f.submit nil, class: 'btn btn-primary' %>
+    </div>
+  </div>
+<% end %>
+<% end %>

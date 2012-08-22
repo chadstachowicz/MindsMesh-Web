@@ -10,9 +10,6 @@ class Ability
     @current_user = current_user
     #
     user
-    #moderator if current_user.moderator?
-    #manager   if current_user.manager?
-    admin     if current_user.admin?
     master    if current_user.master?
 
     # TODO: admin can manage/destroy TopicUser in their entity
@@ -29,6 +26,7 @@ class Ability
     can :home_user
     can :home_client
     #TODO: stop testing only as a master
+    can [:create], Topic
     can [:show, :join, :leave], Topic do |topic|
       topic.entity.entity_users.where(user_id: @current_user.id).exists?
     end
@@ -45,24 +43,6 @@ class Ability
     can [:show], Notification do |notification|
       notification.user_id == @current_user.id
     end
-  end
-=begin
-  def moderator
-    can :home_moderator
-    #they are considered students in the topics they are in
-    #but that logic is not being invoked here
-  end
-
-  def manager
-    can :home_manager
-    #they are considered students in the topics they are in
-    #but that logic is not being invoked here
-  end
-=end
-  def admin
-    can :home_admin
-    can :manage, Topic
-    cannot :destroy, Topic
   end
 
   def master
