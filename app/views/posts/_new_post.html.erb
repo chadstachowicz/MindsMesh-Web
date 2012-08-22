@@ -1,7 +1,7 @@
 <div id="new_post_wrapper">
   <%= form_for Post.new, url: home_create_post_path(format: 'js'), remote: true do |f| %>
     <%= f.hidden_field :topic_user_id, value: topic_user.try(:id) %>
-    <h3 class="title">QUESTION OR COMMENT</h3>
+    <h3 class="title">GOT A QUESTION?</h3>
     <%= f.text_area :text, class: 'input-block-level' %>
     <div>
       <% if topic_user.present? %>
