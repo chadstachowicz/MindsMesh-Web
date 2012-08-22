@@ -166,11 +166,13 @@ $(".pushpin").live("click", function() {
                           .replace(':name',  $.cookie('user_name'))
                           .replace(':photo', $.cookie('user_photo'));
       div_post.find('.pins').prepend(template);
+      div_post.find('.pushpin').attr('data-original-title', 'Unpin');
     }
     else
     {
       var sel = ".pins a[data-id=:id]".replace(':id', cu_id);
       div_post.find(sel).closest('li').remove();
+      div_post.find('.pushpin').attr('data-original-title', 'Pin');
     }
     
 

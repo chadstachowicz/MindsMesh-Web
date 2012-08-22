@@ -1,5 +1,12 @@
 <% can_update_post = can? :update, post %>
-<% pushpin_state = post.user_liked?(current_user) ? 'pushpin_on' : 'pushpin_off' %>
+<% if post.user_liked?(current_user) %>
+  <% pushpin_state = 'pushpin_on' %>
+  <% pushpin_title = 'Unpin' %>
+<% else %>
+  <% pushpin_state = 'pushpin_off' %>
+  <% pushpin_title = 'Pin' %>
+<% end %>
+
 <%= div_for(post, class: pushpin_state, data: {id: post.id}) do %>
 
 
@@ -18,7 +25,7 @@
     <%= link_to icon('pushpin'),
                 '#',
                 class: "pushpin",
-                title: "Pin / Unpin"
+                title: pushpin_title
                 %>
 
 
