@@ -6,6 +6,9 @@ describe TopicsController do
     it "routes to #index" do
       get("/topics").should route_to("topics#index")
     end
+    it "routes to #filter" do
+      get("/topics/filter").should route_to("topics#filter")
+    end
 
     it "routes to #new" do
       get("/topics/new").should route_to("topics#new")

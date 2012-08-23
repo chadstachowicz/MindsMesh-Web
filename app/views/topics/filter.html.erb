@@ -1,0 +1,8 @@
+<% @topics.each do |topic| %>
+  <%= link_to(icon_text(topic.icn, truncate(topic.name, length: 40)),
+              topic,
+              class: 'btn input-block-level',
+              title: topic.name)
+              %>
+<% end %>
+<%= content_tag :strong, "no classes match '#{@q}'" if @topics.to_a.empty? %>

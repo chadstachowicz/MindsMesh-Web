@@ -2,6 +2,18 @@ class TopicsController < ApplicationController
   respond_to :html, :json#, :xml
   load_and_authorize_resource
 
+  #untested
+  # GET /topics/filter
+  def filter
+    @q = params[:q]
+    my_topic_ids = current_user.topic_ids
+
+    @topics = current_user.possible_topics.filter(@q).limit(50)
+    @topics.each { |t| t.icn = my_topic_ids.include?(t.id) ? 'book' : 'sign-blank' }
+
+    render layout: false
+  end
+
   # GET /topics
   def index
     respond_with(@topics)

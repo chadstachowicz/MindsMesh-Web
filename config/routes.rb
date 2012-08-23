@@ -84,6 +84,9 @@ Mindsmesh::Application.routes.draw do
       put :leave
       get :more_posts
     end
+    collection do
+      get :filter
+    end
   end
   resources :posts, except: [:new, :create, :edit] do
     member do

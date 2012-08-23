@@ -62,6 +62,6 @@ module Mindsmesh
     config.assets.enabled = true
 
     # Version of your assets, change this if you want to expire all your assets
-    config.assets.version = '1345414499'
+    config.assets.version = '13454144999'
   end
 end

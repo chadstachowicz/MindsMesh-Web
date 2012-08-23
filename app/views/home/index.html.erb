@@ -18,7 +18,3 @@
     <% end %>
   </ul>
 </div>
-<div data-sidebar="right" class="sidebar_content">
-  <%= render '/home/feedback' if (current_user.posts.size+current_user.replies.size) > 2 %>
-  <%= render '/topics/new_topic' %>
-</div>

@@ -1,20 +1,57 @@
-<a href="#new_topic_modal"
-   role="button"
-   class="btn btn-inverse input-block-level button_create_topic"
-   data-toggle="modal">Create Topic</a>
+<div id="topics_filter">
 
-<% my_topics = current_user.topic_users.map(&:topic_id) %>
-<% current_user.entities.includes(:topics).each do |entity| %>
+  <div class="title">
+    <h1>FIND YOUR CLASSES</h1>
+
+    <%= text_field_tag :q,
+                       @q,
+                       autocomplete: 'off',
+                       placeholder: "Class Name",
+                       class: 'input-block-level'
+                       %>
+  </div>
+
+  <div>
+  <a id="button_create_topic"
+     href="#new_topic_modal"
+     role="button"
+     class="btn btn-inverse input-block-level css-show-on-filter"
+     data-toggle="modal">Create a Class</a>
+  </div>
+
+  <div class="topics css-hide-on-filter">
+  <% if false #current_user.topic_users.map(&:topic).each do |topic| %>
+    <%= link_to(icon_text('book', truncate(topic.name, length: 40)),
+                topic,
+                class: 'btn input-block-level',
+                title: topic.name)
+                %>
+  <% end %>
+  </div>
+  <div id="topics_filter_result" class="topics css-show-on-filter">
+  </div>
+</div>
+
+<% if false #current_user.entities.includes(:topics).each do |entity| %>
   <% topics = entity.topics.select { |t| not my_topics.include?(t.id) }.sort_by(&:name) %>
   <ul class="nav blue-nav nav-list">
     <li class="nav-header">
       topics in <%= entity.name %>
     </li>
     <% topics.each do |topic| %>
-      <%= li link_to(icon_text('book', truncate(topic.name, length: 28)), topic, class: 'tooltiped', title: topic.name) %>
+      <%= li link_to(icon_text('book', truncate(topic.name, length: 40)), topic, class: 'tooltiped', title: topic.name) %>
     <% end %>
   </ul>
 <% end %>
+
+
+
+
+
+
+
+
+
 
 <% if current_user.entities.to_a.any? %>
 <% @topic = Topic.new %>

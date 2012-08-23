@@ -26,17 +26,3 @@
     <% end %>
   </ul>
 </div>
-
-<div data-sidebar="right" class="sidebar_content">
-
-  <ul class="nav blue-nav nav-list">
-    <li class="nav-header">
-      topics
-    </li>
-    <% @topic_users.each do |topic_user| %>
-      <% topic = topic_user.topic %>
-      <%= li link_to(icon_text('book', topic.name), topic) %>
-    <% end %>
-  </ul>
-
-</div>

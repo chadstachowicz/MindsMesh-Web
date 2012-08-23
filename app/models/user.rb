@@ -17,6 +17,14 @@ class User < ActiveRecord::Base
   validates_presence_of :fb_token
   validates_presence_of :fb_expires_at
 
+  #untested
+  def possible_topics
+    Topic.where(entity_id: entity_ids).scoped
+  end
+
+
+
+
   before_create :change_access_token
   after_create :joins_self_joining_entities
 

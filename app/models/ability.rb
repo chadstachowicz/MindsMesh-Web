@@ -26,7 +26,7 @@ class Ability
     can :home_user
     can :home_client
     #TODO: stop testing only as a master
-    can [:create], Topic
+    can [:create, :filter], Topic
     can [:show, :join, :leave], Topic do |topic|
       topic.entity.entity_users.where(user_id: @current_user.id).exists?
     end

@@ -4,6 +4,21 @@ class Topic < ActiveRecord::Base
 
   attr_accessible :name, :slug, :entity_user_id, :self_joining, :title, :number
 
+  #decorator
+  attr_accessor :icn
+
+
+
+  class << self
+    #untested
+    def filter(q)
+      where("name ILIKE ?", "%#{q}%")
+    end
+  end
+
+
+
+
   belongs_to :entity
   belongs_to :user
   has_many :topic_users, dependent: :destroy
@@ -46,8 +61,8 @@ class Topic < ActiveRecord::Base
   before_validation :compose_name_and_slugify
 
   def compose_name_and_slugify
-    self.name = "#{entity.name} #{title} (#{number})" if self.name.blank?
-    self.slug = name.parameterize      if self.slug.blank?
+    self.name = "#{number}: #{title}"                if self.name.blank?
+    self.slug = "#{entity.name} #{name}".parameterize if self.slug.blank?
   end
 
 end

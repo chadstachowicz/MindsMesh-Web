@@ -213,6 +213,52 @@ $("form#new_topic").live("ajax:complete", function(e, data) {
   }
 });
 
+
+TOPIC_FILTER_TIMEOUT_ID = 0;
+
+$("#topics_filter #q").live("keyup", function() {
+  
+
+
+    $("#topics_filter_result").html('');
+    $("#topics_filter").addClass('js-filter-on');
+  clearTimeout(TOPIC_FILTER_TIMEOUT_ID);
+  TOPIC_FILTER_TIMEOUT_ID = setTimeout(function(q) {
+    //
+
+    if ($(q).val().length > 0) {
+
+
+      $("#topics_filter").addClass('js-filter-on');
+      var url = "/topics/filter";
+      var data = {q: $(q).val()};
+
+      $.ajax({
+        url: url,
+        data: data,
+        success: function(data) {
+          $("#topics_filter_result").html(data);
+        }
+      });
+
+    }
+    else
+    {
+      $("#topics_filter").removeClass('js-filter-on');
+    }
+
+
+
+    //
+  }, 600, this);
+
+
+
+
+});
+
+//js-filter-off
+
     }
   //end app.newtopic.init()
 }
