@@ -12,7 +12,7 @@ class HomeController < ApplicationController
   end
 
   def index
-    redirect_to_landing_home_page(true)
+    redirect_to_landing_home_page
     @posts = current_user.posts_feed
   end
 

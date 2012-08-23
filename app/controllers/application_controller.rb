@@ -19,13 +19,13 @@ class ApplicationController < ActionController::Base
     @current_user ||= User.find(session[:user_id]) rescue nil if session[:user_id]
   end
 
-  def redirect_to_landing_home_page(at_root=false)
+  def redirect_to_landing_home_page
     return redirect_to '/auth/facebook' if params['signed_request']
     return redirect_to :home_login      unless current_user
     return redirect_to :home_entities   if current_user.entity_users.size.zero?
     return redirect_to :home_topics     if current_user.topics.to_a.empty?
     
-    return redirect_to :root unless at_root
+    return redirect_to :root unless controller_name=='home'&&action_name=='index'
   end
 
   rescue_from CanCan::AccessDenied do |exception|
