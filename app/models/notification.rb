@@ -33,11 +33,11 @@ class Notification < ActiveRecord::Base
   def action_as_verb_html
     #case action
     if action == ACTION_POSTED
-      "posts in <u>#{truncate text, length: 35}</u> in the last 3 days"
+      "recently posted in <u>#{truncate text, length: 35}</u>"
     elsif action == ACTION_REPLIED
       "replied to <u>#{truncate text, length: 55}</u>"
     elsif action == ACTION_LIKED
-      "thought <u>#{truncate text, length: 40}</u> was intelligent"
+      "pinned <u>#{truncate text, length: 40}</u>"
     end
   end
 
