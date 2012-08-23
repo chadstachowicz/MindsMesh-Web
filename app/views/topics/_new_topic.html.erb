@@ -20,16 +20,6 @@
   </div>
 
   <div class="topics css-hide-on-filter">
-  <% #current_user.topics.each do |topic| %>
-  <% if current_user.topics.to_a.empty? %>
-    <% current_user.possible_topics.limit(10).each do |topic| %>
-      <%= link_to(icon_text('sign-blank', truncate(topic.name, length: 40)),
-                  topic,
-                  class: 'btn input-block-level',
-                  title: topic.name)
-                  %>
-    <% end %>
-  <% end %>
   </div>
   <div id="topics_filter_result" class="topics css-show-on-filter">
   </div>
@@ -74,7 +64,7 @@
     </div>
     <div class="modal-footer">
       <a href="#" class="btn" data-dismiss="modal">Cancel</a>
-      <%= f.submit nil, class: 'btn btn-primary' %>
+      <%= f.submit 'Create Class', class: 'btn btn-primary' %>
     </div>
   </div>
 <% end %>

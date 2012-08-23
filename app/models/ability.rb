@@ -36,7 +36,7 @@ class Ability
   end
 
   def index
-    can [:index, :create_post, :more_posts, :feedback], :home
+    can [:index, :create_post, :more_posts, :feedback, :topics], :home
 
     #TODO: stop testing only as a master
     can [:create, :filter], Topic

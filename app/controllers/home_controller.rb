@@ -12,6 +12,7 @@ class HomeController < ApplicationController
   end
 
   def index
+    redirect_to_landing_home_page(true)
     @posts = current_user.posts_feed
   end
 
@@ -36,6 +37,9 @@ class HomeController < ApplicationController
     eu = eur.confirm
     session[:user_id] = eu.user_id
     redirect_to :root
+  end
+
+  def topics
   end
 
   def change_access_token

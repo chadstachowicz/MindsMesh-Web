@@ -16,6 +16,6 @@ module ApplicationHelper
   end
   def action_includes_sidebar_right?
     this = "#{controller.controller_name}##{controller.action_name}"
-    ['home#index', 'users#show', 'topics#show', 'posts#show'].include?(this)
+    ['home#index', 'home#topics', 'users#show', 'topics#show', 'posts#show'].include?(this)
   end
 end

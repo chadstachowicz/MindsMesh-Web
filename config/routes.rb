@@ -119,6 +119,7 @@ Mindsmesh::Application.routes.draw do
   get "home/more_posts"
   post "home/create_post"
   post "home/change_access_token"
+  get '/home/topics'
   
   #questionnaire
   post "home/feedback"

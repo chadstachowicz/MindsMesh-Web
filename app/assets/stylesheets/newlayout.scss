@@ -21,9 +21,15 @@ body { background: #ECFAFF; }
 
 //tablecontent
 #tablecontent {
-  min-height:600px;
 }
 
+#main {
+  min-height:600px;
+  height:600px;
+}
+#main_index {
+  background:#fff;
+}
 
 #sidebar_right { padding-left: 0px; }
 #sidebar_left  { padding-right: 20px; }
@@ -32,11 +38,11 @@ body { background: #ECFAFF; }
 #sidebar_right {
   width: 280px;
   background:#fff;
+  border-left: 1px solid #EEE;
 }
 #sidebar_left {
   width: 180px;
   background:#eee;
-  border-top: 1px solid #EEE;
   border-right: 1px solid #EEE;
   padding-top: 20px;
   .nav-list { width: 100%; }
@@ -164,6 +170,15 @@ footer {
 
 }
 
+
+//zero topics
+
+#main #zero_topics {
+  width:720px;
+  height:172px;
+  margin: 0 auto;
+  background: asset-url('template2/zero_topics.png', image) no-repeat;
+}
 
 
 //well

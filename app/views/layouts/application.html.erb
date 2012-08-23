@@ -26,9 +26,6 @@
         <% end %>
 
         <ul class="nav pull-right">
-          <% if current_user %>
-            <%= li link_to(icon_text('group', "Join UNCC"), home_entities_path) if current_user.entity_users.size.zero? %>
-          <% end %>
           <li><a href="/"><i class="icon-home"></i> Home</a></li>
           <%= render '/my_account_dropdown' if current_user %>
         </ul>
@@ -46,6 +43,8 @@
       <tr>
         <td id="main">
           <%= yield %>
+          <div class="clear">
+          </div>
         </td>
         <% if action_includes_sidebar_right? %>
         <td class="sidebar" id="sidebar_right">

@@ -4,7 +4,7 @@ describe 'Home' do
 
   describe "GET /home/index" do
 
-    it "capybara: from login page until becomes a student" do
+    it "capybara: from login page until it creates a topic" do
       Fabricate(:entity, slug: 'uncc')
       # I'm a guest (no account)
       visit root_path
@@ -43,7 +43,48 @@ describe 'Home' do
         end.should change { EntityUserRequest.count }.by(0)
       end.should change { EntityUser.count }.by(1)
 
-      current_path.should == home_index_path
+      current_path.should == home_topics_path
+
+      #denies access
+      visit root_path
+      current_path.should == home_topics_path
+
+
+      #modal failure
+      fill_in('q',  with: "lalala")
+      click_link 'Create a Class'
+
+      fill_in('topic_title',  with: Faker::Lorem.words.join(' '))
+      -> do
+        -> do
+          click_button 'Create Class'
+        end.should_not change { TopicUser.count }
+      end.should_not change { Topic.count }
+      page.should have_content("can't be blank")
+
+
+
+      #modal success
+      visit home_topics_path
+      fill_in('q',  with: "lalala")
+      click_link 'Create a Class'
+
+      fill_in('topic_title',  with: Faker::Lorem.words.join(' '))
+      fill_in('topic_number', with: rand(999))
+      -> do
+        -> do
+          click_button 'Create Class'
+        end.should change { TopicUser.count }.by(1)
+      end.should change { Topic.count }.by(1)
+      page.should have_content('created_at')
+
+
+
+
+      #allows access
+      visit root_path
+      current_path.should == root_path
+
     end
   end
 end

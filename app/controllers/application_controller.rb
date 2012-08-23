@@ -19,11 +19,13 @@ class ApplicationController < ActionController::Base
     @current_user ||= User.find(session[:user_id]) rescue nil if session[:user_id]
   end
 
-  def redirect_to_landing_home_page
+  def redirect_to_landing_home_page(at_root=false)
     return redirect_to '/auth/facebook' if params['signed_request']
     return redirect_to :home_login      unless current_user
     return redirect_to :home_entities   if current_user.entity_users.size.zero?
-    return redirect_to :root
+    return redirect_to :home_topics     if current_user.topics.to_a.empty?
+    
+    return redirect_to :root unless at_root
   end
 
   rescue_from CanCan::AccessDenied do |exception|
@@ -46,7 +48,7 @@ class ApplicationController < ActionController::Base
 
   def custom_log_hash
     {
-      'session' => session.to_hash.except("_csrf_token")
+      'session' => session.to_hash.except("_csrf_token", 'flash')
     }
   end
 
