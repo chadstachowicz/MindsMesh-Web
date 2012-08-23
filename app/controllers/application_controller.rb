@@ -5,6 +5,12 @@ class ApplicationController < ActionController::Base
 
   before_filter do
     logger.info "Custom: #{custom_log_hash}"
+    if Rails.env.test? #capybara
+      ident = session[:session_id].object_id
+      prms  = params.except(:controller, :action)
+      ss    = session.except(:flash, :session_id)
+      puts "\n#{ident}. #{request.method} #{controller_name}##{action_name}: #{prms}, #{ss}"
+    end
   end
 
   helper_method :current_user
@@ -15,13 +21,9 @@ class ApplicationController < ActionController::Base
 
   def redirect_to_landing_home_page
     return redirect_to '/auth/facebook' if params['signed_request']
-    return redirect_to :home_login     unless current_user
-    return redirect_to :root           if current_user
-    #return redirect_to :home_moderator if current_user.moderator?
-    #return redirect_to :home_manager   if current_user.manager?
-    #return redirect_to :home_admin     if current_user.admin?
-    #return redirect_to :home_master    if current_user.master?
-    return redirect_to :home_entities
+    return redirect_to :home_login      unless current_user
+    return redirect_to :home_entities   if current_user.entity_users.size.zero?
+    return redirect_to :root
   end
 
   rescue_from CanCan::AccessDenied do |exception|
@@ -44,7 +46,6 @@ class ApplicationController < ActionController::Base
 
   def custom_log_hash
     {
-      'ip' => request.remote_ip,
       'session' => session.to_hash.except("_csrf_token")
     }
   end

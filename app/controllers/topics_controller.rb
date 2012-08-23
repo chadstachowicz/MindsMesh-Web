@@ -9,7 +9,7 @@ class TopicsController < ApplicationController
     my_topic_ids = current_user.topic_ids
 
     @topics = current_user.possible_topics.filter(@q).limit(50)
-    @topics.each { |t| t.icn = my_topic_ids.include?(t.id) ? 'book' : 'sign-blank' }
+    @topics.each { |t| t.is_my_topic = my_topic_ids.include?(t.id) }
 
     render layout: false
   end

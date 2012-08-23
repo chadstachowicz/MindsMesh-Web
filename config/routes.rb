@@ -106,6 +106,7 @@ Mindsmesh::Application.routes.draw do
   get "session/logout"
   put "session/switch"
   match "/auth/:provider/callback" => "session#create"
+  match "/auth/failure" => "home#denied"
 
   #relating to an entity
   get "home/entities"

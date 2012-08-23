@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'Home' do
 
-  describe "GET /home/user" do
+  describe "GET /home/index" do
 
     it "capybara: from login page until becomes a student" do
       Fabricate(:entity, slug: 'uncc')
@@ -36,11 +36,13 @@ describe 'Home' do
       visit home_confirm_entity_request_path('lalala')
       page.should have_content('404')
       #clicks valid link
+
       -> do
         -> do
           visit home_confirm_entity_request_path(User.first.entity_user_requests.first.confirmation_token)
         end.should change { EntityUserRequest.count }.by(0)
       end.should change { EntityUser.count }.by(1)
+
       current_path.should == home_index_path
     end
   end

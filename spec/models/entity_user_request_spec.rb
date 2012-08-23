@@ -79,30 +79,21 @@ describe EntityUserRequest do
       end
     end
     describe "confirm" do
-      before do
-        @eur = Fabricate(:entity_user_request)
-      end
       it "should not remove itself" do
+        @eur = Fabricate(:entity_user_request)
         -> {
-          @eur.confirm
-        }.should_not change(EntityUserRequest, :count)
-      end
-      it "should return user's id" do
-        @eur.confirm.should ==@eur.user.id
-      end
-      it "should change confirmed_at" do
-        -> {
-          @eur.confirm
+          -> {
+            @eur.confirm.should be_a(EntityUser) #return entity_user
+          }.should_not change(EntityUserRequest, :count)
         }.should change(@eur, :confirmed_at)
+        @eur.confirm.should be_false #return false if already confirmed
       end
-      it "should return false if already confirmed" do
-        @eur.confirm.should be_a(Integer)
-        @eur.confirm.should be_false
-      end
+=begin
       it "should invoke eu.joins_self_joinings_topics" do
         EntityUser.any_instance.should_receive(:joins_self_joinings_topics)
         @eur.confirm
       end
+=end
     end
   end
 end

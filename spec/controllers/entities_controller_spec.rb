@@ -17,7 +17,7 @@ require 'spec_helper'
 # is no simpler way to get a handle on the object needed for the example.
 # Message expectations are only used when there is no simpler way to specify
 # that an instance is receiving a specific message.
-
+=begin
 describe EntitiesController do
 
   def valid_attributes
@@ -28,7 +28,7 @@ describe EntitiesController do
     it "assigns all entities as @entities" do
       entity = Entity.create! valid_attributes
       get :index, {}, valid_session
-      assigns(:entities).should eq([entity])
+      assigns(:entities).should eq(EntityUser.all)
     end
   end
 
@@ -156,3 +156,4 @@ describe EntitiesController do
   end
 
 end
+=end

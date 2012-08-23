@@ -21,11 +21,7 @@ body { background: #ECFAFF; }
 
 //tablecontent
 #tablecontent {
-  background:#fff;
   min-height:600px;
-}
-
-#main {
 }
 
 
@@ -35,6 +31,7 @@ body { background: #ECFAFF; }
 .sidebar_content { display: none; }
 #sidebar_right {
   width: 280px;
+  background:#fff;
 }
 #sidebar_left {
   width: 180px;
@@ -286,6 +283,7 @@ body.new_post_exposed {
 
 #posts {
   border: #EEE solid 1px;
+  background:#fff;
   
   a.more {
     display:block;border-radius: 0;

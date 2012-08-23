@@ -8,38 +8,30 @@ guard 'rspec', :version => 2, :cli => '--drb' do
   # Rails example
 
   # too generic
-  watch(%r{^app/(.+)\.rb$})                           { |m| "spec/#{m[1]}_spec.rb" }
-  watch(%r{^app/(.*)(\.erb|\.haml)$})                 { |m| "spec/#{m[1]}#{m[2]}_spec.rb" }
-
-  # controllers
-  watch(%r{^app/controllers/(.+)_controller\.rb$})    { |m| "spec/#{m[1]}_controller_spec.rb" }
-  #watch(%r{^app/controllers/(.+)_(controller)\.rb$})  { |m| [
-                                             #"spec/#{m[2]}s/#{m[1]}_#{m[2]}_spec.rb",
-                                             #"spec/requests/#{m[1]}_spec.rb"
-                                             #] }
-                                             #,"spec/acceptance/#{m[1]}_spec.rb"
+  #watch(%r{^app/(.+)\.rb$})                           { |m| "spec/#{m[1]}_spec.rb" }
+  #watch(%r{^app/(.*)(\.erb|\.haml)$})                 { |m| "spec/#{m[1]}#{m[2]}_spec.rb" }
 
   # not used
   #watch(%r{^spec/support/(.+)\.rb$})                  { "spec" }
   #watch(%r{^lib/(.+)\.rb$})     { |m| "spec/lib/#{m[1]}_spec.rb" }
 
+
+
   # routes
   watch('config/routes.rb')                   { "spec/routing" }
   watch(%r{^spec/routing/(.+)_routing\.rb$})  { |m| "spec/routing/#{m[1]}_routing_spec.rb" }
   
-  # controllers
-  watch('app/controllers/application_controller.rb')  { "spec/controllers" }
-  watch('app/models/ability.rb')  { "spec/controllers" }
+  # models
+  watch(%r{^app/models/(.+)\.rb$})    { |m| "spec/models/#{m[1]}_spec.rb" }
   
-  # view and request
-  watch('spec/my_capybara_helper.rb')            { "spec/requests" }
-  watch(%r{^spec/requests/(.+)/.*\.(erb|haml)$}) { |m| [
-                                                        "spec/requests/#{m[1]}_spec.rb",
-                                                        "spec/views/#{m[1]}_spec.rb"
-                                                        ] }
-  watch(%r{^app/views/(.+)/.*\.(erb|haml)$})     { |m| [
-                                                        "spec/requests/#{m[1]}_spec.rb",
-                                                        "spec/views/#{m[1]}_spec.rb"
-                                                        ] }
+  # controllers
+  watch(%r{^app/controllers/(.+)_controller\.rb$})    { |m| "spec/#{m[1]}_controller_spec.rb" }
+
+  #requests
+  watch(%r{^spec/requests/(.+)/.*\.(erb|haml)$}) { |m| ["spec/requests/#{m[1]}_spec.rb"] }
+
+  #views
+  watch(%r{^app/views/(.+)/.*\.(erb|haml)$})     { |m| ["spec/views/#{m[1]}_spec.rb"] }
+
 end
 

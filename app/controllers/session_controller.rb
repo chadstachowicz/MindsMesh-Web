@@ -1,5 +1,6 @@
 class SessionController < ApplicationController
 
+  #TODO: cancan all controllers
   def logout
     session.clear
     redirect_to_landing_home_page
@@ -13,9 +14,6 @@ class SessionController < ApplicationController
     cookies['user_photo'] = login.user.photo_url('large')
     cookies['user_name']  = login.user.name
     cookies['user_link']  = url_for(login.user)
-
-    return redirect_to home_entities_path if current_user.entity_users.size.zero?
-
     redirect_to_landing_home_page
   end
 
@@ -29,4 +27,5 @@ class SessionController < ApplicationController
   	end
   	redirect_to root_path
   end
+  
 end

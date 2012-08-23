@@ -1,15 +1,28 @@
 class Ability
   include CanCan::Ability
 
-  def guest
-    can :home_guest
+  def everybody
+    can [:denied, :fb_canvas, :confirm_entity_request], :home
+  end
+
+  def not_logged_in
+    can [:login], :home
+  end
+
+  def logged_in
+    can [:entities, :create_entity_request, :change_access_token], :home
   end
   
   def initialize(current_user)
-    return guest unless current_user
+    everybody
+    return not_logged_in unless current_user
     @current_user = current_user
     #
-    user
+    logged_in
+    return if current_user.entity_users.size.zero?
+
+
+    index
     master    if current_user.master?
 
     # TODO: admin can manage/destroy TopicUser in their entity
@@ -22,9 +35,9 @@ class Ability
     can [:show, :more_posts], User
   end
 
-  def user
-    can :home_user
-    can :home_client
+  def index
+    can [:index, :create_post, :more_posts, :feedback], :home
+
     #TODO: stop testing only as a master
     can [:create, :filter], Topic
     can [:show, :join, :leave], Topic do |topic|

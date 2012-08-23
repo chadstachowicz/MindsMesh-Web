@@ -1,5 +1,7 @@
 class HomeController < ApplicationController
-  #TODO: cancan this controller, and all controllers
+
+  authorize_resource class: false
+
   def denied
     redirect_to_landing_home_page
   end
@@ -10,22 +12,17 @@ class HomeController < ApplicationController
   end
 
   def index
-    return redirect_to_landing_home_page unless current_user
-    authorize! :home_client, nil
     @posts = current_user.posts_feed
   end
 
   def login
-    authorize! :home_guest, nil
     render layout: 'home_guest'
   end
 
   def entities
-    authorize! :home_user, nil
   end
 
   def create_entity_request
-    authorize! :home_user, nil
     entity_uncc = Entity.find_by_slug('uncc')
     eur = current_user.entity_user_requests.where(entity_id: entity_uncc.id, email: params[:email]).first_or_initialize
     eur.generate_and_mail_new_token
@@ -36,26 +33,10 @@ class HomeController < ApplicationController
   def confirm_entity_request
     eur = EntityUserRequest.find_by_confirmation_token!(params[:confirmation_token])
     #for user logged in
-    session[:user_id] = eur.confirm
-    redirect_to_landing_home_page
+    eu = eur.confirm
+    session[:user_id] = eu.user_id
+    redirect_to :root
   end
-=begin
-  def moderator
-    authorize! :home_moderator, nil
-  end
-
-  def manager
-    authorize! :home_manager, nil
-  end
-
-  def admin
-    authorize! :home_admin, nil
-  end
-
-  def master
-    authorize! :home_master, nil
-  end
-=end
 
   def change_access_token
     current_user.change_access_token

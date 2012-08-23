@@ -2,170 +2,63 @@ require 'spec_helper'
 
 describe HomeController do
 
-  describe "authorization" do
+  describe "POST 'create_entity_request'" do
+    it "should create an EUR" do
+      current_user = Fabricate(:user)
+      session[:user_id] = current_user.id
+      Fabricate(:entity, slug: 'uncc')
 
-    describe "GET 'login'" do
-      it "returns http success if not logged in" do
-        get 'login'
-        response.should be_success
-      end
-      it "denies access if logged in" do
-        session[:user_id] = Fabricate(:user).id
-        get 'login'
-        response.should redirect_to(denied_path)
-      end
+      expect {
+        get 'create_entity_request', {email: "#{Faker::Internet.user_name}@uncc.edu"}
+      }.to change(current_user.entity_user_requests, :count).by(1)
     end
-
-    describe "GET 'entities'" do
-      it "returns http success if in role" do
-        session[:user_id] = Fabricate(:user).id
-        get 'entities'
-        response.should be_success
-      end
-      it "denies access not in role" do
-        get 'entities'
-        response.should redirect_to(denied_path)
-      end
+    it "denies access not in role" do
+      get 'create_entity_request'
+      response.should redirect_to(denied_path)
     end
-
-    describe "POST 'create_entity_request'" do
-      it "should create an EUR" do
-        current_user = Fabricate(:user)
-        session[:user_id] = current_user.id
-        Fabricate(:entity, slug: 'uncc')
-
-        expect {
-          get 'create_entity_request', {email: "#{Faker::Internet.user_name}@uncc.edu"}
-        }.to change(current_user.entity_user_requests, :count).by(1)
-      end
-      it "denies access not in role" do
-        get 'create_entity_request'
-        response.should redirect_to(denied_path)
-      end
-    end
-
-    describe "GET 'confirm_entity_request'" do
-      it "creates a new entity_user" do
-        entity_user_request = Fabricate(:entity_user_request)
-        expect {
-          get "confirm_entity_request", {confirmation_token: entity_user_request.confirmation_token}
-        }.to change(entity_user_request.entity.entity_users, :count).by(1)
-      end
-      it "redirects_to home_index_path" do
-        entity_user_request = Fabricate(:entity_user_request)
-        get "confirm_entity_request", {confirmation_token: entity_user_request.confirmation_token}
-        response.should redirect_to(home_index_path)
-      end
-      it "logs in the user" do
-        entity_user_request = Fabricate(:entity_user_request)
-        session[:user_id].should be_nil
-        get "confirm_entity_request", {confirmation_token: entity_user_request.confirmation_token}
-        session[:user_id].should ==entity_user_request.user_id
-      end
-      it "shows 404 message for invalid links" do
-        get "confirm_entity_request", {confirmation_token: 'aaa'}
-        response.should render_template("errors/404")
-      end
-    end
-
-    describe "GET 'index'" do
-      it "returns http success if in role" do
-        session[:user_id] = Fabricate(:user).id
-        get 'index'
-        response.should be_success
-      end
-      it "denies access not in role" do
-        get 'index'
-        response.should redirect_to(home_login_path)
-      end
-    end
-=begin
-    describe "GET 'moderator'" do
-      it "returns http success if in role" do
-        session[:user_id] = Fabricate(:user, roles_s: 'moderator').id
-        get 'moderator'
-        response.should be_success
-      end
-      it "denies access not in role" do
-        session[:user_id] = Fabricate(:user).id
-        get 'moderator'
-        response.should redirect_to(denied_path)
-      end
-    end
-
-    describe "GET 'manager'" do
-      it "returns http success if in role" do
-        session[:user_id] = Fabricate(:user, roles_s: 'manager').id
-        get 'manager'
-        response.should be_success
-      end
-      it "denies access not in role" do
-        session[:user_id] = Fabricate(:user).id
-        get 'manager'
-        response.should redirect_to(denied_path)
-      end
-    end
-
-    describe "GET 'admin'" do
-      it "returns http success if in role" do
-        session[:user_id] = Fabricate(:user, roles_s: 'admin').id
-        get 'admin'
-        response.should be_success
-      end
-      it "denies access not in role" do
-        session[:user_id] = Fabricate(:user).id
-        get 'admin'
-        response.should redirect_to(denied_path)
-      end
-    end
-
-    describe "GET 'master'" do
-      it "returns http success if in role" do
-        session[:user_id] = Fabricate(:user, roles_s: 'master').id
-        get 'master'
-        response.should be_success
-      end
-      it "denies access not in role" do
-        session[:user_id] = Fabricate(:user).id
-        get 'master'
-        response.should redirect_to(denied_path)
-      end
-    end
-=end
   end
 
-  describe "rendering" do
-    before(:each) do
-      @topic_user = Fabricate(:topic_user)
-      @valid_session = {user_id: @topic_user.user.id}
-      3.times do
-        Fabricate(:post, topic: @topic_user.topic, user: @topic_user.user)
-      end
+  describe "GET 'confirm_entity_request'" do
+    it "creates a new entity_user" do
+      entity_user_request = Fabricate(:entity_user_request)
+      expect {
+        get "confirm_entity_request", {confirmation_token: entity_user_request.confirmation_token}
+      }.to change(entity_user_request.entity.entity_users, :count).by(1)
     end
-
-    describe "GET 'index'" do
-      it "renders posts" do
-        get 'index', {}, @valid_session
-        assigns(:posts).size.should == 3
-      end
+    it "redirects_to home_index_path" do
+      entity_user_request = Fabricate(:entity_user_request)
+      get "confirm_entity_request", {confirmation_token: entity_user_request.confirmation_token}
+      response.should redirect_to(home_index_path)
     end
+    it "logs in the user" do
+      entity_user_request = Fabricate(:entity_user_request)
+      session[:user_id].should be_nil
+      get "confirm_entity_request", {confirmation_token: entity_user_request.confirmation_token}
+      session[:user_id].should ==entity_user_request.user_id
+    end
+    it "shows 404 message for invalid links" do
+      get "confirm_entity_request", {confirmation_token: 'aaa'}
+      response.should render_template("errors/404")
+    end
+  end
 
     describe "POST create_post" do
       describe "with invalid params" do
         it "doesn't create a post" do
-          -> do
-            post :create_post, {post: {topic_user_id: @topic_user.to_param}}, @valid_session
-          end.should raise_error(ActiveRecord::RecordInvalid)
+          t = Fabricate(:topic, entity_user: current_user_master.entity_users.first)
+          tu = Fabricate(:topic_user, topic: t)
+          -> {
+            get :create_post, {post: {topic_user_id: tu.to_param}}, valid_session
+          }.should raise_error(ActiveRecord::RecordInvalid)
         end
       end
       describe "with valid params" do
         it "creates a post" do
-          -> do
-            post :create_post, {post: {topic_user_id: @topic_user.to_param, text: Faker::Lorem.sentence}}, @valid_session
-          end.should change(Post, :count).by(1)
-        end
-        it "response renders the post template" do
-          post :create_post, {post: {topic_user_id: @topic_user.to_param, text: Faker::Lorem.sentence}}, @valid_session
+          t = Fabricate(:topic, entity_user: current_user_master.entity_users.first)
+          tu = Fabricate(:topic_user, topic: t)
+          -> {
+            get :create_post, {post: {topic_user_id: tu.to_param, text: Faker::Lorem.sentence}}, valid_session
+          }.should change(Post, :count).by(1)
           response.should render_template("posts/_post")
         end
       end
@@ -174,25 +67,18 @@ describe HomeController do
     describe "GET more_posts" do
       describe "empty set" do
         it "renders template" do
-          get :more_posts, {format: 'js'}, @valid_session
+          get :more_posts, {}, valid_session
           response.should render_template("posts/more_posts")
           response.should_not render_template("layouts/application")
         end
       end
       describe "with posts" do
         it "with some posts" do
-          get :more_posts, {}, @valid_session
-          assigns(:posts).size.should == 3
-        end
-        it "applying before" do
-          get :more_posts, {before: Post.last.id}, @valid_session
-          assigns(:posts).size.should == 2
-        end
-        it "applying limit" do
-          get :more_posts, {limit: 1}, @valid_session
-          assigns(:posts).size.should == 1
-        end
-        #it "applying after"
+          t = Fabricate(:topic, entity_user: current_user_master.entity_users.first)
+          tu = Fabricate(:topic_user, topic: t)
+          pst = Fabricate(:post, topic_user: tu)
+          get :more_posts, {}, valid_session
+          assigns(:posts).should == [pst]
       end
     end
     

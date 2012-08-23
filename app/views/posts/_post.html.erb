@@ -92,10 +92,11 @@
 
 
 
-  <h3>
-    <%= link_to post.user.name, post.user %>
-    <i> on <%= link_to post.topic.name, post.topic %></i>
-  </h3>
+  <h5>
+    <span><%= link_to post.user.name, post.user %></span>
+    <i>asked</i>
+    <span><%= link_to truncate(post.topic.name, length: 40), post.topic %></span>
+  </h5>
   <table style="width:100%">
     <tr>
       <td>
@@ -135,7 +136,7 @@
 
   <% if can? :create_reply, post %>
     <div class="post-info">
-      <%= link_to icon_text('circle-arrow-down', 'create a reply'),
+      <%= link_to icon_text('circle-arrow-down', 'create an answer'),
                   '#',
                   class: 'show_reply_form'
                   %>

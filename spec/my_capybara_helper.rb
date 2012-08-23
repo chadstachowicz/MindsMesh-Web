@@ -1,9 +1,9 @@
 #helper methods for capybara request specs
 
 def capybara_current_user!
-  Fabricate(:entity, self_joining: true)
   visit '/auth/facebook'
   @current_user = User.last
+  Fabricate(:entity_user, user: @current_user)
 end
 
 def capybara_current_user_admin!

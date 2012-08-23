@@ -1,7 +1,7 @@
 <div id="topics_filter">
 
   <div class="title">
-    <h1>FIND YOUR CLASSES</h1>
+    <h1><%= icon('search') %> FIND YOUR CLASSES</h1>
 
     <%= text_field_tag :q,
                        @q,
@@ -20,40 +20,26 @@
   </div>
 
   <div class="topics css-hide-on-filter">
-  <% if false #current_user.topic_users.map(&:topic).each do |topic| %>
-    <%= link_to(icon_text('book', truncate(topic.name, length: 40)),
-                topic,
-                class: 'btn input-block-level',
-                title: topic.name)
-                %>
+  <% #current_user.topics.each do |topic| %>
+  <% if current_user.topics.to_a.empty? %>
+    <% current_user.possible_topics.limit(10).each do |topic| %>
+      <%= link_to(icon_text('sign-blank', truncate(topic.name, length: 40)),
+                  topic,
+                  class: 'btn input-block-level',
+                  title: topic.name)
+                  %>
+    <% end %>
   <% end %>
   </div>
   <div id="topics_filter_result" class="topics css-show-on-filter">
   </div>
 </div>
 
-<% if false #current_user.entities.includes(:topics).each do |entity| %>
-  <% topics = entity.topics.select { |t| not my_topics.include?(t.id) }.sort_by(&:name) %>
-  <ul class="nav blue-nav nav-list">
-    <li class="nav-header">
-      topics in <%= entity.name %>
-    </li>
-    <% topics.each do |topic| %>
-      <%= li link_to(icon_text('book', truncate(topic.name, length: 40)), topic, class: 'tooltiped', title: topic.name) %>
-    <% end %>
-  </ul>
-<% end %>
 
 
 
 
-
-
-
-
-
-
-<% if current_user.entities.to_a.any? %>
+<% if current_user.entity_users.any? %>
 <% @topic = Topic.new %>
 <%= form_for(@topic, html: {class: 'form-horizontal'}, remote: true, format: :json) do |f| %>
   <div class="modal hide" id="new_topic_modal">

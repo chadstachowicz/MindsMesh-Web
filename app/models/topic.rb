@@ -5,7 +5,7 @@ class Topic < ActiveRecord::Base
   attr_accessible :name, :slug, :entity_user_id, :self_joining, :title, :number
 
   #decorator
-  attr_accessor :icn
+  attr_accessor :is_my_topic
 
 
 

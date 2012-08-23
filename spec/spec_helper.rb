@@ -75,12 +75,16 @@ end
 # These instructions should self-destruct in 10 seconds.  If they don't, feel
 # free to delete them.
 
-def current_user_master
-  @current_user_master ||= Fabricate(:user, role: :master)
+def current_user
+  @current_user ||= Fabricate(:entity_user).user
 end
 
-def current_user
-  @current_user ||= Fabricate(:user)
+def current_user_master
+  return @current_user_master if @current_user_master
+  @current_user_master = Fabricate(:entity_user).user
+  @current_user_master.role = :master
+  @current_user_master.save
+  @current_user_master
 end
 
 def valid_session

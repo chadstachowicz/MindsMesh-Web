@@ -10,12 +10,12 @@ describe "Session" do
       visit root_path
       current_path.should == home_login_path
 
-      -> do
-        -> do
+      -> {
+        -> {
           # - login (creating user)
           click_link('login_facebook')
-        end.should change(User, :count).by(1)
-      end.should change(Login, :count).by(1)
+        }.should change(User, :count).by(1)
+      }.should change(Login, :count).by(1)
       current_path.should == home_entities_path
     end
   end
