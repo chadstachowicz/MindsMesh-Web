@@ -10,6 +10,13 @@ $('.post').live('mouseover', function() {
   $(this).removeClass('hover')
 });
 
+$('.caret-down-holder').live('mouseover', function() {
+  $(this).addClass('open');
+}).live('mouseout', function() {
+  $(this).removeClass('open')
+});
+
+
 
 app1 = {}
 app1.newpost = {

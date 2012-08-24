@@ -57,9 +57,13 @@ span.best_in_place {
       right: 35px;
     }
     .caret-down-holder {
-      position: absolute; 
+      position: absolute;
       top: 17px;
-      right: 65px;
+      right: 55px;
+      width: 20px;
+      height: 20px;
+      text-align: right;
+      padding-right: 10px;
 
       a.caret-down {
         width:20px;
@@ -182,8 +186,13 @@ span.best_in_place {
 
       .caret-down-holder {
         position: absolute; 
-        top: 0px;
-        right: 7px;
+        top: 0;
+        right: 0;
+        width: 20px;
+        height: 20px;
+        text-align: right;
+        padding-right: 5px;
+
         a.caret-down {
           width:20px;
           height:20px;
