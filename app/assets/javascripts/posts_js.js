@@ -4,18 +4,11 @@ var highlight_options = {color: $green};
 
 
 
-$('.post').live('mouseover', function() {
-  $(this).addClass('hover')
+$('.post, .reply').live('mouseover', function() {
+  $(this).addClass('hover');
 }).live('mouseout', function() {
-  $(this).removeClass('hover')
+  $(this).removeClass('hover');
 });
-
-$('.caret-down-holder').live('mouseover', function() {
-  $(this).addClass('open');
-}).live('mouseout', function() {
-  $(this).removeClass('open')
-});
-
 
 
 app1 = {}

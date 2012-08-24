@@ -14,6 +14,13 @@ span.best_in_place {
 
 
 
+.post:not(.hover) .post_right .caret-down-holder {
+  display: none;
+}
+.reply:not(.hover) .caret-down-holder {
+  display: none;
+}
+
 .post {
   border-bottom: 3px solid #eee;
   position: relative;
@@ -56,6 +63,9 @@ span.best_in_place {
       top: 15px;
       right: 35px;
     }
+
+
+
     .caret-down-holder {
       position: absolute;
       top: 17px;
