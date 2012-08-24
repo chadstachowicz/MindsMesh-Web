@@ -28,28 +28,27 @@ namespace :db do
   end
 
   desc "Backup on server, then downloads locally"
-  task :dump_and_download, :roles => :db, :only => {:primary => true} do
+  task :down, :roles => :db, :only => {:primary => true} do
     dump
     set :to_filename, "#{backup_filename}.bz2"
     get "#{backup_path}.bz2", to_filename
     puts "download finished to #{to_filename}"
   end
   
-=begin
   desc "Sync your production database to your local workstation"
-  task :dump_and_sync, :roles => :db, :only => {:primary => true} do
-    dump_and_download
+  task :import, :roles => :db, :only => {:primary => true} do
+    down
 
-    ...untested begin
     development_info = YAML.load_file("config/database.yml")['development']
     if development_info['adapter'] == 'mysql'
-      run_str = "bzcat /tmp/#{application}.sql.bz2 | mysql -u #{development_info['username']} --password='#{development_info['password']}' -h #{development_info['host']} #{development_info['database']}"
+      run_str = "bzcat #{backup_filename}.bz2 | mysql -u #{development_info['username']} --password='#{development_info['password']}' -h #{development_info['host']} #{development_info['database']}"
     else
-      run_str = "PGPASSWORD=#{development_info['password']} bzcat /tmp/#{application}.sql.bz2 | psql -U #{development_info['username']} -h #{development_info['host']} #{development_info['database']}"
+      run_str = "PGPASSWORD=#{development_info['password']} bzcat #{backup_filename}.bz2 | psql -U #{development_info['username']} -h #{development_info['host']} #{development_info['database']}"
     end
+
+    puts "restoring..."
     %x!#{run_str}!
-    ...untested end
+    puts "done!"
   end
-=end
 
 end
