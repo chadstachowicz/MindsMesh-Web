@@ -13,11 +13,11 @@
 
     <ul class="dropdown-menu reply_actions">
 
-      <%= li link_to  icon_text('edit', 'edit this reply'),
+      <%= li link_to  icon_text('edit', 'edit this answer'),
                       '#',
                       id: "edit_reply_#{reply.id}" if can_update_reply
                       %>
-      <%= li link_to  icon_text('trash', 'remove'),
+      <%= li link_to  icon_text('trash', 'remove this answer'),
                       reply,
                       remote: true,
                       method: :delete,
