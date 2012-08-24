@@ -33,9 +33,9 @@ class User < ActiveRecord::Base
   end
 
   ROLES = {
-            master:    4,
-            admin:     3,
-            manager:   2,
+            master:    30,
+            #admin:     20,
+            #manager:   10,
             moderator: 1
           }
 
@@ -49,8 +49,8 @@ class User < ActiveRecord::Base
   end
 
   def moderator?; role_is?(:moderator); end
-  def manager?;   role_is?(:manager);   end
-  def admin?;     role_is?(:admin);     end
+  #def manager?;   role_is?(:manager);   end
+  #def admin?;     role_is?(:admin);     end
   def master?;    role_is?(:master);    end
 
   #this should be in a presenter
