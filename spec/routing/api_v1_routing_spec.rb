@@ -27,6 +27,10 @@ describe "api_v1" do
       it "routes to #search_topics" do
         post("/api/v1/home/search_topics").should route_to("api/v1/home#search_topics")
       end
+      
+      it "routes to #create_entity_request" do
+        post("/api/v1/home/entities").should route_to("api/v1/home#create_entity_request")
+      end
 
     end
     describe "session" do

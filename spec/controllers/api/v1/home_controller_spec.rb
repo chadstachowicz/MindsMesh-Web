@@ -109,4 +109,29 @@ describe Api::V1::HomeController do
     
   end
 
+  describe "POST 'create_entity_request'" do
+    it "should create an EUR" do
+      Fabricate(:entity, slug: 'uncc')
+
+      prms = {email: "#{Faker::Internet.user_name}@uncc.edu"}
+
+      expect {
+        get 'create_entity_request', @valid_params.merge(prms)
+        response.body.should include 'message'
+        response.status.should == 200
+      }.to change(@me.entity_user_requests, :count).by(1)
+    end
+    it "only works for uncc" do
+      Fabricate(:entity, slug: 'uncc')
+
+      prms = {email: "#{Faker::Internet.user_name}@lalala.edu"}
+
+      expect {
+        get 'create_entity_request', @valid_params.merge(prms)
+        response.body.should include 'message'
+        response.status.should == 200
+      }.to_not change(@me.entity_user_requests, :count)
+    end
+  end
+
 end

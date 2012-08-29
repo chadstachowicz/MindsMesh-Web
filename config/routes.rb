@@ -50,6 +50,7 @@ Mindsmesh::Application.routes.draw do
       get '/home/entities/with_children' => 'home#entities_with_children'
       get '/home/topics'
       post '/home/search_topics'
+      post "/home/entities" => "home#create_entity_request"
       match '*path' => 'base#render_404'
 
     end
