@@ -3,7 +3,7 @@ OmniAuth.config.logger = Rails.logger
 Rails.application.config.middleware.use OmniAuth::Builder do
   fb = Settings.env["facebook"]
   provider "facebook", fb["key"], fb["secret"], fb["options"]
-  unless Rails.env.production?
+  if Rails.env.test?
     
     domain = Settings.env["domain"]
     fb_mock = {
