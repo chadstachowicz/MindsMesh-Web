@@ -7,7 +7,21 @@ class HomeController < ApplicationController
   end
 
   def fb_canvas
-    return redirect_to '/auth/facebook' if params[:fb_source]
+    #return redirect_to '/auth/facebook' if params[:fb_source] TODO: log user in automatically
+
+    if params[:request_ids] && params[:signed_request]
+      @oauth=KoalaFactory.new_oauth
+      signed_request = @oauth.parse_signed_request(params[:signed_request])
+      @graph = KoalaFactory.new_graph(signed_request["oauth_token"])
+
+      @graph.batch do |batch_api|
+        params[:request_ids].split(',').each do |request_id|
+          full_id = [request_id, signed_request["user_id"]].join('_')
+          batch_api.delete_object(full_id)
+        end
+      end
+    end
+
     redirect_to_landing_home_page
   end
 

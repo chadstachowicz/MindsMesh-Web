@@ -339,4 +339,19 @@ body.new_post_exposed {
     .css-hide-on-filter { display: none; }
   }
 }
- 
+
+
+#fb_friends_modal {
+  h2 {
+    color: $green;
+    font-size: 24px;
+    text-align: center;
+  }
+  p {
+    color: #666A72;
+    font-size: 16px;
+    text-align: center;
+    margin-top: 12px;
+    margin-bottom: 38px;
+  }
+}

@@ -2,6 +2,7 @@ var $green = '#46A546';
 var highlight_options = {color: $green};
 
 
+$('body').prepend('<div id="fb-root"></div>')
 
 
 $('.post, .reply').live('mouseover', function() {
@@ -267,6 +268,102 @@ $("#topics_filter #q").live("keyup", function() {
 
 
 
+app1.fb = {
+  authResponse: null,
+  init:
+    function() {
+
+
+$.getScript('http://connect.facebook.net/en_US/all.js', function() {
+  FB.init({
+    appId  : '<%= Settings.env["facebook"]["key"] %>',
+    frictionlessRequests: true
+  });
+
+
+if ($('#sign_out').length > 0)
+{
+  //check if user is online on facebook
+  FB.getLoginStatus(function(response){
+    app1.fb.authResponse = response.authResponse;
+
+    if (!app1.fb.authResponse)
+    {
+      //if they are not, click the sign_out button for them
+      if (!response.authResponse)
+        window.location = $('#sign_out').attr("href");
+    }
+
+  });
+}
+
+
+
+});
+
+
+
+
+
+$('.invite_friends_button').live('click', function() {
+  app1.fb.sendRequestToRecipients();
+  //app1.fb.sendRequestViaMultiFriendSelector();
+  return false;
+});
+
+$('.select_and_invite_friends_button').live('click', function() {
+  app1.fb.sendRequestViaMultiFriendSelector();
+  return false;
+});
+
+
+
+
+  },
+  //end app.fb.init()
+
+  sendRequestToRecipients:
+    function() {
+
+      //var user_ids = document.getElementsByName("user_ids")[0].value;
+      var user_ids = 'thiago88';
+      FB.ui({method: 'apprequests',
+        message: 'My Great Request',
+        to: user_ids
+      }, app1.fb.requestCallback);
+
+  },
+  
+  sendRequestViaMultiFriendSelector:
+    function() {
+
+      FB.ui({method: 'apprequests',
+        message: "You gotta see this!"
+      }, app1.fb.requestCallback);
+
+  },
+  
+  requestCallback:
+    function(response) {
+  // Handle callback here
+  /*
+request: "402412886478616"
+to: Array[1]
+0: "635050715"
+  */
+
+  },
+  deleteRequest:
+    function(appRequestId, userId) {
+      var s = appRequestId+"_"+userId;
+      console.log(s);
+      //FB.api(s, 'delete', function(response) {
+      //  console.log(response);
+      //});
+    } 
+}
+//end app.fb
+
 
 
 
@@ -276,6 +373,7 @@ $("#topics_filter #q").live("keyup", function() {
 app1.newpost.init();
 app1.posts.init();
 app1.newtopic.init();
+app1.fb.init();
 
 //best in place
 $(function() {
