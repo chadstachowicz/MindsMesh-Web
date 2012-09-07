@@ -19,3 +19,4 @@
 /config/settings.yml
 /config/exceptional.yml
 /app/assets/stylesheets/scaffolds.css.scss
+/mindsmesh_production-snapshot*
