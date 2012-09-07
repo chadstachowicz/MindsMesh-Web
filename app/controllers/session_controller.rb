@@ -10,6 +10,8 @@ class SessionController < ApplicationController
     login = Login.auth! request.env["omniauth.auth"]
     session[:user_id] = login.user_id
 
+    login.user.login_logs.create!(user_agent: request.user_agent)
+
     cookies['user_id']    = login.user_id
     cookies['user_photo'] = login.user.photo_url('large')
     cookies['user_name']  = login.user.name

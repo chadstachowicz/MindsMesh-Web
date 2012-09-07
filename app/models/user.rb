@@ -13,6 +13,7 @@ class User < ActiveRecord::Base
   has_many :topics,   through: :topic_users
 
   has_many :fb_friends
+  has_many :login_logs
 
   validates_presence_of :name
   validates_presence_of :fb_id

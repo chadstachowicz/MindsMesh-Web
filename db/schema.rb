@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120905232954) do
+ActiveRecord::Schema.define(:version => 20120907043252) do
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -86,6 +86,15 @@ ActiveRecord::Schema.define(:version => 20120905232954) do
   add_index "likes", ["likable_type", "likable_id"], :name => "index_likes_on_likable_type_and_likable_id"
   add_index "likes", ["user_id", "likable_type"], :name => "index_likes_on_user_id_and_likable_type"
   add_index "likes", ["user_id"], :name => "index_likes_on_user_id"
+
+  create_table "login_logs", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "user_agent"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "login_logs", ["user_id"], :name => "index_login_logs_on_user_id"
 
   create_table "logins", :force => true do |t|
     t.integer  "user_id"
@@ -219,6 +228,7 @@ ActiveRecord::Schema.define(:version => 20120905232954) do
     t.datetime "created_at",                       :null => false
     t.datetime "updated_at",                       :null => false
     t.string   "access_token"
+    t.datetime "last_login_at"
   end
 
 end

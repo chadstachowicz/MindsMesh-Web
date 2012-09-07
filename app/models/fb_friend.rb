@@ -15,7 +15,7 @@ class FbFriend < ActiveRecord::Base
     "https://graph.facebook.com/#{fb_id}/picture?type=#{picture_type}"
   end
 
-  before_create :define_last_request_sent_at
+  before_validation :define_last_request_sent_at, on: :create
 
   def define_last_request_sent_at
     return true unless last_request_sent_at.blank?

@@ -8,6 +8,7 @@ module Api::V1
       if login == :invalid
         render json: {error: {message: "fb_access_token is invalid", code: 1003}}, status: :unauthorized
       else
+        login.user.login_logs.create!(user_agent: request.user_agent)
         render json: UserPresenter.new(login.user).as_me
       end
     end

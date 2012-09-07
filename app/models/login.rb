@@ -54,6 +54,8 @@ class Login < ActiveRecord::Base
     self.user.fb_id         = self.uid
     self.user.fb_token      = token
     self.user.fb_expires_at = expires_at
+    #last login at
+    self.user.last_login_at = Time.now
     #take a look at the 3 lines below with .persisted?
     self.save!
     self.user.save!

@@ -26,7 +26,7 @@
         <% end %>
       </li>
     <% end %>
-    
+
     <% if current_user.master? %>
       <li class="nav-header">master</li>
       <%= li link_to  icon_text('user', 'log in as'),
@@ -35,7 +35,7 @@
                       data: {disable_with: "hold on..."}
                       %>
       <%= li @user.access_token, style: 'font-size:9px;' %>
-
+      <%= li "last seen @ #{l @user.last_login_at, format: :short}", style: 'font-weight: bold' %>
     <% end %>
   </ul>
 </div>
