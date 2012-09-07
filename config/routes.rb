@@ -121,6 +121,7 @@ Mindsmesh::Application.routes.draw do
   post "home/create_post"
   post "home/change_access_token"
   get '/home/topics'
+  post 'home/fb_requests_sent'
   
   #questionnaire
   post "home/feedback"

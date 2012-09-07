@@ -15,6 +15,18 @@
                     @user.fb_url,
                     target: '_blank' %>
     
+    <li class="nav-header">
+      friends
+    </li>
+    <% @user.fb_friends.are_registered.map(&:friend_user).each do |user| %>
+      <li>
+        <%= link_to user, class: 'tooltiped', title: user.name do %>
+          <%= image_tag user.photo_url, width: 30 %>
+          <%= user.name %>
+        <% end %>
+      </li>
+    <% end %>
+    
     <% if current_user.master? %>
       <li class="nav-header">master</li>
       <%= li link_to  icon_text('user', 'log in as'),
@@ -23,6 +35,7 @@
                       data: {disable_with: "hold on..."}
                       %>
       <%= li @user.access_token, style: 'font-size:9px;' %>
+
     <% end %>
   </ul>
 </div>

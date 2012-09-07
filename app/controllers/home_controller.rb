@@ -25,6 +25,13 @@ class HomeController < ApplicationController
     redirect_to_landing_home_page
   end
 
+  def fb_requests_sent
+    current_user.fb_friends.where(fb_id: params[:to]).each do |fb_friend|
+      fb_friend.update_attribute :last_request_sent_at, Time.now
+    end
+    render nothing: true
+  end
+
   def index
     redirect_to_landing_home_page
     @posts = current_user.posts_feed

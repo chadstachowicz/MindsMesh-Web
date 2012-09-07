@@ -12,6 +12,8 @@ class User < ActiveRecord::Base
   has_many :entities, through: :entity_users
   has_many :topics,   through: :topic_users
 
+  has_many :fb_friends
+
   validates_presence_of :name
   validates_presence_of :fb_id
   validates_presence_of :fb_token
@@ -65,7 +67,44 @@ class User < ActiveRecord::Base
 
   def fb_api
     return :expired if fb_expires_at < Time.now
-    @fb_api ||= KoalaFactory.new(fb_token)
+    @fb_api ||= KoalaFactory.new_graph(fb_token)
+  end
+
+  def store_fb_friends!
+    current_year = Date.today.year
+    data = fb_api.get_object('me', fields: 'id,education,friends.fields(education)')
+    
+    friends = data['friends']['data']
+
+    my_education = data['education'].to_a
+    my_education = my_education.select { |e| e['year'] && e['year']['name'].to_i >= current_year }
+    my_fb_school_ids = my_education.map { |fb_ed| fb_ed['school']['id'] }
+
+    #keep them in a hash for easy access
+    friends_hash   = friends.group_by { |friend_hash| friend_hash['id'] }
+    #all my friends fb_id
+    friends_fb_ids = friends_hash.keys
+    #all my friends fb_id who were stored in DB previously
+    friends_fb_ids_previous = self.fb_friends.where(fb_id: friends_fb_ids).pluck(:fb_id)
+    #all my friends fb_id who were NOT stored in DB previously
+    friends_fb_ids_new = friends_fb_ids - friends_fb_ids_previous
+
+
+    users_already = User.where(fb_id: friends_fb_ids_new).select([:id, :fb_id])
+    users_already_hash = users_already.group_by(&:fb_id)
+
+    #store new friends
+    friends_fb_ids_new.each do |fb_id|
+      f = friends_hash[fb_id].first
+      f_educations = f['education'].to_a.select { |e| e['year'] && e['year']['name'].to_i >= current_year }.map { |fb_ed| fb_ed['school']['id'] }
+      b_studying    = f_educations.any?
+      b_same_school = (f_educations & my_fb_school_ids).any?
+
+      friend_user_id = users_already_hash[fb_id].try(:first).try(:id)
+      #puts "http://facebook.com/#{fb_id}, #{b_studying}, #{b_same_school}, school: #{f_educations}" if b_studying
+      self.fb_friends.create!(fb_id: fb_id, friend_user_id: friend_user_id, b_studying: b_studying, b_same_school: b_same_school)
+    end
+    true
   end
 
   def posts_feed(options={})

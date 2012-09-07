@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120814170228) do
+ActiveRecord::Schema.define(:version => 20120905232954) do
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -60,6 +60,20 @@ ActiveRecord::Schema.define(:version => 20120814170228) do
 
   add_index "entity_users", ["entity_id"], :name => "index_entity_users_on_entity_id"
   add_index "entity_users", ["user_id"], :name => "index_entity_users_on_user_id"
+
+  create_table "fb_friends", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "friend_user_id"
+    t.string   "fb_id"
+    t.boolean  "b_studying"
+    t.boolean  "b_same_school"
+    t.datetime "last_request_sent_at"
+    t.datetime "created_at",           :null => false
+    t.datetime "updated_at",           :null => false
+  end
+
+  add_index "fb_friends", ["friend_user_id"], :name => "index_fb_friends_on_friend_user_id"
+  add_index "fb_friends", ["user_id"], :name => "index_fb_friends_on_user_id"
 
   create_table "likes", :force => true do |t|
     t.integer  "user_id"

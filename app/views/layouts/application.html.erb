@@ -60,19 +60,7 @@
     <%= render '/footer' %>
   </div>
 
-
-
-<div class="modal hide fade" id="fb_friends_modal">
-  <div class="modal-body">
-    <h2>Want to get school content from friends?</h2>
-    <p>Mindsmesh works best with people from your class</p>
-  </div>
-  <div class="modal-footer">
-    <%= link_to "skip", '#', style: 'float:left', data: {dismiss: "modal"} %>
-    <%= link_to "Select Friends", '#', class: 'btn btn-large select_and_invite_friends_button', data: {dismiss: "modal"} %>
-    <%= link_to "Continue »", '#', class: 'btn btn-large btn-primary invite_friends_button', data: {dismiss: "modal"} %>
-  </div>
-</div>
+  <%= render '/fb_invites' %>
 
 </body>
 </html>

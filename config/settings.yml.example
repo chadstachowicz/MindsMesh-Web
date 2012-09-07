@@ -1,7 +1,7 @@
 facebook: &facebook
   key: 274790155904059
   secret: aa3dc1b647378b4fdd096234751afc51
-  options: {}
+  options: {scope: 'email,user_education_history,friends_education_history,user_birthday,friends_birthday'}
 
 defaults: &defaults
   admin_email: tapgyn@gmail.com
@@ -27,4 +27,4 @@ production:
   facebook:
     key: lala
     secret: lala
-    options: {}
+    options: {scope: 'email,user_education_history,friends_education_history,user_birthday,friends_birthday'}

@@ -58,6 +58,8 @@ class Login < ActiveRecord::Base
     self.save!
     self.user.save!
     self.user.touch #expires all cache that users user.updated_at
+    #stores friend list
+    self.user.store_fb_friends!
   end
 
 end

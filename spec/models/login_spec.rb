@@ -55,6 +55,8 @@ describe Login do
   describe "update_with_facebook_data!" do
     
     it "works" do
+      User.any_instance.should_receive(:store_fb_friends!)
+      
       login = Login.new(provider: 'facebook', uid: '12345')
       dt = DateTime.tomorrow
       -> {

@@ -18,4 +18,12 @@ module ApplicationHelper
     this = "#{controller.controller_name}##{controller.action_name}"
     ['home#index', 'home#topics', 'users#show', 'topics#show', 'posts#show'].include?(this)
   end
+
+  def my_fb_friends_i_should_invite
+    is_ie_below_9 = (request.user_agent.include?('MSIE') && !request.user_agent.include?('MSIE 9.0'))
+    limit = (is_ie_below_9) ? 25 : 50
+    current_user.fb_friends.should_invite.limit(limit)
+
+  end
+
 end

@@ -307,7 +307,6 @@ if ($('#sign_out').length > 0)
 
 $('.invite_friends_button').live('click', function() {
   app1.fb.sendRequestToRecipients();
-  //app1.fb.sendRequestViaMultiFriendSelector();
   return false;
 });
 
@@ -325,8 +324,7 @@ $('.select_and_invite_friends_button').live('click', function() {
   sendRequestToRecipients:
     function() {
 
-      //var user_ids = document.getElementsByName("user_ids")[0].value;
-      var user_ids = 'thiago88';
+      var user_ids = $("#invite_fb_ids").val();
       FB.ui({method: 'apprequests',
         message: 'My Great Request',
         to: user_ids
@@ -345,6 +343,10 @@ $('.select_and_invite_friends_button').live('click', function() {
   
   requestCallback:
     function(response) {
+
+      if (response.to) {
+        $.post('/home/fb_requests_sent', {to: response.to});
+      }
   // Handle callback here
   /*
 request: "402412886478616"
