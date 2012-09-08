@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120907043252) do
+ActiveRecord::Schema.define(:version => 20120908042950) do
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -35,6 +35,8 @@ ActiveRecord::Schema.define(:version => 20120907043252) do
     t.boolean  "self_joining", :default => false
     t.datetime "created_at",                      :null => false
     t.datetime "updated_at",                      :null => false
+    t.string   "domains"
+    t.string   "state_name"
   end
 
   create_table "entity_user_requests", :force => true do |t|

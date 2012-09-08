@@ -45,10 +45,11 @@ class HomeController < ApplicationController
   end
 
   def create_entity_request
-    entity_uncc = Entity.find_by_slug('uncc')
-    eur = current_user.entity_user_requests.where(entity_id: entity_uncc.id, email: params[:email]).first_or_initialize
+    entity = Entity.find_by_email_domain(params[:email])
+    return render text: entity if entity.is_a? String
+    eur = current_user.entity_user_requests.where(entity_id: entity.id, email: params[:email]).first_or_initialize
     eur.generate_and_mail_new_token
-    text = eur.save ? 'true' : eur.errors.full_messages.to_sentence.to_s
+    text = eur.save ? "a confirmation email has been sent to #{params[:email]}" : eur.errors.full_messages.to_sentence.to_s
     render text: text
   end
 

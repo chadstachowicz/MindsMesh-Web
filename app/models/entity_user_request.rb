@@ -11,9 +11,6 @@ class EntityUserRequest < ActiveRecord::Base
   validates_uniqueness_of :user_id, scope: :entity_id
 
   validates_email_format_of :email
-  validate do
-    errors[:email] << "'#{email}' is not a valid @uncc.edu email address" unless errors[:email].any? || email.downcase.include?("@uncc.edu")
-  end
 
   def to_param
     confirmation_token
