@@ -7,7 +7,7 @@ class FbFriend < ActiveRecord::Base
   validates_presence_of :fb_id
   validates_presence_of :last_request_sent_at
 
-  scope :should_invite,  where('friend_user_id IS NULL').order('last_request_sent_at')
+  scope :should_invite,  where('friend_user_id IS NULL').where(b_studying: true).order('last_request_sent_at')
   scope :are_registered, where('friend_user_id IS NOT NULL')
   
   #presenter
