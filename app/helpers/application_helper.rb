@@ -23,7 +23,18 @@ module ApplicationHelper
     is_ie_below_9 = (request.user_agent.include?('MSIE') && !request.user_agent.include?('MSIE 9.0'))
     limit = (is_ie_below_9) ? 25 : 50
     current_user.fb_friends.should_invite.limit(limit)
+  end
 
+  def fb_like_button
+    %{<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=#{Settings.env['facebook']['key']}";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+<div class="fb-like" data-href="http://www.facebook.com/mindsmesh" data-send="false" data-width="450" data-show-faces="true"></div>}.html_safe
   end
 
 end

@@ -281,21 +281,21 @@ $.getScript('https://connect.facebook.net/en_US/all.js', function() {
   });
 
 
-if ($('#sign_out').length > 0)
-{
-  //check if user is online on facebook
-  FB.getLoginStatus(function(response){
-    app1.fb.authResponse = response.authResponse;
+  if ($('#sign_out').length > 0)
+  {
+    //check if user is online on facebook
+    FB.getLoginStatus(function(response){
+      app1.fb.authResponse = response.authResponse;
 
-    if (!app1.fb.authResponse)
-    {
-      //if they are not, click the sign_out button for them
-      if (!response.authResponse)
-        window.location = $('#sign_out').attr("href");
-    }
+      if (!app1.fb.authResponse)
+      {
+        //if they are not, click the sign_out button for them
+        if (!response.authResponse)
+          window.location = $('#sign_out').attr("href");
+      }
 
-  });
-}
+    });
+  }
 
 
 

@@ -109,15 +109,20 @@ body.header_big {
 //landing
 #landing {
 	margin-top: 100px;
-	height:400px;
+	height:430px;
 	background: asset-url('template2/landing.png', image) no-repeat;
 	position: relative;
-}
-#login_facebook {
-	display:block;
-	position:absolute;
-	width:330px;height:60px;
-	left:40px;top: 330px;
+  #login_facebook {
+    display:block;
+    position:absolute;
+    width:330px;height:60px;
+    left:40px;top: 330px;
+  }
+  .fb-like {
+    position:absolute;
+    left:40px;top: 400px;
+    width:10px;height:10px;
+  }
 }
 
 //entity-email
