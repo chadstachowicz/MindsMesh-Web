@@ -1,3 +1,4 @@
+require 'stalker'
 class Login < ActiveRecord::Base
   belongs_to :user
   attr_accessible :auth_s, :provider, :uid
@@ -60,8 +61,9 @@ class Login < ActiveRecord::Base
     self.save!
     self.user.save!
     self.user.touch #expires all cache that users user.updated_at
-    #stores friend list
-    self.user.store_fb_friends!
+    #stores friend self
+    #list.user.store_fb_friends!
+    Stalker.enqueue('login.continue', user_id: user_id.to_s)
   end
 
 end
