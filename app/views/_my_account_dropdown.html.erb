@@ -3,7 +3,7 @@
       id="myaccount"
       class="dropdown-toggle"
       data-toggle="dropdown">
-      <div class="circle"><%= image_tag current_user.photo_url, width: 25 %></div>
+      <%= image_tag current_user.photo_url %>
       <%=  text_icon('My Account', 'caret-down') %>
   </a>
   <ul class="dropdown-menu">

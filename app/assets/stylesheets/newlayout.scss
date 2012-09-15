@@ -61,10 +61,9 @@ body { background: #ECFAFF; }
   #logo { padding: 0px !important;margin-left:-40px; }
 
   #myaccount {
-    padding-left:40px;
-    .circle {
-      position:absolute;left:7px;top:7px;
-      &, img { border-radius: 16px;clear:none;float:left;margin-right: 3px; }
+    padding-left:50px;
+    img {
+      position:absolute;left:2px;top:2px;width:34px;height:34px;
     }
     
   }
@@ -359,4 +358,9 @@ body.new_post_exposed {
     margin-top: 12px;
     margin-bottom: 38px;
   }
+}
+
+#sidebar_invites_suggestion {
+  h4 { color: #46A546; }
+  .thumbs img { border: #ddd solid 1px;margin-bottom: 3px; }
 }

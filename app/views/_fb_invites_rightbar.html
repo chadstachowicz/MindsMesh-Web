@@ -1,0 +1,18 @@
+<div id="sidebar_invites_suggestion">
+  <div class="modal-body">
+    <h4>Friends on Mindsmesh?</h4>
+    <p>Best with people from your class</p>
+    <%= hidden_field_tag :invite_fb_ids, my_fb_friends_i_should_invite.map(&:fb_id).join(',') %>
+    <div class="thumbs">
+      <% my_fb_friends_i_should_invite[0..9].each do |fb_friend| %>
+        <%= image_tag fb_friend.photo_url, width: 44 %>
+      <% end %>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <div class="btn-group">
+      <%= link_to "Select", '#',     style: 'width:95px', class: 'btn btn-large select_and_invite_friends_button' %>
+      <%= link_to "Continue »", '#', style: 'width:95px', class: 'btn btn-large btn-primary invite_friends_button' %>
+    </div>
+  </div>
+</div>

@@ -2,7 +2,6 @@ var $green = '#46A546';
 var highlight_options = {color: $green};
 
 
-$('body').prepend('<div id="fb-root"></div>')
 
 
 $('.post, .reply').live('mouseover', function() {
@@ -274,6 +273,7 @@ app1.fb = {
     function() {
 
 
+$('body').prepend('<div id="fb-root"></div>');
 $.getScript('https://connect.facebook.net/en_US/all.js', function() {
   FB.init({
     appId  : '<%= Settings.env["facebook"]["key"] %>',
@@ -297,7 +297,13 @@ $.getScript('https://connect.facebook.net/en_US/all.js', function() {
     });
   }
 
-
+  if ($.cookie('suggest_invites') && $('#fb_friends_modal').length)
+  {
+    setTimeout(function() {
+      $('#fb_friends_modal').modal();
+      $.cookie('suggest_invites', null);
+    }, 1000);
+  }
 
 });
 
@@ -344,7 +350,7 @@ $('.select_and_invite_friends_button').live('click', function() {
   requestCallback:
     function(response) {
 
-      if (response.to) {
+      if (response && response.to) {
         $.post('/home/fb_requests_sent', {to: response.to});
       }
   // Handle callback here
