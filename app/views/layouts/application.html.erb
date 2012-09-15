@@ -60,7 +60,7 @@
     <%= render '/footer' %>
   </div>
 
-  <%= render '/fb_invites' %>
+  <%= render '/fb_invites' if my_fb_friends_i_should_invite.any? %>
 
 </body>
 </html>
