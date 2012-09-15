@@ -31,6 +31,7 @@ default_run_options[:pty] = true
 ssh_options[:forward_agent] = true
 
 after "deploy", "deploy:cleanup" # keep only the last 5 releases
+after "deploy", "stalk:restart"
 
 namespace :deploy do
 
@@ -104,4 +105,10 @@ namespace :deploy do
     end
   end
   before "deploy", "deploy:check_revision"
+end
+namespace :stalk do
+  desc "restarts beanstalkd"
+  task :restart do
+    run "RAILS_ENV=production ruby #{current_path}/script/stalker_daemon restart"
+  end
 end
