@@ -20,6 +20,8 @@ gem 'whenever', require: false
 gem 'versionist'
 gem 'stalker'
 gem 'daemons', require: false
+gem 'paperclip'
+gem 'aws-sdk', '~> 1.3.4'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'

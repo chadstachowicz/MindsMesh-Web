@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120908042950) do
+ActiveRecord::Schema.define(:version => 20120916143807) do
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -135,6 +135,20 @@ ActiveRecord::Schema.define(:version => 20120908042950) do
   end
 
   add_index "notifies", ["target_type"], :name => "index_notifies_on_target_type"
+
+  create_table "post_attachments", :force => true do |t|
+    t.integer  "post_id"
+    t.string   "subtype"
+    t.string   "link_url"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+    t.string   "file_file_name"
+    t.string   "file_content_type"
+    t.integer  "file_file_size"
+    t.datetime "file_updated_at"
+  end
+
+  add_index "post_attachments", ["post_id"], :name => "index_post_attachments_on_post_id"
 
   create_table "posts", :force => true do |t|
     t.integer  "topic_id"

@@ -237,6 +237,13 @@ footer {
 #new_post {
   margin: 0 0 0 0;
 
+  input.type-file {
+    background: #efefef;
+    padding: 5px;
+    margin-right: -3px;
+    border-top: #e1e1e1 solid 1px;
+  }
+
   textarea {
     width: 100%;
     padding: 10px;

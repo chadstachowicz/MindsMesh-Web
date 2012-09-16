@@ -13,13 +13,15 @@ $('.post, .reply').live('mouseover', function() {
 
 app1 = {}
 app1.newpost = {
+  files_count: 0,
   init:
     function() {
-
+/*
 $("form#new_post").live("ajax:success", function(e, data) {
   $("#posts").prepend(data).find(".best_in_place").best_in_place();
   $('.post:first').effect("highlight", highlight_options, 1200);
 });
+*/
 
 //_new_post
 
@@ -46,9 +48,16 @@ $(".newpostbutton").live('click', function(e) {
   $("input#post_topic_user_id").val(tu_id);
   $("#new_post").submit();
 });
-
+/*
 $("#new_post").live("ajax:beforeSend", function(e) {
   $(this).find('textarea').val('');
+});
+*/
+
+$("a.add_file").live("click", function() {
+  var sel = "<input name='files[:c]' type='file' class='type-file'><br />".replace(':c', app1.newpost.files_count++);
+  $(sel).insertBefore(this);
+  return false;
 });
 
     }

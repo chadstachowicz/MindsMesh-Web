@@ -119,7 +119,19 @@
   </div>
 
 
-
+  <div>
+    <% post.post_attachments.each do |pa| %>
+      <% if pa.file? %>
+        <%= link_to icon_text('paper-clip',
+                              "#{pa.file.original_filename} (#{pa.subtype}, *.#{pa.file.original_filename.split('.').last})"
+                    ),
+                    pa.file.url,
+                    target: '_blank',
+                    style: 'display:block;margin-bottom: 10px;'
+                    %>
+      <% end %>
+    <% end %>
+  </div>
 
 
 
