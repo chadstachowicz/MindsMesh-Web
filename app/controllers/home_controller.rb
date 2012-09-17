@@ -7,7 +7,6 @@ class HomeController < ApplicationController
   end
 
   def fb_canvas
-    #return redirect_to '/auth/facebook' if params[:fb_source] TODO: log user in automatically
 
     if params[:request_ids] && params[:signed_request]
       @oauth=KoalaFactory.new_oauth
@@ -21,6 +20,8 @@ class HomeController < ApplicationController
         end
       end
     end
+
+    return redirect_to '/auth/facebook' if current_user.nil?
 
     redirect_to_landing_home_page
   end
