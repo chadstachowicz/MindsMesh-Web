@@ -54,9 +54,14 @@ $("#new_post").live("ajax:beforeSend", function(e) {
 });
 */
 
-$("a.add_file").live("click", function() {
-  var sel = "<input name='files[:c]' type='file' class='type-file'><br />".replace(':c', app1.newpost.files_count++);
+$("#new_post a.add_file").live("click", function() {
+  var sel = "<p><input name='files[:c]' type='file' class='type-file' /><a href='#' class='btn btn-mini'>x</a></p>".replace(':c', app1.newpost.files_count++);
   $(sel).insertBefore(this);
+  return false;
+});
+
+$("#new_post .files p a").live("click", function() {
+  $(this).parent().slideUp('fast').find('input').remove();
   return false;
 });
 

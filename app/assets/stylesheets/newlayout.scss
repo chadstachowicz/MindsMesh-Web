@@ -237,11 +237,19 @@ footer {
 #new_post {
   margin: 0 0 0 0;
 
-  input.type-file {
-    background: #efefef;
-    padding: 5px;
-    margin-right: -3px;
-    border-top: #e1e1e1 solid 1px;
+  .files {
+    text-align: right; margin: 20px 0;
+    p {
+      background: #efefef;
+      padding: 5px;
+      margin-right: -3px;
+      margin-bottom: 0px;
+      border-top: #e1e1e1 solid 1px;
+      a {
+        text-align:right;
+        margin: 0 5px 0 20px;
+      }
+    }
   }
 
   textarea {
