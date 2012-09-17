@@ -72,9 +72,13 @@ class HomeController < ApplicationController
   end
 
   def create_post
-    @post = Post.create! params[:post]
-    params[:files] and params[:files].values.each do |file|
-      PostAttachment.my_create_file!(@post, file)
+    begin
+      @post = Post.create! params[:post]
+      params[:files] and params[:files].values.each do |file|
+        PostAttachment.my_create_file!(@post, file)
+      end
+    rescue => e
+      flash[:alert] = e.message
     end
     redirect_to :back
   end

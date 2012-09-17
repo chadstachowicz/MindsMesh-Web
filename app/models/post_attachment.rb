@@ -7,7 +7,16 @@ class PostAttachment < ActiveRecord::Base
 
   has_attached_file :file,  PAPERCLIP_OPTIONS
 
+
   validates_presence_of :subtype
+  validates_attachment :file, size: { less_than: 10.megabytes }
+  validate :validate_not_executable
+
+  def validate_not_executable
+    if file && %w(exe msi).include?(file.original_filename.split('.').last)
+      errors[:file] << "format *.#{file.original_filename.split('.').last} is not acceptable"
+    end
+  end
 
   before_post_process :skip_unless_image
 
