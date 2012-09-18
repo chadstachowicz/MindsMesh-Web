@@ -346,7 +346,7 @@ $('.select_and_invite_friends_button').live('click', function() {
 
       var user_ids = $("#invite_fb_ids").val();
       FB.ui({method: 'apprequests',
-        message: 'My Great Request',
+        message: 'Come collaborate with your classmates on',
         to: user_ids
       }, app1.fb.requestCallback);
 
@@ -356,12 +356,12 @@ $('.select_and_invite_friends_button').live('click', function() {
     function() {
 
       FB.ui({method: 'apprequests',
-        message: "You gotta see this!"
+        message: "Come collaborate with your classmates on"
       }, app1.fb.requestCallback);
 
   },
-  
-  requestCallback:
+ 
+   requestCallback:
     function(response) {
 
       if (response && response.to) {
