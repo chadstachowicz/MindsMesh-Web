@@ -37,4 +37,13 @@ module ApplicationHelper
 <div class="fb-like" data-href="http://www.facebook.com/mindsmesh" data-send="false" data-width="450" data-show-faces="true"></div>}.html_safe
   end
 
+  def image_tag_filename(filename)
+    accepted_exts = %w(_page _blank aac css dotx exe hpp java mp3 ods ott png qt sql txt xml aiff bmp dat dwg flv html jpg mp4 odt ppt rar tga wav yml ai c dmg dxf gif ics key mpg otp pdf psd rb tgz xls zip avi cpp doc eps h iso mid odf ots php py rtf tiff xlsx)
+    ext = filename.split('.').last
+    ext = accepted_exts.first unless accepted_exts.include? ext
+    image_tag "/images/file_types/32px/#{ext}.png", width: 32, height: 32
+  end
+
+  
+
 end

@@ -151,6 +151,21 @@ span.best_in_place {
     a:hover { text-decoration:none }
   }
 
+  .files {
+    ul { margin: 0; }
+    li { margin: 0 0 10px; list-style: none; }
+    a {
+      padding: 5px;
+      display: block;
+      border-radius: 5px;
+      text-decoration: none;
+      &:hover {
+        background: lighten($green, 20%);
+        color:#fff;
+      }
+    }
+  }
+
   .replies {
     margin: 0px;
     border: 1px solid #dbdbdb;

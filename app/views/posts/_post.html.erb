@@ -119,18 +119,19 @@
   </div>
 
 
-  <div>
-    <% post.post_attachments.each do |pa| %>
-      <% if pa.file? %>
-        <%= link_to icon_text('paper-clip',
-                              "#{pa.file.original_filename} (#{pa.subtype}, *.#{pa.file.original_filename.split('.').last})"
-                    ),
-                    pa.file.url,
-                    target: '_blank',
-                    style: 'display:block;margin-bottom: 10px;'
-                    %>
+  <div class="files">
+    <ul>
+      <% post.post_attachments.each do |pa| %>
+        <% if pa.file? %>
+          <li>
+          <%= link_to(pa.file.url, target: '_blank', title: "Click for download (#{number_to_human_size pa.file.size})") do %>
+            <%= image_tag_filename(pa.file.original_filename) %>
+            <%= pa.file.original_filename %>
+          <% end %>
+          </li>
+        <% end %>
       <% end %>
-    <% end %>
+    </ul>
   </div>
 
 
