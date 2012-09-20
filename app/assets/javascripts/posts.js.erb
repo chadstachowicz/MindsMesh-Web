@@ -100,8 +100,6 @@ $(".js_reply_actions a[data-method=delete]").live("ajax:beforeSend", function() 
   });
 });
 
-
-
 //_posts
 $("#posts a.more").live("ajax:beforeSend", function() {
   $(this).fadeOut('fast');
@@ -113,24 +111,13 @@ $("#posts a.more").live("ajax:success", function(e, data) {
 
 //_post -> new reply
 
+$(".reply_modal form").live("ajax:beforeSend", function(e) {
+  if (  $.trim($(this).find('textarea').val()).length == 0)
+    return false;
+  $(this).val('');
+}).live("ajax:complete", function(e, data) {
+  $(this).closest('.modal').modal('hide').find('textarea').val('');
 
-
-$("a.show_reply_form").live("click", function() {
-  $(this).hide().closest('.post').find("form.new_reply").show().find('textarea').focus();
-  return false;
-});
-
-$("form.new_reply textarea").live("keydown", function(e) {
-  if (e.keyCode == 13 && !e.shiftKey && !e.ctrlKey) {
-    if (  $.trim($(this).val()).length > 0) {
-      $(this).closest('form').submit();
-      $(this).val('');
-      return false;
-    }
-  }
-});
-
-$("form.new_reply").live("ajax:complete", function(e, data) {
   if (data.status == 200) {
     $(this).closest(".post").find(".replies").append(data.responseText).find(".best_in_place").best_in_place();
     $(this).closest(".post").find(".reply:last").effect("highlight", highlight_options, 1200);
@@ -141,6 +128,7 @@ $("form.new_reply").live("ajax:complete", function(e, data) {
     alert("an error #"+data.status+" has occurred.\n\n"+data.responseText);
   }
 });
+
 
 //_reply
 
