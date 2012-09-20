@@ -145,9 +145,9 @@ span.best_in_place {
   }
 
   .post-info {
-    margin: 5px;
+    margin: 5px 0;
     .time { clear:both;float:right;font-weight:bold;color:#ccc; }
-    .css_show_reply_form { clear:both;float:right; }
+    .btn { clear:both; }
     a:hover { text-decoration:none }
   }
 
