@@ -10,6 +10,8 @@ class Reply < ActiveRecord::Base
 
   after_create :lazy_notify
 
+  default_scope order(:id)
+
   def lazy_notify
     Notify.create(target: self) unless Rails.env.test?
   end
