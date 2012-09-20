@@ -119,6 +119,7 @@ $(".reply_modal form").live("ajax:beforeSend", function(e) {
   $(this).closest('.modal').modal('hide').find('textarea').val('');
 
   if (data.status == 200) {
+    $(this).closest('.post').find('.js_replies_holder').show();
     $(this).closest(".post").find(".replies").append(data.responseText).find(".best_in_place").best_in_place();
     $(this).closest(".post").find(".reply:last").effect("highlight", highlight_options, 1200);
     var c = $(this).closest(".post").find(".reply").length;
