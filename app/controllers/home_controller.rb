@@ -7,20 +7,11 @@ class HomeController < ApplicationController
   end
 
   def fb_canvas
-
-    if params[:request_ids] && params[:signed_request]
-      @oauth=KoalaFactory.new_oauth
-      signed_request = @oauth.parse_signed_request(params[:signed_request])
-      @graph = KoalaFactory.new_graph(signed_request["oauth_token"])
-
-      @graph.batch do |batch_api|
-        params[:request_ids].split(',').each do |request_id|
-          full_id = [request_id, signed_request["user_id"]].join('_')
-          batch_api.delete_object(full_id)
-        end
-      end
+    if params[:signed_request]
+      Stalker.enqueue('facebook.apprequests.clear', signed_request: params[:signed_request])
     end
-
+    #should not use this oauth to log user in, it expires in a few hours
+    #redirecting to facebook is the right way
     return redirect_to '/auth/facebook' if current_user.nil?
 
     redirect_to_landing_home_page
