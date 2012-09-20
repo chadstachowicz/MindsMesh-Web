@@ -235,7 +235,7 @@ $("#topics_filter #q").live("keyup", function() {
 
 
     $("#topics_filter_result").html('');
-    $("#topics_filter").addClass('js-filter-on');
+    $("#topics_filter").removeClass('js-filter-on');
   clearTimeout(TOPIC_FILTER_TIMEOUT_ID);
   TOPIC_FILTER_TIMEOUT_ID = setTimeout(function(q) {
     //
@@ -243,7 +243,6 @@ $("#topics_filter #q").live("keyup", function() {
     if ($(q).val().length > 0) {
 
 
-      $("#topics_filter").addClass('js-filter-on');
       var url = "/topics/filter";
       var data = {q: $(q).val()};
 
@@ -252,6 +251,7 @@ $("#topics_filter #q").live("keyup", function() {
         data: data,
         success: function(data) {
           $("#topics_filter_result").html(data);
+          $("#topics_filter").addClass('js-filter-on');
         }
       });
 
