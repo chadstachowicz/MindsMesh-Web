@@ -87,14 +87,14 @@ app1.posts = {
     function() {
 
 //_post
-$(".post_actions a[data-method=delete]").live("ajax:beforeSend", function() {
-  $(this).closest(".post").animate({opacity: 0}, "slow", function() {
+$(".js_post_actions a[data-method=delete]").live("ajax:beforeSend", function() {
+  $(this).closest(".post").animate({opacity: 0}, "fast", function() {
     $(this).slideUp("fast");
   });
 });
 
 //_post -> reply
-$(".reply_actions a[data-method=delete]").live("ajax:beforeSend", function() {
+$(".js_reply_actions a[data-method=delete]").live("ajax:beforeSend", function() {
   $(this).closest(".reply").animate({opacity: 0}, "fast", function() {
     $(this).slideUp("fast");
   });
