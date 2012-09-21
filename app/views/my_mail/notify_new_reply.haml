@@ -1,0 +1,19 @@
+%p
+  Hi #{@user.first_name},
+  %br/
+  You have one more answer to your question on MindsMesh.
+
+%table{cellpadding: 0, cellspacing: 0, border: 0, width: 620, style: "border: #46a546 solid 1px"}
+  %tr
+    %td{colspan: 2, style:"background:#46a546;color:#ffffff;font-weight:bold;font-family:'lucida grande',tahoma,verdana,arial,sans-serif;vertical-align:middle;padding:4px 8px;font-size:16px;letter-spacing:-0.03em;text-align:left"}='MindsMesh.com'
+  %tr
+    %td= image_tag @post.user.photo_url, width: 30
+    %td
+      = truncate @post.text, length: 60
+      %small= "(#{link_to('read more...', post_path(@post, host: @host))})".html_safe
+  - @post.replies.each do |reply|
+    %tr{style: cycle('background:#eee', '')}
+      %td= image_tag reply.user.photo_url, width: 30
+      %td
+        = truncate reply.text, length: 60
+        %small= "(#{link_to('read more...', post_path(@post, host: @host))})".html_safe

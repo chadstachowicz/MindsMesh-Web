@@ -13,7 +13,7 @@ class Reply < ActiveRecord::Base
   default_scope order(:id)
 
   def lazy_notify
-    Notify.create(target: self) unless Rails.env.test?
+    Stalker.enqueue('notify.new.reply', id: id.to_s) unless Rails.env.test?
   end
   
 end

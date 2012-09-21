@@ -22,6 +22,7 @@ gem 'stalker'
 gem 'daemons', require: false
 gem 'paperclip'
 gem 'aws-sdk', '~> 1.3.4'
+gem 'mails_viewer'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'

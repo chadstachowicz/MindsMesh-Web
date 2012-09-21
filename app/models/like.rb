@@ -10,7 +10,9 @@ class Like < ActiveRecord::Base
   after_create :lazy_notify
 
   def lazy_notify
-    Notify.create(target: self) unless Rails.env.test?
+    if likable_type == 'Post'
+      Stalker.enqueue('notify.new.like', id: id.to_s) unless Rails.env.test?
+    end
   end
 
 end

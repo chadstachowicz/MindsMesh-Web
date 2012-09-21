@@ -13,4 +13,12 @@ class MyMail < ActionMailer::Base
 
     mail to: entity_user_request.email, subject: "Welcome to MindsMesh!"
   end
+
+  def notify_new_reply(user, post, email)
+    @user = user
+    @post = post
+    @host  = Settings.env['domain']
+
+    mail to: email, subject: "You have a new answer on MindsMesh!"
+  end
 end

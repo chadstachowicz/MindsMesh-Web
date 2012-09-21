@@ -31,3 +31,20 @@ job 'facebook.apprequests.clear' do |args|
     end
   end
 end
+
+job 'notify.new.post' do |args|
+  post = Post.find(args['id'])
+  Notification.notify_users_in_topic(post.topic, Notification::ACTION_POSTED, post.user_id)
+end
+
+job 'notify.new.reply' do |args|
+  reply = Reply.find(args['id'])
+  Notification.notify_about_new_reply(reply)
+end
+
+#people could only like post when this script was written
+job 'notify.new.like' do |args|
+  like = Like.find(args['id'])
+  a_post = like.likable
+  Notification.notify_users_involved_in_post(a_post, Notification::ACTION_LIKED, like.user_id)
+end

@@ -25,7 +25,9 @@ class User < ActiveRecord::Base
     Topic.where(entity_id: entity_ids).scoped
   end
 
-
+  def first_name
+    name.split(' ').first
+  end
 
 
   before_create :change_access_token

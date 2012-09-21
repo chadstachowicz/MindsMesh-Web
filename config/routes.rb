@@ -60,6 +60,7 @@ Mindsmesh::Application.routes.draw do
   resources :notifies, only: [:index, :destroy]
 
   match "/delayed_job" => DelayedJobWeb, :anchor => false
+  mount MailsViewer::Engine => '/delivered_mails'
   
   get "/privacy" => "pages#privacy"
   get "/terms"   => "pages#privacy"

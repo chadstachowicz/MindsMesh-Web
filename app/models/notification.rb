@@ -56,12 +56,32 @@ class Notification < ActiveRecord::Base
   end
 =end
 
+  #deprecated
   def self.notify_users_involved_in_post(post, action, ignore_user_id)
     new_actors_count = (action == ACTION_REPLIED) ? post.replies.size : post.likes.size
     user_ids = post.user_ids_involved
     user_ids.delete(ignore_user_id)
     User.find(user_ids).each do |user|
       notify_user!(user, post, action, post.text, new_actors_count)
+    end
+  end
+
+  #in use by config/jobs.rb
+  def self.notify_about_new_reply(reply)
+    puts "notify about new reply"
+    post = reply.post
+    action = ACTION_REPLIED
+    ignore_user_id = reply.user_id
+
+    new_actors_count = post.replies_count
+    user_ids = post.replies.pluck(:user_id)
+
+    user_ids.delete(ignore_user_id)
+    User.find(user_ids).each do |user|
+      n = notify_user!(user, post, action, post.text, new_actors_count)
+      #TODO: unsubscribe
+      puts email = user.entity_user_requests.first.email
+      MyMail.notify_new_reply(user, post, email).deliver
     end
   end
 
@@ -77,21 +97,24 @@ class Notification < ActiveRecord::Base
     n.b_read = false
     n.actors_count = new_actors_count
     n.save! #ensure it's persisted
-    n.notify_on_facebook!
+    n.notify_on_facebook #TODO: rescue, log in db
+    n
   end
 
   def mark_as_read!
     self.b_read = true
-    api_delete_fb_apprequest
+    #api_delete_fb_apprequest
     save!
   end
   
-  def notify_on_facebook!
-    api_delete_fb_apprequest
-    api_post_fb_apprequest
-    save!
+  def notify_on_facebook
+    user.fb_api.put_connections('me', 'apprequests', message: facebook_message, data: id)
   end
-
+  
+  def notify_on_email(email)
+  end
+=begin
+#deprecated, since homes#fb_canvas clears all messages
   def api_delete_fb_apprequest
     raise "must be persisted to invoke this method" if new_record?
     if self.fb_apprequest_id.present?
@@ -114,4 +137,5 @@ class Notification < ActiveRecord::Base
       logger.info "FB_GRAPH_API: post apprequest error: #{exc.message}"
     end
   end
+=end
 end

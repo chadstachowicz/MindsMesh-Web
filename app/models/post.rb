@@ -61,7 +61,7 @@ class Post < ActiveRecord::Base
 
 
   def lazy_notify
-    Notify.create(target: self) unless Rails.env.test?
+    Stalker.enqueue('notify.new.post', id: id.to_s) unless Rails.env.test?
   end
 
 end
