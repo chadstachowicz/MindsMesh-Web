@@ -15,5 +15,6 @@
     %tr{style: cycle('background:#eee', '')}
       %td= image_tag reply.user.photo_url, width: 30
       %td
+        = "#{reply.user.first_name} answered: "
         = truncate reply.text, length: 60
         %small= "(#{link_to('read more...', post_path(@post, host: @host))})".html_safe
