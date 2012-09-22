@@ -12,7 +12,7 @@ class Topic < ActiveRecord::Base
   class << self
     #untested
     def filter(q)
-      where("name ILIKE ?", "%#{q}%")
+      where("UPPER(name) LIKE UPPER(?)", "%#{q}%")
     end
   end
 
