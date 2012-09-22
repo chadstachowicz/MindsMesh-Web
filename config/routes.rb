@@ -1,5 +1,5 @@
 Mindsmesh::Application.routes.draw do
-  
+
   namespace 'api' do
 
     api_version(:module => "V1", :path=>"v1") do
@@ -97,6 +97,7 @@ Mindsmesh::Application.routes.draw do
       post 'unlike'
     end
   end
+  resources :post_attachments, only: [:destroy]
   resources :replies, only: [:update, :destroy] do
     member do
       put 'like'

@@ -119,10 +119,11 @@
       <% post.post_attachments.each do |pa| %>
         <% if pa.file? %>
           <li>
-          <%= link_to(pa.file.url, target: '_blank', title: "Click for download (#{number_to_human_size pa.file.size})") do %>
+          <%= link_to(pa.file.url, class: 'file btn btn-link', target: '_blank', title: "Click for download (#{number_to_human_size pa.file.size})") do %>
             <%= image_tag_filename(pa.file.original_filename) %>
             <%= pa.file.original_filename %>
           <% end %>
+          <%= link_to icon('trash'), pa, method: :delete, confirm: "Are you sure?", remote: true, class: 'trash btn btn-link' if can? :destroy, pa %>
           </li>
         <% end %>
       <% end %>
