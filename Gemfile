@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'rails', '3.2.8'
-gem 'pg'
+gem 'mysql2'
 gem 'jquery-rails'
 gem 'omniauth-facebook'
 gem 'cancan'
