@@ -54,7 +54,7 @@ class Ability
       msg.user_id == @current_user.id
     end
     can [:destroy], [PostAttachment] do |pa|
-      pa.user_id == @current_user.id
+      pa.post.user_id == @current_user.id
     end
     can [:show], Notification do |notification|
       notification.user_id == @current_user.id
