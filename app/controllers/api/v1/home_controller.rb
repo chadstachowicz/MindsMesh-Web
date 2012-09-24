@@ -39,5 +39,10 @@ module Api::V1
       render json: {message: text}
     end
 
+    #POST /register_device
+    def register_device
+      render json: {message: "data received, code not yet implanted", params: params.except(:controller, :action)}
+    end
+
   end
 end
