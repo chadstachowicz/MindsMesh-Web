@@ -16,8 +16,8 @@ namespace :db do
     set_backup_path_for(@environment_info['database'])
 
     dbhost = @environment_info['host']
-    if @environment_info['adapter'] == 'mysql'
-      run "mysqldump --add-drop-table -u #{dbuser} -h #{dbhost} -p #{environment_database} | bzip2 -c > #{backup_path}.bz2" do |ch, stream, out |
+    if @environment_info['adapter'] == 'mysql2'
+      run "mysqldump --add-drop-table -u #{dbuser} -h #{dbhost} -p #{environment_database} -p | bzip2 -c > #{backup_path}.bz2" do |ch, stream, out |
         ch.send_data "#{dbpass}\n" if out=~ /^Enter password:/
       end
     else
@@ -35,20 +35,26 @@ namespace :db do
     puts "download finished to #{to_filename}"
   end
   
+  desc "Sync the last backup file to your local workstation"
+  task :load_last, :only => {:primary => true} do
+
+    development_info = YAML.load_file("config/database.yml")['development']
+    last_backup_filename  = Dir['*.bz2'].sort_by{ |f| File.mtime(f) }.last
+    if development_info['adapter'] == 'mysql2'
+      run_str = "bzcat #{last_backup_filename} | mysql -u #{development_info['username']} --password='#{development_info['password']}' -h localhost #{development_info['database']}"
+    else
+      run_str = "PGPASSWORD=#{development_info['password']} bzcat #{last_backup_filename} | psql -U #{development_info['username']} -h #{development_info['host']} #{development_info['database']}"
+    end
+
+    puts "restoring... #{last_backup_filename}"
+    %x!#{run_str}!
+    puts "done!"
+  end
+  
   desc "Sync your production database to your local workstation"
   task :import, :roles => :db, :only => {:primary => true} do
     down
-
-    development_info = YAML.load_file("config/database.yml")['development']
-    if development_info['adapter'] == 'mysql'
-      run_str = "bzcat #{backup_filename}.bz2 | mysql -u #{development_info['username']} --password='#{development_info['password']}' -h #{development_info['host']} #{development_info['database']}"
-    else
-      run_str = "PGPASSWORD=#{development_info['password']} bzcat #{backup_filename}.bz2 | psql -U #{development_info['username']} -h #{development_info['host']} #{development_info['database']}"
-    end
-
-    puts "restoring..."
-    %x!#{run_str}!
-    puts "done!"
+    load_last
   end
 
 end
