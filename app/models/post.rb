@@ -11,8 +11,6 @@ class Post < ActiveRecord::Base
   validates_presence_of :text
   validates_length_of :text, minimum: 10
 
-  after_create :lazy_notify
-
   #scope :includes_all , includes(:user, :topic, :replies, :likes)
   class << self
     def before(id)
@@ -59,6 +57,7 @@ class Post < ActiveRecord::Base
 
 
 
+  after_commit :lazy_notify, on: :create
 
   def lazy_notify
     Stalker.enqueue('notify.new.post', id: id.to_s) unless Rails.env.test?

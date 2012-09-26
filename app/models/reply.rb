@@ -8,7 +8,7 @@ class Reply < ActiveRecord::Base
   validates_presence_of :text
   #scope :includes_all , includes(:user, :likes)
 
-  after_create :lazy_notify
+  after_commit :lazy_notify, on: :create
 
   default_scope order(:id)
 

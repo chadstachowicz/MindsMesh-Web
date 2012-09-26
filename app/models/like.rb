@@ -7,7 +7,7 @@ class Like < ActiveRecord::Base
   validates_presence_of :likable
   validates_uniqueness_of :user_id, scope: [:likable_type, :likable_id]
 
-  after_create :lazy_notify
+  after_commit :lazy_notify, on: :create
 
   def lazy_notify
     if likable_type == 'Post'
