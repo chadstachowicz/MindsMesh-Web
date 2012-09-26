@@ -74,7 +74,7 @@ class Notification < ActiveRecord::Base
     ignore_user_id = reply.user_id
 
     new_actors_count = post.replies_count
-    user_ids = post.replies.pluck(:user_id)
+    user_ids = ([post.user_id] + post.replies.pluck(:user_id)).uniq
 
     puts "user_ids: #{user_ids}"
     user_ids.delete(ignore_user_id)
