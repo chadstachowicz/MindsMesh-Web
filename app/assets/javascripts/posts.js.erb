@@ -4,7 +4,7 @@ var highlight_options = {color: $green};
 
 
 
-$('.post, .reply').live('mouseover', function() {
+$('.post, .reply, .post .files li').live('mouseover', function() {
   $(this).addClass('hover');
 }).live('mouseout', function() {
   $(this).removeClass('hover');
@@ -114,6 +114,16 @@ $(".post .files a[data-method=delete]").live("ajax:beforeSend", function() {
   });
 });
 
+
+
+$(".post .files a").live("mouseover mouseout", function(e) {
+  var a_trash = $(this).closest('li').find('a.trash');
+  if (e.type=='mouseover') {
+    a_trash.show();
+  } else {
+    a_trash.hide();
+  }
+});
 
 
 //_post -> new reply
