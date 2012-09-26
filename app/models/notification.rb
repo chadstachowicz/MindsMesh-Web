@@ -76,7 +76,9 @@ class Notification < ActiveRecord::Base
     new_actors_count = post.replies_count
     user_ids = post.replies.pluck(:user_id)
 
+    puts "user_ids: #{user_ids}"
     user_ids.delete(ignore_user_id)
+    puts "user_ids to notify: #{user_ids}"
     User.find(user_ids).each do |user|
       n = notify_user!(user, post, action, post.text, new_actors_count)
       #TODO: unsubscribe
