@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120916143807) do
+ActiveRecord::Schema.define(:version => 20120927225507) do
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -32,11 +32,13 @@ ActiveRecord::Schema.define(:version => 20120916143807) do
   create_table "entities", :force => true do |t|
     t.string   "name"
     t.string   "slug"
-    t.boolean  "self_joining", :default => false
-    t.datetime "created_at",                      :null => false
-    t.datetime "updated_at",                      :null => false
+    t.boolean  "self_joining",       :default => false
+    t.datetime "created_at",                            :null => false
+    t.datetime "updated_at",                            :null => false
     t.string   "domains"
     t.string   "state_name"
+    t.integer  "entity_users_count"
+    t.integer  "topics_count"
   end
 
   create_table "entity_user_requests", :force => true do |t|
@@ -236,15 +238,16 @@ ActiveRecord::Schema.define(:version => 20120916143807) do
     t.string   "fb_id"
     t.string   "fb_token"
     t.datetime "fb_expires_at"
-    t.integer  "role_i",            :default => 0
-    t.integer  "posts_count",       :default => 0
-    t.integer  "replies_count",     :default => 0
-    t.integer  "likes_count",       :default => 0
-    t.integer  "topic_users_count", :default => 0
-    t.datetime "created_at",                       :null => false
-    t.datetime "updated_at",                       :null => false
+    t.integer  "role_i",             :default => 0
+    t.integer  "posts_count",        :default => 0
+    t.integer  "replies_count",      :default => 0
+    t.integer  "likes_count",        :default => 0
+    t.integer  "topic_users_count",  :default => 0
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
     t.string   "access_token"
     t.datetime "last_login_at"
+    t.integer  "entity_users_count"
   end
 
 end

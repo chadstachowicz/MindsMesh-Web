@@ -19,7 +19,7 @@ class Topic < ActiveRecord::Base
 
 
 
-  belongs_to :entity
+  belongs_to :entity, counter_cache: true
   belongs_to :user
   has_many :topic_users, dependent: :destroy
   has_many :posts,       dependent: :destroy

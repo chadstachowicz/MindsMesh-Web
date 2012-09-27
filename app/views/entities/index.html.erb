@@ -6,6 +6,7 @@
     <th>Slug</th>
     <th>Domains</th>
     <th>State</th>
+    <th>Topics</th>
     <th></th>
     <th></th>
   </tr>
@@ -16,6 +17,9 @@
     <td><%= entity.slug %></td>
     <td><%= entity.domains %></td>
     <td><%= entity.state_name %></td>
+    <td>
+      0<%= entity.topics_count %> topics
+    </td>
     <td><%= link_to 'Edit', edit_entity_path(entity) %></td>
     <td><%= link_to 'Destroy', entity, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>

@@ -2,16 +2,25 @@
 
 <table>
   <tr>
-    <th></th>
     <th>Name</th>
     <th>Creation</th>
+    <th>Entities</th>
+    <th>Topics</th>
   </tr>
 
 <% @users.each do |user| %>
   <tr>
-    <td><%= image_tag user.photo_url, width: 25 %></td>
-    <td><%= link_to user.name, user %></td>
+    <td>
+      <%= image_tag user.photo_url, width: 25 %>
+      <%= link_to user.name, user %>
+    </td>
     <td><%= l user.created_at %></td>
+    <td>
+      0<%= user.entity_users_count %> entities
+    </td>
+    <td>
+      0<%= user.topic_users_count %> topics
+    </td>
   </tr>
 <% end %>
 </table>

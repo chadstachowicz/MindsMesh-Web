@@ -1,7 +1,7 @@
 class EntityUser < ActiveRecord::Base
   attr_accessible :user
-  belongs_to :entity
-  belongs_to :user
+  belongs_to :entity, counter_cache: true
+  belongs_to :user, counter_cache: true
   # TODO: define or remove these boolean fields
   attr_accessor :b_admin, :b_moderator, :b_student, :b_teacher
   
