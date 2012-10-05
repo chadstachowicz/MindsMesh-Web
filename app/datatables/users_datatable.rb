@@ -1,5 +1,5 @@
 class UsersDatatable
-  delegate :params, :h, :link_to, :number_to_currency, to: :@view
+  delegate :params, :h, :link_to, :number_to_currency, :image_tag, :raw, to: :@view
 
   def initialize(view)
     @view = view
@@ -29,10 +29,10 @@ class UsersDatatable
   end
 
   def name_decorator(user)
-    [
-      @view.image_tag(user.photo_url, width: 20),
+    raw [
+      image_tag(user.photo_url, width: 20),
       link_to(user.name, user, target: '_blank')
-    ].join(' ').html_safe
+    ].join(' ')
   end
 
   def users
