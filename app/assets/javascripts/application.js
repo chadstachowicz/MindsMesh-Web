@@ -18,4 +18,6 @@
 //= require bootstrap
 //= require jquery.purr
 //= require best_in_place
+//= require dataTables/jquery.dataTables
+//= require dataTables/jquery.dataTables.bootstrap
 //= require_tree .

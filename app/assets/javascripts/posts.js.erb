@@ -11,6 +11,8 @@ $('.post, .reply, .post .files li').live('mouseover', function() {
 });
 
 
+
+
 app1 = {}
 app1.newpost = {
   files_count: 0,
@@ -395,15 +397,40 @@ to: Array[1]
 
 
 
+app1.datatables = {
+  init:
+    function() {
 
 
 
-app1.newpost.init();
-app1.posts.init();
-app1.newtopic.init();
-app1.fb.init();
+// For fluid containers
+var sel = '.layout_datatables table[data-source]';
+$(sel).dataTable({
+  sDom: "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>",
+  sPaginationType: "bootstrap",
+  bProcessing: true,
+  bServerSide: true,
+  sAjaxSource: $(sel).data('source')
+});
+
+
+
+
+    } 
+}
+//end app.fb
+
+
+
 
 //best in place
 $(function() {
   $(".best_in_place").best_in_place();
+
+  app1.newpost.init();
+  app1.posts.init();
+  app1.newtopic.init();
+  app1.fb.init();
+  app1.datatables.init();
+
 });

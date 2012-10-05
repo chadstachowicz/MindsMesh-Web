@@ -2,10 +2,13 @@ class UsersController < ApplicationController
   respond_to :html#, :json, :xml
   load_and_authorize_resource
 
+  layout 'datatables', only: [:index]
+
   # GET /users
   def index
-    @users = @users.order(:id)
-    respond_with(@users)
+    respond_with(@users) do |format|
+      format.json { render json: UsersDatatable.new(view_context) }
+    end
   end
 
   # GET /users/1

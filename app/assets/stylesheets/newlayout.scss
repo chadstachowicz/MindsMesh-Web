@@ -379,3 +379,16 @@ body.new_post_exposed {
   h4 { color: #46A546; }
   .thumbs img { border: #ddd solid 1px;margin-bottom: 3px; }
 }
+
+
+.dataTables_wrapper {
+  background:#fff;
+  border:#ddd solid 1px;
+  table {
+    border:#ddd solid 0;
+    border-width: 1px 0;padding: 20px;
+  }
+  .row-fluid .span6 {
+    padding:10px;
+  }
+}

@@ -1,26 +1,16 @@
-<h1>Listing users</h1>
+<div class="page-header">
+  <h1>Listing Users</h1>
+</div>
 
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Creation</th>
-    <th>Entities</th>
-    <th>Topics</th>
-  </tr>
-
-<% @users.each do |user| %>
-  <tr>
-    <td>
-      <%= image_tag user.photo_url, width: 25 %>
-      <%= link_to user.name, user %>
-    </td>
-    <td><%= l user.created_at %></td>
-    <td>
-      0<%= user.entity_users_count %> entities
-    </td>
-    <td>
-      0<%= user.topic_users_count %> topics
-    </td>
-  </tr>
-<% end %>
+<table data-source="<%= users_url(format: :json) %>">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Creation</th>
+      <th>Entities</th>
+      <th>Topics</th>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
 </table>

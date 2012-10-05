@@ -23,6 +23,7 @@ gem 'daemons', require: false
 gem 'paperclip'
 gem 'aws-sdk', '~> 1.3.4'
 gem 'mails_viewer'
+gem 'will_paginate'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
@@ -31,6 +32,7 @@ group :assets do
   gem 'therubyracer', :platform => :ruby
   gem 'bootstrap-sass'
   gem 'font-awesome-sass-rails'
+  gem 'jquery-datatables-rails'
 end
 
 group :production do
