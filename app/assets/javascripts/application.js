@@ -20,4 +20,5 @@
 //= require best_in_place
 //= require dataTables/jquery.dataTables
 //= require dataTables/jquery.dataTables.bootstrap
+//= require select2
 //= require_tree .

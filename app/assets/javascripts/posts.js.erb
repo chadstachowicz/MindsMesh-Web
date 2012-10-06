@@ -413,12 +413,93 @@ $(sel).dataTable({
   sAjaxSource: $(sel).data('source')
 });
 
+$("a[act='open_master_assign_entity_modal']").live('click', function() {
+  var x = $(this).closest('tr').find('td.sorting_1');
+  var modal = $("#master_assign_entity_modal");
+  var user_field = modal.find('.control-group-user-field');
+
+ 
+  user_field.find('img').attr('src', $(x).find('img').attr('src'));
+  user_field.find('span').html( $(x).find('a').html() );
+  user_field.find('#entity_user_user_id').val( $(x).find('a').data('user-id') );
+  
+  
+
+  modal.modal();
+  return false;
+});
+
+$('#master_assign_entity_modal form').live("ajax:beforeSend", function(e) {
+  //validate and return false
+}).live("ajax:complete", function(e, data) {
+
+  if (data.status == 200) {
+    alert("Assigned Successfully");
+    $(this).closest('.modal').modal('hide').find('#email').val('');
+  } else {
+    alert("an error #"+data.status+" has occurred.\n\n"+data.responseText);
+  }
+});
+
+
+
+
+
+/*
+
+$(".reply_modal form").live("ajax:beforeSend", function(e) {
+  if (  $.trim($(this).find('textarea').val()).length == 0)
+    return false;
+  $(this).val('');
+}).live("ajax:complete", function(e, data) {
+  $(this).closest('.modal').modal('hide').find('textarea').val('');
+
+  if (data.status == 200) {
+    $(this).closest('.post').find('.js_replies_holder').show();
+    $(this).closest(".post").find(".replies").append(data.responseText).find(".best_in_place").best_in_place();
+    $(this).closest(".post").find(".reply:last").effect("highlight", highlight_options, 1200);
+    var c = $(this).closest(".post").find(".reply").length;
+    $(this).closest(".post").find(".replybutton span").html(c);//TODO: new counter of replies
+  } else {
+    bad_reply =  {e: e, data: data};
+    alert("an error #"+data.status+" has occurred.\n\n"+data.responseText);
+  }
+});
+
+*/
+
+$('.select2').each(function() {
+
+  $(this).select2({
+    placeholder: $(this).attr('placeholder'),
+    width: $(this).attr('width'),
+    minimumInputLength: 3,
+    ajax: {
+        url: $(this).data('source'),
+        dataType: 'jsonp',
+        quietMillis: 500,
+        data: function (term, page) {
+          return {
+            q: term, // search term
+            page_limit: 10
+          };
+        },
+        results: function (data, page) { // parse the results into the format expected by Select2.
+          return {results: data};
+        }
+    }//,
+    //formatResult: movieFormatResult, // omitted for brevity, see the source of this page
+    //formatSelection: movieFormatSelection,  // omitted for brevity, see the source of this page
+    //dropdownCssClass: "bigdrop" // apply css that makes the dropdown taller
+  });
+
+});
 
 
 
     } 
 }
-//end app.fb
+//end app.datatables
 
 
 

@@ -22,7 +22,7 @@ class UsersDatatable
       [
         name_decorator(user),
         h(user.created_at),
-        "#{user.entity_users_count} entities",
+        entities_decorator(user),
         "#{user.topic_users_count} topics"
       ]
     end
@@ -31,8 +31,12 @@ class UsersDatatable
   def name_decorator(user)
     raw [
       image_tag(user.photo_url, width: 20),
-      link_to(user.name, user, target: '_blank')
+      link_to(user.name, user, target: '_blank', data: {user_id: user.id})
     ].join(' ')
+  end
+
+  def entities_decorator(user)
+  	link_to "#{user.entity_users_count} entities", '#', act: 'open_master_assign_entity_modal', data: {user_id: user.id}
   end
 
   def users

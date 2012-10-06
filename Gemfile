@@ -26,6 +26,7 @@ gem 'mails_viewer'
 gem 'will_paginate'
 
 group :assets do
+  gem 'sass' #so other gems don't alert
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
   gem 'uglifier', '>= 1.0.3'
@@ -33,6 +34,7 @@ group :assets do
   gem 'bootstrap-sass'
   gem 'font-awesome-sass-rails'
   gem 'jquery-datatables-rails'
+  gem 'select2-rails'
 end
 
 group :production do

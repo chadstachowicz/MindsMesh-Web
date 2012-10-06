@@ -19,6 +19,11 @@ class Entity < ActiveRecord::Base
     self.slug = name.parameterize if self.slug.blank?
   end
 
+  def as_json(options={})
+    return {id: id, text: name} if options[:select2]
+    super
+  end
+
   scope :non_self_joinings, where(self_joining: false)
   scope :self_joinings,     where(self_joining: true)
 

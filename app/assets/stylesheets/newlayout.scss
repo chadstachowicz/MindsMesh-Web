@@ -392,3 +392,15 @@ body.new_post_exposed {
     padding:10px;
   }
 }
+
+#master_assign_entity_modal {
+  form { margin: 0; }
+  .control-group-user-field {
+    width: 370px;
+    padding: 5px;
+    background-color: whiteSmoke;
+    border: 1px solid #DDD;
+    img { border: #ddd solid 1px; }
+    span { font-size: 18px;vertical-align:top; }
+  }
+}

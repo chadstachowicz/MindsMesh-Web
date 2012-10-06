@@ -75,6 +75,7 @@ Mindsmesh::Application.routes.draw do
   resources :questionnaires, only: [:index, :show, :destroy]
   resources :entities
   
+  resources :entity_users, only: [:create]
   resources :topic_users
   resources :users, only: [:index, :show, :edit, :update, :destroy] do
     member do

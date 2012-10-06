@@ -1,9 +1,12 @@
 class EntitiesController < ApplicationController
-  respond_to :html#, :json, :xml
+  respond_to :html, :json, :js
   load_and_authorize_resource
 
   # GET /entities
   def index
+    page_limit = params[:page_limit] || 10
+    q = "%#{params[:q].gsub(' ', '%')}%"
+    @entities = @entities.where("UPPER(name) lIKE UPPER(:q)", q: q).limit(page_limit)
     respond_with(@entities)
   end
 
