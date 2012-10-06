@@ -1,5 +1,5 @@
 class UsersDatatable
-  delegate :params, :h, :link_to, :number_to_currency, :image_tag, :raw, to: :@view
+  delegate :params, :h, :link_to, :number_to_currency, :image_tag, :raw, :icon_text, to: :@view
 
   def initialize(view)
     @view = view
@@ -36,7 +36,12 @@ class UsersDatatable
   end
 
   def entities_decorator(user)
-  	link_to "#{user.entity_users_count} entities", '#', act: 'open_master_assign_entity_modal', data: {user_id: user.id}
+    raw [
+      "#{user.entity_users_count} entities (",
+      link_to(icon_text('caret-right', 'assign'), '#', act: 'open_master_assign_entity_modal', data: {user_id: user.id}),
+      ")"
+    ].join(' ')
+  	
   end
 
   def users
