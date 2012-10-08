@@ -1,8 +1,8 @@
 class AddEntityUsersCountToEntitiesAndUsers < ActiveRecord::Migration
   def up
-    add_column :entities, :entity_users_count, :integer
-    add_column :entities, :topics_count, :integer
-    add_column :users, :entity_users_count, :integer
+    add_column :entities, :entity_users_count,  :integer, default: 0
+    add_column :entities, :topics_count,        :integer, default: 0
+    add_column :users,    :entity_users_count,  :integer, default: 0
     Entity.all.each do |e|
       Entity.update_counters e.id, entity_users_count: e.entity_users.length,
                                    topics_count:       e.topics.length
@@ -14,6 +14,6 @@ class AddEntityUsersCountToEntitiesAndUsers < ActiveRecord::Migration
   def down
     remove_column :entities, :entity_users_count
     remove_column :entities, :topics_count
-    remove_column :users, :entity_users_count
+    remove_column :users,    :entity_users_count
   end
 end
