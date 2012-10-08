@@ -10,7 +10,7 @@ module Api::V1
 =end
 
     def create
-      topic = Topic.create!(params[:topic])
+      topic = @current_user.topics.create!(params[:topic])
       topic.entity_user_join(topic.entity_user)
       render json: TopicPresenter.new(topic)
     end
