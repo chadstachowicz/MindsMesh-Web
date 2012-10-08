@@ -39,9 +39,14 @@ module Api::V1
       render json: {message: text}
     end
 
-    #POST /register_device
+    #POST /home/register_device
     def register_device
-      render json: {message: "data received, code not yet implanted", params: params.except(:controller, :action)}
+      ud = @current_user.user_devices.first_or_initialize(token: params[:user_device][:token])
+      if ud.update_attributes(params[:user_device])
+        render json: true
+      else
+        render json: {message: ud.errors.full_messages}
+      end
     end
 
   end
