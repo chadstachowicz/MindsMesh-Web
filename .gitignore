@@ -18,5 +18,6 @@
 /config/database.yml
 /config/settings.yml
 /config/exceptional.yml
+/config/apn
 /app/assets/stylesheets/scaffolds.css.scss
 /mindsmesh_production-snapshot*

@@ -24,6 +24,7 @@ gem 'paperclip'
 gem 'aws-sdk', '~> 1.3.4'
 gem 'mails_viewer'
 gem 'will_paginate'
+gem 'rapns'
 
 group :assets do
   gem 'sass' #so other gems don't alert
