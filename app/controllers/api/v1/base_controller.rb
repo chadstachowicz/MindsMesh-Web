@@ -26,6 +26,7 @@ class Api::V1::BaseController < ApplicationController
                 params: params
               }
             }
+    logger.info data
     render json: data, status: :not_acceptable
   end
 
