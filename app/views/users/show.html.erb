@@ -35,6 +35,7 @@
                       data: {disable_with: "hold on..."}
                       %>
       <%= li @user.access_token, style: 'font-size:9px;' %>
+      <%= li "#{@user.user_devices.count} devices", style: 'font-size:9px;' %>
       <%= li "last seen @ #{l @user.last_login_at, format: :short}", style: 'font-weight: bold' %>
     <% end %>
   </ul>

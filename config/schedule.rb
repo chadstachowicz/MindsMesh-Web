@@ -5,6 +5,7 @@ job_type :script,  "cd :path && RAILS_ENV=:environment bundle exec ruby script/:
 
 every :reboot do
   script "stalker_daemon restart"
+  command "bundle exec rapns production"
 end
 
 # Learn more: http://github.com/javan/whenever

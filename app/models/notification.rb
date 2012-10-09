@@ -84,7 +84,13 @@ class Notification < ActiveRecord::Base
       #TODO: unsubscribe
       puts email = user.entity_user_requests.first.email
       MyMail.notify_new_reply(user, post, email).deliver
+
+      #notify mobile devices
+      user.user_devices.each do |ud|
+        n.new_apn(ud.token).save!
+      end
     end
+    true
   end
 
   def self.notify_users_in_topic(topic, action, ignore_user_id)
@@ -100,6 +106,24 @@ class Notification < ActiveRecord::Base
     n.actors_count = new_actors_count
     n.save! #ensure it's persisted
     n.notify_on_facebook #TODO: rescue, log in db
+    n
+  end
+
+  def new_apn(device_token)
+    n = Rapns::Notification.new
+    n.app = "mindsmesh_development"
+    n.device_token = device_token
+    n.alert = facebook_message
+    n.badge = 1
+    n.sound = "1.aiff"
+    n.expiry = 1.day.to_i
+    n.attributes_for_device = {
+      notification_id:  id,
+      target_type:      target_type,
+      target_id:        target_id
+    }
+    n.deliver_after = 1.minutes.from_now
+    #n.save!
     n
   end
 
