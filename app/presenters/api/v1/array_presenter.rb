@@ -10,7 +10,6 @@ class Api::V1::ArrayPresenter
     array.map(&:as_json)
   end
 
-
   def with_parents
     array.map(&:with_parents)
   end

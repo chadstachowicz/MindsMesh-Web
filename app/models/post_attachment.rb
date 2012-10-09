@@ -28,4 +28,14 @@ class PostAttachment < ActiveRecord::Base
     subtype = file.content_type.include?('image') ? 'image' : 'file'
     post.post_attachments.create!(subtype: subtype, file: file)
   end
+
+
+  #
+  def ext_path
+    accepted_exts = %w(_page _blank aac css dotx exe hpp java mp3 ods ott png qt sql txt xml aiff bmp dat dwg flv html jpg mp4 odt ppt rar tga wav yml ai c dmg dxf gif ics key mpg otp pdf psd rb tgz xls zip avi cpp doc eps h iso mid odf ots php py rtf tiff xlsx)
+    ext = file.original_filename.split('.').last
+    ext = accepted_exts.first unless accepted_exts.include? ext
+    "/images/file_types/32px/#{ext}.png"
+  end
+
 end

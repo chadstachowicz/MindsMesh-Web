@@ -14,6 +14,7 @@ module Api::V1
 
     def with_children
       as_json.merge({
+        post_attachments: PostAttachmentPresenter.array(m.post_attachments).to_json,
         replies: m.replies.map { |r| r.as_json.merge({ user: UserPresenter.new(r.user) }) }
       })
     end
