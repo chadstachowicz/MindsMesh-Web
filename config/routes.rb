@@ -1,5 +1,18 @@
 Mindsmesh::Application.routes.draw do
 
+  #rails generate versionist:new_controller notifications api/V1
+  #then adapt the generated files
+  api_version(:module => "api/V1", :path=>"api/v1") do
+    resources :notifications, only: [] do
+      collection do
+        get 'grouped/with_parents', action: 'grouped_with_parents'
+      end
+      member do
+        post :mark_as_read
+      end
+    end
+  end
+
   namespace 'api' do
 
     api_version(:module => "V1", :path=>"v1") do
