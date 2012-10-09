@@ -414,11 +414,10 @@ $(sel).dataTable({
 });
 
 $("a[act='open_master_assign_entity_modal']").live('click', function() {
-  var x = $(this).closest('tr').find('td.sorting_1');
   var modal = $("#master_assign_entity_modal");
   var user_field = modal.find('.control-group-user-field');
 
- 
+  var x = $(this).closest('tr').find('td:first');
   user_field.find('img').attr('src', $(x).find('img').attr('src'));
   user_field.find('span').html( $(x).find('a').html() );
   user_field.find('#entity_user_user_id').val( $(x).find('a').data('user-id') );
