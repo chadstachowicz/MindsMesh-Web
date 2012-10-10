@@ -440,33 +440,6 @@ $('#master_assign_entity_modal form').live("ajax:beforeSend", function(e) {
   }
 });
 
-
-
-
-
-/*
-
-$(".reply_modal form").live("ajax:beforeSend", function(e) {
-  if (  $.trim($(this).find('textarea').val()).length == 0)
-    return false;
-  $(this).val('');
-}).live("ajax:complete", function(e, data) {
-  $(this).closest('.modal').modal('hide').find('textarea').val('');
-
-  if (data.status == 200) {
-    $(this).closest('.post').find('.js_replies_holder').show();
-    $(this).closest(".post").find(".replies").append(data.responseText).find(".best_in_place").best_in_place();
-    $(this).closest(".post").find(".reply:last").effect("highlight", highlight_options, 1200);
-    var c = $(this).closest(".post").find(".reply").length;
-    $(this).closest(".post").find(".replybutton span").html(c);//TODO: new counter of replies
-  } else {
-    bad_reply =  {e: e, data: data};
-    alert("an error #"+data.status+" has occurred.\n\n"+data.responseText);
-  }
-});
-
-*/
-
 $('.select2').each(function() {
 
   $(this).select2({
@@ -512,5 +485,18 @@ $(function() {
   app1.newtopic.init();
   app1.fb.init();
   app1.datatables.init();
+
+
+
+$('form#new_invite_request').live("ajax:complete", function(e, data) {
+
+  if (data.status == 200) {
+    $(this).find('textarea').val('');
+    alert("email sent successfully");
+  } else {
+    alert("an error #"+data.status+" has occurred.\n\n"+data.responseText);
+  }
+});
+
 
 });

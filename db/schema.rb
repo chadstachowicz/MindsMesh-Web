@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120927225507) do
+ActiveRecord::Schema.define(:version => 20121010013835) do
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -37,8 +37,8 @@ ActiveRecord::Schema.define(:version => 20120927225507) do
     t.datetime "updated_at",                            :null => false
     t.string   "domains"
     t.string   "state_name"
-    t.integer  "entity_users_count"
-    t.integer  "topics_count"
+    t.integer  "entity_users_count", :default => 0
+    t.integer  "topics_count",       :default => 0
   end
 
   create_table "entity_user_requests", :force => true do |t|
@@ -78,6 +78,18 @@ ActiveRecord::Schema.define(:version => 20120927225507) do
 
   add_index "fb_friends", ["friend_user_id"], :name => "index_fb_friends_on_friend_user_id"
   add_index "fb_friends", ["user_id"], :name => "index_fb_friends_on_user_id"
+
+  create_table "invite_requests", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "entity_id"
+    t.integer  "topic_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "invite_requests", ["entity_id"], :name => "index_invite_requests_on_entity_id"
+  add_index "invite_requests", ["topic_id"], :name => "index_invite_requests_on_topic_id"
+  add_index "invite_requests", ["user_id"], :name => "index_invite_requests_on_user_id"
 
   create_table "likes", :force => true do |t|
     t.integer  "user_id"
@@ -274,6 +286,20 @@ ActiveRecord::Schema.define(:version => 20120927225507) do
 
   add_index "topics", ["entity_id"], :name => "index_topics_on_entity_id"
 
+  create_table "user_devices", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "os"
+    t.string   "model"
+    t.string   "name"
+    t.string   "token"
+    t.string   "environment"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "user_devices", ["user_id", "token"], :name => "index_user_devices_on_user_id_and_token"
+  add_index "user_devices", ["user_id"], :name => "index_user_devices_on_user_id"
+
   create_table "users", :force => true do |t|
     t.string   "name"
     t.string   "gender"
@@ -289,7 +315,7 @@ ActiveRecord::Schema.define(:version => 20120927225507) do
     t.datetime "updated_at",                        :null => false
     t.string   "access_token"
     t.datetime "last_login_at"
-    t.integer  "entity_users_count"
+    t.integer  "entity_users_count", :default => 0
   end
 
 end

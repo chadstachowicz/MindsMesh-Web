@@ -13,10 +13,15 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  helper_method :current_user
+  helper_method :current_user, :me, :my_ca
 
   def current_user
     @current_user ||= User.find(session[:user_id]) rescue nil if session[:user_id]
+  end
+  alias :me :current_user
+
+  def my_ca
+    "#{controller_name}##{action_name}"
   end
 
   def redirect_to_landing_home_page

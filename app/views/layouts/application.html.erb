@@ -52,6 +52,7 @@
         <td class="sidebar" id="sidebar_right">
           <%#= render '/home/feedback' if (current_user.posts.size+current_user.replies.size) > 2 %>
           <%= render '/topics/new_topic' %>
+          <%= yield 'email_invite_on_topics_show'  %>
           <%= render '/fb_invites_rightbar' if my_fb_friends_i_should_invite.any? %>
         </td>
         <% end %>

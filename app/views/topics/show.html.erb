@@ -1,3 +1,23 @@
+<% content_for 'email_invite_on_topics_show' do %>
+  <% ir = InviteRequest.new(entity_id: @topic.entity_id, topic_id: @topic.id) %>
+  <%= form_for(ir, remote: true, format: :json) do |f| %>
+    <div class="modal-body">
+      <%= f.hidden_field :entity_id %>
+      <%= f.hidden_field :topic_id %>
+      <div class="field">
+        <h4 style="color: #46A546;">Invite Friends</h4>
+        <%= text_area :emails, nil, class: 'input-block-level', placeholder: "abc@gmail.com, abc@gmail.com, abc@gmail.com, abc@gmail.com" %>
+      </div>
+    </div>
+    <div class="modal-footer" style="border-bottom: #eee solid 2px;border-radius:0">
+      <div class="actions">
+        <%= submit_tag "invite friends", class: 'btn btn-primary' %>
+      </div>
+    </div>
+  <% end %>
+<% end %>
+
+
 <% if can? :more_posts, @topic %>
   <% if @topic_user.present? %>
     <%= render '/posts/new_post', topic_user: @topic_user if @topic_user.present? %>

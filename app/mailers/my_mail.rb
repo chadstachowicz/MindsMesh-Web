@@ -21,4 +21,11 @@ class MyMail < ActionMailer::Base
 
     mail to: email, subject: "You have a new answer on MindsMesh!"
   end
+
+  def invite(invite_request, email)
+    @invite_request = ir = invite_request
+    @subject = "Your friend #{ir.user.name} has invited you to study for #{ir.topic.title} on MindsMesh.com"
+    mail to: email, subject: @subject
+  end
+
 end
