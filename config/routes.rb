@@ -136,7 +136,7 @@ Mindsmesh::Application.routes.draw do
   #relating to an entity
   get "home/entities"
   post "home/entities" => "home#create_entity_request", as: 'home_create_entity_request'
-  get "home/confirm/:confirmation_token" => "home#confirm_entity_request", as: 'home_confirm_entity_request'
+  get "home/confirm/:confirmation_token(/:name)" => "home#confirm_entity_request", as: 'home_confirm_entity_request'
 
   #client, a user associated to entity
   match "fb_canvas" => 'home#fb_canvas'

@@ -1,4 +1,6 @@
 %h3= "Hi #{@user.name}, Welcome to MindsMesh"
-%p Please, click on the following link to
-%p= link_to "confirm your school email", home_confirm_entity_request_url(@token, host: @host)
+%p Please, click on the following link to confirm your school email
+%p= link_to @link, @link
 %p and get information to prepare for your exams
+%p Regards,
+%p Minds Mesh Team
