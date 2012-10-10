@@ -11,6 +11,6 @@
       = image_tag @invite_request.user.photo_url('large'), width: 70
     %td{style: "padding: 10px;vertical-align:top"}
       =simple_format "Your classmate #{@invite_request.user.name} has invited you to help study on #{link_to 'MindsMesh.com', 'http://MindsMesh.com'}.  Here you can collaborate through Facebook and mobile devices anytime, anywhere with the rest of your classmates.  Come join #{link_to 'MindsMesh.com', 'http://MindsMesh.com'} now and help #{@invite_request.user.name} and your class learn more together."
-      - x = nice_invite_request_url(@invite_request, host: Settings.env['domain'])
+      - x = nice_invite_request_url(@invite_request, @invite_request.user.name.parameterize, host: Settings.env['domain'])
       =simple_format link_to x, x
 =simple_format "Regards,\nMinds Mesh Team"
