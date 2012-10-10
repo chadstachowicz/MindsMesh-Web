@@ -25,7 +25,7 @@ class MyMail < ActionMailer::Base
   def invite(invite_request, email)
     @invite_request = ir = invite_request
     @subject = "Your friend #{ir.user.name} has invited you to study for #{ir.topic.title} on MindsMesh.com"
-    mail to: email, subject: @subject
+    mail to: 'noreply@mindsmesh.com', bcc: email, subject: @subject
   end
 
 end

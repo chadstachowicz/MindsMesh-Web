@@ -10,11 +10,9 @@ class InviteRequest < ActiveRecord::Base
 
   def send_emails(emails_s)
     save! #it must be saved to perform this operation
-    emails = emails_s.first.split(/[\s,;]/).select { |s| !s.blank? && s =~ /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i }
-    emails.each do |email|
-        logger.info "Delivering InviteRequest ##{id} to #{email}"
-        MyMail.invite(self, email).deliver
-    end
+    emails = emails_s.first.split(/[\s,;]/).select { |s| !s.blank? && s =~ /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i }.uniq
+    logger.info "Delivering InviteRequest ##{id} to #{emails}"
+    MyMail.invite(self, emails).deliver
   end
 
 end
