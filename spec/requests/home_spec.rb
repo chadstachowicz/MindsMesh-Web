@@ -1,6 +1,11 @@
 require 'spec_helper'
+require 'my_capybara_helper'
 
 describe 'Home' do
+
+  before do
+    capybara_before
+  end
 
   describe "GET /home/index" do
 
@@ -25,11 +30,12 @@ describe 'Home' do
 
       #submits valid email
       visit home_entities_path
+      tmp_email = "#{Faker::Internet.user_name}@uncc.edu"
       -> do
-        fill_in('email', with: "#{Faker::Internet.user_name}@uncc.edu")
+        fill_in('email', with: tmp_email)
         click_button 'submit'
       end.should change { EntityUserRequest.count }.by(1)
-      page.should have_content('true')
+      page.should have_content("a confirmation email has been sent to #{tmp_email}")
 
       # - clicks the confirmation email (currently mocked in the view)
       #clicks invalid link

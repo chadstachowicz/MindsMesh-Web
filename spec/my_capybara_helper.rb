@@ -1,5 +1,9 @@
 #helper methods for capybara request specs
 
+def capybara_before
+  ActionDispatch::Request.any_instance.stub(user_agent: 'capybara')
+end
+
 def capybara_current_user!
   visit '/auth/facebook'
   @current_user = User.last

@@ -3,6 +3,11 @@ require 'my_capybara_helper'
 
 describe "Topics" do
 
+  before do
+    capybara_before
+    capybara_current_user!
+  end
+
 =begin
   describe "GET /topics/new" do
     it "capybara: creates a topic as an admin" do
@@ -31,7 +36,6 @@ describe "Topics" do
   describe "PUT /topics/1/join" do
 
     it "capybara: joins a topic as a student" do
-      capybara_current_user!
       @topic = Fabricate(:topic, entity_user: EntityUser.first)
 
       #sees the page

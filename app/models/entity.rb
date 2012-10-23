@@ -8,11 +8,12 @@ class Entity < ActiveRecord::Base
   has_many :entity_users, 		    dependent: :destroy
   has_many :topics, 			        dependent: :destroy
   validates_presence_of :name
-  validates_presence_of :slug
-  validates_uniqueness_of :slug
   validates_presence_of :domains
   validates_presence_of :state_name
 
+  #field slug is generated
+  validates_presence_of :slug
+  validates_uniqueness_of :slug
   before_validation :slugify
 
   def slugify

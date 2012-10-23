@@ -1,6 +1,11 @@
 require 'spec_helper'
+require 'my_capybara_helper'
 
 describe "Session" do
+
+  before do
+    capybara_before
+  end
 
   describe "GET /auth/facebook" do
     it "with capybara: triggers callback and creates Bob Example" do
