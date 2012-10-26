@@ -9,11 +9,22 @@ job 'login.continue' do |args|
 end
 
 job 'facebook.apprequests.clear' do |args|
-  @oauth=KoalaFactory.new_oauth
-  signed_request = @oauth.parse_signed_request(args['signed_request'])
-  puts "signed_request: #{signed_request}"
+  if args['signed_request']
+    @oauth=KoalaFactory.new_oauth
+    signed_request = @oauth.parse_signed_request(args['signed_request'])
+    puts "signed_request: #{signed_request}"
 
-  @graph = KoalaFactory.new_graph(signed_request["oauth_token"])
+    @graph = KoalaFactory.new_graph(signed_request["oauth_token"])
+  elsif args['user_id']
+    @user = User.find(args['user_id'])
+    puts "user: #{user.id} - #{user.name}"
+
+    @graph = user.fb_api
+  else
+    raise "invalid args: #{args}"
+  end
+  #@graph.is_a? Koala::Facebook::API
+
   me_apprequests = @graph.get_connections('me', 'apprequests', fields: 'id')
   puts "me_apprequests: #{me_apprequests}"
 

@@ -23,6 +23,12 @@ class SessionController < ApplicationController
     cookies['user_photo'] = login.user.photo_url('large')
     cookies['user_name']  = login.user.name
     cookies['user_link']  = url_for(login.user)
+
+    if session[:must_clear_fb_apprequests]
+      session[:must_clear_fb_apprequests] = nil
+      logger.info "Stalker.enqueue('facebook.apprequests.clear', user_id: #{login.user_id})"
+      Stalker.enqueue('facebook.apprequests.clear', user_id: login.user_id)
+    end
     redirect_to_landing_home_page
   end
 

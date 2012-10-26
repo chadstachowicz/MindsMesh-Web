@@ -9,6 +9,10 @@ class HomeController < ApplicationController
   def fb_canvas
     if params[:signed_request]
       Stalker.enqueue('facebook.apprequests.clear', signed_request: params[:signed_request])
+      logger.info "Stalker.enqueue('facebook.apprequests.clear', signed_request: ...)"
+    else
+      session[:must_clear_fb_apprequests] = true
+      logger.info "session[:must_clear_fb_apprequests] = true"
     end
     #should not use this oauth to log user in, it expires in a few hours
     #redirecting to facebook is the right way
