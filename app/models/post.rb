@@ -4,6 +4,7 @@ class Post < ActiveRecord::Base
   has_many :replies, dependent: :destroy
   has_many :likes,   dependent: :destroy, as: :likable
   has_many :post_attachments, dependent: :destroy
+  has_many :notifications,   dependent: :destroy, as: :target
 
   attr_accessible :text, :topic_user, :topic_user_id
   validates_presence_of :topic
