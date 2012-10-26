@@ -7,9 +7,6 @@ Mindsmesh::Application.routes.draw do
       collection do
         get 'grouped/with_parents', action: 'grouped_with_parents'
       end
-      member do
-        post :mark_as_read
-      end
     end
   end
 

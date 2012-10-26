@@ -5,6 +5,7 @@ module Api::V1
     # GET /api/v1/notifications/1
     def show
       n = Notification.find(params[:id])
+      n.mark_as_read!
       render json: NotificationPresenter.new(n).with_parents
     end
 
@@ -16,13 +17,6 @@ module Api::V1
       render json: {read:   NotificationPresenter.array(@read).with_parents,
                     unread: NotificationPresenter.array(@unread).with_parents
                     }
-    end
-
-    # POST /api/v1/notifications/1/mark_as_read
-    def mark_as_read
-      n = Notification.find(params[:id])
-      n.mark_as_read!
-      render json: true
     end
 
   end
