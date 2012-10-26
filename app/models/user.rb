@@ -70,6 +70,14 @@ class User < ActiveRecord::Base
     "http://facebook.com/#{fb_id}"
   end
 
+  def fb_api_expired?
+    fb_api == :expired
+  end
+
+  def fb_api_expire!
+    update_column(:fb_expires_at, 1.seconds.ago)
+  end
+
   def fb_api
     return :expired if fb_expires_at < Time.now
     @fb_api ||= KoalaFactory.new_graph(fb_token)
