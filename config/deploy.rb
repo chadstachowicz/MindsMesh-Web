@@ -114,3 +114,4 @@ namespace :stalk do
     run "#{basic_command} start"
   end
 end
+after "deploy", "stalk:restart"
