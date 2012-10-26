@@ -134,7 +134,18 @@ class Notification < ActiveRecord::Base
   end
   
   def notify_on_facebook
-    user.fb_api.put_connections('me', 'apprequests', message: facebook_message, data: id)
+    unless user.fb_api_expired?
+      begin
+        user.fb_api.put_connections('me', 'apprequests', message: facebook_message, data: id)
+      rescue Koala::Facebook::APIError => e
+        puts e.class
+        puts e.message
+        if e.message.include? 'validating access token'
+          user.fb_api_expire!
+          puts "Saved. FB Access Token Expired :("
+        end
+      end
+    end
   end
   
   def notify_on_email(email)
