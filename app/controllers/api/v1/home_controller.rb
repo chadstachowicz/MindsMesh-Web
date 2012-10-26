@@ -41,7 +41,7 @@ module Api::V1
 
     #POST /home/register_device
     def register_device
-      ud = @current_user.user_devices.first_or_initialize(token: params[:user_device][:token])
+      ud = @current_user.user_devices.where(token: params[:user_device][:token]).first_or_initialize
       if ud.update_attributes(params[:user_device])
         render json: true
       else
