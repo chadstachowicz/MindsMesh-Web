@@ -1,4 +1,5 @@
 require "bundler/capistrano"
+require "capistrano_colors" # Color capistrano output for readability
 load "config/recipes/db_backups"
 
 role :web, "50.116.44.225"
