@@ -108,6 +108,8 @@ end
 namespace :stalk do
   desc "restarts beanstalkd"
   task :restart do
-    run "RAILS_ENV=production ruby #{current_path}/script/stalker_daemon restart"
+    basic_command = "RAILS_ENV=production ruby #{current_path}/script/stalker_daemon"
+    run "#{basic_command} stop"
+    run "#{basic_command} start"
   end
 end
