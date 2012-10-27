@@ -10,13 +10,13 @@ end
 
 job 'facebook.apprequests.clear' do |args|
   if args['signed_request']
-    @oauth=KoalaFactory.new_oauth
-    signed_request = @oauth.parse_signed_request(args['signed_request'])
+    oauth=KoalaFactory.new_oauth
+    signed_request = oauth.parse_signed_request(args['signed_request'])
     puts "signed_request: #{signed_request}"
 
     @graph = KoalaFactory.new_graph(signed_request["oauth_token"])
   elsif args['user_id']
-    @user = User.find(args['user_id'])
+    user = User.find(args['user_id'])
     puts "user: #{user.id} - #{user.name}"
 
     @graph = user.fb_api
