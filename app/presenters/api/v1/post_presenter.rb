@@ -19,5 +19,14 @@ module Api::V1
       })
     end
 
+    def with_family
+      as_json.merge({
+        user:  UserPresenter.new(m.user),
+        topic: TopicPresenter.new(m.topic),
+        post_attachments: PostAttachmentPresenter.array(m.post_attachments).to_json,
+        replies: m.replies.map { |r| r.as_json.merge({ user: UserPresenter.new(r.user) }) }
+      })
+    end
+
   end
 end

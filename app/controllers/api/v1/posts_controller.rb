@@ -1,6 +1,16 @@
 module Api::V1
   class PostsController < BaseController
 
+    def index
+      posts = @current_user.posts_feed(params.slice(:limit, :before))
+      render json: PostPresenter.array(posts)
+    end
+
+    def posts_with_family
+      posts = @current_user.posts_feed(params.slice(:limit, :before))
+      render json: PostPresenter.array(posts).map(&:with_family)
+    end
+
     def show
       render json: PostPresenter.new(post)
     end

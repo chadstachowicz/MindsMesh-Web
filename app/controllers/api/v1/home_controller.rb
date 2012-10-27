@@ -1,16 +1,6 @@
 module Api::V1
   class HomeController < BaseController
 
-    def posts
-      posts = @current_user.posts_feed(params.slice(:limit, :before))
-      render json: PostPresenter.array(posts)
-    end
-
-    def posts_with_parents
-      posts = @current_user.posts_feed(params.slice(:limit, :before))
-      render json: PostPresenter.array(posts).map(&:with_parents)
-    end
-
     def entities
       entities = @current_user.entities
       render json: EntityPresenter.array(entities)
