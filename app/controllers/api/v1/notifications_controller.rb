@@ -19,5 +19,12 @@ module Api::V1
                     }
     end
 
+    # GET /api/v1/notifications/1/mark_as_read
+    def mark_as_read
+      n = Notification.find(params[:id])
+      n.mark_as_read!
+      render json: true
+    end
+
   end
 end
