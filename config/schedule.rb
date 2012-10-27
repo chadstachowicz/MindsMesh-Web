@@ -1,11 +1,9 @@
 env :PATH, ENV['PATH']
 set :output, "#{path}/log/cron.log"
 
-job_type :script,  "cd :path && RAILS_ENV=:environment bundle exec ruby script/:task :output"
-
 every :reboot do
-  script "stalker_daemon restart"
-  command "bundle exec rapns production"
+  command "cd :path && RAILS_ENV=:environment bundle exec ruby script/stalker_daemon restart :output"
+  command "cd :path && bundle exec rapns :environment"
 end
 
 # Learn more: http://github.com/javan/whenever
