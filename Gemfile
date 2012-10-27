@@ -59,4 +59,5 @@ group :development, :test do
   gem 'template_rider'
   gem 'faker'
   gem 'spork'
+  gem 'thin'
 end
