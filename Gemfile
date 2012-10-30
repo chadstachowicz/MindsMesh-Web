@@ -10,8 +10,8 @@ gem 'colorize'
 gem 'best_in_place'
 gem 'friendly_id'
 gem 'haml'
-gem 'capistrano'
-gem 'capistrano_colors'
+gem 'capistrano', require: false
+gem 'capistrano_colors', require: false
 gem 'koala'
 gem 'newrelic_rpm'
 gem 'daemons'

@@ -18,17 +18,3 @@ test:
   domain: test.host
   facebook:
     <<: *facebook
-
-production:
-  <<: *defaults
-  domain: mindsmesh.com
-  sendgrid:
-    username: lala 
-    password: lala
-  facebook:
-    key: lala
-    secret: lala
-    options: {scope: 'email,user_education_history,friends_education_history,user_birthday,friends_birthday'}
-  s3:
-    access_key_id: lala
-    secret_access_key: lala
