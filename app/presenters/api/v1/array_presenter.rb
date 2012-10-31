@@ -14,4 +14,8 @@ class Api::V1::ArrayPresenter
     array.map(&:with_parents)
   end
 
+  def with_family
+    array.map(&:with_family)
+  end
+
 end

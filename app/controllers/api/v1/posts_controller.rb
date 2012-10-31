@@ -8,7 +8,7 @@ module Api::V1
 
     def posts_with_family
       posts = @current_user.posts_feed(params.slice(:limit, :before))
-      render json: PostPresenter.array(posts).map(&:with_family)
+      render json: PostPresenter.array(posts).with_family
     end
 
     def show

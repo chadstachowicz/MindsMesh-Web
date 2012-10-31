@@ -24,9 +24,9 @@ module Api::V1
     	render json: PostPresenter.array(posts)
     end
 
-    def posts_with_parents
+    def posts_with_family
       posts = topic.posts.as_feed(params.slice(:limit, :before))
-      render json: PostPresenter.array(posts).map(&:with_parents)
+      render json: PostPresenter.array(posts).with_family
     end
 
     def join

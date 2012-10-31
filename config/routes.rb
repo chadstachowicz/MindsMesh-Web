@@ -40,7 +40,7 @@ Mindsmesh::Application.routes.draw do
       resources :topics, only: [:show, :create] do
         member do
           get 'posts'
-          get 'posts/with_parents', action: 'posts_with_parents'
+          get 'posts/with_family', action: 'posts_with_family'
           post 'join'
           post 'leave'
         end
