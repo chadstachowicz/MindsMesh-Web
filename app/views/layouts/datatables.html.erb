@@ -23,14 +23,8 @@
         <% if current_user %>
         <ul class="nav">
           <li><a id="logo" href="/"><%= image_tag('template2/header_small.png') %></a></li>
-          <%= render '/notifications/dropdown' %>
         </ul>
         <% end %>
-
-        <ul class="nav pull-right">
-          <li><a href="/"><i class="icon-home"></i> Home</a></li>
-          <%= render '/my_account_dropdown' if current_user %>
-        </ul>
 
       </div>
     </div>
@@ -45,8 +39,7 @@
     <%= yield %>
   
     <%= render '/footer' %>
-    <%= render '/fb_invites' if my_fb_friends_i_should_invite.any? %>
-    <%= render '/master_assign_entity_modal' %>
+    <%= render '/partials/datatables/master_assign_entity_modal' %>
   </div>
 
 

@@ -33,6 +33,9 @@ class HomeController < ApplicationController
     @posts = current_user.posts_feed
   end
 
+  def ajax_application
+  end
+
   def login
     render layout: 'home_guest'
   end
