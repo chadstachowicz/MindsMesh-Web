@@ -148,6 +148,9 @@ Mindsmesh::Application.routes.draw do
   get '/home/topics'
   post 'home/fb_requests_sent'
   
+  #ajax
+  get "home/ajax_application", format: 'js'
+
   #questionnaire
   post "home/feedback"
 

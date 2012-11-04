@@ -21,16 +21,15 @@
       <div class="container">
 
         <% if current_user %>
-        <ul class="nav">
-          <li><a id="logo" href="/"><%= image_tag('template2/header_small.png') %></a></li>
-          <%= render '/notifications/dropdown' %>
-        </ul>
+          <ul class="nav" id="top_menu_left">
+            <li><a id="logo" href="/"><%= image_tag('template2/header_small.png') %></a></li>
+            <!-- placeholder ajax_application.js -->
+          </ul>
+          <ul class="nav pull-right" id="top_menu_right">
+            <li><a href="/"><i class="icon-home"></i> Home</a></li>
+            <!-- placeholder ajax_application.js -->
+          </ul>
         <% end %>
-
-        <ul class="nav pull-right">
-          <li><a href="/"><i class="icon-home"></i> Home</a></li>
-          <%= render '/my_account_dropdown' if current_user %>
-        </ul>
 
       </div>
     </div>
@@ -53,7 +52,7 @@
           <%#= render '/home/feedback' if (current_user.posts.size+current_user.replies.size) > 2 %>
           <%= render '/topics/new_topic' %>
           <%= yield 'email_invite_on_topics_show'  %>
-          <%= render '/fb_invites_rightbar' if my_fb_friends_i_should_invite.any? %>
+          <!-- placeholder ajax_application.js -->
         </td>
         <% end %>
       </tr>
@@ -62,7 +61,10 @@
     <%= render '/footer' %>
   </div>
 
-  <%= render '/fb_invites' if my_fb_friends_i_should_invite.any? %>
+  <!-- placeholder ajax_application.js -->
 
+<script type="text/javascript">
+  $.getScript("<%= home_ajax_application_path %>");
+</script>
 </body>
 </html>

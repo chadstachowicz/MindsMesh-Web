@@ -1,0 +1,39 @@
+if ($('#top_menu_left').length) {
+  var s = "<%= j render '/partials/application/notifications' %>";
+  $('#top_menu_left').append(s);
+});
+
+
+
+if ($('#top_menu_right').length) {
+  var s = "<%= j render '/partials/application/myaccount' %>";
+  $('#top_menu_right').append(s);
+});
+
+
+
+
+<% if my_fb_friends_i_should_invite.any? %>
+
+if ($('#sidebar_right').length) {
+  var s = "<%= j render '/partials/application/fb_invites_rightbar' %>";
+  $('#sidebar_right').append(s);
+});
+
+
+
+var s = "<%= j render '/partials/application/fb_invites' %>";
+$('body').append(s);
+
+
+
+
+if ($.cookie('suggest_invites') && $('#fb_friends_modal').length)
+{
+  setTimeout(function() {
+    $('#fb_friends_modal').modal();
+    $.cookie('suggest_invites', null);
+  }, 1000);
+}
+
+<% end %>
