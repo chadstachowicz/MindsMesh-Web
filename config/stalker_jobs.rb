@@ -3,6 +3,10 @@ require File.expand_path("../../config/environment", __FILE__)
 
 include Stalker
 
+job 'test' do |args|
+  puts "test "*10
+end
+
 job 'login.continue' do |args|
   puts "-"*60
   user = User.find args['user_id']
