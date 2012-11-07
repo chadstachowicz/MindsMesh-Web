@@ -1,6 +1,11 @@
 module Api::V1
   class PostPresenter < BasePresenter
 
+    def self.array(models)
+      a = models.map { |m| PostPresenter.new m }
+      ArrayPresenter.new(a)
+    end
+
     def as_json(options={})
       m.as_json(options)
     end
