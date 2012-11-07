@@ -21,7 +21,7 @@ module Api::V1
 
     def posts
     	posts = topic.posts(params.slice(:limit, :before))
-    	render json: PostPresenter.array(posts)
+    	render json: PostPresenter.array(posts).to_json
     end
 
     def posts_with_family
