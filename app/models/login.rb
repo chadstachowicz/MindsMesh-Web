@@ -8,6 +8,8 @@ class Login < ActiveRecord::Base
 
   def self.auth!(auth)
     raise "invalid facebook login" if auth.nil?
+    
+    login = nil
     transaction do
       login = Login.where(provider: auth["provider"], uid: auth["uid"].to_s).first_or_initialize
 
@@ -19,14 +21,16 @@ class Login < ActiveRecord::Base
         auth['credentials']['token'],
         Time.at(auth['credentials']['expires_at'])
       )
-      return login
     end
+    Stalker.enqueue('login.continue', user_id: login.user_id.to_s)
+    return login
   end
 
   def self.with_access_token!(fb_token, fb_expires_at)
     return :invalid if fb_token.blank?
     fb_expires_at = fb_expires_at ? Time.at(fb_expires_at) : 1.month.from_now
 
+    login = nil
     transaction do
       fb_api = Koala::Facebook::API.new(fb_token)
       me = fb_api.get_object('me')
@@ -38,8 +42,9 @@ class Login < ActiveRecord::Base
         fb_token,
         fb_expires_at
       )
-      return login
     end
+    Stalker.enqueue('login.continue', user_id: login.user_id.to_s)
+    return login
   end
 
   def auth
@@ -61,7 +66,6 @@ class Login < ActiveRecord::Base
     self.user.touch #expires all cache that users user.updated_at
     #stores friend self
     #list.user.store_fb_friends!
-    Stalker.enqueue('login.continue', user_id: user_id.to_s)
   end
 
 end
