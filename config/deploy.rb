@@ -117,6 +117,6 @@ after 'deploy:setup', 'nginx:setup'   #see recipes/nginx
 after "deploy:setup", "unicorn:setup" #see recipes/unicorn
 after "deploy", "deploy:cleanup"      # keep only the last 5 releases
 
-#after "deploy", "stalker:restart"    #less commands finish faster
+after "deploy", "stalker:restart"    #less commands finish faster
 after "deploy:cold", "rapns:start" #doesnt need to restart, it doesnt change with the app's code
 after "deploy:finalize_update", "database:override_database_yml" #see recipes/database
