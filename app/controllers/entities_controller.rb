@@ -5,7 +5,7 @@ class EntitiesController < ApplicationController
   # GET /entities
   def index
     page_limit = params[:page_limit] || 10
-    q = "%#{params[:q].gsub(' ', '%')}%"
+    q = "%#{params[:q].to_s.gsub(' ', '%')}%"
     @entities = @entities.where("UPPER(name) lIKE UPPER(:q)", q: q).limit(page_limit)
     respond_with(@entities)
   end
