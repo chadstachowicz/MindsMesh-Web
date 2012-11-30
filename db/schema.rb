@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121010013835) do
+ActiveRecord::Schema.define(:version => 20121130031804) do
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(:version => 20121010013835) do
     t.string   "state_name"
     t.integer  "entity_users_count", :default => 0
     t.integer  "topics_count",       :default => 0
+    t.string   "moodle_url"
   end
 
   create_table "entity_user_requests", :force => true do |t|
