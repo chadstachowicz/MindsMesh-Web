@@ -1,31 +1,18 @@
-<h1>Listing entities</h1>
+<div class="page-header">
+  <h1>Listing Entities</h1>
+</div>
 
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Slug</th>
-    <th>Domains</th>
-    <th>State</th>
-    <th>Topics</th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @entities.each do |entity| %>
-  <tr>
-    <td><%= link_to entity.name, entity %></td>
-    <td><%= entity.slug %></td>
-    <td><%= entity.domains %></td>
-    <td><%= entity.state_name %></td>
-    <td>
-      0<%= entity.topics_count %> topics
-    </td>
-    <td><%= link_to 'Edit', edit_entity_path(entity) %></td>
-    <td><%= link_to 'Destroy', entity, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
+<table data-source="<%= datatable_filter_entities_url(format: :json) %>">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Slug</th>
+      <th>State</th>
+      <th>Topics</th>
+      <th>Users</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
 </table>
-
-<br />
-
-<%= link_to 'New Entity', new_entity_path %>

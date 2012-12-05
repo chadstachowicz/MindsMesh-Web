@@ -15,7 +15,7 @@
     <div class="control-group">
       <%= f.label :entity_id, "School", class: "control-label" %>
       <div class="controls">
-        <%= f.hidden_field :entity_id, class: 'select2', placeholder: "Select a School", width: '384px', data: {source: entities_url(format: :js)} %>
+        <%= f.hidden_field :entity_id, class: 'select2', placeholder: "Select a School", width: '384px', data: {source: select2_filter_entities_url(format: :js)} %>
       </div>
     </div>
     <div class="control-group">

@@ -4,10 +4,22 @@ class EntitiesController < ApplicationController
 
   # GET /entities
   def index
+    render layout: 'datatables'
+  end
+
+
+  # GET /entities/datatable_filter
+  def datatable_filter
+    render json: EntitiesDatatable.new(view_context)
+  end
+
+  # GET /entities/select2_filter.js
+  # params: 
+  def select2_filter
     page_limit = params[:page_limit] || 10
     q = "%#{params[:q].to_s.gsub(' ', '%')}%"
     @entities = @entities.where("UPPER(name) lIKE UPPER(:q)", q: q).limit(page_limit)
-    respond_with(@entities)
+    #respond_with(@entities)
   end
 
   # GET /entities/1

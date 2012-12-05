@@ -94,7 +94,12 @@ Mindsmesh::Application.routes.draw do
 
   #general resources, most of these have permissions
   resources :questionnaires, only: [:index, :show, :destroy]
-  resources :entities
+  resources :entities do
+    collection do
+      get 'select2_filter', format: 'js'
+      get 'datatable_filter', format: 'json'
+    end
+  end
   
   resources :entity_users, only: [:create]
   resources :topic_users
