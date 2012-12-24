@@ -19,6 +19,10 @@ module ApplicationHelper
     ['home#index', 'home#topics', 'users#show', 'topics#show', 'posts#show'].include?(this)
   end
 
+  def localized_short_format(t)
+    t.nil? ? 'never' : l(t, format: :short)
+  end
+
   def my_fb_friends_i_should_invite
     is_ie_below_9 = (request.user_agent.include?('MSIE') && !request.user_agent.include?('MSIE 9.0'))
     limit = (is_ie_below_9) ? 25 : 50
