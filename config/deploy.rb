@@ -88,8 +88,8 @@ ssh_options[:forward_agent] = true
 
 
 #custom begin
-set :whenever_command, "bundle exec whenever"
-require "whenever/capistrano"
+# set :whenever_command, "bundle exec whenever"
+# require "whenever/capistrano"
 =begin
 require "delayed/recipes"
 set :rails_env, "production" #added for delayed job

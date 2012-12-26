@@ -133,6 +133,24 @@ class User < ActiveRecord::Base
     topics.where("name LIKE ?", "%#{q}%")
   end
 
+
+
+
+
+  #login
+  def save_with_facebook_data!(fb_uid, name, gender, token, expires_at)
+    #      
+    self.name          = name
+    self.gender        = gender
+    self.fb_id         = fb_uid
+    self.fb_token      = token
+    self.fb_expires_at = expires_at
+    #expires all cache that users user.updated_at
+    self.save!
+    #stores friend self
+    #list.user.store_fb_friends!
+  end
+
   private
 
   def joins_self_joining_entities

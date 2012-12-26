@@ -27,6 +27,7 @@ class Api::V1::BaseController < ApplicationController
               }
             }
     logger.info data
+    logger.info exception.backtrace
     render json: data, status: :not_acceptable
   end
 
