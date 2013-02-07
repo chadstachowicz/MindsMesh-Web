@@ -25,7 +25,8 @@ gem 'paperclip'
 gem 'aws-sdk', '~> 1.3.4'
 gem 'mails_viewer'
 gem 'will_paginate'
-gem 'rapns', '~> 2.0.5.rc1'
+gem 'rapns'
+gem 'pg'
 
 group :assets do
   gem 'sass' #so other gems don't alert
@@ -52,8 +53,8 @@ group :development, :test do
   gem 'fabrication'
   gem 'launchy'
   gem 'database_cleaner'
-  gem 'libnotify'
-  gem 'rb-inotify'
+  gem 'libnotify' if /linux/ =~ RUBY_PLATFORM
+  gem 'rb-inotify' if /linux/ =~ RUBY_PLATFORM
   gem 'guard-rspec'
   gem 'railroady'
   gem 'template_rider'
