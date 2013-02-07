@@ -53,8 +53,6 @@ group :development, :test do
   gem 'fabrication'
   gem 'launchy'
   gem 'database_cleaner'
-  gem 'libnotify' if /linux/ =~ RUBY_PLATFORM
-  gem 'rb-inotify' if /linux/ =~ RUBY_PLATFORM
   gem 'guard-rspec'
   gem 'railroady'
   gem 'template_rider'
