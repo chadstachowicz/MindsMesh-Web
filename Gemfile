@@ -27,6 +27,7 @@ gem 'mails_viewer'
 gem 'will_paginate'
 gem 'rapns'
 gem 'pg'
+gem 'thin'
 
 group :assets do
   gem 'sass' #so other gems don't alert
@@ -56,5 +57,4 @@ group :development, :test do
   gem 'template_rider'
   gem 'faker'
   gem 'spork'
-  gem 'thin'
 end
