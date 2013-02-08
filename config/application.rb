@@ -16,7 +16,7 @@ module Mindsmesh
     # -- all .rb files in that directory are automatically loaded.
 
     # Custom directories with classes and modules you want to be autoloadable.
-    config.autoload_paths += %W(#{config.root}/lib)
+    config.autoload_paths += config.autoload_paths += Dir["#{config.root}/lib/**/"]
 
     config.generators do |g|
       g.test_framework      :rspec, :fixture => true

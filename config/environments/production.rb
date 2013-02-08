@@ -1,3 +1,4 @@
+require 'Settings'
 ActionMailer::Base.smtp_settings = {
   user_name:            Settings.env['sendgrid']['username'],
   password:             Settings.env['sendgrid']['password'],
