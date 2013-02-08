@@ -30,7 +30,6 @@ gem 'pg'
 gem 'thin'
 gem 'jquery-datatables-rails'
 
-group :assets do
   gem 'sass' #so other gems don't alert
   gem 'sass-rails'
   gem 'coffee-rails'
@@ -39,6 +38,9 @@ group :assets do
   gem 'bootstrap-sass'
   gem 'font-awesome-sass-rails'
   gem 'select2-rails'
+
+group :assets do
+
 end
 
 group :production do
