@@ -1,0 +1,31 @@
+facebook: &facebook
+  key: 274790155904059
+  secret: aa3dc1b647378b4fdd096234751afc51
+  options: {scope: 'email,user_education_history,friends_education_history,user_birthday,friends_birthday'}
+
+defaults: &defaults
+  admin_email: tapgyn@gmail.com
+  s3: false
+
+development:
+  <<: *defaults
+  domain: 0.0.0.0:3000
+  facebook:
+    <<: *facebook
+
+test:
+  <<: *defaults
+
+production:
+ <<: *defaults
+ domain: mindsmesh.herokuapp.com
+ sendgrid:
+   username: cstachowicz
+   password: M1ndsM3sh1
+ facebook:
+   key: 391884850858794
+   secret: 3e2ce240f4214646bf11bacd11378ab0
+   options: {scope: 'email,user_education_history,friends_education_history,user_birthday,friends_birthday'}
+ s3:
+   access_key_id: AKIAIKFVJ3EMAIBXELBQ
+   secret_access_key: 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

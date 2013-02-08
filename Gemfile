@@ -28,6 +28,7 @@ gem 'will_paginate'
 gem 'rapns'
 gem 'pg'
 gem 'thin'
+gem 'settingslogic'
 
 group :assets do
   gem 'sass' #so other gems don't alert

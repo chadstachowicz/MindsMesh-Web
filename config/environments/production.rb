@@ -1,4 +1,4 @@
-require 'Settings'
+require "#{Rails.root}/lib/settings.rb"
 ActionMailer::Base.smtp_settings = {
   user_name:            Settings.env['sendgrid']['username'],
   password:             Settings.env['sendgrid']['password'],

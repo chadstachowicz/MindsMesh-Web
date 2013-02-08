@@ -1,5 +1,4 @@
 OmniAuth.config.logger = Rails.logger
-require 'Settings'
 Rails.application.config.middleware.use OmniAuth::Builder do
   fb = Settings.env["facebook"]
   provider "facebook", fb["key"], fb["secret"], fb["options"]

@@ -17,7 +17,6 @@ module Mindsmesh
 
     # Custom directories with classes and modules you want to be autoloadable.
     config.autoload_paths += config.autoload_paths += Dir["#{config.root}/lib/**/"]
-
     config.generators do |g|
       g.test_framework      :rspec, :fixture => true
       g.fixture_replacement :fabrication
