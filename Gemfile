@@ -28,6 +28,7 @@ gem 'will_paginate'
 gem 'rapns'
 gem 'pg'
 gem 'thin'
+gem 'jquery-datatables-rails'
 
 group :assets do
   gem 'sass' #so other gems don't alert
@@ -37,7 +38,6 @@ group :assets do
   gem 'therubyracer', :platform => :ruby
   gem 'bootstrap-sass'
   gem 'font-awesome-sass-rails'
-  gem 'jquery-datatables-rails'
   gem 'select2-rails'
 end
 
