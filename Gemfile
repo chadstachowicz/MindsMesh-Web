@@ -31,7 +31,7 @@ gem 'thin'
 gem 'jquery-datatables-rails'
 
   gem 'sass' #so other gems don't alert
-  gem 'sass-rails'
+  gem 'sass-rails', git: 'https://github.com/rails/sass-rails.git', branch: '3-2-stable'
   gem 'coffee-rails'
   gem 'uglifier', '>= 1.0.3'
   gem 'therubyracer', :platform => :ruby
