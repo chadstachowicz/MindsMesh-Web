@@ -13,7 +13,6 @@
  *= require dataTables/jquery.dataTables
  *= require dataTables/jquery.dataTables.bootstrap
  *= require select2
- *= questionnaires
- *= newlayout
- *= template
+ *= require newlayout
+ *= require template
  */
