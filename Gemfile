@@ -29,7 +29,7 @@ gem 'rapns'
 gem 'pg'
 gem 'thin'
 gem 'jquery-datatables-rails'
-gem "mini_magick", :require => 'MiniMagick'
+gem "mini_magick"
 gem 'fabrication'
 
   gem 'sass' #so other gems don't alert
