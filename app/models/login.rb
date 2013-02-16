@@ -21,7 +21,7 @@ class Login < ActiveRecord::Base
       Time.at(auth['credentials']['expires_at'])
     )
     # end
-    Stalker.enqueue('login.continue', user_id: user.id.to_s)
+    #   Stalker.enqueue('login.continue', user_id: user.id.to_s)
     return user
   end
 
@@ -44,7 +44,7 @@ class Login < ActiveRecord::Base
       fb_expires_at
     )
     # end
-    Stalker.enqueue('login.continue', user_id: user.id.to_s)
+#   Stalker.enqueue('login.continue', user_id: user.id.to_s)
     return user
   end
 

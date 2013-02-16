@@ -29,6 +29,8 @@ gem 'rapns'
 gem 'pg'
 gem 'thin'
 gem 'jquery-datatables-rails'
+gem "mini_magick", :require => 'MiniMagick'
+gem 'fabrication'
 
   gem 'sass' #so other gems don't alert
   gem 'sass-rails', git: 'https://github.com/rails/sass-rails.git', branch: '3-2-stable'
@@ -51,7 +53,6 @@ group :development, :test do
   gem 'turn', :require => false
   gem 'rspec-rails'
   gem 'capybara'
-  gem 'fabrication'
   gem 'launchy'
   gem 'database_cleaner'
   gem 'guard-rspec'
