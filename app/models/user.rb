@@ -41,8 +41,8 @@ class User < ActiveRecord::Base
 
   ROLES = {
             master:    30,
-            #admin:     20,
-            #manager:   10,
+            school_admin:     20,
+            faculty:   10,
             moderator: 1
           }
 

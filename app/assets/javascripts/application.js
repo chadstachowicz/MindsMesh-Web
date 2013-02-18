@@ -21,4 +21,6 @@
 //= require dataTables/jquery.dataTables
 //= require dataTables/jquery.dataTables.bootstrap
 //= require select2
-//= require_tree .
+//= require confirm
+//= require posts
+//= require layout
