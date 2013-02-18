@@ -1,7 +1,7 @@
 $(function() {
 
   //fix: twitter-bootstrap dropdown for ipad
-  $('body').on('touchstart.dropdown', '.dropdown-menu', function (e) { e.stopPropagation(); });
+  $('body').live('touchstart.dropdown', '.dropdown-menu', function (e) { e.stopPropagation(); });
 
   $("a[rel=popover]").popover()
   //$(".tooltip, a[rel=tooltip], .tooltiped").tooltip({animation: false, placement: 'top'})

@@ -4,9 +4,9 @@ var highlight_options = {color: $green};
 
 
 
-$('.post, .reply, .post .files li').on('mouseover', function() {
+$('.post, .reply, .post .files li').live('mouseover', function() {
   $(this).addClass('hover');
-}).on('mouseout', function() {
+}).live('mouseout', function() {
   $(this).removeClass('hover');
 });
 
@@ -19,7 +19,7 @@ app1.newpost = {
   init:
     function() {
 /*
-$("form#new_post").on("ajax:success", function(e, data) {
+$("form#new_post").live("ajax:success", function(e, data) {
   $("#posts").prepend(data).find(".best_in_place").best_in_place();
   $('.post:first').effect("highlight", highlight_options, 1200);
 });
@@ -27,14 +27,14 @@ $("form#new_post").on("ajax:success", function(e, data) {
 
 //_new_post
 
-$("#new_post textarea").on("focus", function(e) {
+$("#new_post textarea").live("focus", function(e) {
   $(this).switchClass('', 'long', 'fast');
   $('body').addClass('new_post_exposed');
-}).on("blur", function(e) {
+}).live("blur", function(e) {
   $('body').removeClass('new_post_exposed');
 });
 
-$("#new_post_create").on('click', function(e) {
+$("#new_post_create").live('click', function(e) {
   if ($('#new_post textarea').val().length < 10) {
     alert('a reasonable question should have at least 10 letters');
     $('#new_post textarea').focus();
@@ -45,24 +45,24 @@ $("#new_post_create").on('click', function(e) {
   }
 });
 
-$(".newpostbutton").on('click', function(e) {
+$(".newpostbutton").live('click', function(e) {
   var tu_id = $(this).data('topic-user-id');
   $("input#post_topic_user_id").val(tu_id);
   $("#new_post").submit();
 });
 /*
-$("#new_post").on("ajax:beforeSend", function(e) {
+$("#new_post").live("ajax:beforeSend", function(e) {
   $(this).find('textarea').val('');
 });
 */
 
-$("#new_post a.add_file").on("click", function() {
+$("#new_post a.add_file").live("click", function() {
   var sel = "<p><input name='files[:c]' type='file' class='type-file' /><a href='#' class='btn btn-mini'>x</a></p>".replace(':c', app1.newpost.files_count++);
   $(sel).insertBefore(this);
   return false;
 });
 
-$("#new_post .files p a").on("click", function() {
+$("#new_post .files p a").live("click", function() {
   $(this).parent().slideUp('fast').find('input').remove();
   return false;
 });
@@ -89,28 +89,28 @@ app1.posts = {
     function() {
 
 //_post
-$(".js_post_actions a[data-method=delete]").on("ajax:beforeSend", function() {
+$(".js_post_actions a[data-method=delete]").live("ajax:beforeSend", function() {
   $(this).closest(".post").animate({opacity: 0}, "fast", function() {
     $(this).slideUp("fast");
   });
 });
 
 //_post -> reply
-$(".js_reply_actions a[data-method=delete]").on("ajax:beforeSend", function() {
+$(".js_reply_actions a[data-method=delete]").live("ajax:beforeSend", function() {
   $(this).closest(".reply").animate({opacity: 0}, "fast", function() {
     $(this).slideUp("fast");
   });
 });
 
 //_posts
-$("#posts a.more").on("ajax:beforeSend", function() {
+$("#posts a.more").live("ajax:beforeSend", function() {
   $(this).fadeOut('fast');
 });
-$("#posts a.more").on("ajax:success", function(e, data) {
+$("#posts a.more").live("ajax:success", function(e, data) {
   $("#posts").append(data).find(".best_in_place").best_in_place();
   $('#posts .posts_pack:last').effect("highlight", highlight_options, 1200);
 });
-$(".post .files a[data-method=delete]").on("ajax:beforeSend", function() {
+$(".post .files a[data-method=delete]").live("ajax:beforeSend", function() {
   $(this).closest("li").animate({opacity: 0}, "fast", function() {
     $(this).slideUp("fast");
   });
@@ -118,7 +118,7 @@ $(".post .files a[data-method=delete]").on("ajax:beforeSend", function() {
 
 
 
-$(".post .files a").on("mouseover mouseout", function(e) {
+$(".post .files a").live("mouseover mouseout", function(e) {
   var a_trash = $(this).closest('li').find('a.trash');
   if (e.type=='mouseover') {
     a_trash.show();
@@ -130,11 +130,11 @@ $(".post .files a").on("mouseover mouseout", function(e) {
 
 //_post -> new reply
 
-$(".reply_modal form").on("ajax:beforeSend", function(e) {
+$(".reply_modal form").live("ajax:beforeSend", function(e) {
   if (  $.trim($(this).find('textarea').val()).length == 0)
     return false;
   $(this).val('');
-}).on("ajax:complete", function(e, data) {
+}).live("ajax:complete", function(e, data) {
   $(this).closest('.modal').modal('hide').find('textarea').val('');
 
   if (data.status == 200) {
@@ -152,7 +152,7 @@ $(".reply_modal form").on("ajax:beforeSend", function(e) {
 
 //_reply
 
-$("a[data-scroll-to-reply]").on("click", function() {
+$("a[data-scroll-to-reply]").live("click", function() {
   var sel = $(this).data('scroll-to-reply');
   $('body').scrollTo( sel, 'fast', {offset:-150} );
   $(sel).find('textarea').focus();
@@ -161,12 +161,12 @@ $("a[data-scroll-to-reply]").on("click", function() {
 
 //like
 /*
-$(".pushpin").on("ajax:success", function(e, data) {
+$(".pushpin").live("ajax:success", function(e, data) {
   //$(this).closest('.post').find(".likebutton span").html(data);
   alert('liked')
 });
 */
-$(".pushpin").on("click", function() {
+$(".pushpin").live("click", function() {
   var div_post    = $(this).closest('.post');
   var pushpin_on  = div_post.hasClass('pushpin_on');
   var post_id     = div_post.data('id');
@@ -218,7 +218,7 @@ app1.newtopic = {
   init:
     function() {
 
-$("form#new_topic").on("ajax:complete", function(e, data) {
+$("form#new_topic").live("ajax:complete", function(e, data) {
   var response = jQuery.parseJSON( data.responseText );
   if (data.status == 201) {
     window.location = "/topics/:slug".replace(':slug', response.slug);
@@ -238,7 +238,7 @@ $("form#new_topic").on("ajax:complete", function(e, data) {
 
 TOPIC_FILTER_TIMEOUT_ID = 0;
 
-$("#topics_filter #q").on("keyup", function() {
+$("#topics_filter #q").live("keyup", function() {
   
 
 
@@ -333,12 +333,12 @@ $.getScript('https://connect.facebook.net/en_US/all.js', function() {
 
 
 
-$('.invite_friends_button').on('click', function() {
+$('.invite_friends_button').live('click', function() {
   app1.fb.sendRequestToRecipients();
   return false;
 });
 
-$('.select_and_invite_friends_button').on('click', function() {
+$('.select_and_invite_friends_button').live('click', function() {
   app1.fb.sendRequestViaMultiFriendSelector();
   return false;
 });
@@ -413,7 +413,7 @@ $(sel).dataTable({
   sAjaxSource: $(sel).data('source')
 });
 
-$("a[act='open_master_assign_entity_modal']").on('click', function() {
+$("a[act='open_master_assign_entity_modal']").live('click', function() {
   var modal = $("#master_assign_entity_modal");
   var user_field = modal.find('.control-group-user-field');
 
@@ -428,9 +428,9 @@ $("a[act='open_master_assign_entity_modal']").on('click', function() {
   return false;
 });
 
-$('#master_assign_entity_modal form').on("ajax:beforeSend", function(e) {
+$('#master_assign_entity_modal form').live("ajax:beforeSend", function(e) {
   //validate and return false
-}).on("ajax:complete", function(e, data) {
+}).live("ajax:complete", function(e, data) {
 
   if (data.status == 200) {
     alert("Assigned Successfully");
@@ -488,7 +488,7 @@ $(function() {
 
 
 
-$('form#new_invite_request').on("ajax:complete", function(e, data) {
+$('form#new_invite_request').live("ajax:complete", function(e, data) {
 
   if (data.status == 200) {
     $(this).find('textarea').val('');
