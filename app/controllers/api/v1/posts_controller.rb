@@ -47,9 +47,13 @@ module Api::V1
     end
 
     def create
-        @post = Post.create! params[:post]
-        params[:files] and params[:files].values.each do |file|
-            PostAttachment.my_create_file!(@post, file)
+        @post = Post.new(:topic_user_id => params[:topic_user_id], :text => params[:text])
+        @post.save
+	if params[:file]
+            PostAttachment.my_create_file!(@post, params[:file]
+
+
+)
         end
        render json: PostPresenter.new(post)
     end

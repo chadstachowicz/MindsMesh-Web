@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121130031804) do
+ActiveRecord::Schema.define(:version => 20130227010146) do
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -124,6 +124,32 @@ ActiveRecord::Schema.define(:version => 20121130031804) do
 
   add_index "logins", ["provider", "uid"], :name => "index_logins_on_provider_and_uid"
   add_index "logins", ["user_id"], :name => "index_logins_on_user_id"
+
+  create_table "message_attachments", :force => true do |t|
+    t.integer  "message_id"
+    t.string   "subtype"
+    t.string   "link_url"
+    t.string   "file_file_name"
+    t.string   "file_content_type"
+    t.integer  "file_file_size"
+    t.datetime "file_updated_at"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+  end
+
+  add_index "message_attachments", ["message_id"], :name => "index_message_attachments_on_message_id"
+
+  create_table "messages", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "receiver_id"
+    t.string   "receiver_fb_id"
+    t.text     "text"
+    t.integer  "replies_count"
+    t.integer  "expired"
+    t.datetime "expiration_date"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
 
   create_table "notifications", :force => true do |t|
     t.integer  "user_id"

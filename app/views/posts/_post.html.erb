@@ -120,7 +120,7 @@
         <% if pa.file? %>
           <li>
           	<% if pa.file.original_filename.match(/\.mov$/i) %>
-          	   <EMBED src="post.mov" qtsrc="<%=pa.file.url%>" WIDTH=auto HEIGHT=500 AUTOPLAY=false CONTROLLER=true LOOP=false PLUGINSPAGE=http://www.apple.com/quicktime/">
+          	   <EMBED src="<%=pa.file.url%>" qtsrc="<%=pa.file.url%>" WIDTH=auto HEIGHT=500 scale=tofit AUTOPLAY=false CONTROLLER=true LOOP=false PLUGINSPAGE=http://www.apple.com/quicktime/">
           	<% else %>
           <%= link_to(pa.file.url, class: 'file btn btn-link', target: '_blank', title: "Click for download (#{number_to_human_size pa.file.size})") do %>
             <%= image_tag pa.ext_path, width: 32, height: 32 %>
