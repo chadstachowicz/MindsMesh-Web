@@ -9,7 +9,7 @@ class PostAttachment < ActiveRecord::Base
 
 
   validates_presence_of :subtype
-  validates_attachment :file, size: { less_than: 10.megabytes }
+  validates_attachment :file, size: { less_than: 50.megabytes }
   validate :validate_not_executable
 
   def validate_not_executable
