@@ -162,6 +162,7 @@ GEM
     multi_json (1.6.1)
     multi_xml (0.5.3)
     multipart-post (1.2.0)
+    mysql (2.9.1)
     mysql2 (0.3.11)
     net-http-persistent (2.8)
     net-scp (1.1.0)
@@ -346,6 +347,7 @@ DEPENDENCIES
   launchy
   mails_viewer
   mini_magick
+  mysql
   mysql2
   newrelic_rpm
   omniauth-facebook
