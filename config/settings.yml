@@ -1,10 +1,10 @@
 facebook: &facebook
-  key:  325545057555650
-  secret: 9edcbb410892574527deb9409bf12320
+  key: 325545057555650
+  secret: c60f05f4033eb502365cfffa205b2ca1
   options: {scope: 'email,user_education_history,friends_education_history,user_birthday,friends_birthday'}
 
 defaults: &defaults
-  admin_email: tapgyn@gmail.com
+  admin_email: chadstachowicz@gmail.com
   s3: false
 
 development:

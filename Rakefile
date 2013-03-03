@@ -7,7 +7,8 @@ require 'resque/tasks'
 require 'rack'
 require 'rails'
 
-task "resque:setup" => :envronment do
+task "resque:preload" => :environment
+task "resque:setup" do
       ENV['QUEUE'] ||= '*'
       Resque.before_fork = Proc.new { ActiveRecord::Base.establish_connection }
 end
