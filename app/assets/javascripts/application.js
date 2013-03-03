@@ -20,7 +20,10 @@
 //= require best_in_place
 //= require dataTables/jquery.dataTables
 //= require dataTables/jquery.dataTables.bootstrap
+//= require layout
 //= require select2
 //= require confirm
 //= require posts
-//= require layout
+//= require flowplayer-3.2.12.min
+//= require swfobject
+//= require jwplayer

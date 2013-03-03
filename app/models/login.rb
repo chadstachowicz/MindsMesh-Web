@@ -1,4 +1,5 @@
-require 'stalker'
+require 'resque'
+require File.expand_path('../../../lib/resque/login_continue', __FILE__)
 class Login < ActiveRecord::Base
   belongs_to :user
   attr_accessible :auth_s, :provider, :uid
@@ -21,7 +22,7 @@ class Login < ActiveRecord::Base
       Time.at(auth['credentials']['expires_at'])
     )
     # end
-    #   Stalker.enqueue('login.continue', user_id: user.id.to_s)
+    Resque.enqueue(LoginContinue, user.id.to_s)
     return user
   end
 
@@ -44,7 +45,7 @@ class Login < ActiveRecord::Base
       fb_expires_at
     )
     # end
-#   Stalker.enqueue('login.continue', user_id: user.id.to_s)
+    Resque.enqueue(LoginContinue, user.id.to_s)
     return user
   end
 
