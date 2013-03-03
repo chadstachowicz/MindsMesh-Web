@@ -120,19 +120,18 @@
         <% if pa.file? %>
           <li>
           	<% if pa.file.original_filename.match(/\.mov$/i) or pa.file.original_filename.match(/\.flv$/i)  %>
-			<a class="player" href="<%=pa.file.url%>"
-   				 style="display:block;width:300px;height:500px;" id="<%=post.id%>"> 				 
-			</a>
-<script language="JavaScript">
-flowplayer("<%=post.id%>", "/assets/flowplayer-3.2.16.swf", {
- clip: {
-        url: "<%=pa.file.url%>",
-        autoPlay: false,
-        metaData:{
-        	forceOrientation: -6,	
-        }
-    }
- });
+          	
+          	
+          	<div id='mediaplayer'></div>
+
+<script type="text/javascript">
+  jwplayer('mediaplayer').setup({
+    'flashplayer': 'jwplayer.flash.swf',
+    'id': 'playerID',
+    'width': '300',
+    'height': '500',
+    'file': '<%=pa.file.url%>',
+  });
 </script>
           	<% else %>
           <%= link_to(pa.file.url, class: 'file btn btn-link', target: '_blank', title: "Click for download (#{number_to_human_size pa.file.size})") do %>

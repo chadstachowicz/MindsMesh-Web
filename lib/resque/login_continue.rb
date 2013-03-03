@@ -9,6 +9,7 @@ module RetriedJob
 end
 
 class LoginContinue
+    extend RetriedJob
     
     @queue = :facebook
     

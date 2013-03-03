@@ -24,6 +24,4 @@
 //= require select2
 //= require confirm
 //= require posts
-//= require flowplayer-3.2.12.min
-//= require swfobject
 //= require jwplayer
