@@ -27,8 +27,8 @@ class SessionController < ApplicationController
 
     if session[:must_clear_fb_apprequests]
       session[:must_clear_fb_apprequests] = nil
-      logger.info "Stalker.enqueue('facebook.apprequests.clear', user_id: #{user.id})"
-      Stalker.enqueue('facebook.apprequests.clear', user_id: user.id)
+      logger.info "Resque.enqueue('facebook.apprequests.clear', user_id: #{user.id})"
+      Resque.enqueue('facebook.apprequests.clear', "", user.id)
     end
     redirect_to_landing_home_page
   end

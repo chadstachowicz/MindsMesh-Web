@@ -14,7 +14,7 @@ class Reply < ActiveRecord::Base
   default_scope order(:id)
 
   def lazy_notify
-    Stalker.enqueue('notify.new.reply', id: id.to_s) unless Rails.env.test?
+    Resque.enqueue(NotifyNewReply, id.to_s) unless Rails.env.test?
   end
   
 end

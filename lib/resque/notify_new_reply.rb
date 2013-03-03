@@ -8,14 +8,14 @@ module RetriedJob
     end
 end
 
-class LoginContinue
+class NotifyNewReply
     extend RetriedJob
     
-    @queue = :facebook
+    @queue = :notify 
     
- def self.perform(user_id)
+ def self.perform(id)
     puts "-"*60
-    user = User.find user_id
-    user.store_fb_friends!
+    reply = Reply.find(id)
+    Notification.notify_about_new_reply(reply)
  end
 end

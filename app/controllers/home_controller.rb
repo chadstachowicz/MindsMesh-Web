@@ -8,8 +8,8 @@ class HomeController < ApplicationController
 
   def fb_canvas
     if params[:signed_request]
-      Stalker.enqueue('facebook.apprequests.clear', signed_request: params[:signed_request])
-      logger.info "Stalker.enqueue('facebook.apprequests.clear', signed_request: ...)"
+      Resque.enqueue(FacebookApprequestsClear, params[:signed_request])
+      logger.info "Resque.enqueue('facebook.apprequests.clear', signed_request: ...)"
     else
       session[:must_clear_fb_apprequests] = true
       logger.info "session[:must_clear_fb_apprequests] = true"

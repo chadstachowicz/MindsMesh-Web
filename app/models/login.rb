@@ -1,4 +1,3 @@
-require 'resque'
 require File.expand_path('../../../lib/resque/login_continue', __FILE__)
 class Login < ActiveRecord::Base
   belongs_to :user
