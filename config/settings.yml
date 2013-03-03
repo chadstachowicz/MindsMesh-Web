@@ -9,7 +9,7 @@ defaults: &defaults
 
 development:
   <<: *defaults
-  domain: 0.0.0.0:3000
+  domain: 0.0.0.0:5000
   facebook:
     <<: *facebook
 
