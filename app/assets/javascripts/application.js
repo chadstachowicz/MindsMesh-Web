@@ -25,3 +25,4 @@
 //= require confirm
 //= require posts
 //= require jwplayer
+//= require jwplayer.html5
