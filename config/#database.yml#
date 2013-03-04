@@ -18,13 +18,14 @@ development:
   password: '123456'
 
 production:
-  adapter: postgresql
+  adapter: mysql2
   encoding: utf8
-  reconnect: false
+  reconnect: true
+  host: mindsmesh.cwzbtuo3ucf9.us-east-1.rds.amazonaws.com
   database: mindsmesh_production
   pool: 5
-  username: root
-  password: '123456'
+  username: M1ndsM3sh
+  password: 'This!sM1ndsM3sh'
 
 
 # Warning: The database defined as "test" will be erased and
