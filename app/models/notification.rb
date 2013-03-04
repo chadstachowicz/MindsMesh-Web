@@ -117,13 +117,12 @@ class Notification < ActiveRecord::Base
     n.sound = "1.aiff"
     n.expiry = 1.day.to_i
     n.attributes_for_device = {
-      notification_id:  id,
-      target_type:      target_type,
-      target_id:        target_id
+        :notification_id => id,
+        :target_type =>      target_type,
+        :target_id    =>    target_id
     }
     n.deliver_after = 1.minutes.from_now
-    #n.save!
-    n
+    n.save!
   end
 
   def mark_as_read!
