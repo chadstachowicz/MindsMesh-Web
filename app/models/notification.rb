@@ -87,7 +87,7 @@ class Notification < ActiveRecord::Base
 
       #notify mobile devices
       user.user_devices.each do |ud|
-        n.new_apn(ud.token).save!
+        n.new_apn(ud.token,ud.environment).save!
       end
     end
     true
@@ -109,9 +109,13 @@ class Notification < ActiveRecord::Base
     n
   end
 
-  def new_apn(device_token)
+  def new_apn(device_token,environment)
     n = Rapns::Apns::Notification.new
-    n.app = Rapns::Apns::App.find_by_name("ios_app")
+    if environment == 'production'
+        n.app = Rapns::Apns::App.find_by_name("ios_app")
+    else
+        n.app = Rapns::Apns::App.find_by_name("ios_app_dev")
+    end
     n.device_token = device_token
     n.alert = facebook_message
     n.sound = "1.aiff"
