@@ -110,11 +110,10 @@ class Notification < ActiveRecord::Base
   end
 
   def new_apn(device_token)
-    n = Rapns::Notification.new
-    n.app = "mindsmesh_#{Rails.env}"
+    n = Rapns::Apns::Notification.new
+    n.app = Rapns::Apns::App.find_by_name("ios_app")
     n.device_token = device_token
     n.alert = facebook_message
-    n.badge = 1
     n.sound = "1.aiff"
     n.expiry = 1.day.to_i
     n.attributes_for_device = {
