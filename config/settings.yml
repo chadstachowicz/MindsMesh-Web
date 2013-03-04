@@ -23,8 +23,8 @@ production:
    username: cstachowicz
    password: M1ndsM3sh1
  facebook:
-   key: 259882220808982
-   secret:  a2ff27f9559ba51ad2f1ad18153355a6
+   key: 391884850858794
+   secret:  3e2ce240f4214646bf11bacd11378ab0
    options: {scope: 'email,user_education_history,friends_education_history,user_birthday,friends_birthday'}
  s3:
    access_key_id: AKIAIKFVJ3EMAIBXELBQ
