@@ -121,9 +121,7 @@ class Notification < ActiveRecord::Base
         :target_type =>      target_type,
         :target_id    =>    target_id
     }
-    n.deliver_after = 1.minutes.from_now
-    #n.save!
-    n
+    n.save!
   end
 
   def mark_as_read!
