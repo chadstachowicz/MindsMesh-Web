@@ -9,7 +9,6 @@ module RetriedJob
 end
 
 class FacebookApprequestsClear
-    extend RetriedJob
     
     @queue = :facebook
     
@@ -46,5 +45,6 @@ puts "me_apprequests: #{me_apprequests}"
     me_apprequests.each do |data|
         batch_api.delete_object(data['id'])
     end
+end
 end
 end

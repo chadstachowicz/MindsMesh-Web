@@ -9,7 +9,7 @@ module RetriedJob
 end
 
 class NotifyNewPost
-    extend RetriedJob
+
     
     @queue = :notify
     
