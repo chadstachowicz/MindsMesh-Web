@@ -125,7 +125,8 @@ class User < ActiveRecord::Base
 
   def posts_feed(options={})
     topic_ids = topic_users.map(&:topic_id)
-      follow_ids = follow_ids(&:follow_id)
+    follow_ids = follow_ids(&:follow_id)
+    follow_ids << self.id
     return [] if topic_ids.empty?
       Post.where('user_id in (:follow_ids) or topic_id in (:topic_ids)', :follow_ids => follow_ids, :topic_ids => topic_ids).as_feed(options)
   end

@@ -22,6 +22,8 @@
 //= require dataTables/jquery.dataTables
 //= require dataTables/jquery.dataTables.bootstrap
 //= require layout
+//= require highcharts
+//= require highchartsresize
 //= require select2
 //= require confirm
 //= require posts

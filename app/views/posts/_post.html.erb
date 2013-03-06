@@ -131,14 +131,14 @@
  			 jwplayer('mediaplayer').setup({
   			  'flashplayer': 'jwplayer.flash.swf',
    				 'id': 'playerID',
-  				  'max-width': '500',
-   			 'max-height': '500',
+  				  'max-width': '480',
+   			 'max-height': '480',
    			 'file': '<%=pa.file.url%>',
  			 });
 		</script>
 			<% elsif pa.file.original_filename.match(/\.png$/i) or pa.file.original_filename.match(/\.jpg$/i)  %>
 			<div id='image'>
-				<img src="<%=pa.file.url%>" style="max-width: 500px; max-height: 500px">
+				<img src="<%=pa.file.url%>" style="max-width: 480px; max-height: 480px">
 			</div>
 			
           	<% else %>

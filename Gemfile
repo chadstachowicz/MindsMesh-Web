@@ -29,6 +29,8 @@ gem 'will_paginate'
 gem 'rapns'
 gem 'pg'
 gem 'thin'
+gem 'lazy_high_charts'
+gem 'devise'
 gem 'jquery-datatables-rails'
 gem "mini_magick"
 gem "squeel"
