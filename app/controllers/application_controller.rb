@@ -28,7 +28,7 @@ class ApplicationController < ActionController::Base
     return redirect_to '/auth/facebook' if params['signed_request']
     return redirect_to :home_login      unless current_user
     return redirect_to :home_entities   if current_user.entity_users.size.zero?
-    return redirect_to :home_topics     if current_user.topics.to_a.empty?
+      #   return redirect_to :home_topics     if current_user.topics.to_a.empty?
     
     return redirect_to :root unless controller_name=='home'&&action_name=='index'
   end

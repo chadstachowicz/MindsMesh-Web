@@ -31,7 +31,7 @@ gem 'pg'
 gem 'thin'
 gem 'jquery-datatables-rails'
 gem "mini_magick"
-gem "flowplayer"
+gem "squeel"
 
 
   gem 'sass' #so other gems don't alert
@@ -62,4 +62,5 @@ group :development, :test do
   gem 'template_rider'
   gem 'faker'
   gem 'spork'
+  gem 'fabrication'
 end

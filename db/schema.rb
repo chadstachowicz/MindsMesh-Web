@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130304010610) do
+ActiveRecord::Schema.define(:version => 20130305202435) do
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -334,6 +334,16 @@ ActiveRecord::Schema.define(:version => 20130304010610) do
 
   add_index "user_devices", ["user_id", "token"], :name => "index_user_devices_on_user_id_and_token"
   add_index "user_devices", ["user_id"], :name => "index_user_devices_on_user_id"
+
+  create_table "user_follows", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "follow_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "user_follows", ["follow_id"], :name => "index_user_follows_on_follow_id"
+  add_index "user_follows", ["user_id"], :name => "index_user_follows_on_user_id"
 
   create_table "users", :force => true do |t|
     t.string   "name"

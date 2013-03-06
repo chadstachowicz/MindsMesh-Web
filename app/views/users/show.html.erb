@@ -6,7 +6,20 @@
     <center><%= image_tag @user.photo_url('large') %></center>
     
   </div>
-
+      <% if @user_follows.empty? %>
+  <div style="padding: 0 0 0 5px">
+    <%= link_to follow_user_path(@user),
+                method: 'put',
+                id: 'Follow',
+                class: 'btn btn-large btn-success input-block-level',
+                data: {disable_with: "hold on..."} do
+                %>
+                <i class="icon-check" style="font-size:36px"></i>
+                <br />
+                <span style="font-size:20px">Follow this user</span>
+                <% end %>
+  </div>
+  <% end %>
   <ul class="nav blue-nav nav-list">
     <li class="nav-header">
       <%= @user.name %>
@@ -14,6 +27,15 @@
     <%= li link_to  icon_text('facebook-sign', 'facebook profile'),
                     @user.fb_url,
                     target: '_blank' %>
+    <% if @user_follows.present? %>
+
+      <%= li link_to  icon_text('signout', 'unfollow this user'),
+                      unfollow_user_path(@user),
+                      method: 'put',
+                      id: 'leave',
+                      data: {disable_with: "hold on..."}
+                      %>
+    <% end %>
     
     <li class="nav-header">
       friends

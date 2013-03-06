@@ -101,9 +101,11 @@ Mindsmesh::Application.routes.draw do
   
   resources :entity_users, only: [:create]
   resources :topic_users
-  resources :users, only: [:index, :show, :edit, :update, :destroy] do
+    resources :users, only: [:index, :show, :edit, :update, :destroy] do
     member do
       get :more_posts
+      put :follow
+      put :unfollow
     end
   end
   resources :topics do

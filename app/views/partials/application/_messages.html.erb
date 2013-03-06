@@ -1,0 +1,17 @@
+<li class="dropdown">
+<a  href="#"
+    class="dropdown-toggle <%= current_user.messages.size.zero? ? 'inactive' : 'active' %>"
+    data-toggle="dropdown">
+    <i class="icon-envelope"></i>
+    <small><%= current_user.messages.size %></small>
+</a>
+<ul class="dropdown-menu dropdown-notifications">
+
+  <li class="nav-header">unread messages</li>
+  <%= render current_user.messages.limit(4) %>
+  <li class="divider"></li>
+  <li class="nav-header">read messages</li>
+  <%= render current_user.messages.limit(6) %>
+
+</ul>
+</li>

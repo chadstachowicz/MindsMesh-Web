@@ -1,9 +1,8 @@
 <div id="main_index">
 <%# length forces select * instead of counts, for the list is needed in this request %>
-<% if current_user.topic_users.any? %>
+
 <%= render '/posts/new_post', topic_user: nil %>
 <%= render '/posts/posts', posts: @posts, title: "My Mesh" %>
-<% end %>
 </div>
 
 <div data-sidebar="left" class="sidebar_content">

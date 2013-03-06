@@ -1,38 +1,19 @@
 <div id="new_post_wrapper">
   <%= form_for Post.new, url: home_create_post_path, html: {multipart: true} do |f| %>
     <%= f.hidden_field :topic_user_id, value: topic_user.try(:id) %>
-    <h3 class="title">GOT A QUESTION?</h3>
+    <%= f.hidden_field :user_id, value: @current_user.id %>
+    <h3 class="title">Share Something</h3>
     <%= f.text_area :text, class: 'input-block-level' %>
     <div class="files">
       <a href="#" class="add_file">add file</a>
     </div>
     <div>
-      <% if topic_user.present? %>
         <%= f.submit  nil,
                       id: 'new_post_create',
                       class: "btn btn-success btn-large float-right clear"
                       %>
-      <% else %>
-        <a class="btn btn-success btn-large" id="new_post_create">Create Post</a>
-      <% end %>
     </div>
     <div class="clear">
     </div>
-    <% if topic_user.blank? %>
-      <div class="modal hide" id="new_post_modal">
-        <div class="modal-header">
-          <h3>Pick a Topic</h3>
-        </div>
-        <div class="modal-body">
-
-          <% current_user.topic_users.includes(:topic).each do |tu| %>
-            <a href="#" class="btn btn-primary newpostbutton input-block-level" data-dismiss="modal" data-topic-user-id="<%= tu.id %>"><%= tu.topic.name %></a>
-          <% end %>
-        </div>
-        <div class="modal-footer">
-          <a href="#" class="btn" data-dismiss="modal">Cancel</a>
-        </div>
-      </div>
-    <% end %>
   <% end %>
 </div>

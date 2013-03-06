@@ -4,7 +4,7 @@
       class="dropdown-toggle"
       data-toggle="dropdown">
       <%= image_tag current_user.photo_url %>
-      <%=  text_icon('My Account', 'caret-down') %>
+      <%=  text_icon(current_user.name, 'caret-down') %>
   </a>
   <ul class="dropdown-menu">
     <% if session[:master_id] %>
@@ -17,7 +17,8 @@
     <% end %>
     <%= li link_to icon_text('user', "Go to my profile page"), current_user %>
     <li class="divider"></li>
-    <%= li link_to icon_text('envelope', "invite friends"), '#fb_friends_modal', data: {toggle: 'modal'} if my_fb_friends_i_should_invite.any? %>
+    <%= li link_to icon_text('envelope', "Invite friends"), '#fb_friends_modal', data: {toggle: 'modal'} if my_fb_friends_i_should_invite.any? %>
+<%= li link_to icon_text('cog', "Settings"), '#settings_modal', data: {toggle: 'modal'}%>
     <%= li link_to icon_text('signout', "Sign Out"), session_logout_path, id: 'sign_out' %>
   </ul>
 </li>

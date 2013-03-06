@@ -21,10 +21,15 @@
       <div class="container">
 
         <% if current_user %>
-          <ul class="nav" id="top_menu_left">
+          <ul class="nav pull-left" id="top_menu_left">
             <li><a id="logo" href="/"><%= image_tag('template2/header_small.png') %></a></li>
             <!-- placeholder ajax_application.js -->
           </ul>
+          <div style="float:none;margin-left:28%;margin-right:auto" >
+          <ul class="nav" id="top_menu_middle">
+            <li><input type="text" id="searchAll" style="width:400px;margin-top:4px;margin-bottom:4px"/></li>
+          </ul>
+          </div>
           <ul class="nav pull-right" id="top_menu_right">
             <li><a href="/"><i class="icon-home"></i> Home</a></li>
             <!-- placeholder ajax_application.js -->

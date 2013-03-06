@@ -6,8 +6,8 @@ class Post < ActiveRecord::Base
   has_many :post_attachments, dependent: :destroy
   has_many :notifications,   dependent: :destroy, as: :target
 
-  attr_accessible :text, :topic_user, :topic_user_id
-  validates_presence_of :topic
+    attr_accessible :text, :topic_user, :topic_user_id, :user_id
+  #validates_presence_of :topic
   validates_presence_of :user
   validates_presence_of :text
   validates_length_of :text, minimum: 10
@@ -44,7 +44,7 @@ class Post < ActiveRecord::Base
   before_validation :set_topic_user_correctly, on: :create
 
   def set_topic_user_correctly
-    if topic_user_id
+    if topic_user_id.present?
       self.topic_user=TopicUser.find(topic_user_id)
     end
     if topic_user

@@ -4,7 +4,10 @@ class User < ActiveRecord::Base
   has_many :entity_user_requests, dependent: :destroy
   has_many :entity_users,         dependent: :destroy
   has_many :topic_users,          dependent: :destroy
+  has_many :user_follows,         dependent: :destroy
+  has_many :follows,  :through => :user_follows
   has_many :posts,                dependent: :destroy
+  has_many :messages,             dependent: :destroy
   has_many :replies,              dependent: :destroy
   has_many :likes,                dependent: :destroy
   has_many :notifications,        dependent: :destroy
@@ -122,8 +125,9 @@ class User < ActiveRecord::Base
 
   def posts_feed(options={})
     topic_ids = topic_users.map(&:topic_id)
+      follow_ids = follow_ids(&:follow_id)
     return [] if topic_ids.empty?
-    Post.where(topic_id: topic_ids).as_feed(options)
+      Post.where('user_id in (:follow_ids) or topic_id in (:topic_ids)', :follow_ids => follow_ids, :topic_ids => topic_ids).as_feed(options)
   end
 
   def search_topics(q)
