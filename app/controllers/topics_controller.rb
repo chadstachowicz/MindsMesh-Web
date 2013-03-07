@@ -1,6 +1,8 @@
 class TopicsController < ApplicationController
   respond_to :html, :json#, :xml
   load_and_authorize_resource
+    
+  layout 'datatables', only: [:index]
 
   #untested
   # GET /topics/filter

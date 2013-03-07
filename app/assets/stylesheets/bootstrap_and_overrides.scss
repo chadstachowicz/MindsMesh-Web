@@ -26,7 +26,6 @@ $dark-green: #074132;
   color:#fff;
   font-size: 13px;
   padding: 9px 7px;
-  font-weight:bold;
   i { font-size:16px; }
   &.inactive {
     font-size:16px;color:#363;
@@ -79,4 +78,7 @@ $dark-green: #074132;
     color: $white;
     background-color: $linkColor;
   }
+}
+.spacer {
+    margin-top: 70px; /* define margin as you see fit */
 }

@@ -5,6 +5,11 @@ class HomeController < ApplicationController
   def denied
     redirect_to_landing_home_page
   end
+    
+  def search_users
+        users = User.where('name like ?', "%#{params[:query]}%")
+        render json: users
+  end
 
   def fb_canvas
     if params[:signed_request]

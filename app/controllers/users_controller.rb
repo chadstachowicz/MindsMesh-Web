@@ -18,7 +18,8 @@ class UsersController < ApplicationController
       @user_follows = @current_user.user_follows.where(:follow_id => @user.id)
     respond_with(@user)
   end
-
+    
+    
   # GET /users/1/more_posts.js
   def more_posts
     @posts = @user.posts.as_feed(params.slice(:limit, :before))

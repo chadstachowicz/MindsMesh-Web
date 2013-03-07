@@ -2,7 +2,8 @@ Mindsmesh::Application.routes.draw do
 
   #rails generate versionist:new_controller notifications api/V1
   #then adapt the generated files
-
+    
+    
   namespace 'api' do
 
     api_version(:module => "V1", :path=> {:value => "v1"}) do
@@ -138,7 +139,8 @@ Mindsmesh::Application.routes.draw do
   put "session/switch"
   match "/auth/:provider/callback" => "session#create"
   match "/auth/failure" => "home#denied"
-
+    
+  match "/auth/failure" => "home#denied"
   #relating to an entity
   get "home/entities"
   post "home/entities" => "home#create_entity_request", as: 'home_create_entity_request'
@@ -146,7 +148,9 @@ Mindsmesh::Application.routes.draw do
 
   #client, a user associated to entity
   match "fb_canvas" => 'home#fb_canvas'
+  match "home/search" => 'home#search_users'
   get '/' => 'home#index', as: 'home_index'
+  get '/admin' => 'admin#index', as: 'admin_index'
   get "home/more_posts"
   post "home/create_post"
   post "home/change_access_token"

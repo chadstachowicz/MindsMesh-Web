@@ -1,5 +1,12 @@
-<div class="page-header">
-  <h1>Listing Users</h1>
+<div class="navbar">
+  <div class="navbar-inner">
+    <ul class="nav">
+      <li><a href="admin">Statistics</a></li>
+      <li><a href="entities">Schools</a></li>
+      <li><a href="topics">Topics</a></li>
+      <li class="active"><a href="users">Users</a></li>
+    </ul>
+  </div>
 </div>
 
 <table data-source="<%= users_url(format: :json) %>">

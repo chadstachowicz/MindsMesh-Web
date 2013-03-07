@@ -1,0 +1,48 @@
+class AdminController < ApplicationController
+
+  authorize_resource class: false
+
+  def denied
+    redirect_to_landing_home_page
+  end
+
+      def index
+          totalcounts = []
+          
+          if params[:month].nil? and params[:year].nil?
+              currenttime = Time.new
+              time = Date.new(currenttime.year, currenttime.month).to_time
+              monthname = Date::MONTHNAMES[time.month]
+              @gift_users = User.find(:all, :conditions => ['created_at >= ? AND created_at <= ?', time.at_beginning_of_month, time.at_end_of_month])
+              Date.new(currenttime.year, currenttime.month).at_beginning_of_month.upto(Date.new(currenttime.year, currenttime.month).at_end_of_month) do |date|
+                  totalcounts << @gift_users.select{|u| u.created_at.to_s =~ /#{date.to_s}/ }.size
+                  
+              end
+              else
+              time = Date.new(params[:year], params[:month]).to_time
+              month = "%02d" % params[:month]
+              @gift_users = User.find(:all, :conditions => ['created_at >= ? AND created_at <= ?', Date.new(params[:year], params[:month]).at_beginning_of_month, Date.new(params[:year], params[:month]).at_end_of_month])
+              Date.new(params[:year], params[:month]).at_beginning_of_month.upto(Date.new(params[:year], params[:month]).at_end_of_month) do |date|
+                  
+                  totalcounts.push(@gift_users.select{|u| u.created_at == date }.size)
+              end
+          end
+          
+          
+          
+          @h = LazyHighCharts::HighChart.new('graph') do |f|
+              f.options[:chart][:defaultSeriesType] = "line"
+              f.options[:title][:text] = 'Monthly New User Statistics'
+              f.options[:subtitle][:text] = "#{monthname} #{time.year}"
+              f.options[:yAxis] = {:min => 0, :title => { :text => 'Users' }}
+              f.options[:xAxis] = {:title => { :text => 'Day of the Month' }}
+              f.series(:name=>'Users Joined', :data=> totalcounts)
+              f.options[:legend] = { :layout => 'vertical', :backgroundColor => '#FFFFFF', :align => 'right', :verticalAlign => 'top', :x => -10, :y => 100 }
+          end
+          respond_to do |format|
+              format.html # index.html.erb
+          end
+      end
+
+
+end

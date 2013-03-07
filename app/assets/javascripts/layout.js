@@ -1,5 +1,5 @@
 $(function() {
-   $('#searchAll').watermark('Search for people, places or groups.');
+
   //fix: twitter-bootstrap dropdown for ipad
   $('body').live('touchstart.dropdown', '.dropdown-menu', function (e) { e.stopPropagation(); });
 

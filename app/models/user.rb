@@ -131,6 +131,12 @@ class User < ActiveRecord::Base
       Post.where('user_id in (:follow_ids) or topic_id in (:topic_ids)', :follow_ids => follow_ids, :topic_ids => topic_ids).as_feed(options)
   end
 
+    def posts_feed_old(options={})
+        topic_ids = topic_users.map(&:topic_id)
+        return [] if topic_ids.empty?
+        Post.where(topic_id: topic_ids).as_feed(options)
+    end
+    
   def search_topics(q)
     entity_ids = entities.pluck('entities.id')
     topics = Topic.where(entity_id: entity_ids)
