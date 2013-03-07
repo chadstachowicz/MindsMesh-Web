@@ -7,7 +7,7 @@ class HomeController < ApplicationController
   end
     
   def search_users
-      users = User.joins(:entity_users).where('entity_users.entity_id in (?) and name like ?', current_user.entity_users.map(&:entity_id),"%#{params[:query]}%").limit(8)
+      users = User.select('*').uniq.joins(:entity_users).where('entity_users.entity_id in (?) and name like ?', current_user.entity_users.map(&:entity_id),"%#{params[:query]}%").limit(8)
         render json: users
   end
 
