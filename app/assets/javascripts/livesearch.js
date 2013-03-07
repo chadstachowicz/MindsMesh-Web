@@ -2,13 +2,14 @@ $(document).ready(function($) {
 element = "#searchAll";
 options = '';
 var el = this.$element = $(element);
-        this.options = $.extend(true, {}, $.fn.typeahead.defaults, options);
+        this.options = $.extend(true, {}, {menu: '<ul class="dropdown-menu"></ul>'}, options);
 var menu =  this.$menu = $(this.options.menu).appendTo('body');
         this.shown = false;
+
  var safeguard = false;
 $("#searchAll").keyup(function(){
  var htmlheader = "<li class=\"nav-header\">People</li>";
- var htmlresults = "";
+ var htmlresults = htmlheader;
 
 $.post("/home/search", { query: $('#searchAll').val() }, function(data) {
    
@@ -21,9 +22,9 @@ $.post("/home/search", { query: $('#searchAll').val() }, function(data) {
 
             menu.css({
                 top: pos.top + pos.height,
-                left: pos.left,
 		width: '400'
             });
+            menu.insertAfter(el);
             menu.html(htmlresults);
             menu.show();
             this.shown = true;
