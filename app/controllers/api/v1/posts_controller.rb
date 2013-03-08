@@ -52,10 +52,7 @@ module Api::V1
         @post = Post.new(:topic_user_id => params[:topic_user_id], :text => params[:text])
         @post.save
 	if params[:file]
-            PostAttachment.my_create_file!(@post, params[:file]
-
-
-)
+        PostAttachment.create!(:post_id => @post.id, :link_url => ("/" + @post.id + "/" + params[:filename]))
         end
        render json: PostPresenter.new(post)
     end
