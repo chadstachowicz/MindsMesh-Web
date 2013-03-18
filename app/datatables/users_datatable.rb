@@ -21,7 +21,7 @@ class UsersDatatable
     users.map do |user|
       [
         name_decorator(user),
-        h(user.entity_user_requests),
+        h(user.created_at),
         entities_decorator(user),
         "#{user.topic_users_count} topics"
       ]
