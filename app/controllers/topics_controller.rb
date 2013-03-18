@@ -10,7 +10,7 @@ class TopicsController < ApplicationController
     @q = params[:q]
     my_topic_ids = current_user.topic_ids
 
-    @topics = current_user.possible_topics.filter(@q).limit(50)
+    @topics = current_user.search_topics(@q).limit(50)
     @topics.each { |t| t.is_my_topic = my_topic_ids.include?(t.id) }
 
     render layout: false
