@@ -20,9 +20,9 @@ class PostAttachment < ActiveRecord::Base
 
      before_post_process :skip_unless_image
 
-    def skip_unless_image
+   def skip_unless_image
      file.content_type.include? 'image'
-    end
+   end
 
   def self.my_create_file!(post, file)
     subtype = file.content_type.include?('image') ? 'image' : 'file'
