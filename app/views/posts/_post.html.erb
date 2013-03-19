@@ -125,10 +125,10 @@
           	<% if pa.file.original_filename.match(/\.mov$/i) or pa.file.original_filename.match(/\.flv$/i)  %>
           	
           	
-          	<div id='mediaplayer'></div>
+          	<div id='mediaplayer-<%=post.id%>'></div>
 
 			<script type="text/javascript">
- 			 jwplayer('mediaplayer').setup({
+ 			 jwplayer('mediaplayer-<%=post.id%>').setup({
   			  'flashplayer': 'jwplayer.flash.swf',
    				 'id': 'playerID',
   				  'max-width': '480',
