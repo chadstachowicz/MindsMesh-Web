@@ -1,20 +1,22 @@
 class PostAttachment < ActiveRecord::Base
   belongs_to :post
-    attr_accessible :link_url, :subtype, :image, :file_file_name, :post_id, :file_content_type
+    attr_accessible :link_url, :subtype, :image, :file_file_name, :post_id, :file_content_type, :file
 
-  PAPERCLIP_PATH = "/system/:rails_env/:class/:attachment/:id_partition/:style/:filename"
+  PAPERCLIP_PATH = "/system/:rails_env/:class/:post_id/:filename"
   PAPERCLIP_OPTIONS = {path: ":rails_root/public#{PAPERCLIP_PATH}", url:  PAPERCLIP_PATH, styles: {thumb: "100x100#"}}
 
   has_attached_file :file,  PAPERCLIP_OPTIONS
 
-
+  Paperclip.interpolates :post_id do |attachment, style|
+    "#{attachment.instance.post.id}"
+  end
     # validates_presence_of :subtype
-    #  validates_attachment :file, size: { less_than: 50.megabytes }
-    #   validate :validate_not_executable
+    # validates_attachment :file, size: { less_than: 50.megabytes }
+    #    validate :validate_not_executable
     
     # def validate_not_executable
     # if file && %w(exe msi).include?(file.original_filename.split('.').last)
-    #  errors[:file] << "format *.#{file.original_filename.split('.').last} is not acceptable"
+    #   errors[:file] << "format *.#{file.original_filename.split('.').last} is not acceptable"
     # end
     # end
 
