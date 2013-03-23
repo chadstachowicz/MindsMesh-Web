@@ -1,5 +1,7 @@
 Mindsmesh::Application.routes.draw do
 
+  devise_for :users
+
   #rails generate versionist:new_controller notifications api/V1
   #then adapt the generated files
     
