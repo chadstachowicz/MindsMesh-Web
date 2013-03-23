@@ -3,7 +3,7 @@ class PostAttachment < ActiveRecord::Base
     attr_accessible :link_url, :subtype, :image, :file_file_name, :post_id, :file_content_type, :file
 
   PAPERCLIP_PATH = "/system/:rails_env/:class/:post_id/:filename"
-  PAPERCLIP_OPTIONS = {path: ":rails_root/public#{PAPERCLIP_PATH}", url:  PAPERCLIP_PATH, styles: {thumb: "100x100#"}}
+  PAPERCLIP_OPTIONS = {path: ":rails_root/public#{PAPERCLIP_PATH}", url:  PAPERCLIP_PATH, styles: {thumb: "470x470#"}}
 
   has_attached_file :file,  PAPERCLIP_OPTIONS
 

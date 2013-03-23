@@ -128,7 +128,7 @@ class User < ActiveRecord::Base
     follow_ids = follow_ids(&:follow_id)
     follow_ids << self.id
     return [] if topic_ids.empty?
-      Post.where('user_id in (:follow_ids) or topic_id in (:topic_ids)', :follow_ids => follow_ids, :topic_ids => topic_ids).as_feed(options)
+      Post.where('(user_id in (:follow_ids) and topic_id is null) or topic_id in (:topic_ids)', :follow_ids => follow_ids, :topic_ids => topic_ids).as_feed(options)
   end
 
     def posts_feed_old(options={})
