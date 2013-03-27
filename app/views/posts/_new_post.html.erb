@@ -3,7 +3,7 @@
     <%= f.hidden_field :topic_user_id, value: topic_user.try(:id) %>
     <%= f.hidden_field :user_id, value: @current_user.id %>
     <h3 class="title">Share Something</h3>
-    <%= f.text_area :text, class: 'input-block-level' %>
+    <%= f.text_area :text, class: 'input-block-level'%>
     <div class="files">
       <a href="#" class="add_file">add file</a>
     </div>

@@ -86,6 +86,19 @@ class HomeController < ApplicationController
     redirect_to :back
   end
 
+    def create_message
+        begin
+            @message = Message.create! params[:message]
+            params[:files] and params[:files].values.each do |file|
+                MessageAttachment.my_create_file!(@post, file)
+        end
+            rescue => e
+            flash[:alert] = e.message
+        end
+        redirect_to :back
+    end
+    
+    
   def more_posts
     @posts = current_user.posts_feed(params.slice(:limit, :before))
     render '/posts/more_posts', layout: false

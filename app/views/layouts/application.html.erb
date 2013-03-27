@@ -14,6 +14,7 @@
   <![endif]-->
 </head>
 <body class="header_small">
+
   <div id="fb-root"></div>
 
   <div class="navbar navbar-fixed-top">
@@ -27,7 +28,7 @@
           </ul>
           <div style="float:none;margin-left:28%;margin-right:auto" >
           <ul class="nav" id="top_menu_middle">
-            <li class="dropdown" id="testmehard"><input type="text"  placeholder="Search for people" id="searchAll" style="width:400px;margin-top:4px;margin-bottom:4px"/></li>
+            <li><input type="text"  placeholder="Search for people" id="searchAll" style="width:400px;margin-top:4px;margin-bottom:4px"/></li>
           </ul>
           
           </div>
@@ -45,6 +46,32 @@
     
     <%= "<div class='alert alert-success'><a class='close' data-dismiss='alert' href='#'>×</a><b>#{notice}</b></div>".html_safe if notice %>
     <%= "<div class='alert alert-error'><a class='close' data-dismiss='alert' href='#'>×</a><b>#{alert}</b></div>".html_safe   if alert %>
+    <div class="messages" id="messages">
+        <div class="modal hide fade reply_modal" id="message_modal">
+      <% message = Message.new%>
+      <%= form_for(message, url: home_create_message_path(message), remote: true) do |f| %>
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    		 <h3>Who should this message go to?  </h3><input type="text"  placeholder="Search for people to add" id="peopleToAdd" style="width:250px;margin-top:4px;margin-bottom:4px"/>
+          
+        </div>
+        <div class="modal-body">
+          <div class="question_area" id="question_area_message">
+          </div>
+          <div class="clear"></div>
+          <div class="answer_area">
+            <%= image_tag current_user.photo_url, width: 50 %>
+            <p><%= f.text_area :text%></p>
+            <p><%= f.hidden_field :user_id, :value => @current_user.id%></p>
+            <p><%= f.hidden_field :receiver_id%></p>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <%= f.submit "Send this message", class: 'btn btn-success', data: {display_with: "Sending you message..."}, id: "send-mes" %>
+        </div>
+      <% end %>
+    </div>
+    </div>
 
     <table id="tablecontent" cellpadding="0">
       <tr>
@@ -66,6 +93,7 @@
 
     <%= render '/footer' %>
   </div>
+  
 
   <!-- placeholder ajax_application.js -->
 

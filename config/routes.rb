@@ -155,6 +155,7 @@ Mindsmesh::Application.routes.draw do
   get '/admin' => 'admin#index', as: 'admin_index'
   get "home/more_posts"
   post "home/create_post"
+  post "home/create_message"
   post "home/change_access_token"
   get '/home/topics'
   post 'home/fb_requests_sent'

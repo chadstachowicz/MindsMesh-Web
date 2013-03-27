@@ -10,7 +10,7 @@ class Ability
   end
 
   def logged_in
-      can [:admin, :entities, :create_entity_request, :change_access_token, :ajax_application], :home
+      can [:admin, :entities, :create_entity_request, :change_access_token, :ajax_application, :search_users], :home
   end
   
   def initialize(current_user)
@@ -32,7 +32,7 @@ class Ability
       post.user_id == current_user.id
     end
 
-    can [:show, :more_posts], User
+      can [:show, :more_posts, :follow, :unfollow], User
   end
 
   def index

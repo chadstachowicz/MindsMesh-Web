@@ -5,13 +5,15 @@
     <i class="icon-envelope"></i>
     <small><%= current_user.messages.size %></small>
 </a>
-<ul class="dropdown-menu dropdown-notifications">
+<ul class="dropdown-menu dropdown-notifications" style="width:400px">
 
-  <li class="nav-header">unread messages</li>
-  <%= render current_user.messages.limit(4) %>
-  <li class="divider"></li>
-  <li class="nav-header">read messages</li>
-  <%= render current_user.messages.limit(6) %>
+  <li class="nav-header">unread messages       <%= link_to icon_text('envelope', 'Send a message'),
+                    "#message_modal",
+                    style: 'float:right;',
+                    data: {toggle: 'modal'} %>
+                    </li>
+
 
 </ul>
 </li>
+

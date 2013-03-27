@@ -29,9 +29,9 @@ class User < ActiveRecord::Base
 
 
   validates_presence_of :name
-  validates_presence_of :fb_id
-  validates_presence_of :fb_token
-  validates_presence_of :fb_expires_at
+  #validates_presence_of :fb_id
+  #validates_presence_of :fb_token
+  #validates_presence_of :fb_expires_at
 
   #untested
   def possible_topics
@@ -133,9 +133,8 @@ class User < ActiveRecord::Base
 
   def posts_feed(options={})
     topic_ids = topic_users.map(&:topic_id)
-    follow_ids = follow_ids(&:follow_id)
+    follow_ids = follow_ids(&:follows)
     follow_ids << self.id
-    return [] if topic_ids.empty?
       Post.where('(user_id in (:follow_ids) and topic_id is null) or topic_id in (:topic_ids)', :follow_ids => follow_ids, :topic_ids => topic_ids).as_feed(options)
   end
 
