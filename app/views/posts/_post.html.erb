@@ -131,8 +131,8 @@
  			 jwplayer('mediaplayer-<%=post.id%>').setup({
   			  'flashplayer': 'jwplayer.flash.swf',
    				 'id': 'playerID',
-  				  'max-width': '480',
-   			 'max-height': '480',
+   				  'height': '480',
+   				  'image': '<%=pa.file.url[0..-9]%>frame_0000.png',
    			 'file': '<%=pa.file.url%>',
  			 });
 		</script>

@@ -28,6 +28,12 @@ module Api::V1
     def likes_with_parents
       render json: LikePresenter.array(post.likes).map(&:with_parents)
     end
+      
+      # POST Encode_Video
+      def encode_video
+          response = Zencoder::Job.create({:input => params[:file],:output => {:width => 480, :public => true, :url => params[:file], :thumbnails => [{:label => 'first', :number => 1, :public => true, :base_url => params[:file][0..-9]}] } })
+          render json: response
+      end
 
     def like
       #doesn't do anything if user already liked it
@@ -52,7 +58,7 @@ module Api::V1
         @post = Post.new(:topic_user_id => params[:topic_user_id], :text => params[:text])
         @post.save
 	if params[:filename]
-        @post_a = PostAttachment.new(:file_file_name => params[:filename], :file_content_type => params[:content_type], :post_id => @post.id, :link_url => (ENV['RAILS_ENV'] + "/post_attachments/" + @post.id.to_s + "/" + params[:filename]))
+        @post_a = PostAttachment.new(:file_file_name => params[:filename], :file_content_type => params[:content_type], :post_id => @post.id, :link_url => ('development' + "/post_attachments/" + @post.id.to_s + "/" + params[:filename]))
         @post_a.save
         end
        render json: PostPresenter.new(post)
