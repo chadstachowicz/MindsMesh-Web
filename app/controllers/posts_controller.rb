@@ -25,6 +25,18 @@ class PostsController < ApplicationController
       render status: 422, text: reply.errors.full_messages.to_sentence
     end
   end
+    
+   # POST Encode_Video
+    def encode_video
+        response = Zencoder::Job.create({
+            :input => params[:fileinput],
+            :output => {
+            :width => "480",
+            :url => params[:fileoutput],
+                            }
+            })
+        respond_with("success")
+  end
 
   # POST /posts/1/like
   def like

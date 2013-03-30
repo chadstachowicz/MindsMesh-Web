@@ -34,6 +34,8 @@ gem 'devise'
 gem 'jquery-datatables-rails'
 gem "mini_magick"
 gem "squeel"
+gem "zencoder"
+
 
 
   gem 'sass' #so other gems don't alert
