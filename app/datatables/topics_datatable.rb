@@ -1,5 +1,6 @@
-class UsersDatatable
-  delegate :params, :h, :link_to, :number_to_currency, :image_tag, :raw, :icon_text, to: :@view
+class TopicsDatatable
+
+     attr_reader :view
 
   def initialize(view)
     @view = view
@@ -8,8 +9,8 @@ class UsersDatatable
   def as_json(options = {})
     {
       sEcho: params[:sEcho].to_i,
-      iTotalRecords: User.count,
-      iTotalDisplayRecords: users.total_entries,
+      iTotalRecords: Topic.count,
+      iTotalDisplayRecords: topics.total_entries,
       aaData: data
     }
   end
@@ -18,9 +19,9 @@ class UsersDatatable
 
   #must match view columns
   def data
-    users.map do |user|
+    topics.map do |topics|
       [
-        name_decorator(user),
+        name_decorator(topic),
         h(user.created_at),
         entities_decorator(user),
         "#{user.topic_users_count} topics"

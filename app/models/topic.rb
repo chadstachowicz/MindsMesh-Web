@@ -1,6 +1,5 @@
 class Topic < ActiveRecord::Base
-  extend FriendlyId
-  friendly_id :slug
+
 
   attr_accessible :name, :slug, :entity_user_id, :self_joining, :title, :number
 

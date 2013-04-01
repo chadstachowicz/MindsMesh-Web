@@ -8,7 +8,7 @@ class HomeController < ApplicationController
     
   def search_users
       users = User.joins(:entity_users).where('entity_users.entity_id in (?) and name like ?', current_user.entity_users.map(&:entity_id),"%#{params[:query]}%").uniq.limit(8)
-        render json: users
+      render json: users
   end
 
   def fb_canvas
@@ -35,6 +35,7 @@ class HomeController < ApplicationController
 
   def index
     redirect_to_landing_home_page
+    @type = 'post'
     @posts = current_user.posts_feed
   end
 
@@ -67,6 +68,9 @@ class HomeController < ApplicationController
 
   def topics
   end
+    
+    def groups
+    end
 
   def change_access_token
     current_user.change_access_token

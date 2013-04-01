@@ -1,13 +1,14 @@
 class Post < ActiveRecord::Base
   belongs_to :topic, counter_cache: true
+  belongs_to :group, counter_cache: true
   belongs_to :user, counter_cache: true
   has_many :replies, dependent: :destroy
   has_many :likes,   dependent: :destroy, as: :likable
   has_many :post_attachments, dependent: :destroy
   has_many :notifications,   dependent: :destroy, as: :target
 
-    attr_accessible :text, :topic_user, :topic_user_id, :user_id
-  #validates_presence_of :topic
+  attr_accessible :text, :topic_user, :topic_id, :user_id, :group_user, :group_id
+
   validates_presence_of :user
   validates_presence_of :text
   validates_length_of :text, minimum: 10
@@ -40,18 +41,6 @@ class Post < ActiveRecord::Base
 
 
 
-  attr_accessor :topic_user, :topic_user_id
-  before_validation :set_topic_user_correctly, on: :create
-
-  def set_topic_user_correctly
-    if topic_user_id.present?
-      self.topic_user=TopicUser.find(topic_user_id)
-    end
-    if topic_user
-      self.topic  = topic_user.topic
-      self.user   = topic_user.user
-    end
-  end
 
 
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130323023031) do
+ActiveRecord::Schema.define(:version => 20130401015555) do
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -40,6 +40,7 @@ ActiveRecord::Schema.define(:version => 20130323023031) do
     t.integer  "entity_users_count", :default => 0
     t.integer  "topics_count",       :default => 0
     t.string   "moodle_url"
+    t.integer  "groups_count"
   end
 
   create_table "entity_user_requests", :force => true do |t|
@@ -79,6 +80,27 @@ ActiveRecord::Schema.define(:version => 20130323023031) do
 
   add_index "fb_friends", ["friend_user_id"], :name => "index_fb_friends_on_friend_user_id"
   add_index "fb_friends", ["user_id"], :name => "index_fb_friends_on_user_id"
+
+  create_table "group_users", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "role"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.integer  "group_id"
+  end
+
+  create_table "groups", :force => true do |t|
+    t.integer  "entity_id"
+    t.string   "name"
+    t.string   "slug"
+    t.integer  "group_users_count", :default => 0
+    t.integer  "posts_count",       :default => 0
+    t.string   "description"
+    t.integer  "user_id"
+    t.integer  "privacy",           :default => 0
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
+  end
 
   create_table "invite_requests", :force => true do |t|
     t.integer  "user_id"
@@ -199,6 +221,7 @@ ActiveRecord::Schema.define(:version => 20130323023031) do
     t.integer  "replies_count", :default => 0
     t.datetime "created_at",                   :null => false
     t.datetime "updated_at",                   :null => false
+    t.integer  "group_id"
   end
 
   add_index "posts", ["topic_id"], :name => "index_posts_on_topic_id"
@@ -379,6 +402,7 @@ ActiveRecord::Schema.define(:version => 20130323023031) do
     t.string   "unlock_token"
     t.datetime "locked_at"
     t.string   "authentication_token"
+    t.integer  "group_users_count"
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true

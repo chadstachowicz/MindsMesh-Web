@@ -1,0 +1,81 @@
+<% content_for 'email_invite_on_topics_show' do %>
+  <% ir = InviteRequest.new(entity_id: @group.entity_id, topic_id: @group.id) %>
+  <%= form_for(ir, remote: true, format: :json) do |f| %>
+    <div class="modal-body">
+      <%= f.hidden_field :entity_id %>
+ 
+      <div class="field">
+        <h4 style="color: #46A546;">Invite Friends</h4>
+        <%= text_area :emails, nil, class: 'input-block-level', placeholder: "abc@gmail.com, abc@gmail.com, abc@gmail.com, abc@gmail.com" %>
+      </div>
+    </div>
+    <div class="modal-footer" style="border-bottom: #eee solid 2px;border-radius:0">
+      <div class="actions">
+        <%= submit_tag "invite friends", class: 'btn btn-primary', data: {disable_with: "sending emails..."} %>
+      </div>
+    </div>
+  <% end %>
+<% end %>
+
+
+<% if can? :more_posts, @group %>
+  <% if @group_user.present? %>
+    <%= render '/posts/new_post', group_user: @group_user if @group_user.present? %>
+  <% else %>
+  <h4 class="message">you cannot write posts in this topic yet, you need to join this topic in order to do so</h4>
+  <% end %>
+  <%= render '/posts/posts', posts: @posts %>
+<% else %>
+<h4 class="message">you cannot read posts in this topic yet, you need to join this topic in order to do so</h4>
+<% end %>
+
+<div data-sidebar="left" class="sidebar_content">
+
+  <% if @group_user.nil? %>
+  <div style="padding: 0 0 0 20px">
+    <%= link_to join_group_path(@group),
+                method: 'put',
+                id: 'join',
+                class: 'btn btn-large btn-success input-block-level',
+                data: {disable_with: "hold on..."} do
+                %>
+                <i class="icon-check" style="font-size:50px"></i>
+                <br />
+                <span style="font-size:20px">join this group</span>
+                <% end %>
+  </div>
+  <% end %>
+
+  <ul class="nav blue-nav nav-list">
+    <li class="nav-header">
+      <%= @group.name %>
+    </li>
+
+    <li class="nav-header">
+      students
+    </li>
+    <% @group_users.each do |group_user| %>
+      <li>
+        <% user = group_user.user %>
+        <%= link_to user, class: 'tooltiped', title: user.name do %>
+          <%= image_tag user.photo_url, width: 30 %>
+          <%= user.name %>
+        <% end %>
+      </li>
+    <% end %>
+
+    <% if @group_user.present? %>
+      <%#= link_to 'edit this topic', edit_topic_path(@topic) %>
+      <li class="nav-header">
+        actions
+      </li>
+      <%= li link_to  icon_text('signout', 'leave this group'),
+                      leave_group_path(@group),
+                      method: 'put',
+                      id: 'leave',
+                      data: {disable_with: "hold on..."}
+                      %>
+    <% end %>
+  </ul>
+
+</div>

@@ -18,7 +18,7 @@
 //= require jquery.watermark.min
 //= require bootstrap
 //= require jquery.purr
-//= require jquery-ui-1.8.4.custom.min
+//= require jquery-ui-1.10.2.custom.min
 //= require highcharts
 //= require highchartsresize
 //= require best_in_place

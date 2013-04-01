@@ -27,6 +27,7 @@ class TopicsController < ApplicationController
     @topic_users = @topic.topic_users.order("role DESC").limit(10)
     @posts         = @topic.posts.as_feed(params.slice(:limit, :before))
     @post = Post.new
+    @type = 'topic'
     respond_with(@topic)
   end
 
@@ -66,7 +67,7 @@ class TopicsController < ApplicationController
       @topic.entity_user_join(@topic.entity_user)
       flash[:notice] = "Topic successfully created."
     end
-    respond_with(@topic, location: @topic)
+    respond_with(@topic)
   end
 
   # PUT /topics/1

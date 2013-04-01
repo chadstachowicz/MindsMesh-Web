@@ -12,6 +12,7 @@ class User < ActiveRecord::Base
   has_many :entity_user_requests, dependent: :destroy
   has_many :entity_users,         dependent: :destroy
   has_many :topic_users,          dependent: :destroy
+  has_many :group_users,          dependent: :destroy
   has_many :user_follows,         dependent: :destroy
   has_many :follows,  :through => :user_follows
   has_many :posts,                dependent: :destroy
@@ -26,6 +27,7 @@ class User < ActiveRecord::Base
 
   has_many :entities, through: :entity_users
   has_many :topics,   through: :topic_users
+  has_many :groups,   through: :group_users
 
 
   validates_presence_of :name
@@ -133,9 +135,10 @@ class User < ActiveRecord::Base
 
   def posts_feed(options={})
     topic_ids = topic_users.map(&:topic_id)
+    group_ids = group_users.map(&:group_id)
     follow_ids = follow_ids(&:follows)
     follow_ids << self.id
-      Post.where('(user_id in (:follow_ids) and topic_id is null) or topic_id in (:topic_ids)', :follow_ids => follow_ids, :topic_ids => topic_ids).as_feed(options)
+      Post.where('(user_id in (:follow_ids) and topic_id is null and group_id is null) or topic_id in (:topic_ids) or group_id in (:group_ids)', :follow_ids => follow_ids, :topic_ids => topic_ids,:group_ids => group_ids).as_feed(options)
   end
 
     def posts_feed_old(options={})

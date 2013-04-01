@@ -98,6 +98,9 @@
     <% if post.topic.present? %>
     <i>asked</i>
     <span><%= link_to truncate(post.topic.name, length: 40), post.topic %></span>
+    <% elsif post.group.present? %>
+    <i>posted in </i>
+    <span><%= link_to truncate(post.group.name, length: 40), post.topic %></span>
     <%end%>
   </h5>
   <table style="width:100%">

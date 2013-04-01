@@ -9,6 +9,7 @@ var menu =  this.$menu = $(this.options.menu).appendTo('body');
  var safeguard = false;
 el.keyup(function(){
  var htmlheader = "<li class=\"nav-header\">People</li>";
+ var htmlheadergroup = "<li class=\"nav-header\">Groups</li>";
  var htmlresults = htmlheader;
 if (el.val() == 0)
 {
@@ -21,6 +22,7 @@ $.post("/home/search", { query: el.val() }, function(data) {
     for(i=0;i<data.length;i++){
 	htmlresults += "<li><a href=\"/users/" + data[i].id + "\"><img src=\"https://graph.facebook.com/" + data[i].fb_id + "/picture\"/><u>" + data[i].name + "</u></a></li>";
 	}
+        htmlresults += htmlheadergroup;
             var pos = $.extend({}, el.offset(), {
                 height: el[0].offsetHeight,
             });

@@ -55,7 +55,11 @@ module Api::V1
     end
 
     def create
-        @post = Post.new(:topic_user_id => params[:topic_user_id], :text => params[:text])
+        if params[:topic_user_id] == nil
+            @post = Post.new(:user_id => @current_user.id, :text => params[:text])
+        else
+            @post = Post.new(:topic_user_id => params[:topic_user_id], :text => params[:text])
+        end
         @post.save
 	if params[:filename]
         @post_a = PostAttachment.new(:file_file_name => params[:filename], :file_content_type => params[:content_type], :post_id => @post.id, :link_url => ('development' + "/post_attachments/" + @post.id.to_s + "/" + params[:filename]))

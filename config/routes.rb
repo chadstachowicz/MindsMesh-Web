@@ -122,6 +122,14 @@ Mindsmesh::Application.routes.draw do
       get :filter
     end
   end
+    
+  resources :groups do
+    member do
+        put :join
+        put :leave
+        get :more_posts
+    end
+  end
   resources :posts, except: [:new, :create, :edit] do
     member do
       post 'replies', action: 'create_reply'

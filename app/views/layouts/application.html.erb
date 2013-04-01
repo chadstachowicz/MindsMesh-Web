@@ -28,7 +28,7 @@
           </ul>
           <div style="float:none;margin-left:28%;margin-right:auto" >
           <ul class="nav" id="top_menu_middle">
-            <li><input type="text"  placeholder="Search for people" id="searchAll" style="width:400px;margin-top:4px;margin-bottom:4px"/></li>
+            <li><input type="text"  placeholder="Search for people or groups" id="searchAll" style="width:400px;margin-top:4px;margin-bottom:4px"/></li>
           </ul>
           
           </div>
@@ -43,7 +43,7 @@
   </div>
 
   <div class="container">
-    
+    <%= render '/groups/new_group' %>
     <%= "<div class='alert alert-success'><a class='close' data-dismiss='alert' href='#'>×</a><b>#{notice}</b></div>".html_safe if notice %>
     <%= "<div class='alert alert-error'><a class='close' data-dismiss='alert' href='#'>×</a><b>#{alert}</b></div>".html_safe   if alert %>
     <div class="messages" id="messages">

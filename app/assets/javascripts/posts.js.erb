@@ -44,6 +44,8 @@ $("#new_post_create").live('click', function(e) {
 $(".newpostbutton").live('click', function(e) {
   var tu_id = $(this).data('topic-user-id');
   $("input#post_topic_user_id").val(tu_id);
+  var gu_id = $(this).data('-user-id');
+  $("input#post_topic_user_id").val(tu_id);
   $("#new_post").submit();
 });
 /*
@@ -217,7 +219,7 @@ app1.newtopic = {
 $("form#new_topic").live("ajax:complete", function(e, data) {
   var response = jQuery.parseJSON( data.responseText );
   if (data.status == 201) {
-    window.location = "/topics/:slug".replace(':slug', response.slug);
+    window.location = "/topics/:id".replace(':id', response.id);
   } else {
     $(this).find('.control-group').removeClass('error2')
     $(this).find('span.help-inline').html('');
