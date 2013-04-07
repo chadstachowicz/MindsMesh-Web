@@ -19,10 +19,13 @@ if (el.val() == 0)
 } 
 $.post("/home/search", { query: el.val() }, function(data) {
    
-    for(i=0;i<data.length;i++){
-	htmlresults += "<li><a href=\"/users/" + data[i].id + "\"><img src=\"https://graph.facebook.com/" + data[i].fb_id + "/picture\"/><u>" + data[i].name + "</u></a></li>";
+    for(i=0;i<data.users.length;i++){
+	htmlresults += "<li><a href=\"/users/" + data.users[i].id + "\"><img src=\"https://graph.facebook.com/" + data.users[i].fb_id + "/picture\"/><u>" + data.users[i].name + "</u></a></li>";
 	}
         htmlresults += htmlheadergroup;
+for(i=0;i<data.groups.length;i++){
+	htmlresults += "<li><a href=\"/groups/" + data.groups[i].id + "\"><img src=\"https://graph.facebook.com/" + data.groups[i].fb_id + "/picture\"/><u>" + data.groups[i].name + "</u></a></li>";
+}
             var pos = $.extend({}, el.offset(), {
                 height: el[0].offsetHeight,
             });

@@ -218,6 +218,18 @@ footer {
 }
 
 //form#new_post
+#main_div {
+  background-color: #fff;
+  height: 100%;
+  
+  h2 {
+    text-align: center;
+    width: 100%;
+    color: $green;
+    font-size: 24px;
+  }
+  
+}
 #new_post_wrapper {
   background-color: #fff;
   border: 1px solid #EEE;

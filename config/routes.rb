@@ -147,6 +147,7 @@ Mindsmesh::Application.routes.draw do
   #creating an account
   get "home/login"
   get "session/logout"
+  get "settings" => "settings#index"
   put "session/switch"
   match "/auth/:provider/callback" => "session#create"
   match "/auth/failure" => "home#denied"
