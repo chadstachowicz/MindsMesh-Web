@@ -7,7 +7,7 @@ class Post < ActiveRecord::Base
   has_many :post_attachments, dependent: :destroy
   has_many :notifications,   dependent: :destroy, as: :target
 
-    attr_accessible :text, :topic_user, :topic_id, :user_id, :group_user, :group_id
+    attr_accessible :text, :topic_user, :topic_id, :user_id, :group_user, :group_id, :topic_user_id
 
   validates_presence_of :user
   validates_presence_of :text
@@ -37,9 +37,6 @@ class Post < ActiveRecord::Base
       replies.map { |r| r.likes.pluck(:user_id) }
     ].flatten.uniq
   end
-
-
-
 
 
 

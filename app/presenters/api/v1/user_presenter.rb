@@ -16,7 +16,8 @@ module Api::V1
     def with_children
       as_json.merge({
         topic_users: m.topic_users.map { |tu| tu.as_json.merge({ topic: TopicPresenter.new(tu.topic) }) },
-        entity_users: m.entity_users.map { |eu| eu.as_json.merge({ entity: EntityPresenter.new(eu.entity) }) }
+        entity_users: m.entity_users.map { |eu| eu.as_json.merge({ entity: EntityPresenter.new(eu.entity) }) },
+        group_users: m.group_users.map { |gu| gu.as_json.merge({ group: GroupPresenter.new(gu.group) }) }
       })
     end
 
