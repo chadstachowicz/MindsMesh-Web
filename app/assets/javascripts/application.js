@@ -32,3 +32,4 @@
 //= require jwplayer.html5
 //= require daterangepicker.jQuery
 //= require livesearch
+//= require frontend
