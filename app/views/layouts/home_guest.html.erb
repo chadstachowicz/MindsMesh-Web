@@ -31,7 +31,7 @@
             <!-- placeholder ajax_application.js -->
           </ul>
           <ul class="nav pull-right" id="top_menu_right">
-            <li><<%= link_to 'Login',
+            <li><%= link_to 'Login',
                     "#login_modal",
                     id: 'try-button',
                     data: {toggle: 'modal'} %></li>
@@ -55,6 +55,8 @@
         <div class="modal-body">
           <div class="answer_area">
 				<%= link_to image_tag('connect-facebook-button.png'), '/auth/facebook', id: 'login_facebook' %>
+				<br/>
+				<%= link_to image_tag('twitter.png'), '/auth/facebook', id: 'login_facebook' %>
           </div>
         </div>
     
@@ -71,6 +73,8 @@
         <div class="modal-body">
           <div class="answer_area">
 				<%= link_to image_tag('connect-facebook-button.png'), '/auth/facebook', id: 'login_facebook' %>
+				<br/>
+				<%= link_to image_tag('twitter.png'), '/auth/facebook', id: 'login_facebook' %>
           </div>
         </div>
     
@@ -91,11 +95,42 @@
  		</div>
  	</div>
   </div>
-  <div id="featurediv">
-  	<div class="container">
+    <div id="featurediv">
+  	<div class="container fix-sections">
   		<div  class="row">
 		<div class="span6 ">
-			  <h3 class='pull-right'>Native mobile apps</h3>
+			 	<h2>Build A Campus Community</h2>
+			 	<br/>
+			 	<p>With MindsMesh a university can build a private online social network with the newest web technologies student are used to with current social media platforms such as Video, Photo, Groups, Events and much more.</p>
+ 		</div>
+ 		<div class="span6">
+ 			<img src="/assets/stock-photo-22812361-group-of-people-interacting.jpg"/>
+ 		</div>
+ 	</div>
+
+  	</div>
+  </div>
+   <div id="featurediv">
+  	<div class="container fix-sections">
+  		<div  class="row">
+		<div class="span6 ">
+			<img class='pull-right' src="/assets/stock-illustration-21410819-folder-and-papers-with-charts.jpg"/>
+ 		</div>
+ 		<div class="span6">
+ 			<h2>Analytics</h2>
+ 			<br/>
+			<p>The university has in depth views at the usage of the platform, and how students are interacting with it.  Mobile usage, LMS access and social media statistics are all available through our advanced yet easy to use analytics platform.</p>
+ 		</div>
+ 	</div>
+
+  	</div>
+  	  <div id="featurediv">
+  	<div class="container fix-sections">
+  		<div  class="row">
+		<div class="span6 ">
+			  <h2>Native mobile apps</h2>
+			  <br/>
+			  <p class='pull-right' >Today's students and faculty are mobile first in many cases.  Students are on the go and want to see their LMS content and social presence on campus on the go.  MindsMesh provides iPhone, iPad and Android apps all with full LMS, Multimedia and real-time notifications to give a full experience to the end user.</p>
  		</div>
  		<div class="span6">
  			<img src="/assets/MindsMeshiPhone.png"/>
@@ -105,6 +140,9 @@
   	</div>
   	
   </div>
+  	
+  </div>
+
   <div class="container">
   	<%= render '/footer' %>
   </div>
