@@ -31,8 +31,8 @@ for(i=0;i<data.groups.length;i++){
             });
 
             menu.css({
-                top: 0 + pos.height,
-		width: '400'
+                top: 11 + pos.height,
+		width: '380'
             });
             menu.insertAfter(el);
             menu.html(htmlresults);
