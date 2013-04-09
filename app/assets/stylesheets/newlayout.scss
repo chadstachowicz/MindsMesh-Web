@@ -8,6 +8,8 @@ th, td { vertical-align: top; }
 
 body { background: #ECFAFF; }
 
+#guestlogin { padding-top: 0px; background: #45474d; }
+
 .wrap {
   height: auto;
   min-height: 100%;
@@ -58,7 +60,7 @@ body { background: #ECFAFF; }
 
 //.navbar
 .navbar .nav {
-  #logo { padding: 0px !important;margin-left:-40px; }
+  #logo { padding: 0px !important; }
 
   #myaccount {
     padding-left:50px;
@@ -151,6 +153,25 @@ body.header_big {
   }
 }
 
+#featurediv {
+  clear: both;
+    margin-top: 60px;
+    border-bottom: 1px solid #dbdbdb;
+    width: 100%;
+    line-height: 60px;
+    font-size: 12px;
+    background-color: white;
+  
+}
+
+#homepagesplit {
+  clear: both;
+  margin-top: 40px;
+}
+
+#try-button{float:right;display:block;width:110px;height:32px;margin-top:20px;padding:0 20px;line-height:32px;background:#4d5057;border-radius:16px 16px 16px 16px;color:#fff;font-size:16px;text-align:center;-webkit-transition:all 0.9s ease-out;-moz-transition:all 0.9s ease-out;-ms-transition:all 0.3s ease-out;-o-transition:all 0.9s ease-out;transition:all 0.9s ease-out}
+
+#try-button:hover{text-decoration:none;background:#53575e}
 //footer
 footer {
   clear: both;
@@ -159,17 +180,17 @@ footer {
     border-top: 1px solid #dbdbdb;
     width: 100%;
     line-height: 60px;
-    font-size: 12px;
+    font-size: 14px;
   }
   a {
     display: inline-block;
     padding: 0 10px;
-    color: #666;
+    color: #989ea6;
     text-decoration: none;
   }
   .info {
     float: right;
-    color: #888;
+    color: #989ea6;
   }
 
 }

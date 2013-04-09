@@ -12,17 +12,108 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
 </head>
-<body>
+<body id="guestlogin" class="header_small">
   <div id="fb-root"></div>
-  <div class="container">
+    <div class="navbar">
+    <div class="navbar-inner">
+      <div class="container">
 
+
+          <ul class="nav pull-left" id="top_menu_left">
+            <li><a id="logo" href="/"><%= image_tag('appicon-72.png') %></a></li>
+            <!-- placeholder ajax_application.js -->
+          </ul>
+          <ul class="nav pull-left" id="top_menu_right">
+            <li><a href="/">Features</a></li>
+            <li><a href="/">For Schools</a></li>
+            <li><a href="/">About Us</a></li>
+            <li><a href="/">Blog</a></li>
+            <!-- placeholder ajax_application.js -->
+          </ul>
+          <ul class="nav pull-right" id="top_menu_right">
+            <li><<%= link_to 'Login',
+                    "#login_modal",
+                    id: 'try-button',
+                    data: {toggle: 'modal'} %></li>
+            <!-- placeholder ajax_application.js -->
+          </ul>
+
+      </div>
+    </div>
+  </div>
+  <div id="homepagesplit" class="container">
     <%= "<div class='alert alert-success'><a class='close' data-dismiss='alert' href='#'>×</a><b>#{notice}</b></div>".html_safe if notice %>
     <%= "<div class='alert alert-error'><a class='close' data-dismiss='alert' href='#'>×</a><b>#{alert}</b></div>".html_safe   if alert %>
+	    <div class="login" id="login">
+        <div class="modal hide fade reply_modal" id="login_modal">
 
-    <%= yield %>
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    		 <h3>Login to MindsMesh</h3>
+          
+        </div>
+        <div class="modal-body">
+          <div class="answer_area">
+				<%= link_to image_tag('connect-facebook-button.png'), '/auth/facebook', id: 'login_facebook' %>
+          </div>
+        </div>
+    
+    </div>
+    </div>
+    <div class="signup" id="signup">
+        <div class="modal hide fade reply_modal" id="signup_modal">
 
-    <%= render '/footer' %>
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    		 <h3>Signup for MindsMesh</h3>
+          
+        </div>
+        <div class="modal-body">
+          <div class="answer_area">
+				<%= link_to image_tag('connect-facebook-button.png'), '/auth/facebook', id: 'login_facebook' %>
+          </div>
+        </div>
+    
+    </div>
+    </div>
+	<div class="row">
+		<div class="span8">
+<iframe width="700" height="460" src="http://www.youtube.com/embed/GWTzcdWi6v8" frameborder="0" allowfullscreen></iframe>
+ 		</div>
+ 		<div class="span4">
+ 			<h2 style="color: white;">MindsMesh transforms your LMS into a vibrant campus community</h2>
+ 			<%= link_to join_topic_path("21"),
+                method: 'put',
+                id: 'join',
+                class: 'btn btn-large btn-success input-block-level',
+                data: {disable_with: "hold on..."} do
+                %>
+                <i class="icon-check" style="font-size:50px"></i>
+                <br />
+                <span style="font-size:20px">Sign Up</span>
+                <% end %>
+ 		</div>
+ 	</div>
   </div>
+  <div id="featurediv">
+  	<div class="container">
+  		<div  class="row">
+		<div class="span6 ">
+			  <h3 class='pull-right'>Native mobile apps</h3>
+ 		</div>
+ 		<div class="span6">
+ 			<img src="/assets/MindsMeshiPhone.png"/>
+ 		</div>
+ 	</div>
+
+  	</div>
+  	
+  </div>
+  <div class="container">
+  	<%= render '/footer' %>
+  </div>
+  
+  
 
 </body>
 </html>

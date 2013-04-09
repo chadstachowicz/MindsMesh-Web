@@ -3,7 +3,7 @@
       id="myaccount"
       class="dropdown-toggle"
       data-toggle="dropdown">
-      <%= image_tag current_user.photo_url %>
+      <%= image_tag current_user.photo_url, :style => "margin-top:8px" %>
       <%=  text_icon(current_user.name, 'caret-down') %>
   </a>
   <ul class="dropdown-menu">
