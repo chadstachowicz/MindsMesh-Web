@@ -82,16 +82,12 @@
  		</div>
  		<div class="span4">
  			<h2 style="color: white;">MindsMesh transforms your LMS into a vibrant campus community</h2>
- 			<%= link_to join_topic_path("21"),
-                method: 'put',
-                id: 'join',
+ 			<%= link_to icon_text('check','Sign up'),
+                '#signup_modal',
+                style: 'font-size: 30px;margin-top:75px;',
                 class: 'btn btn-large btn-success input-block-level',
-                data: {disable_with: "hold on..."} do
-                %>
-                <i class="icon-check" style="font-size:50px"></i>
-                <br />
-                <span style="font-size:20px">Sign Up</span>
-                <% end %>
+                data: {toggle: 'modal'}  %>
+             
  		</div>
  	</div>
   </div>
