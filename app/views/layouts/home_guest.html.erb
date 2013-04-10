@@ -82,7 +82,18 @@
     </div>
 	<div class="row">
 		<div class="span8">
-<iframe width="600" height="400" src="http://www.youtube.com/embed/GWTzcdWi6v8" frameborder="0" allowfullscreen></iframe>
+<div id='mediaplayer'></div>
+
+			<script type="text/javascript">
+ 			 jwplayer('mediaplayer').setup({
+  			  'flashplayer': 'jwplayer.flash.swf',
+   				 'id': 'playerID',
+   				  'height': '355',
+   				  'width': '600',
+   				  'image': 'https://s3.amazonaws.com/mindsmesh.com/assets/MindsMeshMovFrame.png',
+   			 'file': 'https://s3.amazonaws.com/mindsmesh.com/assets/MindsMesh.mov',
+ 			 });
+		</script>
  		</div>
  		<div class="span4">
  			<h2 style="color: white;">MindsMesh transforms a Learning Management System into a vibrant campus community</h2>
