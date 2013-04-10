@@ -14,20 +14,34 @@
 </head>
 <body class="header_big">
   <div id="fb-root"></div>
-  <div id="header-bg">
+    <div class="navbar">
+    <div class="navbar-inner">
+      <div class="container">
+
+
+          <ul class="nav pull-left" id="top_menu_left">
+            <li><a id="logo" href="/"><%= image_tag('appicon-72.png') %></a></li>
+            <!-- placeholder ajax_application.js -->
+          </ul>
+          <ul class="nav pull-left" id="top_menu_right">
+            <li><a href="/">Home</a></li>
+            <li><a href="/">For Schools</a></li>
+            <li><a href="/">About Us</a></li>
+            <li><a href="/">Blog</a></li>
+            <!-- placeholder ajax_application.js -->
+          </ul>
+          <ul class="nav pull-right" id="top_menu_right">
+            <li><%= link_to 'Login',
+                    "#login_modal",
+                    id: 'try-button',
+                    data: {toggle: 'modal'} %></li>
+            <!-- placeholder ajax_application.js -->
+          </ul>
+
+      </div>
+    </div>
   </div>
   <div class="wrap clear">
-    
-    <header>
-      <div id="header-logo">
-      </div>
-      <%= link_to '', '/', id: 'logo-big' %>
-      
-      <ul class="nav nav-pills">
-        <%= li link_to("HOME", root_path, class: 'pill') %>
-      </ul>
-    </header>
-    
     <table id="tablecontent">
       <tr>
         <td id="main">
