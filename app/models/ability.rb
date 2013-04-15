@@ -36,17 +36,23 @@ class Ability
   end
 
   def index
-    can [:index, :create_post, :more_posts, :feedback, :topics], :home
+      can [:index, :create_post, :more_posts, :feedback, :topics, :groups], :home
 
     #TODO: stop testing only as a master
     can [:create, :filter], Topic
     can [:show, :join, :leave], Topic do |topic|
       topic.entity.entity_users.where(user_id: @current_user.id).exists?
     end
+      can [:show, :join, :leave], Group do |group|
+          group.entity.entity_users.where(user_id: @current_user.id).exists?
+      end
     #TODO: stop testing only as a master
-    can [:more_posts], Topic do |topic|
+      can [:more_posts], Topic do |topic|
       topic.topic_users.where(user_id: @current_user.id).exists?
     end
+      can [:more_posts], Group do |group|
+          group.group_users.where(user_id: @current_user.id).exists?
+      end
     can [:read, :create_reply], Post do |post|
       true ==true
     end

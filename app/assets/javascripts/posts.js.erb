@@ -105,7 +105,7 @@ $("#posts a.more").live("ajax:beforeSend", function() {
   $(this).fadeOut('fast');
 });
 $("#posts a.more").live("ajax:success", function(e, data) {
-  $("#posts").append(data).find(".best_in_place").best_in_place();
+  $("#posts").append(data).find(".fbest_in_place").best_in_place();
   $('#posts .posts_pack:last').effect("highlight", highlight_options, 1200);
 });
 $(".post .files a[data-method=delete]").live("ajax:beforeSend", function() {
