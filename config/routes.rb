@@ -87,6 +87,7 @@ Mindsmesh::Application.routes.draw do
   mount MailsViewer::Engine => '/delivered_mails'
   
   get "/privacy" => "pages#privacy"
+  get "/product_tour" => "pages#product_tour"
   get "/terms"   => "pages#privacy"
   get "/support" => "pages#privacy"
   get "/faq"     => "pages#privacy"

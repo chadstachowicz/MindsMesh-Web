@@ -33,3 +33,4 @@
 //= require daterangepicker.jQuery
 //= require livesearch
 //= require frontend
+//= require jquery.pixelentity.flare.min

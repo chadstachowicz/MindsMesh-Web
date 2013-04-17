@@ -141,7 +141,13 @@
 		</script>
 			<% elsif pa.file.original_filename.match(/\.png$/i) or pa.file.original_filename.match(/\.jpg$/i)  %>
 			<div id='image'>
+				<a
+     data-target="flare"
+     href="<%=pa.file.url%>"
+     data-flare-scale="fit"
+     >
 				<img src="<%=pa.file.url%>" style="max-width: 480px; max-height: 480px">
+				</a>
 			</div>
 			
           	<% else %>

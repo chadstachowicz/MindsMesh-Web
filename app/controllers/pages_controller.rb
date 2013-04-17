@@ -5,6 +5,9 @@ class PagesController < ApplicationController
   def terms
   end
 
+  def product_tour
+  end
+    
   def support
   end
 
