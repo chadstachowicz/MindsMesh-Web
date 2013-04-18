@@ -47,6 +47,7 @@ class GroupsController < ApplicationController
   # POST /groups
   def create
     if @group.save
+      @group.entity_user_join(@group.entity_user)
       redirect_to @group, notice: 'Group was created.'
     else
       render action: "new"

@@ -45,9 +45,14 @@ Mindsmesh::Application.routes.draw do
           post 'join'
           post 'leave'
         end
-        #collection do
-        #  get :batch
-        #end
+      end
+      resources :topics, only: [:show, :create] do
+        member do
+            get 'posts'
+            get 'posts/with_family', action: 'posts_with_family'
+            post 'join'
+            post 'leave'
+        end
       end
       resources :users, only: [:show] do
         member do
