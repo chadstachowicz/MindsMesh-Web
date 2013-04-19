@@ -13,7 +13,8 @@ module Api::V1
     def with_parents
       as_json.merge({
         user:  UserPresenter.new(m.user),
-        topic: TopicPresenter.new(m.topic)
+        topic: TopicPresenter.new(m.topic),
+        group: GroupPresenter.new(m.group),
       })
     end
 
@@ -28,6 +29,7 @@ module Api::V1
       as_json.merge({
         user:  UserPresenter.new(m.user),
         topic: TopicPresenter.new(m.topic),
+        group: GroupPresenter.new(m.group),
         post_attachments: PostAttachmentPresenter.array(m.post_attachments).to_json,
         replies: m.replies.map { |r| r.as_json.merge({ user: UserPresenter.new(r.user) }) }
       })
