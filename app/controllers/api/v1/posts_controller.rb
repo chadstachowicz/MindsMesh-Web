@@ -3,13 +3,13 @@ module Api::V1
 
     def index
         #  posts = @current_user.posts_feed(params.slice(:limit, :before))
-        posts = @current_user.posts_feed_old(params.slice(:limit, :before))
+        posts = @current_user.posts_feed(params.slice(:limit, :before))
       render json: PostPresenter.array(posts).to_json
     end
 
     def posts_with_family
         # posts = @current_user.posts_feed(params.slice(:limit, :before))
-        posts = @current_user.posts_feed_old(params.slice(:limit, :before))
+        posts = @current_user.posts_feed(params.slice(:limit, :before))
       render json: PostPresenter.array(posts).with_family
     end
 
