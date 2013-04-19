@@ -46,7 +46,7 @@ Mindsmesh::Application.routes.draw do
           post 'leave'
         end
       end
-      resources :topics, only: [:show, :create] do
+      resources :groups, only: [:show, :create] do
         member do
             get 'posts'
             get 'posts/with_family', action: 'posts_with_family'
