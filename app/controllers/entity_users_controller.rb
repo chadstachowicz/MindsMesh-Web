@@ -16,4 +16,9 @@ class EntityUsersController < ApplicationController
     end
   end
 
+  # DELETE /entity_users/1
+    def destroy
+        @entity_user.destroy
+        render json: true
+    end
 end

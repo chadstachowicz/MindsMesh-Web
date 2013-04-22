@@ -1,6 +1,8 @@
 class UsersDatatable
   delegate :params, :h, :link_to, :number_to_currency, :image_tag, :raw, :icon_text, to: :@view
 
+  attr_reader :view
+    
   def initialize(view)
     @view = view
   end
@@ -23,7 +25,8 @@ class UsersDatatable
         name_decorator(user),
         h(user.created_at),
         entities_decorator(user),
-        "#{user.topic_users_count} topics"
+        "#{user.topic_users_count} topics",
+        view.link_to('Edit', view.edit_user_path(user))
       ]
     end
   end

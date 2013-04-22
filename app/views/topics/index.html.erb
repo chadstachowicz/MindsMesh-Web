@@ -8,25 +8,13 @@
     </ul>
   </div>
 </div>
-<table data-source="<%= topics_url(format: :json) %>">
-	<thead>
-  <tr>
-    <th>Entity</th>
-    <th>Title</th>
-    <th>Number</th>
-    <th>Name</th>
-    <th>Slug</th>
-    <th>Self-Joining</th>
-    <th>edit</th>
-    <th></th>
-  </tr>
-
-
- </thead>
+<table data-source="<%= datatable_filter_topics_url(format: :json) %>">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
   <tbody>
   </tbody>
 </table>
-
-<br />
-
-<%= link_to 'New Topic', new_topic_path %>

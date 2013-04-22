@@ -109,7 +109,7 @@ Mindsmesh::Application.routes.draw do
     end
   end
   
-  resources :entity_users, only: [:create]
+  resources :entity_users, only: [:create, :destroy]
   resources :topic_users
     resources :users, only: [:index, :show, :edit, :update, :destroy] do
     member do
@@ -126,6 +126,7 @@ Mindsmesh::Application.routes.draw do
     end
     collection do
       get :filter
+      get 'datatable_filter', format: 'json'
     end
   end
     

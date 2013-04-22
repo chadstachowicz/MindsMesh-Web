@@ -29,6 +29,7 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
+    @schools = @user.entity_users
     respond_with(@user)
   end
 

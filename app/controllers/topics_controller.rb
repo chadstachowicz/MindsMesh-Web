@@ -1,8 +1,6 @@
 class TopicsController < ApplicationController
   respond_to :html, :json#, :xml
   load_and_authorize_resource
-    
-  layout 'datatables', only: [:index]
 
   #untested
   # GET /topics/filter
@@ -16,10 +14,15 @@ class TopicsController < ApplicationController
     render layout: false
   end
 
-  # GET /topics
-  def index
-    respond_with(@topics)
-  end
+    # GET /entities
+    def index
+        render layout: 'datatables'
+    end
+    
+    # GET /entities/datatable_filter
+    def datatable_filter
+        render json: TopicsDatatable.new(view_context)
+    end
 
   # GET /topics/1
   def show

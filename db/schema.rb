@@ -1,4 +1,3 @@
-
 # encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
@@ -12,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130401015555) do
+ActiveRecord::Schema.define(:version => 20130422030648) do
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -63,6 +62,7 @@ ActiveRecord::Schema.define(:version => 20130401015555) do
     t.integer  "user_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "role_i"
   end
 
   add_index "entity_users", ["entity_id"], :name => "index_entity_users_on_entity_id"

@@ -2,7 +2,7 @@
   <%= form_for EntityUser.new, remote: true do |f| %>
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-    <h3>Assign an user to a school</h3>
+    <h3>Edit a user</h3>
   </div>
   <div class="modal-body">
     <div class="control-group control-group-user-field">
@@ -13,9 +13,10 @@
       </div>
     </div>
     <div class="control-group">
-      <%= f.label :entity_id, "School", class: "control-label" %>
+          
+      <%= f.label :entity_id, "Schools", class: "control-label" %>
       <div class="controls">
-        <%= f.hidden_field :entity_id, class: 'select2', placeholder: "Select a School", width: '384px', data: {source: select2_filter_entities_url(format: :js)} %>
+        <%= f.hidden_field :entity_id, class: 'select2', placeholder: "Add a School", width: '384px', data: {source: select2_filter_entities_url(format: :js)} %>
       </div>
     </div>
     <div class="control-group">

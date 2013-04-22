@@ -146,4 +146,21 @@ $('#peopleToAdd').blur(function() {
 }
 });
 });
-
+$(document).ready(function($) {
+$(".schools a").live("click", function() {
+        if (window.confirm("Are you sure you want to delete this?")) {
+	     $.post(this.href, {_method:'delete'}, null, "script");
+            $(this).parent().remove();
+        }
+  return false;
+});
+});
+$(document).ready(function($) {
+$("#role_i").live("change", function() {
+        if (window.confirm("Are you sure you want to delete this?")) {
+	     $.post(this.href, {_method:'delete'}, null, "script");
+            $(this).parent().remove();
+        }
+  return false;
+});
+});

@@ -12,7 +12,7 @@
       </ul>
     </div>
   <% end %>
-
+  
   <div class="field">
     <%= f.label :name %><br />
     <%= f.text_field :name %>
@@ -21,6 +21,16 @@
     <%= f.label :photo_url %><br />
     <%= f.text_field :photo_url %>
   </div>
+  
+  <%= f.label :entity_id, "Current Schools", class: "control-label" %>
+      <% @schools.each do |school| %>
+      	<div id="schools" value="<%= school.id %>" class="schools"><%= school.entity.name %><select name="role_i" id="role_i">
+  <option value="0">User</option>
+  <option value="1">School Administrator</option>
+</select><a href='/entity_users/<%= school.id %>' class='btn btn-mini'>x</a></div>
+      <% end %>
+  
+  
   <div class="actions">
     <%= f.submit %>
   </div>
