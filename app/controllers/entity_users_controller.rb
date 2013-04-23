@@ -21,4 +21,13 @@ class EntityUsersController < ApplicationController
         @entity_user.destroy
         render json: true
     end
+    
+    # PUT /entity_users/1
+    def update
+        #@user.update_attributes(params[:user])
+        if @entity_user.update_attributes(params[:entity_user])
+            flash[:notice] = "Entity User successfully updated."
+        end
+        render json: @entity_user
+    end
 end

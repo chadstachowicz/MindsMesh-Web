@@ -23,6 +23,13 @@
     <% if current_user.master? %>
     	<li class="divider"></li>
     	 <%= li link_to icon_text('key', "Admin Portal"), admin_index_path, id: 'sign_out' %>
+    <% else %>
+    	<% current_user.entity_users.each do |eur| %>
+    		<%  if eur.role_i == 1  %>
+    			<li class="divider"></li>
+    	 <%= li link_to icon_text('key', "Admin Portal"), admin_index_path, id: 'sign_out' %>
+    	 <% end %>
+    	 <% end %>
     <% end %>
     
   </ul>

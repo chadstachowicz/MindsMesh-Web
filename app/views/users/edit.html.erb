@@ -24,9 +24,14 @@
   
   <%= f.label :entity_id, "Current Schools", class: "control-label" %>
       <% @schools.each do |school| %>
-      	<div id="schools" value="<%= school.id %>" class="schools"><%= school.entity.name %><select name="role_i" id="role_i">
+      	<div id="schools" value="<%= school.id %>" class="schools"><%= school.entity.name %><select name="<%= school.id %>" id="role_i">
+      	<% if school.role_i == 1 %>
   <option value="0">User</option>
+  <option value="1" selected>School Administrator</option>
+  <% else %>
+    <option value="0" selected>User</option>
   <option value="1">School Administrator</option>
+  <% end %>
 </select><a href='/entity_users/<%= school.id %>' class='btn btn-mini'>x</a></div>
       <% end %>
   

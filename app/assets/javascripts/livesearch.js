@@ -157,9 +157,8 @@ $(".schools a").live("click", function() {
 });
 $(document).ready(function($) {
 $("#role_i").live("change", function() {
-        if (window.confirm("Are you sure you want to delete this?")) {
-	     $.post(this.href, {_method:'delete'}, null, "script");
-            $(this).parent().remove();
+        if (window.confirm("Are you sure you want to change this persons role?")) {
+	     $.ajax({url: "/entity_users/" +  $(this).attr("name"), type: 'PUT',data:  { entity_user: { role_i: $(this).val()}} });
         }
   return false;
 });

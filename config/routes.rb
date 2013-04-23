@@ -109,7 +109,7 @@ Mindsmesh::Application.routes.draw do
     end
   end
   
-  resources :entity_users, only: [:create, :destroy]
+  resources :entity_users
   resources :topic_users
     resources :users, only: [:index, :show, :edit, :update, :destroy] do
     member do
