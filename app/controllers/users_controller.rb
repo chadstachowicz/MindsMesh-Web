@@ -10,6 +10,10 @@ class UsersController < ApplicationController
       format.json { render json: UsersDatatable.new(view_context) }
     end
   end
+    
+  def new
+      render :layout => 'pages'
+  end
 
   # GET /users/1
   def show

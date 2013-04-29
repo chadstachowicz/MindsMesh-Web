@@ -1,4 +1,5 @@
 module ApplicationHelper
+
   def li(content, options={})
     content_tag(:li, content, options)
   end

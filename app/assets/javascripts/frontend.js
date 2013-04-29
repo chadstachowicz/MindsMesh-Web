@@ -20,3 +20,9 @@ $('html, body').animate({
      }, 500);
 return false;
 }
+function createAccount()
+{
+$('#dev_signin').hide();
+$('#dev_signup').show();
+return false;
+}
