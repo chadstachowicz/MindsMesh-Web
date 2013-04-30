@@ -1,5 +1,6 @@
 class SessionController < ApplicationController
 
+
   #TODO: cancan all controllers
   def logout
     session.clear

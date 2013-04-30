@@ -9,9 +9,9 @@
         <div class="modal-body" style="width:600px">
 		  <div class="row">
 			<div class="span3">
-				<%= link_to image_tag('connect-facebook-button.png'), '/auth/facebook', id: 'login_facebook' %>
+				<%= link_to image_tag('connect-facebook-button.png'), user_omniauth_authorize_path(:facebook), id: 'login_facebook' %>
 				<br/>
-				<%= link_to image_tag('twitter.png'), '/auth/facebook', id: 'login_facebook' %>
+				<%= link_to image_tag('twitter.png'), user_omniauth_authorize_path(:twitter), id: 'login_twitter' %>
 				<br/>
 				<h2 style="width:100%;text-align:center">or</h2>
 				<%= link_to_function icon_text('check','Create Account'),

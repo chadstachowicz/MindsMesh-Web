@@ -3,6 +3,10 @@ facebook: &facebook
   secret: c60f05f4033eb502365cfffa205b2ca1
   options: {scope: 'email,user_education_history,friends_education_history,user_birthday,friends_birthday'}
 
+twitter: &twitter
+  key: X73asiTCmfgbbOhxuFl12g
+  secret: BLbFDDa0rqs03B5ZexN2yz7xvcEW9YxPCnQnXQRTXQ
+  
 s3: &s3
    access_key_id: AKIAIKFVJ3EMAIBXELBQ
    secret_access_key: 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
@@ -11,6 +15,8 @@ defaults: &defaults
   admin_email: chadstachowicz@gmail.com
   ZENCODER_API_KEY: 131fef618cd26208a260a0b12b83ca6d
   s3: false
+  twitter:
+    <<: *twitter
 
 development:
   <<: *defaults

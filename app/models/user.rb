@@ -5,6 +5,8 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable
     
+    devise :omniauthable, :omniauth_providers => [:facebook, :twitter]
+    
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me
   attr_accessible :name
@@ -154,13 +156,36 @@ class User < ActiveRecord::Base
     topics.where("name LIKE ?", "%#{q}%")
   end
 
+  def self.find_for_facebook_oauth(auth, signed_in_resource=nil)
+    user = User.where(:fb_id => auth.uid).first
+    unless user
+    user = User.create(name:auth.extra.raw_info.name,
+    fb_id:auth.uid,
+    email:auth.info.email,
+    password:Devise.friendly_token[0,20]
+    )
+    end
+   user
+end
+
+def self.find_for_twitter_oauth(auth, signed_in_resource=nil)
+user = User.where(:twit_id => auth.uid).first
+unless user
+    user = User.create(name:auth.extra.raw_info.name,
+                       twit_id:auth.uid,
+                       email:auth.info.email,
+                       password:Devise.friendly_token[0,20]
+                       )
+end
+user
+end
 
 
 
 
   #login
   def save_with_facebook_data!(fb_uid, name, gender, token, expires_at)
-    #      
+    #
     self.name          = name
     self.gender        = gender
     self.fb_id         = fb_uid

@@ -15,9 +15,6 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_user, :me, :my_ca
 
-  def current_user
-    @current_user ||= User.find(session[:user_id]) rescue nil if session[:user_id]
-  end
   alias :me :current_user
 
   def my_ca

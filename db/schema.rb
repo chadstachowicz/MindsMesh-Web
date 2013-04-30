@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130422030648) do
+ActiveRecord::Schema.define(:version => 20130430041152) do
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -404,6 +404,7 @@ ActiveRecord::Schema.define(:version => 20130422030648) do
     t.datetime "locked_at"
     t.string   "authentication_token"
     t.integer  "group_users_count"
+    t.integer  "twit_id"
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true
