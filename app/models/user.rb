@@ -77,10 +77,10 @@ class User < ActiveRecord::Base
 
   #this should be in a presenter
   def photo_url(picture_type='square')
-      if fb_id.nil?
-        "https://api.twitter.com/1/users/profile_image/#{twit_id}"
-      else
+      if twit_id.nil?
         "https://graph.facebook.com/#{fb_id}/picture?type=#{picture_type}"
+      else
+        "https://api.twitter.com/1/users/profile_image/#{twit_id}"
       end
   end
 
