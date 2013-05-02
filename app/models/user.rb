@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
     devise :omniauthable, :omniauth_providers => [:facebook, :twitter]
     
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me
+    attr_accessible :email, :password, :password_confirmation, :remember_me, :twit_id, :fb_id
   attr_accessible :name
   has_many :logins,               dependent: :destroy
   has_many :entity_user_requests, dependent: :destroy
@@ -77,7 +77,11 @@ class User < ActiveRecord::Base
 
   #this should be in a presenter
   def photo_url(picture_type='square')
-    "https://graph.facebook.com/#{fb_id}/picture?type=#{picture_type}"
+      if fb_id.nil?
+        "https://api.twitter.com/1/users/profile_image/#{twit_id}"
+      else
+        "https://graph.facebook.com/#{fb_id}/picture?type=#{picture_type}"
+      end
   end
 
   #this should be in a presenter
