@@ -37,7 +37,7 @@ $("#new_post_create").live('click', function(e) {
   if ($('#new_post textarea').val().length < 10) {
     alert('a reasonable question should have at least 10 letters');
     $('#new_post textarea').focus();
-    return;
+    return false;
   }
 });
 

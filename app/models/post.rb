@@ -11,7 +11,6 @@ class Post < ActiveRecord::Base
 
   validates_presence_of :user
   validates_presence_of :text
-  validates_length_of :text, minimum: 10
 
   #scope :includes_all , includes(:user, :topic, :replies, :likes)
   class << self
