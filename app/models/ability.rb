@@ -6,7 +6,7 @@ class Ability
   end
 
   def not_logged_in
-    can [:login], :home
+      can [:login, :ucmesh_login], :home
   end
 
   def logged_in

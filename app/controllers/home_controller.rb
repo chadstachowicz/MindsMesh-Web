@@ -46,6 +46,10 @@ class HomeController < ApplicationController
   def login
     render layout: 'home_guest'
   end
+    
+  def ucmesh_login
+    render layout: 'ucmesh_home_guest'
+  end
 
   def entities
   end

@@ -177,6 +177,10 @@ body.header_big {
    h2{
      text-align: center;
      width: 100%;
+     
+     .text-left {
+     text-align: left;
+     }
    }
   p{
      text-align: center;
@@ -197,6 +201,34 @@ body.header_big {
   
 }
 
+.ucmesh_home{
+	background-image:url('/assets/iStock_000019688253_Small.jpg');
+	background-size: 77%;
+	background-repeat: no-repeat;
+	height: 700px;
+	width: 1200px;
+	background-position: bottom right; 
+}
+
+.signup-hold{
+	background-color: rgba(0, 0, 0, 0.65099);
+	margin-top:40px;
+}
+.input-email{
+
+font-size: 16px;
+height: 16px;
+letter-spacing: normal;
+line-height: normal;
+margin-left: 30px;
+padding-bottom: 10px;
+padding-left: 15px;
+padding-right: 20px;
+padding-top: 11px;
+width: 301px;
+word-spacing: 0px;
+
+}   
 #homepagesplit {
   clear: both;
   margin-top: 40px;

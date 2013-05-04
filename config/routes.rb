@@ -86,7 +86,6 @@ Mindsmesh::Application.routes.draw do
   resources :invite_requests, only: [:create] #, :show
   #get "invited/:id" => "invite_requests#show", as: :nice_invite_request
   get "invited/:id(/:name)" => "home#denied", as: :nice_invite_request
-  
 
   match "/delayed_job" => DelayedJobWeb, :anchor => false
   mount MailsViewer::Engine => '/delivered_mails'
@@ -152,6 +151,7 @@ Mindsmesh::Application.routes.draw do
   end
   
   #creating an account
+  get "home/login" => "home#ucmesh_login", :constraints => { :domain => "ucmesh.com" }
   get "home/login"
   get "session/logout"
   get "settings" => "settings#index"
