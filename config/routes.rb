@@ -152,6 +152,7 @@ Mindsmesh::Application.routes.draw do
   
   #creating an account
   get "home/login" => "home#ucmesh_login", :constraints => { :domain => "ucmesh.com" }
+  get "home/login" => "home#edumesh_login", :constraints => { :domain => "edumesh.com" }
   get "home/login"
   get "session/logout"
   get "settings" => "settings#index"
