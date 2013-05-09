@@ -11,6 +11,11 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
         end
     end
     
+    def saml
+        p request.env["omniauth.auth"]
+        redirect_to_landing_home_page
+    end
+    
     def twitter
         # You need to implement the method below in your model (e.g. app/models/user.rb)
         @user = User.find_for_twitter_oauth(request.env["omniauth.auth"], current_user)

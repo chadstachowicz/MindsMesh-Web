@@ -37,7 +37,8 @@ gem 'jquery-datatables-rails'
 gem "mini_magick"
 gem "squeel"
 gem "zencoder"
-gem "omniauth-saml"
+gem "omniauth-saml-rstr"
+gem 'omniauth-wsfed'
 
 
 

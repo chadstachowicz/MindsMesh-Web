@@ -12,6 +12,12 @@ class MyMail < ActionMailer::Base
 
     mail to: entity_user_request.email, subject: "Welcome to MindsMesh!"
   end
+    
+    def signup_confirmation(signup_request)
+        @link  = home_confirm_signup_request_url(signup_request.confirmation_token, host: host)
+        
+        mail to: signup_request.email, subject: "EduMesh confirmation email!"
+    end
 
   def notify_new_reply(user, post, email)
     @user = user

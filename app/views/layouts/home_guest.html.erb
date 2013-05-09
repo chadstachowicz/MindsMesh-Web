@@ -44,8 +44,10 @@
     </div>
   </div>
   <div id="homepagesplit" class="container">
+    <h2><%= @user %></h2>
     <%= "<div class='alert alert-success'><a class='close' data-dismiss='alert' href='#'>×</a><b>#{notice}</b></div>".html_safe if notice %>
     <%= "<div class='alert alert-error'><a class='close' data-dismiss='alert' href='#'>×</a><b>#{alert}</b></div>".html_safe   if alert %>
+
 	<%= render '/partials/application/login' %>
     <div class="signup" id="signup">
         <div class="modal hide fade reply_modal" id="signup_modal">
