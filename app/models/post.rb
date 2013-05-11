@@ -10,7 +10,6 @@ class Post < ActiveRecord::Base
     attr_accessible :text, :topic_user, :topic_id, :user_id, :group_user, :group_id, :topic_user_id
 
   validates_presence_of :user
-  validates_presence_of :text
 
   #scope :includes_all , includes(:user, :topic, :replies, :likes)
   class << self
