@@ -195,7 +195,9 @@
             <%= image_tag post.user.photo_url, width: 50 %>
             <div class="clear">
               <%= link_to post.user.name, post.user %>
+              <% if !post.text.nil? %>
               <%= simple_format post.text %>
+              <% end %>
             </div>
           </div>
           <div class="answer_area">
