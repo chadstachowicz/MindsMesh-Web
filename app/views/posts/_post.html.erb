@@ -108,8 +108,8 @@
       <td>
         <%= best_in_place_if can_update_post,
                              post,
-                             :text
-							 nil: "",
+                             :text,
+                             nil: "",
                              type: :textarea,
                              display_with: :simple_format,
                              activator: "#edit_post_#{post.id}"
