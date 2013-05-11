@@ -106,7 +106,7 @@
   <table style="width:100%">
     <tr>
       <td>
-      <% if !post.text.nil? %>
+      <% unless post.text.nil? %>
         <%= best_in_place_if can_update_post,
                              post,
                              :text,
