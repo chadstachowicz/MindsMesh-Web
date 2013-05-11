@@ -108,7 +108,8 @@
       <td>
         <%= best_in_place_if can_update_post,
                              post,
-                             :text,
+                             :text
+							 nil: "",
                              type: :textarea,
                              display_with: :simple_format,
                              activator: "#edit_post_#{post.id}"
@@ -195,9 +196,7 @@
             <%= image_tag post.user.photo_url, width: 50 %>
             <div class="clear">
               <%= link_to post.user.name, post.user %>
-              <% if !post.text.nil? %>
               <%= simple_format post.text %>
-              <% end %>
             </div>
           </div>
           <div class="answer_area">
