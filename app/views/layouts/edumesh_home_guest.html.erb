@@ -45,6 +45,24 @@
       </div>
     </div>
   </div>
+      <div class="signup" id="signup">
+        <div class="modal hide fade" id="signup_request_modal">
+
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    		 <h3>EduMesh.com</h3>
+          
+        </div>
+        <div class="modal-body">
+			<h2></h2>
+        </div>
+        
+       <div class="modal-footer">
+			<button type="button" class="btn-primary" data-dismiss="modal" aria-hidden="true">I understand</button>
+        </div>
+    
+    </div>
+    </div>
     <div id="features">
     <div id="featurediv">
     <div class="container fix-sections">
@@ -55,7 +73,7 @@
 		<div style="width:480px">
 			<h2 style="margin-top:20px;text-align:left;">EduMesh is a Intellectual Social Network for Your School</h2>
 			<p style="text-align:left">EduMesh allows secure collaboration with classmates and faculty over classes and campus life.</p>
-			<div class="signup-hold">
+			<div id="new_signup" class="signup-hold">
 			<h3 style="color:white;font-size:20px;">Join Your School's Social Network for Free</h3>
 			<% @signup_request = SignupRequest.new %>
 			<%= form_for(@signup_request, url: home_create_signup_request_path, remote: true) do |f| %>
