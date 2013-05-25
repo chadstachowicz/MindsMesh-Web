@@ -38,6 +38,8 @@ gem "mini_magick"
 gem "squeel"
 gem "zencoder"
 gem "omniauth-saml"
+gem "switch_user"
+gem "omniauth-wsfed"
 
 
 

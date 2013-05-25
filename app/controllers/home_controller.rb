@@ -65,7 +65,7 @@ class HomeController < ApplicationController
       #  entity = Entity.new(:domains => ("|" + email.downcase.split('@').last + "|"))
       #  entity.save
       #end
-        sr = SignupRequest.first_or_initialize(email: params[:email])
+        sr = SignupRequest.where(email: params[:email]).first_or_initialize
         sr.generate_and_mail_new_token
         text = sr.save ? "a confirmation email has been sent to #{params[:email]}" : sr.errors.full_messages.to_sentence.to_s
         render text: text
@@ -107,6 +107,18 @@ class HomeController < ApplicationController
     current_user.save
     render nothing: true
   end
+    
+        def saml
+            settings = Onelogin::Saml::Settings.new
+            settings.assertion_consumer_service_url = "https://test.mindsmesh.com:3000/users/auth/saml/callback"
+            settings.name_identifier_format = "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress"
+            settings.issuer = "http://DC2012MM.MINDSMESH.COM/adfs/services/trust"
+            settings.idp_sso_target_url = "https://test.mindsmesh.com:3000/users/auth/saml/callback"
+            settings.idp_cert_fingerprint = "6d:68:ca:7c:e9:bf:c3:13:56:83:11:5e:0f:77:7e:3d:02:d8:34:80"
+            meta = Onelogin::Saml::Metadata.new
+            render :xml => meta.generate(settings)
+        end
+
 
   def create_post
     begin

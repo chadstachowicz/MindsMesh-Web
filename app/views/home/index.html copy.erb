@@ -1,0 +1,27 @@
+<div id="main_index">
+<%# length forces select * instead of counts, for the list is needed in this request %>
+
+<%= render '/posts/new_post', topic_user: nil %>
+<%= render '/posts/posts', posts: @posts, title: "My Mesh" %>
+</div>
+
+<div data-sidebar="left" class="sidebar_content">
+  <ul class="nav blue-nav nav-list">
+
+    <li class="nav-header">
+      my classes
+    </li>
+    <% current_user.topic_users.each do |topic_user| %>
+      <% topic = topic_user.topic %>
+        <%= li link_to(icon_text('book', truncate(topic.name, length: 28)), topic, class: 'tooltiped', title: topic.name) %>
+    <% end %>
+    <li class="nav-header">
+      my groups
+    </li>
+    <% current_user.group_users.each do |group_user| %>
+      <% group = group_user.group %>
+        <%= li link_to(icon_text('book', truncate(group.name, length: 28)), group, class: 'tooltiped', title: group.name) %>
+    <% end %>
+    <%= li link_to(icon_text('plus', 'Create new group'), "#new_group_modal", data: {toggle: 'modal'}, class: 'tooltiped', title: 'Create new group') %>
+  </ul>
+</div>

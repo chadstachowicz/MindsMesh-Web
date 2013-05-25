@@ -95,6 +95,7 @@ Mindsmesh::Application.routes.draw do
   get "/terms"   => "pages#terms"
   get "/support" => "pages#privacy"
   get "/faq"     => "pages#privacy"
+  get "/saml"     => "home#saml"
   get "/about"   => "pages#privacy"
 
   resources :notifications, only: [:show]

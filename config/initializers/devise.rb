@@ -9,7 +9,7 @@ Devise.setup do |config|
   twit = Settings.env["twitter"]
   config.omniauth :facebook, fb["key"], fb["secret"], fb["options"]
   config.omniauth :twitter, twit["key"], twit["secret"]
-  config.omniauth :saml, :assertion_consumer_service_url => "https://test.mindsmesh.com:3000/users/auth/saml/callback", :issuer => "http://DC2012MM.MINDSMESH.COM/adfs/services/trust", :idp_sso_target_url => "https://dc2012mm.mindsmesh.com/adfs/ls/IdpInitiatedSignon.aspx", :idp_cert_fingerprint => "24:5C:97:DF:75:14:E7:CF:2D:F8:BE:72:AE:95:7B:9E:04:74:1E:85", :name_identifier_format => "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress"
+    config.omniauth :saml, :assertion_consumer_service_url => "https://test.mindsmesh.com:3000/users/auth/saml/callback", :issuer => "https://dc2012mm.mindsmesh.com/adfs/services/trust", :idp_sso_target_url => "https://dc2012mm.mindsmesh.com/adfs/ls/IdpInitiatedSignon.aspx", :idp_cert_fingerprint => "6d:68:ca:7c:e9:bf:c3:13:56:83:11:5e:0f:77:7e:3d:02:d8:34:80", :name_identifier_format => "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress", :authn_context => "urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport"
     
   # Configure the class responsible to send e-mails.
   # config.mailer = "Devise::Mailer"
