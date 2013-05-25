@@ -65,7 +65,7 @@ class HomeController < ApplicationController
       #  entity = Entity.new(:domains => ("|" + email.downcase.split('@').last + "|"))
       #  entity.save
       #end
-        sr = SignupRequest.where(email: params[:email]).first_or_initialize
+      sr = SignupRequest.where(email: params[:signup_request][:email]).first_or_initialize
         sr.generate_and_mail_new_token
         text = sr.save ? "a confirmation email has been sent to #{params[:email]}" : sr.errors.full_messages.to_sentence.to_s
         render text: text

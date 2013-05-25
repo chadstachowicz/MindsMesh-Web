@@ -57,8 +57,8 @@
 			<p style="text-align:left">EduMesh allows secure collaboration with classmates and faculty over classes and campus life.</p>
 			<div class="signup-hold">
 			<h3 style="color:white;font-size:20px;">Join Your School's Social Network for Free</h3>
-			<% @user = User.new %>
-			<%= form_for(@user, url: home_create_signup_request_path, remote: true) do |f| %>
+			<% @signup_request = SignupRequest.new %>
+			<%= form_for(@signup_request, url: home_create_signup_request_path, remote: true) do |f| %>
   				<%= f.email_field :email, :class => "input-email", :placeholder => "Enter your school email address" %>
   				
   				<%= f.submit "Sign up" %>

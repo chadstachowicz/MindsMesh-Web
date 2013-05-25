@@ -12,6 +12,7 @@ class User < ActiveRecord::Base
   attr_accessible :name
   has_many :logins,               dependent: :destroy
   has_many :entity_user_requests, dependent: :destroy
+  has_many :signup_requests, dependent: :destroy
   has_many :entity_users,         dependent: :destroy
   has_many :topic_users,          dependent: :destroy
   has_many :group_users,          dependent: :destroy
