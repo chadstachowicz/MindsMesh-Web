@@ -88,13 +88,18 @@ class HomeController < ApplicationController
     redirect_to :root
   end
     
-    def confirm_signup_request
-        sr = signupRequest.find_by_confirmation_token!(params[:confirmation_token])
-        #for user logged in
-        eu = sr.confirm
-        session[:user_id] = eu.user_id
-        redirect_to :root
-    end
+  def confirm_signup_request
+     @srr = SignupRequest.find_by_confirmation_token!(params[:confirmation_token])
+     #for user logged in
+    
+     sr = @srr.confirm
+     @entity = Entity.find_by_email_domain(@srr.email)
+     if (!@entity.nil?)
+         @eu = @entity.entity_users.order("RAND()").limit(21)
+     end
+      
+      render :layout => 'pages'
+  end
 
   def topics
   end

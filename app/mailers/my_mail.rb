@@ -14,7 +14,7 @@ class MyMail < ActionMailer::Base
   end
     
     def signup_confirmation(signup_request)
-        @link  = home_confirm_signup_request_url(signup_request.confirmation_token, host: host)
+        @link  = home_confirm_signup_request_url(signup_request.confirmation_token, host: 'edumesh.com')
         
         mail to: signup_request.email, subject: "EduMesh confirmation email!"
     end

@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable
     
-    devise :omniauthable, :omniauth_providers => [:facebook, :twitter, :saml]
+    devise :omniauthable, :omniauth_providers => [:facebook, :twitter, :saml, :edu_facebook]
     
   # Setup accessible (or protected) attributes for your model
     attr_accessible :email, :password, :password_confirmation, :remember_me, :twit_id, :fb_id
@@ -161,26 +161,50 @@ class User < ActiveRecord::Base
     topics.where("name LIKE ?", "%#{q}%")
   end
 
-  def self.find_for_facebook_oauth(auth, signed_in_resource=nil)
+  def self.find_for_facebook_oauth(auth, signed_in_resource=nil, conf_token=nil)
     user = User.where(:fb_id => auth.uid).first
     unless user
+    nu_email = auth.info.email
+    if !conf_token.nil?
+        srr = SignupRequest.find_by_confirmation_token!(conf_token)
+        nu_email = srr.email
+    end
     user = User.create(name:auth.extra.raw_info.name,
     fb_id:auth.uid,
-    email:auth.info.email,
+    email:nu_email,
     password:Devise.friendly_token[0,20]
     )
+    if !conf_token.nil?
+        entity = Entity.find_by_email_domain(nu_email)
+        eur = user.entity_user_requests.where(entity_id: entity.id, email: nu_email).first_or_initialize
+        eur.save
+        eur.confirm
+    end
+
     end
    user
 end
 
-def self.find_for_twitter_oauth(auth, signed_in_resource=nil)
+def self.find_for_twitter_oauth(auth, signed_in_resource=nil, conf_token=nil)
 user = User.where(:twit_id => auth.uid).first
+
 unless user
+    nu_email = auth.info.email
+    if !conf_token.nil?
+        srr = SignupRequest.find_by_confirmation_token!(conf_token)
+        nu_email = srr.email
+    end
     user = User.create(name:auth.extra.raw_info.name,
                        twit_id:auth.uid,
-                       email:auth.info.email,
+                       email:nu_email,
                        password:Devise.friendly_token[0,20]
                        )
+    if !conf_token.nil?
+        entity = Entity.find_by_email_domain(nu_email)
+        eur = user.entity_user_requests.where(entity_id: entity.id, email: nu_email).first_or_initialize
+        eur.save
+        eur.confirm
+    end
 end
 user
 end

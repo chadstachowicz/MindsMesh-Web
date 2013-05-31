@@ -3,6 +3,11 @@ facebook: &facebook
   secret: c60f05f4033eb502365cfffa205b2ca1
   options: {scope: 'email,user_education_history,friends_education_history,user_birthday,friends_birthday'}
 
+edu_facebook: &edu_facebook
+  key: 117667031774813
+  secret: 18e42284c5f3dbafcd50ac3ef73508bd
+  options: {scope: 'email,user_education_history,friends_education_history,user_birthday,friends_birthday'}
+
 twitter: &twitter
   key: X73asiTCmfgbbOhxuFl12g
   secret: BLbFDDa0rqs03B5ZexN2yz7xvcEW9YxPCnQnXQRTXQ
@@ -17,6 +22,8 @@ defaults: &defaults
   s3: false
   twitter:
     <<: *twitter
+  edu_facebook:
+    <<: *edu_facebook
 
 development:
   <<: *defaults
