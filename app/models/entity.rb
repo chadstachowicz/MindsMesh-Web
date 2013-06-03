@@ -38,6 +38,8 @@ class Entity < ActiveRecord::Base
 
   def self.find_by_email_domain(email)
     domain = email.downcase.split('@').last
+    domain_split = domain.split('.')
+    domain = domain_split[-2] + '.' + domain_split[-1]
     where("domains LIKE ?", "|#{domain}|").first || "@#{domain} is not in our database of valid universities and colleges in the U.S."
   end
 
