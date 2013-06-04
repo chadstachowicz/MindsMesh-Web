@@ -35,9 +35,14 @@ class HomeController < ApplicationController
   end
 
   def index
-    redirect_to_landing_home_page
+    cookies['suggest_invites'] = true if current_user.last_login_at.nil? || current_user.last_login_at < 20.seconds.ago
+    
+    cookies['suggest_follows'] = true if current_user.last_login_at.nil? || current_user.last_login_at < 20.seconds.ago
+
     @type = 'post'
     @posts = current_user.posts_feed
+    
+    redirect_to_landing_home_page
   end
 
   def ajax_application

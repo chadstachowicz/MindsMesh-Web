@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130506044115) do
+ActiveRecord::Schema.define(:version => 20130604185319) do
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -426,6 +426,7 @@ ActiveRecord::Schema.define(:version => 20130506044115) do
     t.string   "authentication_token"
     t.integer  "group_users_count"
     t.integer  "twit_id"
+    t.string   "tagline"
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true

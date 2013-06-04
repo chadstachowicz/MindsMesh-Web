@@ -15,6 +15,8 @@ if ($('#top_menu_right').length) {
   $('#top_menu_right').append(s);
 }
 
+var s = "<%= j render '/partials/application/follow_recs' %>";
+$('body').append(s);
 
 
 <% if my_fb_friends_i_should_invite.any? %>
@@ -30,8 +32,13 @@ $('body').append(s);
 
 
 
-
-if ($.cookie('suggest_invites') && $('#fb_friends_modal').length) {
+if ($.cookie('suggest_follows') && $('#follow_recs_modal').length) {
+  var _callback = function() {
+    $('#follow_recs_modal').modal();
+    $.cookie('suggest_follows', null);
+  }
+  setTimeout(_callback, 1000);
+} else if ($.cookie('suggest_invites') && !$.cookie('suggest_follows') && $('#fb_friends_modal').length) {
   var _callback = function() {
     $('#fb_friends_modal').modal();
     $.cookie('suggest_invites', null);

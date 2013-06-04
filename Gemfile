@@ -40,6 +40,7 @@ gem "zencoder"
 gem "omniauth-saml"
 gem "switch_user"
 gem "omniauth-wsfed"
+gem "simple_form"
 
 
 

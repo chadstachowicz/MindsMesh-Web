@@ -59,7 +59,7 @@
       <%= li @user.access_token, style: 'font-size:9px;' %>
       <%= li @email, style: 'font-size:9px;' %>
       <%= li "#{@user.user_devices.count} devices", style: 'font-size:9px;' %>
-      <%= li "last seen @ #{localized_short_format(@user.last_login_at)}", style: 'font-weight: bold' %>
+      <%= li "last seen @ #{localized_short_format(@user.last_sign_in_at)}", style: 'font-weight: bold' %>
     <% end %>
   </ul>
 </div>
