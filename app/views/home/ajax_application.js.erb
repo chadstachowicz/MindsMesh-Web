@@ -32,16 +32,16 @@ $('body').append(s);
 
 
 
-if ($.cookie('suggest_follows') && $('#follow_recs_modal').length) {
+if ($.cookie('suggest_follows') == true && $('#follow_recs_modal').length) {
   var _callback = function() {
     $('#follow_recs_modal').modal();
-    $.cookie('suggest_follows', null);
+    $.cookie('suggest_follows', 'false');
   }
   setTimeout(_callback, 1000);
-} else if ($.cookie('suggest_invites') && !$.cookie('suggest_follows') && $('#fb_friends_modal').length) {
+} else if ($.cookie('suggest_invites') == true && !$.cookie('suggest_follows') && $('#fb_friends_modal').length) {
   var _callback = function() {
     $('#fb_friends_modal').modal();
-    $.cookie('suggest_invites', null);
+    $.cookie('suggest_invites', 'false');
   }
   setTimeout(_callback, 1000);
 }
