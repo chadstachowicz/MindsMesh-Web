@@ -15,7 +15,7 @@ class SessionController < ApplicationController
 
     #last login at
     #this cookie will be checked and unset at home/ajax_application.js
-    cookies['suggest_invites'] = true if user.last_login_at.nil? || user.last_login_at < 20.hours.ago
+      #   cookies['suggest_invites'] = true if user.last_login_at.nil? || user.last_login_at < 20.hours.ago
     user.last_login_at = Time.now
     user.save
 
