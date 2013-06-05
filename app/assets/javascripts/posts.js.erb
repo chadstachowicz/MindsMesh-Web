@@ -317,13 +317,7 @@ $.getScript('https://connect.facebook.net/en_US/all.js', function() {
     });
   }
 
-  if ($.cookie('suggest_invites') && $('#fb_friends_modal').length)
-  {
-    setTimeout(function() {
-      $('#fb_friends_modal').modal();
-      $.cookie('suggest_invites', null);
-    }, 1000);
-  }
+
 
 });
 
