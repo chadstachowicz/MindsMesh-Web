@@ -38,12 +38,12 @@ if ($.cookie('suggest_follows') == "true") {
     $.cookie('suggest_follows', 'false');
   }
   setTimeout(_callback, 1000);
-} else if ($.cookie('suggest_invites') == "true" && $('#fb_friends_modal').length) {
-  var _callback = function() {
+} else if ($.cookie('suggest_invites') == "true") {
+  var _callback2 = function() {
     $('#fb_friends_modal').modal();
     $.cookie('suggest_invites', 'false');
   }
-  setTimeout(_callback, 1000);
+  setTimeout(_callback2, 1000);
 }
 
 <% end %>
