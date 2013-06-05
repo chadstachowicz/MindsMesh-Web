@@ -35,9 +35,9 @@ class HomeController < ApplicationController
   end
 
   def index
-    cookies['suggest_invites'] = true if current_user.last_login_at.nil? || current_user.last_login_at < 20.seconds.ago
+    cookies['suggest_invites'] = "true" if current_user.last_login_at.nil? || current_user.last_login_at < 20.seconds.ago
     
-    cookies['suggest_follows'] = true if current_user.last_login_at.nil? || current_user.last_login_at < 20.seconds.ago
+    cookies['suggest_follows'] = "true" if current_user.last_login_at.nil? || current_user.last_login_at < 20.seconds.ago
 
     @type = 'post'
     @posts = current_user.posts_feed
