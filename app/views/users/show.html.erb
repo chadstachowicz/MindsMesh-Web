@@ -51,11 +51,7 @@
 
     <% if current_user.master? %>
       <li class="nav-header">master</li>
-      <%= li link_to  icon_text('user', 'log in as'),
-                      session_switch_path(user_id: @user),
-                      method: 'put',
-                      data: {disable_with: "hold on..."}
-                      %>
+      <%= li link_to 'Log in as..', "/switch_user?scope_identifier=user_#{@user.id}"%>
       <%= li @user.access_token, style: 'font-size:9px;' %>
       <%= li @email, style: 'font-size:9px;' %>
       <%= li "#{@user.user_devices.count} devices", style: 'font-size:9px;' %>

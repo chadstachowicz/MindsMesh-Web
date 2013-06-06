@@ -173,6 +173,7 @@ Mindsmesh::Application.routes.draw do
   #client, a user associated to entity
   match "fb_canvas" => 'home#fb_canvas'
   match "home/search" => 'home#search_users'
+  match 'switch_user' => 'switch_user#set_current_user'
   get '/' => 'home#index', as: 'home_index'
   get '/admin' => 'admin#index', as: 'admin_index'
   get "home/more_posts"
