@@ -49,24 +49,7 @@
     <%= "<div class='alert alert-error'><a class='close' data-dismiss='alert' href='#'>×</a><b>#{alert}</b></div>".html_safe   if alert %>
 
 	<%= render '/partials/application/login' %>
-    <div class="signup" id="signup">
-        <div class="modal hide fade reply_modal" id="signup_modal">
-
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    		 <h3>Signup for MindsMesh</h3>
-          
-        </div>
-        <div class="modal-body">
-          <div class="answer_area">
-				<%= link_to image_tag('connect-facebook-button.png'), '/auth/facebook', id: 'login_facebook' %>
-				<br/>
-				<%= link_to image_tag('twitter.png'), '/auth/facebook', id: 'login_facebook' %>
-          </div>
-        </div>
-    
-    </div>
-    </div>
+	
 	<div class="row">
 		<div class="span8">
 <div id='mediaplayer'></div>
@@ -196,7 +179,7 @@
     		    	<div class="span3">
     		    		<h3>Try a basic demo!</h3>
     		    		<%= link_to icon_text('check','Sign up'),
-                '#signup_modal',
+                '#login_modal',
                 style: 'font-size: 30px;',
                 class: 'btn btn-large btn-success input-block-level',
                 data: {toggle: 'modal'}  %>
