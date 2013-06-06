@@ -112,9 +112,9 @@ class Notification < ActiveRecord::Base
   def new_apn(device_token,environment)
     n = Rapns::Apns::Notification.new
     if environment == 'production'
-        n.app = Rapns::Apns::App.find_by_name("ios_app")
+        n.app = Rapns::Apns::App.find_by_name("ios_app_production")
     else
-        n.app = Rapns::Apns::App.find_by_name("ios_app_dev")
+        n.app = Rapns::Apns::App.find_by_name("ios_app_development")
     end
     n.device_token = device_token
     n.alert = facebook_message
