@@ -43,8 +43,8 @@
   
   		<div>
 			<h3>current picture</h3>
-			 <%= image_tag current_user.photo_url('large')%>
-			<p><input name='files' type='file' class='type-file' id="files"/></p>
+      			<%= image_tag(current_user.photo_url('large')) %>
+			<%= f.input_field :avatar %>
 			</div>
 			
     <div class="actions">

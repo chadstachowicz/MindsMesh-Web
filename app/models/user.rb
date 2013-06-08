@@ -5,11 +5,11 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable
     
-    devise :omniauthable, :omniauth_providers => [:facebook, :twitter, :saml, :edu_facebook]
+  devise :omniauthable, :omniauth_providers => [:facebook, :twitter, :saml, :edu_facebook]
     
   # Setup accessible (or protected) attributes for your model
-    attr_accessible :email, :password, :password_confirmation, :remember_me, :twit_id, :fb_id, :tagline
-  attr_accessible :name
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :twit_id, :fb_id, :tagline
+    attr_accessible :name, :avatar
   has_many :logins,               dependent: :destroy
   has_many :entity_user_requests, dependent: :destroy
   has_many :signup_requests, dependent: :destroy
@@ -31,12 +31,15 @@ class User < ActiveRecord::Base
   has_many :entities, through: :entity_users
   has_many :topics,   through: :topic_users
   has_many :groups,   through: :group_users
+    
+  PAPERCLIP_PATH = "/system/:rails_env/:class/:id/:style"
+  PAPERCLIP_OPTIONS = {path: ":rails_root/public#{PAPERCLIP_PATH}", url:  PAPERCLIP_PATH, :styles => { :medium => "300x300>", :thumb => "100x100>" }}
 
 
+  has_attached_file :avatar, PAPERCLIP_OPTIONS
+    
   validates_presence_of :name
-  #validates_presence_of :fb_id
-  #validates_presence_of :fb_token
-  #validates_presence_of :fb_expires_at
+
 
   #untested
   def possible_topics
@@ -80,10 +83,14 @@ class User < ActiveRecord::Base
 
   #this should be in a presenter
   def photo_url(picture_type='square')
-      if twit_id.nil?
-        "https://graph.facebook.com/#{fb_id}/picture?type=#{picture_type}"
+      if avatar.url == '/avatars/original/missing.png'
+          if twit_id.nil?
+              "https://graph.facebook.com/#{fb_id}/picture?type=#{picture_type}"
+          else
+              "https://api.twitter.com/1/users/profile_image/#{twit_id}"
+          end
       else
-        "https://api.twitter.com/1/users/profile_image/#{twit_id}"
+          avatar.url(:medium)
       end
   end
 
