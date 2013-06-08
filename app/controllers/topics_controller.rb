@@ -27,7 +27,8 @@ class TopicsController < ApplicationController
   # GET /topics/1
   def show
     @topic_user  = @topic.topic_users.where(user_id: current_user.id).first
-    @topic_users = @topic.topic_users.order("role DESC").limit(10)
+    @topic_users = @topic.topic_users.where('role_i is null or role_i = 0').limit(10)
+    @teachers = @topic.topic_users.where(:role_i => 1)
     @posts         = @topic.posts.as_feed(params.slice(:limit, :before))
     @post = Post.new
     @type = 'topic'

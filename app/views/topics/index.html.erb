@@ -1,13 +1,4 @@
-<div class="navbar">
-  <div class="navbar-inner">
-    <ul class="nav">
-      <li><a href="admin">Statistics</a></li>
-      <li><a href="entities">Schools</a></li>
-      <li class="active"><a href="topics">Topics</a></li>
-      <li><a href="users">Users</a></li>
-    </ul>
-  </div>
-</div>
+ <%= render '/admin/admin_menu', posts: @posts %>
 <table data-source="<%= datatable_filter_topics_url(format: :json) %>">
   <thead>
     <tr>

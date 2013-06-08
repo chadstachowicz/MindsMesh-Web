@@ -24,6 +24,9 @@ class Ability
 
     index
     master    if current_user.master?
+    school_admin    if current_user.school_admin?
+    topic_admin    if current_user.topic_admin?
+    group_admin    if current_user.group_admin?
 
     # TODO: admin can manage/destroy TopicUser in their entity
     # TODO: teacher can manage/destroy TopicUser in topic they are moderator
@@ -72,5 +75,46 @@ class Ability
     can :manage, :all
     cannot :destroy, User
   end
+
+  def school_admin
+      can [:index], :admin
+      can [:index, :datatable_filter], Entity
+      can [:index, :datatable_filter], Topic
+      can [:edit, :destroy, :update], Topic do |tpc|
+          if !@current_user.entity_users.find_by_entity_id(tpc.entity_id).nil?
+              @current_user.entity_users.find_by_entity_id(tpc.entity_id).role_i == 1
+          end 
+      end
+      can [:update, :destroy], [Post, Reply]
+        cannot :destroy, User
+  end
+    
+    def topic_admin
+        can [:index], :admin
+        can [:index, :datatable_filter], Topic
+        can [:edit, :destroy, :update], Topic do |tpc|
+            if !@current_user.topic_users.find_by_topic_id(tpc.id).nil?
+                @current_user.topic_users.find_by_topic_id(tpc.id).role_i == 1
+            end
+        end
+        can [:update, :destroy], [Post, Reply] do |msg|
+            if !@current_user.topic_users.find_by_topic_id(msg.topic_id).nil?
+                @current_user.topic_users.find_by_topic_id(msg.topic_id).role_i == 1
+            end
+                
+        end
+        cannot :destroy, User
+    end
+    
+    def group_admin
+        can [:index], :admin
+        can [:update, :destroy], [Post, Reply] do |msg|
+            if !@current_user.group_users.find_by_group_id(msg.group_id).nil?
+                @current_user.group_users.find_by_group_id(msg.group_id).role_i == 1
+            end
+            
+        end
+        cannot :destroy, User
+    end
 
 end

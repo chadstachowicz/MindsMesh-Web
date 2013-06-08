@@ -20,17 +20,10 @@
     <%= li link_to icon_text('envelope', "Invite friends"), '#fb_friends_modal', data: {toggle: 'modal'} if my_fb_friends_i_should_invite.any? %>
 <%= li link_to icon_text('cog', "Settings"), '/settings', data: {toggle: 'modal'}%>
     <%= li link_to icon_text('signout', "Sign Out"), session_logout_path, id: 'sign_out' %>
-    <% if current_user.master? %>
+    <% if current_user.master? || current_user.school_admin? || current_user.topic_admin? || current_user.group_admin? %>
     	<li class="divider"></li>
-    	 <%= li link_to icon_text('key', "Admin Portal"), admin_index_path, id: 'sign_out' %>
-    <% else %>
-    	<% current_user.entity_users.each do |eur| %>
-    		<%  if eur.role_i == 1  %>
-    			<li class="divider"></li>
-    	 <%= li link_to icon_text('key', "Admin Portal"), admin_index_path, id: 'sign_out' %>
-    	 <% end %>
-    	 <% end %>
-    <% end %>
+    	 <%= li link_to icon_text('key', "Admin Portal"), admin_index_path, id: 'admin' %>
+	<% end %>
     
   </ul>
 </li>

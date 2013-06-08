@@ -50,7 +50,21 @@
     <li class="nav-header">
       <%= @topic.name %>
     </li>
-
+    
+    <li class="nav-header">
+      teachers
+    </li>
+    
+    <% @teachers.each do |teacher| %>
+      <li>
+        <% user = teacher.user %>
+        <%= link_to user, class: 'tooltiped', title: user.name do %>
+          <%= image_tag user.photo_url, width: 30 %>
+          <%= user.name %>
+        <% end %>
+      </li>
+    <% end %>
+    
     <li class="nav-header">
       students
     </li>

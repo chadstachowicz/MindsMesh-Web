@@ -24,6 +24,9 @@ module ApplicationHelper
     t.nil? ? 'never' : l(t, format: :short)
   end
 
+  def current_user
+      @current_user
+  end
   def my_fb_friends_i_should_invite
     is_ie_below_9 = (request.user_agent.include?('MSIE') && !request.user_agent.include?('MSIE 9.0'))
     limit = (is_ie_below_9) ? 25 : 50

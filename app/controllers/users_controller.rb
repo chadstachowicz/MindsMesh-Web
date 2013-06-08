@@ -34,6 +34,8 @@ class UsersController < ApplicationController
   # GET /users/1/edit
   def edit
     @schools = @user.entity_users
+    @topics = @user.topic_users
+    @groups = @user.group_users
     respond_with(@user)
   end
 

@@ -73,7 +73,9 @@ class User < ActiveRecord::Base
 
   def moderator?; role_is?(:moderator); end
   #def manager?;   role_is?(:manager);   end
-  #def admin?;     role_is?(:admin);     end
+  def school_admin?;     role_is_school?(:school_admin);     end
+  def topic_admin?;     role_is_topic?(:topic_admin);     end
+  def group_admin?;     role_is_group?(:group_admin);     end
   def master?;    role_is?(:master);    end
 
   #this should be in a presenter
@@ -236,4 +238,31 @@ end
   def role_is?(given_role_i)
     role_i >= User::ROLES[given_role_i]
   end
+
+  def role_is_school?(given_role_i)
+    self.entity_users.each do |role|
+        if role.role_i == 1
+            return true
+        end
+    end
+      return false
+  end
+
+def role_is_topic?(given_role_i)
+    self.topic_users.each do |role|
+        if role.role_i == 1
+            return true
+        end
+    end
+    return false
+end
+
+def role_is_group?(given_role_i)
+    self.group_users.each do |role|
+        if role.role_i == 1
+            return true
+        end
+    end
+    return false
+end
 end

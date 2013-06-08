@@ -39,7 +39,17 @@ class TopicsDatatable
     end
     
     def fetch_topics
-        list = Topic.order("#{sort_column} #{sort_direction}")
+        current_user = @view.current_user
+        if current_user.school_admin?
+            entity_ids = current_user.entity_users.where(:role_i => 1).map{|e| e.entity_id}
+            ist = Topic.where('entity_id in (:entity_ids)', :entity_ids => entity_ids).order("#{sort_column} #{sort_direction}")
+        end
+        if current_user.topic_admin?
+            topic_ids = current_user.topic_users.where(:role_i => 1).map{|t| t.topic_id}
+            list = Topic.where('id in (:topic_ids)', :topic_ids => topic_ids).order("#{sort_column} #{sort_direction}")
+        else
+            list = Topic.order("#{sort_column} #{sort_direction}")
+        end
         list = list.page(page).per_page(per_page)
         if view.params[:sSearch].present?
             list = list.where("upper(name) like :search", search: "%#{view.params[:sSearch].upcase}%")
