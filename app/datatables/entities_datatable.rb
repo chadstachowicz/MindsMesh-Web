@@ -32,8 +32,8 @@ class EntitiesDatatable
         entity.slug,
         entity.state_name,
         "#{entity.topics_count} topics",
-        "#{entity.entity_users_count} users",
-        view.link_to('Edit', view.edit_entity_path(entity))
+        "#{entity.entity_users_count} users",   
+        [view.link_to('Edit', view.edit_entity_path(entity)) + "          " + view.link_to('Advanced Settings', view.entity_settings_path(entity))]
       ]
     end
   end

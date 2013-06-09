@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130608161714) do
+ActiveRecord::Schema.define(:version => 20130608205019) do
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -41,6 +41,16 @@ ActiveRecord::Schema.define(:version => 20130608161714) do
     t.integer  "topics_count",       :default => 0
     t.string   "moodle_url"
     t.integer  "groups_count"
+  end
+
+  create_table "entity_advanced_settings", :force => true do |t|
+    t.string   "lti_consumer_key"
+    t.string   "lti_consumer_secret"
+    t.integer  "lms_provider"
+    t.integer  "can_create_topic"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
+    t.integer  "entity_id"
   end
 
   create_table "entity_user_requests", :force => true do |t|

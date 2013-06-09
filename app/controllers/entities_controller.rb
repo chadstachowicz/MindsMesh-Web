@@ -6,6 +6,29 @@ class EntitiesController < ApplicationController
   def index
     render layout: 'datatables'
   end
+    
+  def lti
+    require 'ims/lti'
+      @entity = Entity.find(params[:entity_id])
+      provider = IMS::LTI::ToolProvider.new(@entity.entity_advanced_setting.lti_consumer_key, @entity.entity_advanced_setting.lti_consumer_secret, params)
+      
+      if provider.valid_request?(request)
+          flash[:notice] = "Valid Moodle"
+          else
+          flash[:notice] = "Invalid Moodle"
+      end
+        
+    redirect_to_landing_home_page
+  end
+    
+  def settings
+      @settings = Entity.find(params[:entity_id]).entity_advanced_setting
+      if @settings.nil?
+          @settings = EntityAdvancedSetting.new
+      end
+
+  end
+
 
 
   # GET /entities/datatable_filter

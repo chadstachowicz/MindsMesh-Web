@@ -1,5 +1,8 @@
 Mindsmesh::Application.routes.draw do
 
+
+
+
     devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks"}
 
   #rails generate versionist:new_controller notifications api/V1
@@ -99,10 +102,12 @@ Mindsmesh::Application.routes.draw do
   get "/about"   => "pages#privacy"
 
   resources :notifications, only: [:show]
-
+    resources :entity_advanced_settings
   #general resources, most of these have permissions
   resources :questionnaires, only: [:index, :show, :destroy]
   resources :entities do
+      get :settings
+      get :lti
     collection do
       get 'select2_filter', format: 'js'
       get 'datatable_filter', format: 'json'
@@ -166,8 +171,6 @@ Mindsmesh::Application.routes.draw do
   #relating to an entity
   get "home/entities"
   post "home/entities" => "home#create_entity_request", as: 'home_create_entity_request'
-  post "lti" => "lti#index"
-  get "lti" => "lti#index"
   get "home/confirm/:confirmation_token(/:name)" => "home#confirm_entity_request", as: 'home_confirm_entity_request'
     
     post "home/signup" => "home#create_signup_request", as: 'home_create_signup_request'

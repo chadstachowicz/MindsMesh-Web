@@ -1,11 +1,11 @@
 class Entity < ActiveRecord::Base
-  extend FriendlyId
-  friendly_id :slug
+
 
   attr_accessible :name, :slug, :self_joining, :domains, :state_name, :moodle_url
 
   has_many :entity_user_requests, dependent: :destroy
   has_many :entity_users, 		    dependent: :destroy
+  has_one :entity_advanced_setting,     dependent: :destroy
   has_many :topics, 			        dependent: :destroy
   validates_presence_of :name
   validates_presence_of :domains
