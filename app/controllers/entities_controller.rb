@@ -13,7 +13,16 @@ class EntitiesController < ApplicationController
       provider = IMS::LTI::ToolProvider.new(@entity.entity_advanced_setting.lti_consumer_key, @entity.entity_advanced_setting.lti_consumer_secret, params)
       
       if provider.valid_request?(request)
-          flash[:notice] = "Valid Moodle"
+          # You need to implement the method below in your model (e.g. app/models/user.rb)
+          @user = User.find_for_lti_oauth(provider, current_user, params[:entity_id])
+          
+          if @user.persisted?
+              sign_in_and_redirect @user, :event => :authentication #this will throw if @user is not activated
+              else
+              session["devise.lti_data"] = provider
+              redirect_to new_user_registration_url
+          end
+          
           else
           flash[:notice] = "Invalid Moodle"
       end

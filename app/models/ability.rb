@@ -3,7 +3,7 @@ class Ability
 
   def everybody
       can [:denied, :fb_canvas, :confirm_entity_request, :create_signup_request, :confirm_signup_request, :saml], :home
-      can [:lti], :entity
+      can [:lti], Entity
   end
 
   def not_logged_in

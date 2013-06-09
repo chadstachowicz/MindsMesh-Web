@@ -195,7 +195,7 @@ class User < ActiveRecord::Base
 end
 
 def self.find_for_twitter_oauth(auth, signed_in_resource=nil, conf_token=nil)
-user = User.where(:twit_id => auth.uid).first
+user = User.where(:email => auth.uid).first
 
 unless user
     nu_email = auth.info.email
@@ -214,6 +214,27 @@ unless user
         eur.save
         eur.confirm
     end
+end
+user
+
+end
+
+
+
+def self.find_for_lti_oauth(auth, signed_in_resource=nil, entity_id)
+
+
+user = User.where(:email => auth.lis_person_contact_email_primary).first
+
+unless user
+    nu_email = auth.lis_person_contact_email_primary
+    user = User.create(name:auth.lis_person_name_full,
+                       email:nu_email,
+                       password:Devise.friendly_token[0,20]
+                       )
+    eur = user.entity_user_requests.where(entity_id: entity_id, email: nu_email).first_or_initialize
+    eur.save
+    eur.confirm
 end
 user
 end

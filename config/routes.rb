@@ -107,7 +107,7 @@ Mindsmesh::Application.routes.draw do
   resources :questionnaires, only: [:index, :show, :destroy]
   resources :entities do
       get :settings
-      post :lti
+      get :lti
     collection do
       get 'select2_filter', format: 'js'
       get 'datatable_filter', format: 'json'
