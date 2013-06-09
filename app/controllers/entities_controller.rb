@@ -23,11 +23,12 @@ class EntitiesController < ApplicationController
               redirect_to new_user_registration_url
           end
           
-          else
+      else
           flash[:notice] = "Invalid Moodle"
+          redirect_to_landing_home_page
       end
         
-    redirect_to_landing_home_page
+    
   end
     
   def settings
