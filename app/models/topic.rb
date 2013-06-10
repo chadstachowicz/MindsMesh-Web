@@ -71,6 +71,7 @@ def self.find_for_lti_oauth(auth, user=nil, entity_id)
         
     eur = user.topic_users.where(user_id: user.id, topic_id: topic.id).first_or_initialize
         
+        flash[:notice] = auth.roles.to_s
         if !auth.roles.to_s.match('Instructor').nil?
             eur.role_i = 1
         end
