@@ -18,7 +18,8 @@ class EntitiesController < ApplicationController
           @topic = Topic.find_for_lti_oauth(provider, @user, params[:entity_id])
           
           if @user.persisted?
-              sign_in_and_redirect @user, :event => :authentication #this will throw if @user is not activated
+              sign_in @user
+              redirect_to topic_path(@topic)
               else
               session["devise.lti_data"] = provider
               redirect_to new_user_registration_url

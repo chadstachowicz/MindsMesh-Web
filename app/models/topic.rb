@@ -65,7 +65,7 @@ def self.find_for_lti_oauth(auth, signed_in_resource=nil, entity_id)
     topic = Topic.where(:number => auth.context_label, :entity_id => entity_id).first
 
     unless topic
-        topic = Topic.create(name:auth.context_title,
+        topic = Topic.create(title:auth.context_title,
                        number:auth.context_label,
                         entity_id: entity_id,
                        password:Devise.friendly_token[0,20]
