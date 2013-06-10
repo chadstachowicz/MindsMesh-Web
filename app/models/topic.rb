@@ -29,7 +29,6 @@ class Topic < ActiveRecord::Base
   validates_presence_of :number
   validates_presence_of :slug
   validates_presence_of :entity
-  validates_presence_of :user
 
   scope :non_self_joinings, where(self_joining: false)
   scope :self_joinings,     where(self_joining: true)
@@ -82,6 +81,7 @@ end
 
   def compose_name_and_slugify
     self.name = "#{number}: #{title}"                if self.name.blank?
+    self.slug = "#{number}"                if self.slug.blank?
   end
 
 end
