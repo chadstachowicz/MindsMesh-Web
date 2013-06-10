@@ -59,7 +59,7 @@ class Topic < ActiveRecord::Base
 
   before_validation :compose_name_and_slugify
 
-def self.find_for_lti_oauth(auth, signed_in_resource=nil, entity_id)
+def self.find_for_lti_oauth(auth, user=nil, entity_id)
 
 
     topic = Topic.where(:number => auth.context_label, :entity_id => entity_id).first
@@ -71,7 +71,7 @@ def self.find_for_lti_oauth(auth, signed_in_resource=nil, entity_id)
                        password:Devise.friendly_token[0,20]
                        )
         
-    eur = user.topic_users.where(user_id: signed_in_resource.id, topic_id: topic.id).first_or_initialize
+    eur = user.topic_users.where(user_id: user.id, topic_id: topic.id).first_or_initialize
         if auth.roles == "Instructor"
             eur.role_i = 1
         end
