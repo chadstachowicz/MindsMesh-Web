@@ -59,6 +59,28 @@ class Topic < ActiveRecord::Base
 
   before_validation :compose_name_and_slugify
 
+def self.find_for_lti_oauth(auth, signed_in_resource=nil, entity_id)
+
+
+    topic = Topic.where(:number => context_label, :entity_id => entity_id).first
+
+    unless topic
+        topic = Topic.create(name:auth.context_title,
+                       number:auth.context_label,
+                        entity_id: entity_id,
+                       password:Devise.friendly_token[0,20]
+                       )
+        
+    eur = user.topic_users.where(user_id: signed_in_resource.id, topic_id: topic.id).first_or_initialize
+        if auth.roles == "Instructor"
+            eur.role_i = 1
+        end
+    eur.save
+end
+topic
+end
+
+
   def compose_name_and_slugify
     self.name = "#{number}: #{title}"                if self.name.blank?
     self.slug = "#{entity.name} #{name}".parameterize if self.slug.blank?

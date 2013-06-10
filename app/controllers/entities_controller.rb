@@ -15,6 +15,7 @@ class EntitiesController < ApplicationController
       if provider.valid_request?(request)
           # You need to implement the method below in your model (e.g. app/models/user.rb)
           @user = User.find_for_lti_oauth(provider, current_user, params[:entity_id])
+          @topic = Topic.find_for_lti_oauth(provider, @user, params[:entity_id])
           
           if @user.persisted?
               sign_in_and_redirect @user, :event => :authentication #this will throw if @user is not activated
@@ -24,7 +25,7 @@ class EntitiesController < ApplicationController
           end
           
       else
-          flash[:notice] = "Invalid Moodle"
+          flash[:notice] = "Invalid Moodle Credentials"
           redirect_to_landing_home_page
       end
         
