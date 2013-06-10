@@ -1,7 +1,7 @@
 class Topic < ActiveRecord::Base
 
 
-    attr_accessible :name, :slug, :entity_user_id, :self_joining, :title, :number, :privacy
+    attr_accessible :name, :slug, :entity_user_id, :self_joining, :title, :number, :privacy, :entity_id
 
   #decorator
   attr_accessor :is_my_topic
@@ -68,7 +68,6 @@ def self.find_for_lti_oauth(auth, user=nil, entity_id)
         topic = Topic.create(title:auth.context_title,
                        number:auth.context_label,
                         entity_id: entity_id,
-                       password:Devise.friendly_token[0,20]
                        )
         
     eur = user.topic_users.where(user_id: user.id, topic_id: topic.id).first_or_initialize
