@@ -83,7 +83,6 @@ end
 
   def compose_name_and_slugify
     self.name = "#{number}: #{title}"                if self.name.blank?
-    self.slug = "#{entity.name} #{name}".parameterize if self.slug.blank?
   end
 
 end
