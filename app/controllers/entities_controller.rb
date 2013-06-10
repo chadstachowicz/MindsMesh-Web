@@ -19,7 +19,7 @@ class EntitiesController < ApplicationController
           
           if @user.persisted?
               sign_in @user
-              redirect_to topic_path(@topic)
+              redirect_to topic_url(@topic)
               else
               session["devise.lti_data"] = provider
               redirect_to new_user_registration_url
