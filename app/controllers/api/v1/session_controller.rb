@@ -6,7 +6,7 @@ module Api::V1
     def login
       if params[:fb_access_token].nil?
           user = User.find_for_database_authentication(:email => params[:email])
-          return false unless user
+          if !user.nil?
           
            if user.valid_password?(params[:password])
                render json: UserPresenter.new(user).as_me
@@ -14,6 +14,7 @@ module Api::V1
            else
                render json: {error: {message: "fb_access_token is invalid", code: 1003}}, status: :unauthorized
            end
+          end
       else
         
           
