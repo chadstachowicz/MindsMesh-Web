@@ -27,6 +27,7 @@ class User < ActiveRecord::Base
   has_many :login_logs,           dependent: :destroy
   has_many :user_devices,         dependent: :destroy
   has_many :invite_requests,      dependent: :destroy
+  has_many :thread_participants
 
   has_many :entities, through: :entity_users
   has_many :topics,   through: :topic_users

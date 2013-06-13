@@ -128,7 +128,7 @@ $('#send-mes').live("click", function() {
    $(".names").each(function() {
     recip_id.push($(this).attr('value'));
    });
-   $('#message_receiver_id').val(recip_id);
+   $('#message_receiver_ids').val(recip_id);
    return true;
 });
 menu.mouseenter(function(){

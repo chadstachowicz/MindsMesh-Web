@@ -4,6 +4,7 @@ class Ability
   def everybody
       can [:denied, :fb_canvas, :confirm_entity_request, :create_signup_request, :confirm_signup_request, :saml], :home
       can [:lti], Entity
+      can :access, :omniauth_callbacks
   end
 
   def not_logged_in
@@ -98,7 +99,7 @@ class Ability
                 @current_user.topic_users.find_by_topic_id(tpc.id).role_i == 1
             end
         end
-        can [:update, :destroy], [Post] do |msg|
+        can [:update, :destroy], Post do |msg|
             if !@current_user.topic_users.find_by_topic_id(msg.topic_id).nil?
                 @current_user.topic_users.find_by_topic_id(msg.topic_id).role_i == 1
             end
@@ -109,7 +110,7 @@ class Ability
     
     def group_admin
         can [:index], :admin
-        can [:update, :destroy], [Post, Reply] do |msg|
+        can [:update, :destroy], Post do |msg|
             if !@current_user.group_users.find_by_group_id(msg.group_id).nil?
                 @current_user.group_users.find_by_group_id(msg.group_id).role_i == 1
             end

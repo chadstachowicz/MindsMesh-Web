@@ -40,7 +40,6 @@ class HomeController < ApplicationController
     elsif current_user.last_login_at.nil? || current_user.last_login_at < 20.seconds.ago
         cookies['suggest_invites'] = "true"
     end
-
     @type = 'post'
     @posts = current_user.posts_feed
     
@@ -146,7 +145,16 @@ class HomeController < ApplicationController
 
     def create_message
         begin
-            @message = Message.create! params[:message]
+            message_thread_ids = params[:message_receiver_ids].split(/,/)
+            message_thread_ids << params[:message][:user_id]
+            thread = MessageThread.create
+            message_thread_ids.each do |t|
+                ThreadParticipant.create(:message_thread_id => thread.id, :user_id => t.to_i)
+            end
+            @message = Message.new(params[:message])
+            @message.message_thread_id = thread.id
+            @message.save
+                
             params[:files] and params[:files].values.each do |file|
                 MessageAttachment.my_create_file!(@post, file)
         end

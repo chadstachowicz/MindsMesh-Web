@@ -118,6 +118,7 @@ Mindsmesh::Application.routes.draw do
   resources :entity_users
   resources :group_users
   resources :topic_users
+    resources :messages
     resources :users, only: [:index, :show, :edit, :update, :destroy] do
     member do
       get :more_posts

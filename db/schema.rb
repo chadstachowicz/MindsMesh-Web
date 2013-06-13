@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130608205019) do
+ActiveRecord::Schema.define(:version => 20130713214813) do
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -172,16 +172,28 @@ ActiveRecord::Schema.define(:version => 20130608205019) do
 
   add_index "message_attachments", ["message_id"], :name => "index_message_attachments_on_message_id"
 
+  create_table "message_read_states", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "message_id"
+    t.datetime "read_date"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "message_threads", :force => true do |t|
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.integer  "user_id"
+  end
+
   create_table "messages", :force => true do |t|
     t.integer  "user_id"
-    t.integer  "receiver_id"
-    t.string   "receiver_fb_id"
+    t.integer  "thread_id"
     t.text     "text"
     t.integer  "replies_count"
-    t.integer  "expired"
-    t.datetime "expiration_date"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+    t.integer  "message_thread_id"
   end
 
   create_table "notifications", :force => true do |t|
@@ -347,6 +359,13 @@ ActiveRecord::Schema.define(:version => 20130608205019) do
     t.datetime "confirmed_at"
     t.datetime "created_at",         :null => false
     t.datetime "updated_at",         :null => false
+  end
+
+  create_table "thread_participants", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "message_thread_id"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
   end
 
   create_table "topic_users", :force => true do |t|
