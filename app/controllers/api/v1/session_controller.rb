@@ -10,9 +10,10 @@ module Api::V1
           
            if user.valid_password?(params[:password])
                render json: UserPresenter.new(user).as_me
-
+               return
            else
                render json: {error: {message: "fb_access_token is invalid", code: 1003}}, status: :unauthorized
+               return
            end
           end
       else
