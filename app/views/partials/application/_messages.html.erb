@@ -3,7 +3,7 @@
     class="dropdown-toggle <%= current_user.messages.size.zero? ? 'inactive' : 'active' %>"
     data-toggle="dropdown">
     <i class="icon-envelope"></i>
-    <% sql = "SELECT Messages.Id, Messages.Created_at, Messages.text, Messages.Message_Thread_Id, Users.name, Users.id, (SELECT Message_Read_States.Read_Date FROM Message_Read_States WHERE Message_Read_States.Message_Id = Messages.Id and Message_Read_States.User_Id = #{current_user.id}) AS ReadState FROM Messages INNER JOIN Users ON Messages.User_Id = Users.Id WHERE ( Messages.Id in ( SELECT Max(Messages.Id) FROM Thread_Participants INNER JOIN Messages ON Thread_Participants.Message_Thread_Id = Messages.Message_Thread_Id WHERE Thread_Participants.User_Id = #{current_user.id} GROUP BY Thread_Participants.Message_Thread_Id)) ORDER BY Messages.Created_at DESC;"
+    <% sql = "SELECT messages.id, messages.created_at, messages.text, messages.message_thread_id, users.name, users.id, (SELECT message_read_states.read_date FROM message_read_states WHERE message_read_states.message_id = messages.id and message_read_states.user_id = #{current_user.id}) AS ReadState FROM messages INNER JOIN users ON messages.user_id = users.id WHERE ( messages.id in ( SELECT Max(messages.id) FROM thread_participants INNER JOIN messages ON thread_participants.message_thread_id = messages.message_thread_id WHERE thread_participants.user_id = #{current_user.id} GROUP BY thread_participants.message_thread_id)) ORDER BY messages.created_at DESC;"
     @messages= ActiveRecord::Base.connection.execute(sql) %>
     <small><%= @messages.count %></small>
 </a>
