@@ -14,15 +14,21 @@ body { padding-top: 60px; }
 
 $dark-green: #074132;
 
-
 .navbar {
-	  background-color: #45474d;
+	  filter: none;
+  background-color: #45474d;
+}
+
+.navbar-fixed-top {
+	  filter: none;
+  background-color: #45474d;
 }
 
 .navbar-inner {
   min-height: 38px;
   border-bottom:0px;
   font-weight: normal;
+  filter: none;
   background-color: #45474d;
   background-image: none;
   background-repeat: no-repeat;
