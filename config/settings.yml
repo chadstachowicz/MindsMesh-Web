@@ -38,7 +38,7 @@ test:
 
 production:
  <<: *defaults
- domain: mindsmesh.herokuapp.com
+ domain: www.mindsmesh.com
  sendgrid:
    username: cstachowicz
    password: M1ndsM3sh1
