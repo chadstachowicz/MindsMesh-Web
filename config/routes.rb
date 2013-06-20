@@ -60,6 +60,7 @@ Mindsmesh::Application.routes.draw do
       resources :users, only: [:show] do
         member do
           get 'with_children'
+          post 'create'
         end
         #collection do
         #  get :batch

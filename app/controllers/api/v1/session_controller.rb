@@ -31,5 +31,6 @@ module Api::V1
     def me
       render json: UserPresenter.new(@current_user).as_me
     end
+      
   end
 end
