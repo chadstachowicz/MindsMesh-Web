@@ -20,14 +20,13 @@ class EntitiesController < ApplicationController
           if @user.persisted?
               sign_in @user
               redirect_to topic_url(@topic)
-              flash[:notice] = request
               else
               session["devise.lti_data"] = provider
               redirect_to new_user_registration_url
           end
           
       else
-          flash[:notice] = request
+          flash[:notice] = "Invalid Moodle Credentials"
           redirect_to_landing_home_page
       end
         
