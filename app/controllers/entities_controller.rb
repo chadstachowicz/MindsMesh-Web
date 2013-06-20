@@ -26,7 +26,7 @@ class EntitiesController < ApplicationController
           end
           
       else
-          flash[:notice] = "Invalid Moodle Credentials"
+          flash[:notice] = params
           redirect_to_landing_home_page
       end
         
