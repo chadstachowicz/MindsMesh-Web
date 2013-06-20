@@ -2,7 +2,7 @@ class P3p
 
   def self.install_policy(policy)
     @@policy = policy
-    #    Rails.application.config.middleware.insert_before ActionDispatch::Session::CookieStore, P3p
+    Rails.application.config.middleware.insert_before ActionDispatch::Session::CookieStore, P3p
   end
 
   def initialize(app)
