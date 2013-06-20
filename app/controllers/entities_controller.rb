@@ -21,7 +21,7 @@ class EntitiesController < ApplicationController
               sign_in @user
               redirect_to topic_url(@topic)
               else
-              session["devise.lti_data"] = provider
+              #      session["devise.lti_data"] = provider
               redirect_to new_user_registration_url
           end
           
