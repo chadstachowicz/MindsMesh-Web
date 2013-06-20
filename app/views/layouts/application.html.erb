@@ -47,7 +47,7 @@
   </div>
 
   <div class="container">
-    
+    <%= render '/groups/new_group' %>
     <%= "<div class='alert alert-success'><a class='close' data-dismiss='alert' href='#'>×</a><b>#{notice}</b></div>".html_safe if notice %>
     <%= "<div class='alert alert-error'><a class='close' data-dismiss='alert' href='#'>×</a><b>#{alert}</b></div>".html_safe   if alert %>
     <div class="messages" id="messages">

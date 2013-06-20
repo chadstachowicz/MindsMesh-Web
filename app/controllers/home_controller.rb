@@ -90,7 +90,7 @@ class HomeController < ApplicationController
     eur = EntityUserRequest.find_by_confirmation_token!(params[:confirmation_token])
     #for user logged in
     eu = eur.confirm
-    session[:user_id] = eu.user_id
+    sign_in User.find(eu.user_id)
     redirect_to :root
   end
     

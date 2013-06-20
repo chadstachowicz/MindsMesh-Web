@@ -40,7 +40,7 @@ module Api::V1
         eur = user2.entity_user_requests.where(entity_id: entity.id, email: params[:email]).first_or_initialize
         eur.generate_and_mail_new_token
         text = eur.save
-        return render text: true
+        return render json: UserPresenter.new(user2).as_me
         
     end
 
