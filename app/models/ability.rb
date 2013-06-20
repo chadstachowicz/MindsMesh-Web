@@ -12,7 +12,7 @@ class Ability
   end
 
   def logged_in
-      can [:admin, :entities, :create_entity_request, :change_access_token, :ajax_application, :search_users], :home
+      can [:admin, :entities, :create_entity_request, :change_access_token, :ajax_application, :search_users, :settings], :home
   end
   
   def initialize(current_user)
