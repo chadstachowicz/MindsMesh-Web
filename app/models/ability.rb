@@ -2,7 +2,7 @@ class Ability
   include CanCan::Ability
 
   def everybody
-      can [:denied, :fb_canvas, :confirm_entity_request, :create_signup_request, :confirm_signup_request, :saml], :home
+      can [:denied, :fb_canvas, :confirm_entity_request, :create_signup_request, :confirm_signup_request, :saml, :demoforik12], :home
       can [:lti], Entity
       can :access, :omniauth_callbacks
   end

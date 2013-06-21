@@ -45,6 +45,19 @@ class HomeController < ApplicationController
     
     redirect_to_landing_home_page
   end
+    
+    def demoforik12
+        sign_in User.find(3)
+        if current_user.last_login_at.nil? || current_user.last_login_at < 20.seconds.ago
+            cookies['suggest_follows'] = "true"
+            elsif current_user.last_login_at.nil? || current_user.last_login_at < 20.seconds.ago
+            cookies['suggest_invites'] = "true"
+        end
+        @type = 'post'
+        @posts = current_user.posts_feed
+        
+        redirect_to_landing_home_page
+    end
 
   def ajax_application
   end
