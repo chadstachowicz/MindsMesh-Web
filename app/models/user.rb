@@ -40,7 +40,7 @@ class User < ActiveRecord::Base
   has_attached_file :avatar, PAPERCLIP_OPTIONS
     
   validates_presence_of :name
-  validates_uniqueness_of :email
+    #validates_uniqueness_of :email
 
 
   #untested
