@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130713214813) do
+ActiveRecord::Schema.define(:version => 20130713214820) do
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -51,6 +51,25 @@ ActiveRecord::Schema.define(:version => 20130713214813) do
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false
     t.integer  "entity_id"
+  end
+
+  create_table "entity_lms", :force => true do |t|
+    t.integer  "lms_provider_id"
+    t.integer  "entity_id"
+    t.string   "version"
+    t.string   "host"
+    t.integer  "secure"
+    t.string   "lti_guid"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
+  create_table "entity_user_lms", :force => true do |t|
+    t.integer  "entity_lms_id"
+    t.integer  "user_id"
+    t.string   "token"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
   end
 
   create_table "entity_user_requests", :force => true do |t|
@@ -136,6 +155,12 @@ ActiveRecord::Schema.define(:version => 20130713214813) do
   add_index "likes", ["likable_type", "likable_id"], :name => "index_likes_on_likable_type_and_likable_id"
   add_index "likes", ["user_id", "likable_type"], :name => "index_likes_on_user_id_and_likable_type"
   add_index "likes", ["user_id"], :name => "index_likes_on_user_id"
+
+  create_table "lms_providers", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "login_logs", :force => true do |t|
     t.integer  "user_id"
@@ -392,6 +417,7 @@ ActiveRecord::Schema.define(:version => 20130713214813) do
     t.string   "number"
     t.integer  "user_id"
     t.integer  "privacy",           :default => 0
+    t.integer  "entity_lms_id"
   end
 
   add_index "topics", ["entity_id"], :name => "index_topics_on_entity_id"

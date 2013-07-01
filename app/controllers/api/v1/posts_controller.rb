@@ -20,6 +20,10 @@ module Api::V1
     def with_children
       render json: PostPresenter.new(post).with_children
     end
+      
+    def with_children
+        render json: PostPresenter.new(post).with_family
+    end
 
     def likes
       render json: LikePresenter.array(post.likes)

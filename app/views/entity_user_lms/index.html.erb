@@ -1,0 +1,27 @@
+<h1>Listing entity_user_lms</h1>
+
+<table>
+  <tr>
+    <th>Lms provider</th>
+    <th>User</th>
+    <th>Token</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @entity_user_lms.each do |entity_user_lm| %>
+  <tr>
+    <td><%= entity_user_lm.lms_provider_id %></td>
+    <td><%= entity_user_lm.user_id %></td>
+    <td><%= entity_user_lm.token %></td>
+    <td><%= link_to 'Show', entity_user_lm %></td>
+    <td><%= link_to 'Edit', edit_entity_user_lm_path(entity_user_lm) %></td>
+    <td><%= link_to 'Destroy', entity_user_lm, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Entity user lm', new_entity_user_lm_path %>

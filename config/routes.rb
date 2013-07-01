@@ -3,6 +3,15 @@ Mindsmesh::Application.routes.draw do
 
 
 
+  resources :entity_user_lms
+
+
+  resources :entity_lms
+
+
+  resources :lms_providers
+
+
     devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks"}
 
   #rails generate versionist:new_controller notifications api/V1
