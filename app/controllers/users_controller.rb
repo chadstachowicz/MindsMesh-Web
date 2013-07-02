@@ -20,7 +20,11 @@ class UsersController < ApplicationController
     @posts = @user.posts.as_feed(params.slice(:limit, :before))
     @topic_users = @user.topic_users
     @user_follows = @current_user.user_follows.where(:follow_id => @user.id)
-    @email = @user.entity_user_requests.first.email ? @user.entity_user_requests.first.email : current_user.email
+    if @user.entity_user_requests.first.nil?
+        @email = current_user.email
+    else
+        @email = @user.entity_user_requests.first.email
+    end
     respond_with(@user)
   end
     
