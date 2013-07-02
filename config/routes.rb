@@ -24,6 +24,7 @@ Mindsmesh::Application.routes.draw do
       resources :posts, only: [:index, :show, :create] do
         member do
           get 'with_children'
+          get 'with_family'
           get 'likes'
           get 'likes/with_parents', action: 'likes_with_parents'
           post 'like'
