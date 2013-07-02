@@ -21,7 +21,7 @@ module Api::V1
       render json: PostPresenter.new(post).with_children
     end
       
-    def with_children
+    def with_family
         render json: PostPresenter.new(post).with_family
     end
 
