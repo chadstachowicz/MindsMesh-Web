@@ -108,16 +108,18 @@
   <table style="width:100%">
     <tr>
       <td>
+      <div class="post-text">
       <% if post.text != "" %>
         <%= best_in_place_if can_update_post,
                              post,
                              :text,
                              type: :textarea,
-                             display_with: :simple_format,
-                             activator: "#edit_post_#{post.id}"
+                             :display_as => :with_links,
+                             activator: "#edit_post_#{post.id}",
+                             :sanitize => false
                              %>
         <% end %>
-        
+        </div>
       </td>
       <td width="7">
       </td>

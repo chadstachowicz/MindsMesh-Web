@@ -46,6 +46,8 @@ class Ability
       can [:index, :create_post, :more_posts, :feedback, :topics, :groups], :home
 
     #TODO: stop testing only as a master
+      can :show, Hashtag
+      
     can [:create, :filter], Topic
     can [:show, :join, :leave], Topic do |topic|
       topic.entity.entity_users.where(user_id: @current_user.id).exists?
@@ -77,7 +79,6 @@ class Ability
   def master
     #can :home_master
     can :manage, :all
-    cannot :destroy, User
   end
 
   def school_admin
@@ -90,7 +91,6 @@ class Ability
           end 
       end
       can [:update, :destroy], [Post, Reply]
-        cannot :destroy, User
   end
     
     def topic_admin
@@ -107,7 +107,6 @@ class Ability
             end
                 
         end
-        cannot :destroy, User
     end
     
     def group_admin
@@ -118,7 +117,6 @@ class Ability
             end
             
         end
-        cannot :destroy, User
     end
 
 end

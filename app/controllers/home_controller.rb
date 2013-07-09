@@ -35,9 +35,9 @@ class HomeController < ApplicationController
   end
 
   def index
-    if current_user.last_login_at.nil? || current_user.last_login_at < 20.seconds.ago
+    if current_user.last_sign_in_at.nil? || current_user.last_sign_in_at > 20.hours.ago
         cookies['suggest_follows'] = "true"
-    elsif current_user.last_login_at.nil? || current_user.last_login_at < 20.seconds.ago
+    elsif current_user.last_sign_in_at.nil? || current_user.last_sign_in_at > 20.hours.ago
         cookies['suggest_invites'] = "true"
     end
     @type = 'post'
@@ -48,9 +48,9 @@ class HomeController < ApplicationController
     
     def demoforik12
         sign_in User.find(3)
-        if current_user.last_login_at.nil? || current_user.last_login_at < 20.seconds.ago
+        if current_user.last_sign_in_at.nil? || current_user.last_sign_in_at > 20.hours.ago
             cookies['suggest_follows'] = "true"
-            elsif current_user.last_login_at.nil? || current_user.last_login_at < 20.seconds.ago
+            elsif current_user.last_sign_in_at.nil? || current_user.last_sign_in_at > 20.hours.ago
             cookies['suggest_invites'] = "true"
         end
         @type = 'post'
@@ -147,6 +147,13 @@ class HomeController < ApplicationController
   def create_post
     begin
       @post = Post.create! params[:post]
+      @tags = @post.text.scan(/(?:\s|^)(?:#(?!\d+(?:\s|$)))(\w+)(?=\s|$)/i)
+        if !@tags.nil?
+            @tags.each do |tag|
+            hashtag = Hashtag.where(:name => tag[0]).first_or_create
+            HashtagsPost.create(:post_id => @post.id, :hashtag_id => hashtag.id)
+           end
+        end
       params[:files] and params[:files].values.each do |file|
         PostAttachment.my_create_file!(@post, file)
       end

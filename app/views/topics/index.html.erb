@@ -9,3 +9,11 @@
   <tbody>
   </tbody>
 </table>
+
+<h2>Import Topics</h2>
+
+<%= form_tag import_topics_path, multipart: true do %>
+  
+  <%= file_field_tag :file %>
+  <%= submit_tag "Import" %>
+<% end %>

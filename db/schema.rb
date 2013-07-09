@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130713214820) do
+ActiveRecord::Schema.define(:version => 20130713214823) do
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -130,6 +130,20 @@ ActiveRecord::Schema.define(:version => 20130713214820) do
     t.integer  "privacy",           :default => 0
     t.datetime "created_at",                       :null => false
     t.datetime "updated_at",                       :null => false
+  end
+
+  create_table "hashtags", :force => true do |t|
+    t.integer  "entity_id"
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "hashtags_posts", :force => true do |t|
+    t.integer  "post_id"
+    t.integer  "hashtag_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "invite_requests", :force => true do |t|
@@ -260,6 +274,13 @@ ActiveRecord::Schema.define(:version => 20130713214820) do
   end
 
   add_index "post_attachments", ["post_id"], :name => "index_post_attachments_on_post_id"
+
+  create_table "post_hashtags", :force => true do |t|
+    t.integer  "post_id"
+    t.integer  "hashtag_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "posts", :force => true do |t|
     t.integer  "topic_id"

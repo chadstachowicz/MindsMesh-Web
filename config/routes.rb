@@ -3,6 +3,12 @@ Mindsmesh::Application.routes.draw do
 
 
 
+  resources :post_hashtags
+
+
+  resources :hashtags
+
+
   resources :entity_user_lms
 
 
@@ -114,6 +120,7 @@ Mindsmesh::Application.routes.draw do
 
   resources :notifications, only: [:show]
     resources :entity_advanced_settings
+          resources :hashtags
   #general resources, most of these have permissions
   resources :questionnaires, only: [:index, :show, :destroy]
   resources :entities do
@@ -146,6 +153,7 @@ Mindsmesh::Application.routes.draw do
     collection do
       get :filter
       get 'datatable_filter', format: 'json'
+      post :import
     end
   end
     
@@ -197,6 +205,7 @@ Mindsmesh::Application.routes.draw do
   get '/admin' => 'admin#index', as: 'admin_index'
   get "home/more_posts"
   get "home/demoforik12"
+  get "hash/:tag" => "hashtags#show"
   post "home/create_post"
   post "home/create_message"
   post "home/change_access_token"

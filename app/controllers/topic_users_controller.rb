@@ -15,4 +15,5 @@ class TopicUsersController < ApplicationController
         end
         render json: @topic_user
     end
+
 end

@@ -5,6 +5,7 @@ class Entity < ActiveRecord::Base
 
   has_many :entity_user_requests, dependent: :destroy
   has_many :entity_users, 		    dependent: :destroy
+  has_many :hashtags, 		    dependent: :destroy
   has_one :entity_advanced_setting,     dependent: :destroy
   has_many :topics, 			        dependent: :destroy
   validates_presence_of :name

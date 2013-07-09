@@ -42,6 +42,8 @@ gem "switch_user"
 gem "omniauth-wsfed"
 gem "simple_form"
 gem "ims-lti"
+gem 'roo'
+gem 'rinku', :require => 'rails_rinku'
 
 
 

@@ -26,7 +26,7 @@ class UsersDatatable
         h(user.created_at),
         entities_decorator(user),
         "#{user.topic_users_count} topics",
-        view.link_to('Edit', view.edit_user_path(user))
+        [view.link_to('Edit', view.edit_user_path(user)) + " " + view.link_to('Delete', view.user_path(user), :confirm => 'Are you sure you want to destroy this user?', :method => :delete)]
       ]
     end
   end

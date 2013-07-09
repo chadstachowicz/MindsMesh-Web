@@ -29,7 +29,7 @@ class TopicsDatatable
         topics.map do |topic|
             [
             view.link_to(topic.name, topic),
-            [view.link_to('Edit', view.edit_topic_path(topic)) + " " + view.link_to('Delete', view.edit_topic_path(topic))]
+            [view.link_to('Edit', view.edit_topic_path(topic)) + " " + view.link_to('Delete', view.topic_path(topic), :confirm => 'Are you sure you want to destroy this topic?', :method => :delete)]
             ]
         end
     end

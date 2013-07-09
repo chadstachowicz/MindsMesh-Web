@@ -1,6 +1,7 @@
 class TopicsController < ApplicationController
   respond_to :html, :json#, :xml
   load_and_authorize_resource
+    
 
   #untested
   # GET /topics/filter
@@ -86,5 +87,11 @@ class TopicsController < ApplicationController
   def destroy
     @topic.destroy
     respond_with(@topic)
+  end
+    
+    
+  def import
+    Topic.import(params[:file])
+    redirect_to root_url, notice: "Topics imported."
   end
 end
