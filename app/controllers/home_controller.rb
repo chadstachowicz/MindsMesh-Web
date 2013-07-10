@@ -112,6 +112,7 @@ class HomeController < ApplicationController
         user.email = eur.email
         user.save
         euser.destroy
+        sign_in user
     end
     redirect_to :root
   end
