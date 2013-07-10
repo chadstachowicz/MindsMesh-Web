@@ -66,14 +66,13 @@ def self.find_for_lti_oauth(auth, user=nil, entity_id)
                        number:auth.context_label,
                         entity_id: entity_id,
                        )
-        
+    end
         eur = user.topic_users.where(:topic_id => topic.id).first_or_initialize
-        
+
         if auth.roles.to_s.downcase.include?('instructor')
             eur.role_i = 1
         end
-    eur.save
-end
+        eur.save
 topic
 end
 

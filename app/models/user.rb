@@ -226,11 +226,10 @@ end
 def self.find_for_lti_oauth(auth, signed_in_resource=nil, entity_id)
 
 nu_email = auth.lis_person_contact_email_primary
-user = User.where(:email => nu_email).first
+user = User.where(:email => auth.lis_person_contact_email_primary).first
 eur = user.entity_user_requests.where(entity_id: entity_id, email: nu_email).first_or_initialize
 eur.save
 eur.confirm
-
 unless user
     user = User.create(name:auth.lis_person_name_full,
                        email:nu_email,
