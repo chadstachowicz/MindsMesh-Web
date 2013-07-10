@@ -89,7 +89,7 @@ end
         (2..spreadsheet.last_row).each do |i|
         row = Hash[[header, spreadsheet.row(i)].transpose]
             
-            topic = new
+            topic = Topic.where(:number => row["course_number"]).first_or_initialize
             topic.attributes = row.to_hash.slice(*accessible_attributes)
             topic.save!
         end

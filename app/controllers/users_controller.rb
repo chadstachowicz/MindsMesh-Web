@@ -70,4 +70,9 @@ class UsersController < ApplicationController
     @user.destroy
     respond_with(@user)
   end
+    
+    def import
+        User.import(params[:file])
+        redirect_to root_url, notice: "Users imported."
+    end
 end

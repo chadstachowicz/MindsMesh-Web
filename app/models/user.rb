@@ -295,4 +295,40 @@ def role_is_group?(given_role_i)
     end
     return false
 end
+
+def self.import(file)
+spreadsheet = open_spreadsheet(file)
+header = spreadsheet.row(1)
+(2..spreadsheet.last_row).each do |i|
+    row = Hash[[header, spreadsheet.row(i)].transpose]
+    user = User.where(:email => row["email"], :name => row["name"]).first_or_initialize
+    if user.save
+        entity = Entity.find_by_email_domain(row["email"])
+        eur = EntityUser.where(:entity_id => entity.id, :user_id => user.id).first_or_initialize
+        if eur.save
+            topic = Topic.where(:number => row['course_number']).first_or_initialize
+            topic.save
+            if row['teacher'] == 'TRUE'
+                eu = TopicUser.where(:topic_id => topic.id, :user_id => user.id, :role_i => 1).first_or_initialize
+            else
+                eu = TopicUser.where(:topic_id => topic.id, :user_id => user.id).first_or_initialize
+            end
+            eu.save
+        end
+    end
+        
+        
+end
+end
+
+def self.open_spreadsheet(file)
+
+case File.extname(file.original_filename)
+    when ".csv" then Roo::Csv.new(file.path, nil, :ignore)
+    when ".xls" then Roo::Excel.new(file.path, nil, :ignore)
+    when ".xlsx" then Roo::Excelx.new(file.path, nil, :ignore)
+    else raise "Unknown file type: #{file.original_filename}"
+end
+end
+
 end

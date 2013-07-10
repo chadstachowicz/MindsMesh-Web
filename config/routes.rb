@@ -143,6 +143,11 @@ Mindsmesh::Application.routes.draw do
       put :follow
       put :unfollow
     end
+        collection do
+            get :filter
+            get 'datatable_filter', format: 'json'
+            post :import
+        end
   end
   resources :topics do
     member do
