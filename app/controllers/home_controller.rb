@@ -105,7 +105,10 @@ class HomeController < ApplicationController
     if user.nil?
         #for user logged in
         eu = eur.confirm
-        sign_in User.find(eu.user_id)
+        user = User.find(eu.user_id)
+        user.email = eur.email
+        user.save
+        sign_in user
     else
         euser = User.find(eur.user_id)
         user.attributes = euser.attributes

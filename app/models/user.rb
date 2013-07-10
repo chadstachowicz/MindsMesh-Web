@@ -227,6 +227,9 @@ def self.find_for_lti_oauth(auth, signed_in_resource=nil, entity_id)
 
 
 user = User.where(:email => auth.lis_person_contact_email_primary).first
+eur = user.entity_user_requests.where(entity_id: entity_id, email: nu_email).first_or_initialize
+eur.save
+eur.confirm
 
 unless user
     nu_email = auth.lis_person_contact_email_primary
@@ -234,9 +237,6 @@ unless user
                        email:nu_email,
                        password:Devise.friendly_token[0,20]
                        )
-    eur = user.entity_user_requests.where(entity_id: entity_id, email: nu_email).first_or_initialize
-    eur.save
-    eur.confirm
 end
 user
 end
