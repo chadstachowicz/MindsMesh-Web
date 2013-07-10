@@ -17,7 +17,11 @@
                 id: 'schools_link',
                 style: 'font-size: 25px;width: 250px',
                 class: 'btn btn-success input-block-level'%>
-             
+                <br/ >
+            <%- if devise_mapping.recoverable? && controller_name != 'passwords' %>
+  				<%= link_to "Forgot your password or school made your account?", new_password_path(resource_name) %><br />
+			<% end -%>
+
  		    </div>
 			<div id="dev_signin" class="span2">
 				<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
@@ -51,6 +55,9 @@
 
   				<div><%= f.submit "Sign up" %></div>
 			<% end %>
+			
+			
+			
            </div>
 		  </div>
         </div>

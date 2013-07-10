@@ -22,6 +22,8 @@ module Mindsmesh
       g.test_framework      :rspec, :fixture => true
       g.fixture_replacement :fabrication
     end
+    
+
 
     # Only load the plugins named here, in the order given (default is alphabetical).
     # :all can be used as a placeholder for all plugins not explicitly named.

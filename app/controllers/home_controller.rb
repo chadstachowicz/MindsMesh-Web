@@ -101,9 +101,18 @@ class HomeController < ApplicationController
 
   def confirm_entity_request
     eur = EntityUserRequest.find_by_confirmation_token!(params[:confirmation_token])
-    #for user logged in
-    eu = eur.confirm
-    sign_in User.find(eu.user_id)
+    user = User.find_by_email(eur.email)
+    if user.nil?
+        #for user logged in
+        eu = eur.confirm
+        sign_in User.find(eu.user_id)
+    else
+        euser = User.find(eu.user_id)
+        user.attributes = euser.attributes
+        user.email = eur.email
+        user.save
+        euser.destroy
+    end
     redirect_to :root
   end
     
