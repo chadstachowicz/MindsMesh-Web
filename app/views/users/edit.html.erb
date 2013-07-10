@@ -24,7 +24,7 @@
   
   <h3>Current Schools </h3>
       <% @schools.each do |school| %>
-      	<div id="schools-manage" value="<%= school.id %>" class="schools"><%= school.entity.name %><select name="<%= school.id %>" id="school_role_i">
+      	<div class="schools-manage" value="<%= school.id %>" class="schools"><%= school.entity.name %><select name="<%= school.id %>" id="school_role_i">
       	<% if school.role_i == 1 %>
   <option value="0">User</option>
   <option value="1" selected>School Administrator</option>
@@ -37,7 +37,7 @@
       
         <h3>Current Topics</h3>
       <% @topics.each do |topic| %>
-      	<div id="topics-manage" value="<%= topic.id %>" class="schools"><%= topic.topic.name %><select name="<%= topic.id %>" id="topic_role_i">
+      	<div class="topics-manage" value="<%= topic.id %>" class="schools"><%= topic.topic.name %><select name="<%= topic.id %>" id="topic_role_i">
       	<% if topic.role_i == 1 %>
   <option value="0">User</option>
   <option value="1" selected>Teacher</option>
@@ -50,7 +50,7 @@
       
         <h3>Current Groups </h3>
       <% @groups.each do |group| %>
-      	<div id="groups-manage" value="<%= group.id %>" class="schools"><%= group.group.name %><select name="<%= group.id %>" id="group_role_i">
+      	<div class="groups-manage" value="<%= group.id %>" class="schools"><%= group.group.name %><select name="<%= group.id %>" id="group_role_i">
       	<% if group.role_i == 1 %>
   <option value="0">User</option>
   <option value="1" selected>Group Administrator</option>
