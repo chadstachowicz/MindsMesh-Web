@@ -107,7 +107,7 @@ class HomeController < ApplicationController
         eu = eur.confirm
         sign_in User.find(eu.user_id)
     else
-        euser = User.find(eu.user_id)
+        euser = User.find(eur.user_id)
         user.attributes = euser.attributes
         user.email = eur.email
         user.save
