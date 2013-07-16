@@ -187,9 +187,7 @@ class User < ActiveRecord::Base
     )
     if !conf_token.nil?
         entity = Entity.find_by_email_domain(nu_email)
-        eur = user.entity_user_requests.where(entity_id: entity.id, email: nu_email).first_or_initialize
-        eur.save
-        eur.confirm
+        eur = EntityUser.where(entity_id: entity.id, user_id: user.id).first_or_create
     end
 
     end
