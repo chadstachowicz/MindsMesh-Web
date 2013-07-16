@@ -107,7 +107,6 @@ Mindsmesh::Application.routes.draw do
   #get "invited/:id" => "invite_requests#show", as: :nice_invite_request
   get "invited/:id(/:name)" => "home#denied", as: :nice_invite_request
 
-  match "/delayed_job" => DelayedJobWeb, :anchor => false
   mount MailsViewer::Engine => '/delivered_mails'
   
   get "/privacy" => "pages#privacy"

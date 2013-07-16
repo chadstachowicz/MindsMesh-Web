@@ -6,7 +6,7 @@ $yellow: #ffc40d;
 table { width: 100%; }
 th, td { vertical-align: top; }
 
-body { background: #ECFAFF; }
+body { background: #ffffff; }
 
 #guestlogin { padding-top: 0px; background: #45474d; background-color: #45474d; }
 
@@ -40,12 +40,12 @@ body { background: #ECFAFF; }
 #sidebar_right {
   width: 280px;
   background:#fff;
-  border-left: 1px solid #EEE;
+  border-left: 1px solid #808080;
 }
 #sidebar_left {
   width: 180px;
-  background:#eee;
-  border-right: 1px solid #EEE;
+  background:#fff;
+  border-right: 1px solid #808080;
   padding-top: 20px;
   .nav-list { width: 100%; }
 }
@@ -332,8 +332,8 @@ footer {
 }
 #new_post_wrapper {
   background-color: #fff;
-  border: 1px solid #EEE;
-  border-width: 1px 1px 2px 0;
+  border-bottom: 1px solid #808080;
+  border-width: 1px 1px 1px 0;
   box-shadow: none;
   margin: 0;
   padding: 15px;
@@ -445,7 +445,7 @@ body.new_post_exposed {
   background:#fff;
 
   .title {
-    background:#efefef;padding: 10px;
+    background:#fff;padding: 10px;
     h1 { font-size: 11px;font-weight: bold;line-height: 18px; }
   }
 

@@ -14,6 +14,7 @@ class MessagesController < ApplicationController
 
   # GET /users/1
   def show
+      @user = current_user
       @posts = @user.posts.as_feed(params.slice(:limit, :before))
       @topic_users = @user.topic_users
       @user_follows = @current_user.user_follows.where(:follow_id => @user.id)

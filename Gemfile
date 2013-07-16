@@ -13,13 +13,9 @@ gem 'colorize'
 gem 'best_in_place'
 gem 'friendly_id'
 gem 'haml'
-gem 'capistrano', require: false
-gem 'capistrano_colors', require: false
 gem 'koala'
 gem 'newrelic_rpm'
 gem 'daemons'
-gem 'delayed_job_active_record'
-gem 'delayed_job_web'
 gem 'whenever', require: false
 gem 'versionist'
 gem 'resque'
@@ -29,7 +25,6 @@ gem 'aws-sdk', '~> 1.3.4'
 gem 'mails_viewer'
 gem 'will_paginate'
 gem 'rapns'
-gem 'pg'
 gem 'thin'
 gem 'lazy_high_charts'
 gem 'devise'
@@ -44,6 +39,7 @@ gem "simple_form"
 gem "ims-lti"
 gem 'roo'
 gem 'rinku', :require => 'rails_rinku'
+gem 'pusher'
 
 
 

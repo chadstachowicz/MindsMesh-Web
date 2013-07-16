@@ -7,6 +7,15 @@
 
 <div data-sidebar="left" class="sidebar_content">
   <ul class="nav blue-nav nav-list">
+    <a href="#"
+      id="myaccount"
+      class="dropdown-toggle"
+      data-toggle="dropdown">
+      <%= link_to image_tag(current_user.photo_url, :width => 50,:style => "margin-top:8px"), current_user %>
+      <%= link_to current_user.name, current_user %>
+  </a>
+  </br>
+   </br>
 
     <li class="nav-header">
       my classes

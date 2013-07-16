@@ -172,7 +172,7 @@
 
   <div class="post-info">
     <% if can? :create_reply, post %>
-      <%= link_to icon_text('circle-arrow-down', 'create an answer'),
+      <%= link_to icon_text('circle-arrow-down', 'comment'),
                   "#reply_modal_#{post.id}",
                   class: 'btn btn-success',
                   data: {toggle: 'modal'} %>
@@ -223,7 +223,7 @@
 
     <% if can? :create_reply, post %>
       <div class="post-info">
-        <%= link_to icon_text('circle-arrow-down', 'create an answer'),
+        <%= link_to icon_text('circle-arrow-down', 'comment'),
                     "#reply_modal_#{post.id}",
                     class: 'btn btn-success',
                     style: 'float:right;',

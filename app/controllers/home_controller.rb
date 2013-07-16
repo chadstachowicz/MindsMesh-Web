@@ -35,9 +35,9 @@ class HomeController < ApplicationController
   end
 
   def index
-    if current_user.last_sign_in_at.nil? || current_user.last_sign_in_at > 20.hours.ago
+    if current_user.current_sign_in_at.nil? || current_user.current_sign_in_at < 20.hours.ago
         cookies['suggest_follows'] = "true"
-    elsif current_user.last_sign_in_at.nil? || current_user.last_sign_in_at > 20.hours.ago
+    elsif current_user.current_sign_in_at.nil? || current_user.current_sign_in_at < 20.hours.ago
         cookies['suggest_invites'] = "true"
     end
     @type = 'post'
@@ -48,9 +48,9 @@ class HomeController < ApplicationController
     
     def demoforik12
         sign_in User.find(3)
-        if current_user.last_sign_in_at.nil? || current_user.last_sign_in_at > 20.hours.ago
+        if current_user.current_sign_in_at.nil? || current_user.current_sign_in_at < 20.hours.ago
             cookies['suggest_follows'] = "true"
-            elsif current_user.last_sign_in_at.nil? || current_user.last_sign_in_at > 20.hours.ago
+            elsif current_user.current_sign_in_at.nil? || current_user.current_sign_in_at < 20.hours.ago
             cookies['suggest_invites'] = "true"
         end
         @type = 'post'
@@ -130,7 +130,7 @@ class HomeController < ApplicationController
          @eu = @entity.entity_users.order("RAND()").limit(21)
      end
       
-      render :layout => 'pages'
+      render :layout => 'pages_no_login'
   end
 
   def topics

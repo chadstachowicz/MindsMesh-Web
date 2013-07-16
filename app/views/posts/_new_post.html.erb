@@ -6,13 +6,13 @@
     <%= f.hidden_field :group_id, value: params[:id] %>
   <% end %>
     <%= f.hidden_field :user_id, value: @current_user.id %>
-    <h3 class="title">Share Something</h3>
+    <h3 class="title">Update Status</h3>
     <%= f.text_area :text, class: 'input-block-level'%>
     <div class="files">
       <a href="#" class="add_file">add file</a>
     </div>
     <div>
-        <%= f.submit  nil,
+        <%= f.submit  'post',
                       id: 'new_post_create',
                       class: "btn btn-success btn-large float-right clear"
                       %>
