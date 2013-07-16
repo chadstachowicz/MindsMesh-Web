@@ -30,10 +30,3 @@ run app
 
 
 run Mindsmesh::Application
-
-if Rails.env.production?
-  DelayedJobWeb.use Rack::Auth::Basic do |username, password|
-    username == 'yakko'
-    password == 'suchanawesomepassword'
-  end
-end
