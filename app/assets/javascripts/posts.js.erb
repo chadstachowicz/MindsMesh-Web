@@ -291,12 +291,21 @@ app1.fb = {
   authResponse: null,
   init:
     function() {
-
-
+var key = '';
+var re = /edumesh.com/;
+ if( re.exec(window.location.href)){
+  	key = <%= Settings.env["edu_facebook"]["key"] %>;
+ } else {
+    key = <%= Settings.env["facebook"]["key"] %>;
+    
+ }
+ 
 $('body').prepend('<div id="fb-root"></div>');
 $.getScript('https://connect.facebook.net/en_US/all.js', function() {
   FB.init({
-    appId  : '<%= Settings.env["facebook"]["key"] %>',
+
+  	appId  : key,
+
     frictionlessRequests: true
   });
 

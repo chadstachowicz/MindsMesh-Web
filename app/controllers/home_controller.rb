@@ -35,9 +35,9 @@ class HomeController < ApplicationController
   end
 
   def index
-    if current_user.current_sign_in_at.nil? || current_user.current_sign_in_at < 20.hours.ago
+    if current_user.current_sign_in_at.nil? || current_user.current_sign_in_at < 7.days.ago
         cookies['suggest_follows'] = "true"
-    elsif current_user.current_sign_in_at.nil? || current_user.current_sign_in_at < 20.hours.ago
+    elsif current_user.current_sign_in_at.nil? || current_user.current_sign_in_at < 3.hours.ago
         cookies['suggest_invites'] = "true"
     end
     @type = 'post'
@@ -48,9 +48,9 @@ class HomeController < ApplicationController
     
     def demoforik12
         sign_in User.find(3)
-        if current_user.current_sign_in_at.nil? || current_user.current_sign_in_at < 20.hours.ago
+        if current_user.current_sign_in_at.nil? || current_user.current_sign_in_at < 7.days.ago
             cookies['suggest_follows'] = "true"
-            elsif current_user.current_sign_in_at.nil? || current_user.current_sign_in_at < 20.hours.ago
+            elsif current_user.current_sign_in_at.nil? || current_user.current_sign_in_at < 3.hours.ago
             cookies['suggest_invites'] = "true"
         end
         @type = 'post'
@@ -78,12 +78,6 @@ class HomeController < ApplicationController
   end
     
   def create_signup_request
-      #     email = params[:email]
-      #entity = Entity.find_by_email_domain(email)
-      #if entity.nil?
-      #  entity = Entity.new(:domains => ("|" + email.downcase.split('@').last + "|"))
-      #  entity.save
-      #end
       sr = SignupRequest.where(email: params[:signup_request][:email]).first_or_initialize
         sr.generate_and_mail_new_token
         text = sr.save ? "a confirmation email has been sent to #{params[:signup_request][:email]}" : sr.errors.full_messages.to_sentence.to_s
@@ -93,7 +87,8 @@ class HomeController < ApplicationController
   def create_entity_request
     entity = Entity.find_by_email_domain(params[:email])
     return render text: entity if entity.is_a? String
-    eur = current_user.entity_user_requests.where(entity_id: entity.id, email: params[:email]).first_or_initialize
+    eur = EntityUserRequest.where(entity_id: entity.id, email: params[:email]).first_or_initialize
+    eur.user_id = current_user.id
     eur.generate_and_mail_new_token
     text = eur.save ? "a confirmation email has been sent to #{params[:email]}" : eur.errors.full_messages.to_sentence.to_s
     render text: text

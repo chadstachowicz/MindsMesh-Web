@@ -6,7 +6,7 @@ $yellow: #ffc40d;
 table { width: 100%; }
 th, td { vertical-align: top; }
 
-body { background: #ffffff; }
+body { background: #ECFAFF; }
 
 #guestlogin { padding-top: 0px; background: #45474d; background-color: #45474d; }
 
@@ -44,7 +44,7 @@ body { background: #ffffff; }
 }
 #sidebar_left {
   width: 180px;
-  background:#fff;
+  background:#f5f5f5;
   border-right: 1px solid #808080;
   padding-top: 20px;
   .nav-list { width: 100%; }
@@ -442,10 +442,10 @@ body.new_post_exposed {
 
 
 #topics_filter {
-  background:#fff;
+  background:#f5f5f5;
 
   .title {
-    background:#fff;padding: 10px;
+    background:#f5f5f5;padding: 10px;
     h1 { font-size: 11px;font-weight: bold;line-height: 18px; }
   }
 

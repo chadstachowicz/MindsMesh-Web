@@ -7,8 +7,6 @@ class EntityUserRequest < ActiveRecord::Base
   validates_presence_of :entity
   validates_presence_of :user
   validates_presence_of :email
-  validates_uniqueness_of :email, scope: :entity_id
-  validates_uniqueness_of :user_id, scope: :entity_id
 
   validates_email_format_of :email
 
