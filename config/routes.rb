@@ -208,6 +208,7 @@ Mindsmesh::Application.routes.draw do
   get '/' => 'home#index', as: 'home_index'
   get '/admin' => 'admin#index', as: 'admin_index'
   get "home/more_posts"
+  get "hashtags/more_posts"
   get "home/demoforik12"
   get "hash/:tag" => "hashtags#show"
   post "home/create_post"

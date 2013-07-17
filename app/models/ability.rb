@@ -62,7 +62,7 @@ class Ability
       can [:more_posts], Group do |group|
           group.group_users.where(user_id: @current_user.id).exists?
       end
-    can [:read, :create_reply], Post do |post|
+      can [:read, :create_reply, :like, :unlike], Post do |post|
       true ==true
     end
     can [:update, :destroy], [Post, Reply] do |msg|
