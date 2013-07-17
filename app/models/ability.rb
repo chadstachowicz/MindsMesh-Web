@@ -49,6 +49,7 @@ class Ability
       can :show, Hashtag
       
     can [:create, :filter], Topic
+    can [:create, ], Group
     can [:show, :join, :leave], Topic do |topic|
       topic.entity.entity_users.where(user_id: @current_user.id).exists?
     end

@@ -10,7 +10,7 @@ class GroupsController < ApplicationController
   # GET /groups/1
   def show
       @group_user  = @group.group_users.where(user_id: current_user.id).first
-      @group_users = @group.group_users.order("role DESC").limit(10)
+      @group_users = @group.group_users.limit(10)
       @posts         = @group.posts.as_feed(params.slice(:limit, :before))
       @post = Post.new
       @type = 'group'
