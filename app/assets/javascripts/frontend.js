@@ -1,4 +1,5 @@
 $(document).ready(function(){
+
 $("#features_link").click(function() {
      $('html, body').animate({
          scrollTop: $("#features").offset().top
@@ -26,3 +27,4 @@ $('#dev_signin').hide();
 $('#dev_signup').show();
 return false;
 }
+
