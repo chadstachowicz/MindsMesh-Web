@@ -36,9 +36,9 @@ class HomeController < ApplicationController
 
   def index
     if current_user.current_sign_in_at.nil? || current_user.current_sign_in_at < 7.days.ago
-        cookies['suggest_follows'] = "true"
-    elsif current_user.current_sign_in_at.nil? || current_user.current_sign_in_at < 3.hours.ago
-        cookies['suggest_invites'] = "true"
+        # cookies['suggest_follows'] = "true"
+    elsif current_user.current_sign_in_at.nil? || current_user.current_sign_in_at < 3.days.ago
+        # cookies['suggest_invites'] = "true"
     end
     @type = 'post'
     @posts = current_user.posts_feed
@@ -49,9 +49,9 @@ class HomeController < ApplicationController
     def demoforik12
         sign_in User.find(3)
         if current_user.current_sign_in_at.nil? || current_user.current_sign_in_at < 7.days.ago
-            cookies['suggest_follows'] = "true"
-            elsif current_user.current_sign_in_at.nil? || current_user.current_sign_in_at < 3.hours.ago
-            cookies['suggest_invites'] = "true"
+            #     cookies['suggest_follows'] = "true"
+        elsif current_user.current_sign_in_at.nil? || current_user.current_sign_in_at < 3.days.ago
+            #cookies['suggest_invites'] = "true"
         end
         @type = 'post'
         @posts = current_user.posts_feed
