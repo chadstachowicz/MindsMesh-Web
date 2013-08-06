@@ -60,6 +60,45 @@ class ApplicationController < ActionController::Base
     if user_signed_in?
       sql = "SELECT messages.id, messages.created_at, messages.text, messages.message_thread_id, users.name, users.id, (SELECT message_read_states.read_date FROM message_read_states WHERE message_read_states.message_id = messages.id and message_read_states.user_id = #{current_user.id}) AS ReadState FROM messages INNER JOIN users ON messages.user_id = users.id WHERE ( messages.id in ( SELECT Max(messages.id) FROM thread_participants INNER JOIN messages ON thread_participants.message_thread_id = messages.message_thread_id WHERE thread_participants.user_id = #{current_user.id} GROUP BY thread_participants.message_thread_id)) ORDER BY messages.created_at DESC;"
       @messages= ActiveRecord::Base.connection.execute(sql)
+
+      puts "MESSAGES: #{@messages.to_a}"
+
+      # "SELECT messages.id, messages.created_at, messages.text, messages.message_thread_id, users.name, users.id, 
+      #   (
+      #     SELECT message_read_states.read_date 
+      #     FROM message_read_states 
+      #     WHERE message_read_states.message_id = messages.id and message_read_states.user_id = #{current_user.id}
+      #   ) AS ReadState 
+
+      #   # This next says from Where it comes
+      #   FROM messages 
+      #   INNER JOIN users 
+      #   ON messages.user_id = users.id 
+      #   WHERE ( 
+          # messages.id in ( 
+          #   SELECT Max(messages.id) 
+          #   FROM thread_participants 
+          #   INNER JOIN messages 
+          #   ON thread_participants.message_thread_id = messages.message_thread_id 
+          #   WHERE thread_participants.user_id = #{current_user.id} 
+          #   GROUP BY thread_participants.message_thread_id
+          # )
+      #   ) 
+
+      #   ORDER BY messages.created_at DESC;"
+
+      @ar_messages = Message.select("messages.id, messages.created_at, messages.text, messages.message_thread_id, users.name, users.id")
+                            .joins(:user)
+                            .where("messages.id in (SELECT Max(messages.id) FROM thread_participants INNER JOIN messages ON thread_participants.message_thread_id = messages.message_thread_id WHERE thread_participants.user_id = #{current_user.id} GROUP BY thread_participants.message_thread_id)")
+                            .order("created_at DESC")
+
+      # SELECT id, created_at, text, message_thread_id, users.name, users.id 
+      # FROM `messages` INNER JOIN `users` 
+      # ON `users`.`id` = `messages`.`user_id` 
+      # WHERE (messages.id in (SELECT Max(messages.id) FROM thread_participants INNER JOIN messages ON thread_participants.message_thread_id = messages.message_thread_id WHERE thread_participants.user_id = 2 GROUP BY thread_participants.message_thread_id)) ORDER BY created_at DESC
+
+      puts "AR MESSAGES: #{@ar_messages.to_a}"      
+
     end
   end
 

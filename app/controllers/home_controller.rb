@@ -189,7 +189,7 @@ class HomeController < ApplicationController
         begin
             message_thread_ids = params[:message_receiver_ids].split(/,/)
             message_thread_ids << params[:message][:user_id]
-            thread = MessageThread.create
+            thread = MessageThread.create(user_id: current_user.id)
             message_thread_ids.each do |t|
                 ThreadParticipant.create(:message_thread_id => thread.id, :user_id => t.to_i)
             end
