@@ -3,7 +3,7 @@ class MessagesController < ApplicationController
   load_and_authorize_resource
 
 
-  # GET /users
+  # GET /messages
   def index
     
   end
@@ -12,7 +12,7 @@ class MessagesController < ApplicationController
 
   end
 
-  # GET /users/1
+  # GET /messages/1
   def show
       @user = current_user
       @posts = @user.posts.as_feed(params.slice(:limit, :before))
@@ -24,17 +24,16 @@ class MessagesController < ApplicationController
   end
     
     
-  # GET /users/1/more_posts.js
-  def more_posts
+  # # GET /messages/1/more_posts.js
+  # def more_posts
+  # end
 
-  end
-
-  # GET /users/1/edit
+  # GET /messages/1/edit
   def edit
 
   end
 
-  # PUT /users/1
+  # PUT /messages/1
   def update
     #@user.update_attributes(params[:user])
     if @user.update_attributes(params[:user])
@@ -43,7 +42,7 @@ class MessagesController < ApplicationController
     respond_with(@user, location: @user)
   end
 
-  # DELETE /users/1
+  # DELETE /messages/1
   def destroy
     @user.destroy
     respond_with(@user)
