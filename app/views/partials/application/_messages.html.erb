@@ -3,8 +3,6 @@
     class="dropdown-toggle <%= current_user.messages.size.zero? ? 'inactive' : 'active' %>"
     data-toggle="dropdown">
     <i class="icon-envelope"></i>
-    <% sql = "SELECT messages.id, messages.created_at, messages.text, messages.message_thread_id, users.name, users.id, (SELECT message_read_states.read_date FROM message_read_states WHERE message_read_states.message_id = messages.id and message_read_states.user_id = #{current_user.id}) AS ReadState FROM messages INNER JOIN users ON messages.user_id = users.id WHERE ( messages.id in ( SELECT Max(messages.id) FROM thread_participants INNER JOIN messages ON thread_participants.message_thread_id = messages.message_thread_id WHERE thread_participants.user_id = #{current_user.id} GROUP BY thread_participants.message_thread_id)) ORDER BY messages.created_at DESC;"
-    @messages= ActiveRecord::Base.connection.execute(sql) %>
     <small><%= @messages.count %></small>
 </a> 
 <ul class="dropdown-menu dropdown-notifications" style="width:400px">
@@ -15,11 +13,20 @@
                     data: {toggle: 'modal'} %>
                     </li>
   <% @messages.each do |m | %>
-  <% @thread = ThreadParticipant.where('message_thread_id = ? and user_id != ?',m[3],current_user.id) %>
-  <% if @thread[0] != nil %>
-  <% @user = User.find(@thread[0].user_id) %>
-  <li><a href="/messages/<%= m[3] %>"><div class="row-fluid"><div class="span2"><img src="<%= @user.photo_url %>" width=50 height=50/></div><div class="span10"><u><%= @user.name %></u><p><%= truncate(m[2], :length => 45) %></p></div></div></a><li>
-  <% end %>
+    <% @thread = ThreadParticipant.where('message_thread_id = ? and user_id != ?',m[3],current_user.id) %>
+    <% if @thread[0] != nil %>
+    <% @user = User.find(@thread[0].user_id) %>
+    <li>
+      <a href="/messages/<%= m[3] %>">
+        <div class="row-fluid">
+          <div class="span2">
+            <img src="<%= @user.photo_url %>" width=50 height=50/>
+          </div>
+          <div class="span10"><u><%= @user.name %></u><p><%= truncate(m[2], :length => 45) %></p></div>
+        </div>
+      </a>
+    <li>
+    <% end %>
   <% end %>
 
 </ul>

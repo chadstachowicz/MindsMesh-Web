@@ -1,6 +1,8 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
+  before_filter :load_messages
+
   protected
 
   before_filter do
@@ -52,6 +54,13 @@ class ApplicationController < ActionController::Base
     {
       'session' => session.to_hash.except("_csrf_token", 'flash')
     }
+  end
+
+  def load_messages
+    if user_signed_in?
+      sql = "SELECT messages.id, messages.created_at, messages.text, messages.message_thread_id, users.name, users.id, (SELECT message_read_states.read_date FROM message_read_states WHERE message_read_states.message_id = messages.id and message_read_states.user_id = #{current_user.id}) AS ReadState FROM messages INNER JOIN users ON messages.user_id = users.id WHERE ( messages.id in ( SELECT Max(messages.id) FROM thread_participants INNER JOIN messages ON thread_participants.message_thread_id = messages.message_thread_id WHERE thread_participants.user_id = #{current_user.id} GROUP BY thread_participants.message_thread_id)) ORDER BY messages.created_at DESC;"
+      @messages= ActiveRecord::Base.connection.execute(sql)
+    end
   end
 
   
