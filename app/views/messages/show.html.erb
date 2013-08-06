@@ -15,6 +15,7 @@
     <li class="nav-header">
       conversations
     </li>
+
     <% @user.fb_friends.are_registered.map(&:friend_user).each do |user| %>
       <li>
         <%= link_to user, class: 'tooltiped', title: user.name do %>
@@ -26,3 +27,5 @@
 
   </ul>
 </div>
+
+

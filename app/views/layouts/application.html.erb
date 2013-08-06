@@ -53,7 +53,9 @@
     <%= "<div class='alert alert-error'><a class='close' data-dismiss='alert' href='#'>×</a><b>#{alert}</b></div>".html_safe   if alert %>
     <div class="messages" id="messages">
         <div class="modal hide fade reply_modal" id="message_modal">
-      <% message = Message.new%>
+
+      <% message = Message.new %>
+      
       <%= form_for(message, url: home_create_message_path(message), remote: true) do |f| %>
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -86,12 +88,12 @@
           </div>
         </td>
         <% if action_includes_sidebar_right? %>
-        <td class="sidebar" id="sidebar_right">
-          <%#= render '/home/feedback' if (current_user.posts.size+current_user.replies.size) > 2 %>
-          <%= render '/topics/new_topic' %>
-          <%= yield 'email_invite_on_topics_show'  %>
-          <!-- placeholder ajax_application.js -->
-        </td>
+          <td class="sidebar" id="sidebar_right">
+            <%#= render '/home/feedback' if (current_user.posts.size+current_user.replies.size) > 2 %>
+            <%= render '/topics/new_topic' %>
+            <%= yield 'email_invite_on_topics_show'  %>
+            <!-- placeholder ajax_application.js -->
+          </td>
         <% end %>
       </tr>
     </table>
