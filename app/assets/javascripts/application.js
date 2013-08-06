@@ -37,3 +37,4 @@
 //= require json2
 //= require underscore
 //= require backbone
+//= require bb-private-messages.js

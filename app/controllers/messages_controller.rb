@@ -15,7 +15,10 @@ class MessagesController < ApplicationController
   # GET /messages/1
   def show
     @user = current_user
-    @messages = @user.messages
+    # @messages = @user.messages
+    @messages = @user.messages.order("created_at desc").reverse.collect { |m| 
+              Api::V1::MessagePresenter.new(m).as_json 
+            }
   end
 
   # GET /messages/1/edit

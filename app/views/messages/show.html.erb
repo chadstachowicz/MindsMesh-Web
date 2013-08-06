@@ -1,3 +1,7 @@
+<script type="text/javascript" charset="utf-8">
+  // This bootstraps the Messages collection on page load
+  PrivateMessages.reset(<%= @messages.to_json.html_safe %>);
+</script>
 
 <div data-sidebar="left" class="sidebar_content">
     <ul class="nav blue-nav nav-list"><li class="nav-header">
