@@ -51,33 +51,34 @@
   <div class="container">
     <%= "<div class='alert alert-success'><a class='close' data-dismiss='alert' href='#'>×</a><b>#{notice}</b></div>".html_safe if notice %>
     <%= "<div class='alert alert-error'><a class='close' data-dismiss='alert' href='#'>×</a><b>#{alert}</b></div>".html_safe   if alert %>
+    
     <div class="messages" id="messages">
-        <div class="modal hide fade reply_modal" id="message_modal">
+      <div class="modal hide fade reply_modal" id="message_modal">
 
-      <% message = Message.new %>
-      
-      <%= form_for(message, url: home_create_message_path(message), remote: true) do |f| %>
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    		 <h3>Who should this message go to?  </h3><input type="text"  placeholder="Search for people to add" id="peopleToAdd" style="width:250px;margin-top:4px;margin-bottom:4px"/>
-          
-        </div>
-        <div class="modal-body">
-          <div class="question_area" id="question_area_message">
+        <% message = Message.new %>
+        <%= form_for(message, url: home_create_message_path(message), remote: true) do |f| %>
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+      		 <h3>Who should this message go to?  </h3><input type="text"  placeholder="Search for people to add" id="peopleToAdd" style="width:250px;margin-top:4px;margin-bottom:4px"/>
+            
           </div>
-          <div class="clear"></div>
-          <div class="answer_area">
-            <%= image_tag current_user.photo_url, width: 50 %>
-            <p><%= f.text_area :text%></p>
-            <p><%= f.hidden_field :user_id, :value => @current_user.id%></p>
-            <p><input type="hidden" name="message_receiver_ids" id="message_receiver_ids" ></input></p>
+          <div class="modal-body">
+            <div class="question_area" id="question_area_message">
+            </div>
+            <div class="clear"></div>
+            <div class="answer_area">
+              <%= image_tag current_user.photo_url, width: 50 %>
+              <p><%= f.text_area :text%></p>
+              <p><%= f.hidden_field :user_id, :value => @current_user.id%></p>
+              <p><input type="hidden" name="message_receiver_ids" id="message_receiver_ids" ></input></p>
+            </div>
           </div>
-        </div>
-        <div class="modal-footer">
-          <%= f.submit "Send this message", class: 'btn btn-success', data: {display_with: "Sending you message..."}, id: "send-mes" %>
-        </div>
-      <% end %>
-    </div>
+          <div class="modal-footer">
+            <%= f.submit "Send this message", class: 'btn btn-success', data: {display_with: "Sending you message..."}, id: "send-mes" %>
+          </div>
+        <% end %>
+
+      </div>
     </div>
 
     <table id="tablecontent" cellpadding="0">

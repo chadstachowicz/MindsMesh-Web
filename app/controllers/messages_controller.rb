@@ -5,7 +5,7 @@ class MessagesController < ApplicationController
 
   # GET /messages
   def index
-    
+
   end
     
   def new
@@ -17,18 +17,12 @@ class MessagesController < ApplicationController
     @user = current_user
     @messages = @user.messages
   end
-    
-    
-  # # GET /messages/1/more_posts.js
-  # def more_posts
-  # end
 
   # GET /messages/1/edit
   def edit
 
   end
 
-  # PUT /messages/1
   def update
     #@user.update_attributes(params[:user])
     if @user.update_attributes(params[:user])
@@ -39,7 +33,8 @@ class MessagesController < ApplicationController
 
   # DELETE /messages/1
   def destroy
-    @user.destroy
+    # @user.messages.destroy_all
+    raise "Not implemented".to_yaml
     respond_with(@user)
   end
 end

@@ -137,17 +137,17 @@ Mindsmesh::Application.routes.draw do
   resources :topic_users
     resources :messages
     resources :users, only: [:index, :show, :edit, :update, :destroy] do
-    member do
-      get :more_posts
-      put :follow
-      put :unfollow
+      member do
+        get :more_posts
+        put :follow
+        put :unfollow
+      end
+      collection do
+          get :filter
+          get 'datatable_filter', format: 'json'
+          post :import
+      end
     end
-        collection do
-            get :filter
-            get 'datatable_filter', format: 'json'
-            post :import
-        end
-  end
   resources :topics do
     member do
       put :join

@@ -41,6 +41,7 @@ gem "ims-lti"
 gem 'roo'
 gem 'rinku', :require => 'rails_rinku'
 gem 'pusher'
+gem 'backbonejs-rails'
 
 
 

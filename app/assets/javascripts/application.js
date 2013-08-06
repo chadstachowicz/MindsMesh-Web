@@ -34,3 +34,6 @@
 //= require livesearch
 //= require frontend
 //= require jquery.pixelentity.flare.min
+//= require json2
+//= require underscore
+//= require backbone
