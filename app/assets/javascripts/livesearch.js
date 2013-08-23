@@ -20,7 +20,7 @@ if (el.val() == 0)
 $.post("/home/search", { query: el.val() }, function(data) {
    
     for(i=0;i<data.users.length;i++){
-	htmlresults += "<li><a href=\"/users/" + data.users[i].id + "\"><img src=\"https://graph.facebook.com/" + data.users[i].fb_id + "/picture\"/><u>" + data.users[i].name + "</u></a></li>";
+	htmlresults += "<li><a href=\"/users/" + data.users[i].id + "\"><img width=\"50\" height=\"50\" src=\"" + data.users[i].photo_url + "\"/><u>" + data.users[i].name + "</u></a></li>";
 	}
         htmlresults += htmlheadergroup;
 for(i=0;i<data.groups.length;i++){

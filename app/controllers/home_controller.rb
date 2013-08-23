@@ -8,6 +8,9 @@ class HomeController < ApplicationController
     
   def search_users
       users = User.joins(:entity_users).where('entity_users.entity_id in (?) and name like ?', current_user.entity_users.map(&:entity_id),"%#{params[:query]}%").uniq.limit(8)
+      users.each do |user|
+          user["photo_url"] = User.find(user.id).photo_url
+       end
       groups = Group.where('entity_id in (?) and name like ?', current_user.entity_users.map(&:entity_id),"%#{params[:query]}%").uniq.limit(8)
       render :json => {:users => users, :groups => groups}
   end

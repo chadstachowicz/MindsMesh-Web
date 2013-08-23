@@ -9,6 +9,9 @@
       <% if current_user.master? || current_user.school_admin? || current_user.topic_admin? %>
       	<li ><a href="topics">Classes</a></li>
       <% end %>
+      <% if current_user.master?%>
+      	<li ><a href="/admin/feedback">Feedback</a></li>
+      <% end %>
             
     </ul>
   </div>

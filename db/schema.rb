@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130821042412) do
+ActiveRecord::Schema.define(:version => 20130823052956) do
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -113,10 +113,10 @@ ActiveRecord::Schema.define(:version => 20130821042412) do
 
   create_table "feedback_bugs", :force => true do |t|
     t.integer  "user_id"
-    t.string   "type"
+    t.string   "request_type"
     t.text     "feedback"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
     t.string   "platform"
   end
 

@@ -7,6 +7,7 @@ Mindsmesh::Application.routes.draw do
 
 
   resources :hashtags
+  resources :feedback_bugs
 
 
   resources :entity_user_lms
@@ -188,7 +189,6 @@ Mindsmesh::Application.routes.draw do
   get "home/login"
   get "session/logout"
   get "settings" => "settings#index"
-  get "feedback" => "feedback_bugs#index", as: 'feedback_bugs'
   put "session/switch"
   match "/auth/:provider/callback" => "session#create"
   match "/auth/failure" => "home#denied"
