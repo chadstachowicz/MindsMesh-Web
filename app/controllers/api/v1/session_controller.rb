@@ -12,7 +12,7 @@ module Api::V1
                render json: UserPresenter.new(user).as_me
                return
            else
-               render json: {error: {message: "fb_access_token is invalid", code: 1003}}, status: :unauthorized
+               render json: {error: {message: "User credentials are wrong", code: 1003}}, status: :unauthorized
                return
            end
           end
@@ -20,7 +20,7 @@ module Api::V1
         
           
       user = Login.with_access_token!(params[:fb_access_token], params[:fb_expires_at])
-     end
+      end
         if user == :invalid
             render json: {error: {message: "fb_access_token is invalid", code: 1003}}, status: :unauthorized
             else
