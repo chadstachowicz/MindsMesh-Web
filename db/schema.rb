@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130713214823) do
+ActiveRecord::Schema.define(:version => 20130821042412) do
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -111,6 +111,15 @@ ActiveRecord::Schema.define(:version => 20130713214823) do
   add_index "fb_friends", ["friend_user_id"], :name => "index_fb_friends_on_friend_user_id"
   add_index "fb_friends", ["user_id"], :name => "index_fb_friends_on_user_id"
 
+  create_table "feedback_bugs", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "type"
+    t.text     "feedback"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.string   "platform"
+  end
+
   create_table "group_users", :force => true do |t|
     t.integer  "user_id"
     t.integer  "role_i"
@@ -150,8 +159,9 @@ ActiveRecord::Schema.define(:version => 20130713214823) do
     t.integer  "user_id"
     t.integer  "entity_id"
     t.integer  "topic_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+    t.string   "confirmation_token"
   end
 
   add_index "invite_requests", ["entity_id"], :name => "index_invite_requests_on_entity_id"

@@ -14,6 +14,7 @@ class Ability
   def logged_in
       can [:admin, :entities, :create_entity_request, :change_access_token, :ajax_application, :search_users], :home
       can :index, :setting
+      can :index, :feedbackbug
 
   end
   
@@ -39,7 +40,6 @@ class Ability
       post.user_id == current_user.id
     end
 
-      can [:show, :more_posts, :follow, :unfollow, :all], User
   end
 
   def index
@@ -47,6 +47,10 @@ class Ability
 
     #TODO: stop testing only as a master
       can :show, Hashtag
+      
+    can [:show, :more_posts, :follow, :unfollow, :all], User do |usr|
+        true==true
+    end
       
     can [:create, :filter], Topic
     can [:create, ], Group
@@ -63,7 +67,7 @@ class Ability
       can [:more_posts], Group do |group|
           group.group_users.where(user_id: @current_user.id).exists?
       end
-      can [:read, :create_reply, :like, :unlike], Post do |post|
+    can [:read, :create_reply, :like, :unlike, :with_links], Post do |post|
       true ==true
     end
     can [:update, :destroy], [Post, Reply] do |msg|

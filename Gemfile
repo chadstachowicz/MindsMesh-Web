@@ -3,7 +3,6 @@ ruby '2.0.0'
 
 gem 'rails', '3.2.10'
 gem 'mysql2'
-gem 'activerecord-mysql-adapter'
 gem 'jquery-rails', '2.1.4'
 gem 'omniauth-facebook', '1.4.0'
 gem 'omniauth-twitter'
@@ -28,7 +27,7 @@ gem 'will_paginate'
 gem 'rapns'
 gem 'thin'
 gem 'lazy_high_charts'
-gem 'devise'
+gem 'devise', '~> 2.2.7'
 gem 'jquery-datatables-rails'
 gem "mini_magick"
 gem "squeel"
@@ -46,7 +45,7 @@ gem 'backbonejs-rails'
 
 
   gem 'sass' #so other gems don't alert
-  gem 'sass-rails', git: 'https://github.com/rails/sass-rails.git', branch: '3-2-stable'
+  gem 'sass-rails'
   gem 'coffee-rails'
   gem 'uglifier', '>= 1.0.3'
   gem 'therubyracer', :platform => :ruby
