@@ -35,6 +35,11 @@ class MyMail < ActionMailer::Base
 
     mail to: 'noreply@mindsmesh.com', bcc: email, subject: @subject
   end
+    
+    def invite_elon(user_id)
+        @subject    = "Elon invites you to collaborate on MindsMesh.com"
+        mail to: 'noreply@mindsmesh.com', bcc: User.find(user_id).email, subject: @subject
+    end
 
   private
 
