@@ -1,5 +1,5 @@
 class MyMail < ActionMailer::Base
-  default from: "noreply@mindsmesh.com"
+  default from: "welcome@mindsmesh.com"
 
   # Subject can be set in your I18n file at config/locales/en.yml
   # with the following lookup:
