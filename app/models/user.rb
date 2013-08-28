@@ -8,8 +8,7 @@ class User < ActiveRecord::Base
   devise :omniauthable, :omniauth_providers => [:facebook, :twitter, :saml, :edu_facebook]
     
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :twit_id, :fb_id, :tagline
-    attr_accessible :name, :avatar
+    attr_accessible :email, :password, :password_confirmation, :remember_me, :twit_id, :fb_id, :tagline, :name, :avatar
   has_many :logins,               dependent: :destroy
   has_many :entity_user_requests, dependent: :destroy
   has_many :signup_requests, dependent: :destroy
@@ -36,8 +35,8 @@ class User < ActiveRecord::Base
   PAPERCLIP_PATH = "/system/:rails_env/:class/:id/:style"
   PAPERCLIP_OPTIONS = {path: ":rails_root/public#{PAPERCLIP_PATH}", url:  PAPERCLIP_PATH, :styles => { :medium => "300x300>", :thumb => "100x100>" }}
 
-
   has_attached_file :avatar, PAPERCLIP_OPTIONS
+
     
   validates_presence_of :name
   validates_uniqueness_of :email, :allow_nil => true, :allow_blank => true
@@ -311,38 +310,10 @@ def role_is_group?(given_role_i)
 end
 
 def self.import(file)
-spreadsheet = open_spreadsheet(file)
-header = spreadsheet.row(1)
-(2..spreadsheet.last_row).each do |i|
-    row = Hash[[header, spreadsheet.row(i)].transpose]
-    user = User.where(:email => row["email"], :name => row["name"]).first_or_initialize
-    if user.save
-        entity = Entity.find_by_email_domain(row["email"])
-        eur = EntityUser.where(:entity_id => entity.id, :user_id => user.id).first_or_initialize
-        if eur.save
-            topic = Topic.where(:number => row['course_number']).first_or_initialize
-            topic.save
-            if row['teacher'] == 'TRUE'
-                eu = TopicUser.where(:topic_id => topic.id, :user_id => user.id, :role_i => 1).first_or_initialize
-            else
-                eu = TopicUser.where(:topic_id => topic.id, :user_id => user.id).first_or_initialize
-            end
-            eu.save
-        end
+    SmarterCSV.process(file.tempfile.to_path.to_s, {:chunk_size => 1, :key_mapping => {:course_number => :course_number, :email => :email, :name => :name, :teacher => :teacher} }) do |chunk|
+        Resque.enqueue( ImportUsers, chunk ) # pass chunks of CSV-data to Resque workers for parallel processing
     end
-        
-        
-end
 end
 
-def self.open_spreadsheet(file)
-
-case File.extname(file.original_filename)
-    when ".csv" then Roo::Csv.new(file.path, nil, :ignore)
-    when ".xls" then Roo::Excel.new(file.path, nil, :ignore)
-    when ".xlsx" then Roo::Excelx.new(file.path, nil, :ignore)
-    else raise "Unknown file type: #{file.original_filename}"
-end
-end
 
 end

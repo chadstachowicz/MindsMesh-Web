@@ -41,6 +41,7 @@ gem 'roo'
 gem 'rinku', :require => 'rails_rinku'
 gem 'pusher'
 gem 'backbonejs-rails'
+gem 'smarter_csv', '~> 1.0.8'
 
 
 
