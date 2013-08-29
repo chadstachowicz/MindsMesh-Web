@@ -47,6 +47,7 @@ class UsersController < ApplicationController
   def update
     #@user.update_attributes(params[:user])
     if @user.update_attributes(params[:user])
+       sign_in @user, :bypass => true
       flash[:notice] = "User successfully updated."
     end
     respond_with(@user, location: @user)
