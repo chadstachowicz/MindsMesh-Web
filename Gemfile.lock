@@ -160,6 +160,7 @@ GEM
     multipart-post (1.2.0)
     mysql2 (0.3.13)
     net-http-persistent (2.9)
+    newrelic_rpm (3.6.6.147)
     nokogiri (1.6.0)
       mini_portile (~> 0.5.0)
     oauth (0.4.7)
@@ -392,6 +393,7 @@ DEPENDENCIES
   mails_viewer
   mini_magick
   mysql2
+  newrelic_rpm
   omniauth-facebook (= 1.4.0)
   omniauth-saml
   omniauth-twitter

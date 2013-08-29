@@ -14,6 +14,7 @@ gem 'best_in_place'
 gem 'friendly_id'
 gem 'haml'
 gem 'koala'
+gem 'newrelic_rpm'
 gem 'daemons'
 gem 'whenever', require: false
 gem 'versionist'
