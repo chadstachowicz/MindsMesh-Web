@@ -49,7 +49,7 @@ class Ability
     #TODO: stop testing only as a master
       can :show, Hashtag
       
-    can [:show, :more_posts, :follow, :unfollow, :all], User do |usr|
+      can [:show, :more_posts, :follow, :unfollow, :all, :update], User do |usr|
         true==true
     end
       
