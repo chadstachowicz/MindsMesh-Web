@@ -290,6 +290,9 @@ end
     end
       return false
   end
+                                          
+ def self.import_users(chunk)
+     end
 
 def role_is_topic?(given_role_i)
     self.topic_users.each do |role|
@@ -310,7 +313,7 @@ def role_is_group?(given_role_i)
 end
 
 def self.import(file)
-    SmarterCSV.process(file.tempfile.to_path.to_s, {:chunk_size => 1, :key_mapping => {:course_number => :course_number, :email => :email, :name => :name, :teacher => :teacher} }) do |chunk|
+    SmarterCSV.process(file.tempfile.to_path.to_s, {:chunk_size => 5}) do |chunk|
         Resque.enqueue( ImportUsers, chunk ) # pass chunks of CSV-data to Resque workers for parallel processing
     end
 end

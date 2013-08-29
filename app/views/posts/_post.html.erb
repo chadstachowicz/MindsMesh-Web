@@ -110,8 +110,7 @@
       <td>
       <div class="post-text">
       <% if post.text != "" %>
-        <%= best_in_place_if can_update_post,
-                             post,
+        <%= best_in_place post,
                              :text,
                              type: :textarea,
                              :display_as => :with_links,
