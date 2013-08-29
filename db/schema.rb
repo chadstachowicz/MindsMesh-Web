@@ -11,7 +11,18 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130823052956) do
+ActiveRecord::Schema.define(:version => 20130829225345) do
+
+  create_table "background_jobs", :force => true do |t|
+    t.string   "name"
+    t.string   "type"
+    t.integer  "entity_id"
+    t.integer  "transactions"
+    t.integer  "campaign_id"
+    t.string   "status"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -29,6 +40,17 @@ ActiveRecord::Schema.define(:version => 20130823052956) do
 
   add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
 
+  create_table "email_campaigns", :force => true do |t|
+    t.string   "name"
+    t.string   "type"
+    t.integer  "entity_id"
+    t.integer  "emails_sent"
+    t.integer  "emails_responded"
+    t.string   "status"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
+
   create_table "entities", :force => true do |t|
     t.string   "name"
     t.string   "slug"
@@ -41,6 +63,7 @@ ActiveRecord::Schema.define(:version => 20130823052956) do
     t.integer  "topics_count",       :default => 0
     t.string   "moodle_url"
     t.integer  "groups_count"
+    t.string   "token"
   end
 
   create_table "entity_advanced_settings", :force => true do |t|
@@ -51,6 +74,7 @@ ActiveRecord::Schema.define(:version => 20130823052956) do
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false
     t.integer  "entity_id"
+    t.string   "invite_template"
   end
 
   create_table "entity_lms", :force => true do |t|
@@ -395,6 +419,16 @@ ActiveRecord::Schema.define(:version => 20130823052956) do
 
   add_index "replies", ["post_id"], :name => "index_replies_on_post_id"
   add_index "replies", ["user_id"], :name => "index_replies_on_user_id"
+
+  create_table "rosters", :force => true do |t|
+    t.string   "email"
+    t.integer  "topic_id"
+    t.integer  "group_id"
+    t.integer  "user_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.integer  "role"
+  end
 
   create_table "sessions", :force => true do |t|
     t.string   "session_id", :null => false

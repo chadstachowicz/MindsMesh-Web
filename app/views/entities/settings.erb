@@ -24,6 +24,9 @@
     <%= f.label :lms_provider %>
     <%= f.input_field :lms_provider %>
     <br/>
+    <%= f.label :invite_template %>
+    <%= f.input_field :invite_template %>
+    <br/>
     <%= f.label :can_create_topic %>
     <%= f.check_box :can_create_topic %>
     <%= f.hidden_field :entity_id, :value => params[:entity_id]%>

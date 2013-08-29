@@ -3,6 +3,12 @@ Mindsmesh::Application.routes.draw do
 
 
 
+  resources :background_jobs
+
+
+  resources :email_campaigns
+
+
   resources :post_hashtags
 
 

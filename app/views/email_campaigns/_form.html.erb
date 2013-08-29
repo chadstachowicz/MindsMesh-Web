@@ -1,0 +1,16 @@
+<%= simple_form_for(@email_campaign) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :name %>
+    <%= f.input :type %>
+    <%= f.input :entity_id %>
+    <%= f.input :emails_sent %>
+    <%= f.input :emails_responded %>
+    <%= f.input :status %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

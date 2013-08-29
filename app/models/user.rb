@@ -313,7 +313,9 @@ def role_is_group?(given_role_i)
 end
 
 def self.import(file)
-    SmarterCSV.process(file.tempfile.to_path.to_s, {:chunk_size => 5}) do |chunk|
+    campaign = EmailCampaign.create(:status => 'processing')
+    job = BackgroundJob.create(:status => 'processing')
+    n = SmarterCSV.process(file.tempfile.to_path.to_s, {:chunk_size => 5}) do |chunk|
         Resque.enqueue( ImportUsers, chunk ) # pass chunks of CSV-data to Resque workers for parallel processing
     end
 end

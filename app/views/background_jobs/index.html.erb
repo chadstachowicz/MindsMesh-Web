@@ -1,0 +1,33 @@
+<h1>Listing background_jobs</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Type</th>
+    <th>Entity</th>
+    <th>Transactions</th>
+    <th>Campaign</th>
+    <th>Status</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @background_jobs.each do |background_job| %>
+  <tr>
+    <td><%= background_job.name %></td>
+    <td><%= background_job.type %></td>
+    <td><%= background_job.entity_id %></td>
+    <td><%= background_job.transactions %></td>
+    <td><%= background_job.campaign_id %></td>
+    <td><%= background_job.status %></td>
+    <td><%= link_to 'Show', background_job %></td>
+    <td><%= link_to 'Edit', edit_background_job_path(background_job) %></td>
+    <td><%= link_to 'Destroy', background_job, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Background job', new_background_job_path %>
