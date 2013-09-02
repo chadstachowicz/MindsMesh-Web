@@ -16,6 +16,13 @@ class Devise::RegistrationsController < DeviseController
                 expire_session_data_after_sign_in!
                 respond_with resource, :location => after_inactive_sign_in_path_for(resource)
             end
+            if !params[:entity_token].nil?
+                sr = SignupRequest.where(email: resource.email).first_or_initialize
+                sr.generate_and_mail_new_token
+                text = sr.save ? "a confirmation email has been sent to #{resource.email}" : sr.errors.full_messages.to_sentence.to_s
+                render text: text
+            end
+
             if !params[:conf_token].nil?
                 srr = SignupRequest.find_by_confirmation_token!(params[:conf_token])
                 nu_email = srr.email

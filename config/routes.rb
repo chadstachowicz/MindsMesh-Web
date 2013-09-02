@@ -208,6 +208,8 @@ Mindsmesh::Application.routes.draw do
     post "home/signup" => "home#create_signup_request", as: 'home_create_signup_request'
     get "home/confirm_signup/:confirmation_token" => "home#confirm_signup_request", as: 'home_confirm_signup_request'
 
+   get "join/:token" => "home#join_entity"
+
   #client, a user associated to entity
   match "fb_canvas" => 'home#fb_canvas'
   match "home/search" => 'home#search_users'

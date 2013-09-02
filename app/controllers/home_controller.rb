@@ -1,7 +1,7 @@
 class HomeController < ApplicationController
-
+    
   load_and_authorize_resource class: false
-
+    
   def denied
     redirect_to_landing_home_page
   end
@@ -141,8 +141,19 @@ class HomeController < ApplicationController
      if (!@entity.nil?)
          @eu = @entity.entity_users.order("RAND()").limit(21)
      end
-      
-      render :layout => 'pages_no_login'
+                                            
+     render :action => 'confirm_signup_request', :layout => 'pages_no_login'
+  end
+                                            
+  def join_entity
+    @entity = Entity.find_by_token(params[:token])
+    puts @entity.name
+    if (!@entity.nil?)
+        @eu = @entity.entity_users.order("RAND()").limit(21)
+    end
+    
+    render :action => 'join_entity', :layout => 'pages_no_login'
+                                    
   end
 
   def topics
