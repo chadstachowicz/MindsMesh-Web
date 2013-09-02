@@ -17,7 +17,9 @@ class UsersController < ApplicationController
 
   # GET /users/1
   def show
-    @posts = @user.posts.as_feed(params.slice(:limit, :before))
+      topic_ids = current_user.topic_users.map(&:topic_id)
+      group_ids = current_user.group_users.map(&:group_id)
+    @posts = Post.where('(user_id in (:user_ids) and topic_id is null and group_id is null) or topic_id in (:topic_ids) or group_id in (:group_ids)', :user_ids => @user.id, :topic_ids => topic_ids,:group_ids => group_ids).as_feed(params.slice(:limit, :before))
     @topic_users = @user.topic_users
     @user_follows = @current_user.user_follows.where(:follow_id => @user.id)
     if @user.entity_user_requests.first.nil?
