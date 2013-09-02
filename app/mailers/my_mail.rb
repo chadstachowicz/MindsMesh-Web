@@ -8,7 +8,7 @@ class MyMail < ActionMailer::Base
   #
   def confirmation(entity_user_request)
     @user  = entity_user_request.user
-    @link  = home_confirm_entity_request_url(entity_user_request.confirmation_token, @user.name.parameterize, host: host)
+    @link  = home_confirm_entity_request_url(entity_user_request.confirmation_token, host: host)
 
     mail to: entity_user_request.email, subject: "Welcome to MindsMesh!"
   end
