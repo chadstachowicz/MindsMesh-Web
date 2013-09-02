@@ -99,7 +99,6 @@ class HomeController < ApplicationController
 
   def confirm_entity_request
     eur = EntityUserRequest.find_by_confirmation_token!(params[:confirmation_token])
-    nu_email = eur.email
     user = User.find_by_email(eur.email)
     if user.nil?
         #for user logged in
@@ -113,11 +112,10 @@ class HomeController < ApplicationController
         user.attributes = euser.attributes
         user.email = eur.email
         user.save
-        euser.destroy
         sign_in user
     end
-          entity = Entity.find_by_email_domain(nu_email)
-          eur = user.entity_user_requests.where(entity_id: entity.id, email: nu_email).first_or_initialize
+          entity = Entity.find_by_email_domain(eur.email)
+          eur = user.entity_user_requests.where(entity_id: entity.id, email: eur.email).first_or_initialize
           eur.save
           eur.confirm
           text = "#{current_user.name} #joined the #{entity.name} network.  Take a moment to welcome them."
@@ -143,7 +141,7 @@ class HomeController < ApplicationController
          @eu = @entity.entity_users.order("RAND()").limit(21)
      end
                                             
-     render :action => 'confirm_signup_request', :layout => 'pages_no_login'
+    render :action => 'join_entity', :layout => 'pages_no_login'
   end
                                             
   def join_entity
