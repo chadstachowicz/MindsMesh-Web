@@ -99,6 +99,7 @@ class HomeController < ApplicationController
 
   def confirm_entity_request
     eur = EntityUserRequest.find_by_confirmation_token!(params[:confirmation_token])
+    nu_email = eur.email
     user = User.find_by_email(eur.email)
     if user.nil?
         #for user logged in
