@@ -19,7 +19,7 @@
 				<div class="span3"></div>
 				<div class="span3">
 					<div style="width:100%;text-align:center;padding-top:60px">
-		     			<%= link_to image_tag('connect-facebook-button.png'), user_omniauth_authorize_path(:edu_facebook, confirmation_token: params[:confirmation_token]), id: 'login_facebook' %>
+		     			<%= link_to image_tag('connect-facebook-button.png'), user_omniauth_authorize_path(:facebook, confirmation_token: params[:confirmation_token]), id: 'login_facebook' %>
 						<br/>
 					</div>
 				</div>
