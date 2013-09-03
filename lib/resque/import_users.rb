@@ -11,7 +11,7 @@ end
 class ImportUsers
 
     extend RetriedJob
-    @queue = :notify 
+    @queue = :notify
     
  def self.perform(chunk)
     @user = nil

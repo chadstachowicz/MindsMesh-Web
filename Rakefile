@@ -10,6 +10,7 @@ require 'rails'
 task "resque:preload" => :environment
 task "resque:setup" do
       ENV['QUEUE'] ||= '*'
+      ActiveRecord::Base.send(:subclasses).each { |klass| klass.columns }
 end
 
 task "jobs:work" => "resque:work"

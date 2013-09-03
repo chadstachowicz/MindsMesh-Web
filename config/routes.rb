@@ -168,6 +168,17 @@ Mindsmesh::Application.routes.draw do
     end
   end
     
+    resources :rosters do
+        member do
+        end
+        collection do
+            get :filter
+            get 'datatable_filter', format: 'json'
+            post :import
+        end
+    end
+
+    
   resources :groups do
     member do
         put :join

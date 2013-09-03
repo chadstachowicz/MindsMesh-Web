@@ -348,6 +348,19 @@ footer {
 
 #new_post {
   margin: 0 0 0 0;
+  
+    .t-links {
+    a{
+      color:#46a546;
+      text-align: left;
+      font-weight:bold;
+      }
+      bottom: -30px;
+      width: 200px;
+      height: 20px;
+      position: relative;
+    }
+  
 
   .files {
     text-align: right; margin: 20px 0;

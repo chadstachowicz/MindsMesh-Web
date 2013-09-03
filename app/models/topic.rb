@@ -82,26 +82,11 @@ end
     self.slug = "#{number}"                if self.slug.blank?
   end
 
-    def self.import(file)
-        spreadsheet = open_spreadsheet(file)
-        header = spreadsheet.row(1)
-        (2..spreadsheet.last_row).each do |i|
-        row = Hash[[header, spreadsheet.row(i)].transpose]
-            
-            topic = Topic.where(:number => row["course_number"]).first_or_initialize
-            topic.attributes = row.to_hash.slice(*accessible_attributes)
-            topic.save!
-        end
-    end
+def self.import(file)
 
-    def self.open_spreadsheet(file)
-
-        case File.extname(file.original_filename)
-            when ".csv" then Roo::Csv.new(file.path, nil, :ignore)
-            when ".xls" then Roo::Excel.new(file.path, nil, :ignore)
-            when ".xlsx" then Roo::Excelx.new(file.path, nil, :ignore)
-            else raise "Unknown file type: #{file.original_filename}"
-        end
+    n = SmarterCSV.process(file.tempfile.to_path.to_s, {:chunk_size => 5}) do |chunk|
+    Resque.enqueue( ImportTopics, chunk ) # pass chunks of CSV-data to Resque workers for parallel processing
     end
+end
 
 end
