@@ -9,7 +9,7 @@ module RetriedJob
 end
 
 class ImportTopics
-
+    extend RetriedJob
     @queue = :import
     
  def self.perform(chunk, jobid)
