@@ -13,16 +13,15 @@ class ImportTopics
     @queue = :import
     
  def self.perform(chunk, jobid)
-    @job = BackgroundJob.find(jobid)
-    puts @job.id
+    #   @job = BackgroundJob.find(jobid)
     chunk.each do |i|
-        @job.transactions = @job.transactions.to_i + 1
+    #    @job.transactions = @job.transactions.to_i + 1
         i.symbolize_keys!
         @topic = Topic.where(:number => i[:number]).first_or_initialize
         @topic.title = i[:title]
         @topic.entity_id = i[:entity_id]
         @topic.save
-        @job.save
+    #        @job.save
     end
 
  end
