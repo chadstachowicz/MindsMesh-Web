@@ -17,8 +17,12 @@ class ImportRosters
     @user = nil
     chunk.each do |i|
         i.symbolize_keys!
-        @topic = Topic.find_by_number(i[:course_name])
+        @topic = Topic.find_by_number(i[:course_number])
         @roster = Roster.where(:topic_id => @topic.id, :email => i[:email]).first_or_initialize
+        if i[:role] == 1
+            @roster.role = 1
+        end
+        @roster.save
     end
 
  end
