@@ -10,16 +10,19 @@ end
 
 class ImportTopics
 
-    extend RetriedJob
-    @queue = :notify
+    @queue = :import
     
- def self.perform(chunk)
+ def self.perform(chunk, jobid)
+    @job = BackgroundJob.find(jobid)
+    puts @job.id
     chunk.each do |i|
+        @job.transactions = @job.transactions.to_i + 1
         i.symbolize_keys!
         @topic = Topic.where(:number => i[:number]).first_or_initialize
-        @topic.title = i[:number]
+        @topic.title = i[:title]
         @topic.entity_id = i[:entity_id]
         @topic.save
+        @job.save
     end
 
  end
