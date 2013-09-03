@@ -84,7 +84,7 @@ end
 
 def self.import(file)
 job = BackgroundJob.create(:name => "ImportTopics", :status => 'processing')
-    n = SmarterCSV.process(file.tempfile.to_path.to_s, {:chunk_size => 100}) do |chunk|
+    n = SmarterCSV.process(file.tempfile.to_path.to_s, {:chunk_size => 25}) do |chunk|
         Resque.enqueue( ImportTopics, chunk, job.id ) # pass chunks of CSV-data to Resque workers for parallel processing
     end
 end

@@ -1,3 +1,3 @@
 web: bundle exec rackup config.ru -p $PORT
-resque: env TERM_CHILD=1 bundle exec rake environment resque:work QUEUE=* VERBOSE=1
+resque: env TERM_CHILD=1 bundle exec rake resque:work QUEUE=* VERBOSE=1
 
