@@ -19,6 +19,7 @@ class ImportTopics
         @topic = Topic.where(:number => i[:number]).first_or_initialize
         @topic.title = i[:number]
         @topic.entity_id = i[:entity_id]
+        @topic.save
     end
 
  end
