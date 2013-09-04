@@ -40,8 +40,10 @@ class HomeController < ApplicationController
   def index
     eu = current_user.entity_users.first
     ent = EntityAdvancedSetting.find_by_entity_id(eu.entity_id)
-    if ent.can_create_topic == 1
-        @hidetopic = 1
+    if !ent.nil?
+        if ent.can_create_topic == 1
+            @hidetopic = 1
+        end
     end
     if current_user.current_sign_in_at.nil? || current_user.current_sign_in_at < 7.days.ago
         # cookies['suggest_follows'] = "true"
