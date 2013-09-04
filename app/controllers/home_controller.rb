@@ -122,6 +122,7 @@ class HomeController < ApplicationController
         sign_in user
     end
       roster = Roster.find_by_email(eur.email)
+      
       roster.each do |cls|
           tu = TopicUsers.where(:user_id => user.id, :topic_id => cls.topic_id)
           tu.save
@@ -148,7 +149,7 @@ class HomeController < ApplicationController
      #for user logged in
     
      sr = @srr.confirm
-     @entity = Entity.find_by_email_domain(@srr.email)
+     @entity = Entity.find_all_by_email_domain(@srr.email)
      if (!@entity.nil?)
          @eu = @entity.entity_users.order("RAND()").limit(21)
      end
