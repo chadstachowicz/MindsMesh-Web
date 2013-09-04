@@ -124,7 +124,7 @@ class HomeController < ApplicationController
       roster = Roster.find_all_by_email(eur.email)
       if !roster.nil?
           roster.each do |cls|
-              tu = TopicUsers.where(:user_id => user.id, :topic_id => cls.topic_id)
+              tu = TopicUser.where(:user_id => user.id, :topic_id => cls.topic_id)
               tu.save
           end
        end
