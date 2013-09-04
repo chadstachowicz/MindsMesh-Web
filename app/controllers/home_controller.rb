@@ -38,6 +38,11 @@ class HomeController < ApplicationController
   end
 
   def index
+    eu = current_user.entity_users.first
+    ent = EntityAdvancedSetting.find_by_entity_id(eu.entity_id)
+    if ent.can_create_topic == 1
+        @hidetopic = 1
+    end
     if current_user.current_sign_in_at.nil? || current_user.current_sign_in_at < 7.days.ago
         # cookies['suggest_follows'] = "true"
     elsif current_user.current_sign_in_at.nil? || current_user.current_sign_in_at < 3.days.ago
@@ -115,8 +120,8 @@ class HomeController < ApplicationController
         sign_in user
     end
       roster = Roster.find_by_email(eur.email)
-      roster.each do |class|
-          tu = TopicUsers.where(:user_id => user.id, :topic_id => class.topic_id)
+      roster.each do |cls|
+          tu = TopicUsers.where(:user_id => user.id, :topic_id => cls.topic_id)
           tu.save
         end
           entity = Entity.find_by_email_domain(eur.email)

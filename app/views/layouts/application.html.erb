@@ -102,7 +102,9 @@
         <% if action_includes_sidebar_right? %>
           <td class="sidebar" id="sidebar_right">
             <%#= render '/home/feedback' if (current_user.posts.size+current_user.replies.size) > 2 %>
+        <% if @hidetopic != 1 %>
             <%= render '/topics/new_topic' %>
+        <% end %>
             <%= yield 'email_invite_on_topics_show'  %>
             <!-- placeholder ajax_application.js -->
           </td>
