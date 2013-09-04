@@ -13,7 +13,7 @@ class ImportRosters
     extend RetriedJob
     @queue = :import
     
- def self.perform(chunk)
+ def self.perform(chunk, jobid)
      @job = BackgroundJob.find(jobid)
     chunk.each do |i|
         @job.transactions = @job.transactions.to_i + 1
