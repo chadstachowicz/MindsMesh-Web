@@ -124,8 +124,7 @@ class HomeController < ApplicationController
       roster = Roster.find_all_by_email(eur.email)
       if !roster.nil?
           roster.each do |cls|
-              tu = TopicUser.where(:user_id => user.id, :topic_id => cls.topic_id)
-              tu.save
+              TopicUser.where(:user_id => user.id, :topic_id => cls.topic_id, :role_i => cls.role).first_or_create
           end
        end
           entity = Entity.find_by_email_domain(eur.email)
