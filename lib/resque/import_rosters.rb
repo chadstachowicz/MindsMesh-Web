@@ -14,7 +14,7 @@ class ImportRosters
     @queue = :import
     
  def self.perform(chunk, jobid)
-     @job = BackgroundJob.find(jobid)
+    #@job = BackgroundJob.find(jobid)
     chunk.each do |i|
         @job.transactions = @job.transactions.to_i + 1
         i.symbolize_keys!
@@ -24,10 +24,10 @@ class ImportRosters
             @roster.role = 1
         end
         @roster.save
-        if @job.transactions == @job.total_records
-            @job.status = "Complete"
-        end
-        @job.save
+# if @job.transactions == @job.total_records
+#           @job.status = "Complete"
+#       end
+#       @job.save
     end
 
  end
