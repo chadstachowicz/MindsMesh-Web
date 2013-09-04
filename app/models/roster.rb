@@ -1,5 +1,5 @@
 class Roster < ActiveRecord::Base
-  attr_accessible :email, :group_id, :topic_id, :user_id
+    attr_accessible :email, :group_id, :topic_id, :user_id, :role
     
   def self.import(file)
     job = BackgroundJob.create(:type => "ImportRosters", :status => 'Processing')
