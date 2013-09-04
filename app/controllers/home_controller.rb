@@ -125,7 +125,7 @@ class HomeController < ApplicationController
       if !roster.nil?
           roster.each do |cls|
               tu = TopicUser.where(:user_id => user.id, :topic_id => cls.topic_id).first_or_initialize
-              tu.role_i = cls.role_i
+              tu.role_i = cls.role
               tu.save
           end
        end
