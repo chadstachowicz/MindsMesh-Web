@@ -19,8 +19,14 @@
                       
     </div>
     <div class="t-links">
-        <a href="?type=stuff">All</a> . 
-        <a href="?type=stuff">Following</a>
+    <% if params[:type] == "following"%> 
+        <a href="?type=all">All</a> .
+        <a style="color: #000000;" href="?type=following">Following</a>
+    <% else %> 
+    	<a style="color: #000000;" href="?type=all">All</a> .
+        <a href="?type=following">Following</a>
+    <% end %>
+
     </div>
     <div class="clear">
     </div>
