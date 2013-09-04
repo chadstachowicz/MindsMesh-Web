@@ -9,13 +9,13 @@ module RetriedJob
 end
 
 class ImportRosters
-
+    extend RetriedJob
     @queue = :import
     
  def self.perform(chunk, jobid)
-    #@job = BackgroundJob.find(jobid)
+    @job = BackgroundJob.find(jobid)
     chunk.each do |i|
-    # @job.transactions = @job.transactions.to_i + 1
+     @job.transactions = @job.transactions.to_i + 1
         i.symbolize_keys!
         @topic = Topic.find_by_number(i[:course_number])
         @roster = Roster.where(:topic_id => @topic.id, :email => i[:email]).first_or_initialize
@@ -23,10 +23,10 @@ class ImportRosters
             @roster.role = 1
         end
         @roster.save
-# if @job.transactions == @job.total_records
-#           @job.status = "Complete"
-#       end
-#       @job.save
+        if @job.transactions == @job.total_records
+           @job.status = "Complete"
+       end
+       @job.save
     end
 
  end
