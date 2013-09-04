@@ -10,7 +10,6 @@ end
 
 class ImportRosters
 
-    extend RetriedJob
     @queue = :import
     
  def self.perform(chunk, jobid)
