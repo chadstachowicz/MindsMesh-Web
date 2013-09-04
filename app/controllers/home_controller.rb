@@ -122,11 +122,12 @@ class HomeController < ApplicationController
         sign_in user
     end
       roster = Roster.find_all_by_email(eur.email)
-      
-      roster.each do |cls|
-          tu = TopicUsers.where(:user_id => user.id, :topic_id => cls.topic_id)
-          tu.save
-        end
+      if !roster.nil?
+          roster.each do |cls|
+              tu = TopicUsers.where(:user_id => user.id, :topic_id => cls.topic_id)
+              tu.save
+          end
+       end
           entity = Entity.find_by_email_domain(eur.email)
           eur = user.entity_user_requests.where(entity_id: entity.id, email: eur.email).first_or_initialize
           eur.save
