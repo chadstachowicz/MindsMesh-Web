@@ -51,23 +51,15 @@ class HomeController < ApplicationController
         # cookies['suggest_invites'] = "true"
     end
     @type = 'post'
-    @posts = current_user.posts_feed
+      if params[:type] == 'following'
+          @posts = current_user.posts_feed({},true)
+      else
+          @posts = current_user.posts_feed({},false)
+      end
+                                           
     
     redirect_to_landing_home_page
   end
-    
-    def demoforik12
-        sign_in User.find(3)
-        if current_user.current_sign_in_at.nil? || current_user.current_sign_in_at < 7.days.ago
-            #     cookies['suggest_follows'] = "true"
-        elsif current_user.current_sign_in_at.nil? || current_user.current_sign_in_at < 3.days.ago
-            #cookies['suggest_invites'] = "true"
-        end
-        @type = 'post'
-        @posts = current_user.posts_feed
-        
-        redirect_to_landing_home_page
-    end
 
   def ajax_application
   end

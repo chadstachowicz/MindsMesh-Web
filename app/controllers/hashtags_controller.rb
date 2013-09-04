@@ -9,7 +9,12 @@ class HashtagsController < ApplicationController
   # GET /hashtags/1
   def show
       @hashtag = Hashtag.find_by_name(params[:tag])
-      @posts = @hashtag.posts.as_feed(params.slice(:limit, :before))
+      topic_ids = current_user.topic_users.map(&:topic_id)
+      group_ids = current_user.group_users.map(&:group_id)
+      entity_ids = current_user.entity_users.map(&:entity_id)
+      eu = EntityUser.where('entity_id in (:entity_ids)',:entity_ids => entity_ids)
+      user_ids = eu.map(&:user_id)
+      @posts = @hashtag.posts.where('(user_id in (:user_ids) and topic_id is null and group_id is null) or topic_id in (:topic_ids) or group_id in (:group_ids)', :user_ids => user_ids, :topic_ids => topic_ids,:group_ids => group_ids).as_feed(params.slice(:limit, :before))
   end
 
   # GET /hashtags/new
