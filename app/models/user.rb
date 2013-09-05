@@ -220,15 +220,15 @@ unless user
         eur = user.entity_user_requests.where(entity_id: entity.id, email: nu_email).first_or_initialize
         eur.save
         eur.confirm
-        text = "#{current_user.name} #joined the #{entity.name} network.  Take a moment to welcome them."
-        @post = Post.where(:text => text, :user_id => user.id).create
-        @tags = @post.text.scan(/(?:\s|^)(?:#(?!\d+(?:\s|$)))(\w+)(?=\s|$)/i)
-                                          if !@tags.nil?
-                                          @tags.each do |tag|
-                                          hashtag = Hashtag.where(:name => tag[0]).first_or_create
-                                          HashtagsPost.create(:post_id => @post.id, :hashtag_id => hashtag.id)
-                                          end
-                                          end
+        #     text = "#{current_user.name} #joined the #{entity.name} network.  Take a moment to welcome them."
+        # @post = Post.where(:text => text, :user_id => user.id).create
+        #@tags = @post.text.scan(/(?:\s|^)(?:#(?!\d+(?:\s|$)))(\w+)(?=\s|$)/i)
+        #              if !@tags.nil?
+        #                                  @tags.each do |tag|
+        #                                  hashtag = Hashtag.where(:name => tag[0]).first_or_create
+        #                                  HashtagsPost.create(:post_id => @post.id, :hashtag_id => hashtag.id)
+        #                                  end
+        #                                  end
 
     end
 end

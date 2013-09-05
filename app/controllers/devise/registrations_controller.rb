@@ -29,15 +29,15 @@ class Devise::RegistrationsController < DeviseController
                 nu_email = srr.email
                 entity = Entity.find_by_email_domain(nu_email)
                 eur = EntityUser.where(entity_id: entity.id, user_id: current_user.id).first_or_create
-                text = "#{current_user.name} #joined the #{entity.name} network.  Take a moment to welcome them."
-                @post = Post.where(:text => text, :user_id => current_user.id).create
-                @tags = @post.text.scan(/(?:\s|^)(?:#(?!\d+(?:\s|$)))(\w+)(?=\s|$)/i)
-                if !@tags.nil?
-                    @tags.each do |tag|
-                        hashtag = Hashtag.where(:name => tag[0]).first_or_create
-                        HashtagsPost.create(:post_id => @post.id, :hashtag_id => hashtag.id)
-                    end
-                end
+                #  text = "#{current_user.name} #joined the #{entity.name} network.  Take a moment to welcome them."
+                # @post = Post.where(:text => text, :user_id => current_user.id).create
+                #@tags = @post.text.scan(/(?:\s|^)(?:#(?!\d+(?:\s|$)))(\w+)(?=\s|$)/i)
+                #if !@tags.nil?
+                #    @tags.each do |tag|
+                #        hashtag = Hashtag.where(:name => tag[0]).first_or_create
+                #        HashtagsPost.create(:post_id => @post.id, :hashtag_id => hashtag.id)
+                #    end
+                #end
             end
             else
                 clean_up_passwords resource
