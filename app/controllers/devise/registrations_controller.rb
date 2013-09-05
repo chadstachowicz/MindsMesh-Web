@@ -14,7 +14,7 @@ class Devise::RegistrationsController < DeviseController
                 eur.user_id = resource.id
                 eur.generate_and_mail_new_token
                 text = eur.save ? "a confirmation email has been sent to #{resource.email}" : eur.errors.full_messages.to_sentence.to_s
-                redirect_to root_url, notice: text
+                render text: text
             elsif resource.active_for_authentication?
                 set_flash_message :notice, :signed_up if is_navigational_format?
                 sign_in(resource_name, resource)
