@@ -99,10 +99,10 @@ class HomeController < ApplicationController
   def confirm_entity_request
     eur = EntityUserRequest.find_by_confirmation_token!(params[:confirmation_token])
     user = User.find_by_email(eur.email)
+    eur.confirm
     if user.nil?
         #for user logged in
-        eu = eur.confirm
-        user = User.find(eu.user_id)
+        user = User.find(eur.user_id)
         user.email = eur.email
         user.save
         sign_in user
@@ -121,10 +121,10 @@ class HomeController < ApplicationController
               tu.save
           end
        end
-          entity = Entity.find_by_email_domain(eur.email)
-          eur = user.entity_user_requests.where(entity_id: entity.id, email: eur.email).first_or_initialize
-          eur.save
-         eur.confirm
+      #      entity = Entity.find_by_email_domain(eur.email)
+      #    eur = user.entity_user_requests.where(entity_id: entity.id, email: eur.email).first_or_initialize
+      #    eur.save
+      #   eur.confirm
       #    text = "#{current_user.name} #joined the #{entity.name} network.  Take a moment to welcome them."
       #    @post = Post.where(:text => text, :user_id => user.id).create
       #    @tags = @post.text.scan(/(?:\s|^)(?:#(?!\d+(?:\s|$)))(\w+)(?=\s|$)/i)
