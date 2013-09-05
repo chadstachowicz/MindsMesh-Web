@@ -50,7 +50,13 @@ class Ability
       can :show, Hashtag
       
       can [:show, :more_posts, :follow, :unfollow, :all, :update], User do |usr|
-        true==true
+          see = false
+          usr.entity_users.all.each do |eu|
+              if !@current_user.entity_users.find_by_entity_id(eu.entity_id).nil?
+                  see = true
+              end
+          end
+          see
     end
       
     can [:create, :filter], Topic
