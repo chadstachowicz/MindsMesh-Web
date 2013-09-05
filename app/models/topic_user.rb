@@ -2,7 +2,7 @@ class TopicUser < ActiveRecord::Base
   belongs_to :topic, counter_cache: true
   belongs_to :user, counter_cache: true
 
-    attr_accessible :topic_id, :topic_user_id, :role_i
+    attr_accessible :topic_id, :topic_user_id, :role_i, :user_id
 
   validates_presence_of :topic
   validates_presence_of :user
