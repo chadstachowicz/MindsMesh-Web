@@ -74,7 +74,7 @@ class EntitiesController < ApplicationController
 
   # POST /entities
   def create
-    @entity.confirmation_token = Digest::MD5.hexdigest(Time.now.to_s)
+    @entity.token = Digest::MD5.hexdigest(Time.now.to_s)
     if @entity.save
       flash[:notice] = "Entity successfully created."
     end
