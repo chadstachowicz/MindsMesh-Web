@@ -1,7 +1,7 @@
 class Entity < ActiveRecord::Base
 
 
-    attr_accessible :name, :slug, :self_joining, :domains, :state_name, :moodle_url, :token
+    attr_accessible :name, :slug, :self_joining, :domains, :state_name, :moodle_url, :token, :moodle_sso
 
   has_many :entity_user_requests, dependent: :destroy
   has_many :entity_users, 		    dependent: :destroy

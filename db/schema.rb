@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130904010614) do
+ActiveRecord::Schema.define(:version => 20130910023945) do
 
   create_table "background_jobs", :force => true do |t|
     t.string   "name"
@@ -65,6 +65,7 @@ ActiveRecord::Schema.define(:version => 20130904010614) do
     t.string   "moodle_url"
     t.integer  "groups_count"
     t.string   "token"
+    t.integer  "moodle_sso"
   end
 
   create_table "entity_advanced_settings", :force => true do |t|
