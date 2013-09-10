@@ -31,8 +31,12 @@ module Api::V1
 
     #POST /home/register_device
     def register_device
-      ud = @current_user.user_devices.where(token: params[:user_device][:token]).first_or_initialize
-      if ud.update_attributes(params[:user_device])
+      ud = @current_user.user_devices.where(token: params[:token]).first_or_initialize
+      ud.os = params[:os]
+      ud.environment = params[:environment]
+      ud.name = params[:name]
+      ud.model = params[:model]
+      if ud.save
         render json: true
       else
         render json: {message: ud.errors.full_messages}
