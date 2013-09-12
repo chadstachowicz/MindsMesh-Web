@@ -52,7 +52,7 @@ module Api::V1
     end
 
     def create_reply
-      reply = post.replies.build(params[:reply])
+      reply = post.replies.new(:text => params[:text])
       reply.user = @current_user
       reply.save!
       render json: reply
