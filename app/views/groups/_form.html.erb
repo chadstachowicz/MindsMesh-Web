@@ -12,32 +12,12 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :entity_id %><br />
-    <%= f.number_field :entity_id %>
-  </div>
-  <div class="field">
-    <%= f.label :name %><br />
+    <%= f.label :name %>
     <%= f.text_field :name %>
   </div>
   <div class="field">
-    <%= f.label :slug %><br />
-    <%= f.text_field :slug %>
-  </div>
-  <div class="field">
-    <%= f.label :group_users_count %><br />
-    <%= f.number_field :group_users_count %>
-  </div>
-  <div class="field">
-    <%= f.label :posts_count %><br />
-    <%= f.number_field :posts_count %>
-  </div>
-  <div class="field">
-    <%= f.label :description %><br />
-    <%= f.text_field :description %>
-  </div>
-  <div class="field">
-    <%= f.label :user_id %><br />
-    <%= f.number_field :user_id %>
+    <%= f.label :privacy %>
+    <%= f.check_box :privacy %>
   </div>
   <div class="actions">
     <%= f.submit %>

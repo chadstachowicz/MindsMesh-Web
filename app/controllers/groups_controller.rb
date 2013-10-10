@@ -10,7 +10,8 @@ class GroupsController < ApplicationController
   # GET /groups/1
   def show
       @group_user  = @group.group_users.where(user_id: current_user.id).first
-      @group_users = @group.group_users.limit(10)
+      @group_users = @group.group_users.where('role_i is null or role_i = 0').limit(10)
+      @admins = @group.group_users.where(:role_i => 1)
       @posts         = @group.posts.as_feed(params.slice(:limit, :before))
       @post = Post.new
       @type = 'group'
@@ -19,7 +20,7 @@ class GroupsController < ApplicationController
 
   # GET /groups/new
   def new
-      @group.entity_user_join(@group.entity_user)
+      @group.entity_user_join(@group.entity_user,true)
       flash[:notice] = "Group successfully created."
       respond_with(@group)
   end
@@ -47,7 +48,7 @@ class GroupsController < ApplicationController
   # POST /groups
   def create
     if @group.save
-      @group.entity_user_join(@group.entity_user)
+      @group.entity_user_join(@group.entity_user,true)
       redirect_to @group, notice: 'Group was created.'
     else
       render action: "new"

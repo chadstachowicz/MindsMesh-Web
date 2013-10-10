@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130910023945) do
+ActiveRecord::Schema.define(:version => 20130916035637) do
 
   create_table "background_jobs", :force => true do |t|
     t.string   "name"
@@ -188,6 +188,8 @@ ActiveRecord::Schema.define(:version => 20130910023945) do
     t.datetime "created_at",         :null => false
     t.datetime "updated_at",         :null => false
     t.string   "confirmation_token"
+    t.integer  "group_id"
+    t.integer  "to_user_id"
   end
 
   add_index "invite_requests", ["entity_id"], :name => "index_invite_requests_on_entity_id"

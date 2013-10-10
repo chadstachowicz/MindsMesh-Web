@@ -1,22 +1,4 @@
-<% content_for 'email_invite_on_topics_show' do %>
-  <% ir = InviteRequest.new(entity_id: @group.entity_id, topic_id: @group.id) %>
-  <%= form_for(ir, remote: true, format: :json) do |f| %>
-    <div class="modal-body">
-      <%= f.hidden_field :entity_id %>
- 
-      <div class="field">
-        <h4 style="color: #46A546;">Invite Friends</h4>
-        <%= text_area :emails, nil, class: 'input-block-level', placeholder: "abc@gmail.com, abc@gmail.com, abc@gmail.com, abc@gmail.com" %>
-      </div>
-    </div>
-    <div class="modal-footer" style="border-bottom: #eee solid 2px;border-radius:0">
-      <div class="actions">
-        <%= submit_tag "invite friends", class: 'btn btn-primary', data: {disable_with: "sending emails..."} %>
-      </div>
-    </div>
-  <% end %>
-<% end %>
-
+<%= render '/partials/application/send_invite' %>
 
 <% if can? :more_posts, @group %>
   <% if @group_user.present? %>
@@ -50,9 +32,22 @@
     <li class="nav-header">
       <%= @group.name %>
     </li>
+    
+    <li class="nav-header">
+    	admins
+    </li>
+    <% @admins.each do |group_user| %>
+      <li>
+        <% user = group_user.user %>
+        <%= link_to user, class: 'tooltiped', title: user.name do %>
+          <%= image_tag user.photo_url, width: 30 %>
+          <%= user.name %>
+        <% end %>
+      </li>
+    <% end %>
 
     <li class="nav-header">
-      students
+    	members
     </li>
     <% @group_users.each do |group_user| %>
       <li>
@@ -76,6 +71,14 @@
                       data: {disable_with: "hold on..."}
                       %>
     <% end %>
+    
+        <% if current_user.group_admin? %>
+      <li class="nav-header">admin actions</li>
+      <%= li link_to 'Edit Class Settings', "/groups/#{@group.id}/edit"%>
+      <%= li link_to 'Invite Users', '#send_invite_modal', data: {toggle: 'modal'}%>
+    <% end %>
+    
   </ul>
+  
 
 </div>

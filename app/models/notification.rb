@@ -38,11 +38,14 @@ class Notification < ActiveRecord::Base
       "replied to <u>#{truncate text, length: 55}</u>"
     elsif action == ACTION_LIKED
       "pinned <u>#{truncate text, length: 40}</u>"
+    elsif action == ACTION_INVITED
+      "invited you to <u></u>"
     end
   end
 
   # TODO: test this
   ACTION_POSTED = 'posted'
+  ACTION_INVITED = 'invited'
   ACTION_REPLIED = 'replied'
   ACTION_LIKED = 'liked'
 =begin
@@ -93,6 +96,12 @@ class Notification < ActiveRecord::Base
     true
   end
 
+    def self.notify_invitees(group, action, user_ids, ignore_user_id)
+        user_ids.each do |user_id|
+            notify_user!(User.find(user_id), group, action, group.name) unless user.id == ignore_user_id
+        end
+    end
+
   def self.notify_users_in_topic(topic, action, ignore_user_id)
     new_actors_count = topic.posts.where('created_at > ?', 3.day.ago).count
     topic.users.each do |user|
@@ -105,7 +114,9 @@ class Notification < ActiveRecord::Base
     n.b_read = false
     n.actors_count = new_actors_count
     n.save! #ensure it's persisted
-    n.notify_on_facebook #TODO: rescue, log in db
+    if !user user.fb_id.nil?
+        n.notify_on_facebook #TODO: rescue, log in db
+    end
     n
   end
 

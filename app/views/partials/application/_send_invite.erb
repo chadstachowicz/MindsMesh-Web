@@ -1,0 +1,32 @@
+ <div class="messages" id="send_invites">
+      <div class="modal hide fade reply_modal" id="send_invite_modal">
+        <% ir = InviteRequest.new %>
+        <%= form_for(ir) do |f| %>
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+      		 <h3>Who would you like to invite?  </h3>    
+          </div>
+          <div class="modal-body">
+          <input type="text"  placeholder="Search for people to add" id="peopleToSendInvite" style="width:250px;margin-top:4px;margin-bottom:4px"/> 
+            <div class="question_area" id="invite_area_message">
+            </div>
+            <div class="clear"></div>
+            <h3>or add by email...</h3>
+            <div class="clear"></div>
+            <div class="answer_area">
+              <%= text_area_tag :emails, nil, class: 'input-block-level', placeholder: "abc@your.edu, def@your.edu, ghi@your.edu, jkl@your.edu"%>
+              <%= f.hidden_field :user_id, :value => @current_user.id%>
+              <%= f.hidden_field :group_id, :value => @group.id%>
+              <%= f.hidden_field :entity_id, :value => @group.entity_id%>
+              <input type="hidden" name="invite_receiver_ids" id="invite_receiver_ids" ></input>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <%= f.submit "Send Invites", class: 'btn btn-success', data: {display_with: "Sending invites..."}, id: "send-inv" %>
+          </div>
+        <% end %>
+
+      </div>
+    </div>
+    
+    

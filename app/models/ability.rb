@@ -15,6 +15,7 @@ class Ability
       can [:admin, :entities, :create_entity_request, :change_access_token, :ajax_application, :search_users], :home
       can :index, :setting
       can [:create, :new], FeedbackBug
+      can :create, InviteRequest
       
 
   end
@@ -123,6 +124,7 @@ class Ability
     
     def group_admin
         can [:index], :admin
+        can [:update], Group
         can [:update, :destroy], Post do |msg|
             if !@current_user.group_users.find_by_group_id(msg.group_id).nil?
                 @current_user.group_users.find_by_group_id(msg.group_id).role_i == 1

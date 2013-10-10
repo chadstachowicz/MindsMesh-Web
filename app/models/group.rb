@@ -12,9 +12,14 @@ class Group < ActiveRecord::Base
     attr_accessor :entity_user, :entity_user_id
     before_validation :set_entity_user_correctly, on: :create
     
-    def entity_user_join(entity_user1)
+    def entity_user_join(entity_user1,admin=false)
         raise 'nil argument' if entity_user1.nil?
-        group_users.where(user_id: entity_user1.user.id).first_or_create
+        gu = group_users.where(user_id: entity_user1.user.id).first_or_initialize
+        if admin
+            gu.role_i = 1
+        end
+        gu.save
+        
     end
     
     def entity_user_leave(entity_user1)

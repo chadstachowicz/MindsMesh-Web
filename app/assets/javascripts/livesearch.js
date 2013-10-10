@@ -67,7 +67,7 @@ $(document).ready(function($) {
 element = "#peopleToAdd";
 options = '';
 var el = this.$element = $(element);
-        this.options = $.extend(true, {}, {menu: '<ul class="dropdown-menu"></ul>'}, options);
+       this.options = $.extend(true, {}, {menu: '<ul class="dropdown-menu"></ul>'}, options);
 var menu =  this.$menu = $(this.options.menu).appendTo('#messages');
         this.shown = false;
 
@@ -81,7 +81,7 @@ if (el.val() == 0)
             menu.hide();
             this.shown = false;
             return this;
-} 
+}
 $.post("/home/search", { query: el.val() }, function(data) {
     for(i=0;i<data.users.length;i++){
 	htmlresults += "<li><a href=\"#\" data-id=\"" + data.users[i].id + "\" data-name=\"" + data.users[i].name + 
@@ -146,6 +146,94 @@ $('#peopleToAdd').blur(function() {
 }
 });
 });
+
+
+$(document).ready(function($) {
+element = "#peopleToSendInvite";
+options = '';
+var el = this.$element = $(element);
+       this.options = $.extend(true, {}, {menu: '<ul class="dropdown-menu"></ul>'}, options);
+var menu =  this.$menu = $(this.options.menu).appendTo('#send_invites');
+        this.shown = false;
+
+ var safeguard = false;
+el.keyup(function(){
+ var htmlheader = "<li class=\"nav-header\">People</li>";
+ var htmlresults = htmlheader;
+
+if (el.val() == 0)
+{
+            menu.hide();
+            this.shown = false;
+            return this;
+}
+$.post("/home/search", { query: el.val() }, function(data) {
+    for(i=0;i<data.users.length;i++){
+	htmlresults += "<li><a href=\"#\" data-id=\"" + data.users[i].id + "\" data-name=\"" + data.users[i].name + 
+	  "\" class=\"add_user_message\"><img src=\"https://graph.facebook.com/" + data.users[i].fb_id + "/picture\"/><u>" + data.users[i].name + "</u></a></li>";
+	}
+            var pos = $.extend({}, el.offset(), {
+                height: el[0].offsetHeight,
+            });
+
+            menu.css({
+                top: 50 + pos.height,
+		left: 12,
+		width: '250'
+            });
+            menu.insertAfter(el);
+            menu.html(htmlresults);
+            menu.show();
+            this.shown = true;
+
+
+            return this;
+
+    });
+
+
+
+            
+});
+$("#send_invites a.add_user_message").live("click", function() {
+  var sel = "<div id=\"names\" value=\"" + $(this).attr('data-id') + "\" class=\"names\">" + $(this).attr('data-name') + " <a href='#' class='btn btn-mini'>x</a></div>".replace(':c', app1.newpost.files_count++);
+  $('#invite_area_message').append(sel);
+  menu.hide();
+  this.shown = false;
+  el.val("");
+  return this;
+});
+
+$(".names a").live("click", function() {
+  $(this).parent().remove();
+  return false;
+});
+$('#send-inv').live("click", function() {
+   var recip_id = [];
+   $(".names").each(function() {
+    recip_id.push($(this).attr('value'));
+   });
+   $('#invite_receiver_ids').val(recip_id);
+   return true;
+});
+menu.mouseenter(function(){
+safeguard = true;
+
+});
+menu.mouseleave(function(){
+safeguard = false;
+});
+$('#peopleToSendInvite').blur(function() {
+    if (safeguard == false){ 
+            menu.hide();
+            this.shown = false;
+            return this;
+}
+});
+});
+
+
+
 $(document).ready(function($) {
 $(".schools-manage a").live("click", function() {
         if (window.confirm("Are you sure you want to delete this?")) {

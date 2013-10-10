@@ -11,3 +11,4 @@ $("#dev_signup form").live("ajax:complete", function(e, data) {
   $('#join_entity_modal').modal();
 });
 
+
