@@ -90,7 +90,7 @@ class Notification < ActiveRecord::Base
 
       #notify mobile devices
       user.user_devices.each do |ud|
-        n.new_apn(ud.token,ud.environment).save!
+        n.new_apn(ud.token,ud.environment)
       end
     end
     true
