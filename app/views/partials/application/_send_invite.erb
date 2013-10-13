@@ -14,7 +14,7 @@
             <h3>or add by email...</h3>
             <div class="clear"></div>
             <div class="answer_area">
-              <%= text_area_tag :emails, nil, class: 'input-block-level', placeholder: "abc@your.edu, def@your.edu, ghi@your.edu, jkl@your.edu"%>
+              <%= text_area_tag :emails, nil, class: 'input-block-level', placeholder: "abc@your.edu, def@your.edu, ghi@your.edu, jkl@your.edu", :required => false%>
               <%= f.hidden_field :user_id, :value => @current_user.id%>
               <%= f.hidden_field :group_id, :value => @group.id%>
               <%= f.hidden_field :entity_id, :value => @group.entity_id%>

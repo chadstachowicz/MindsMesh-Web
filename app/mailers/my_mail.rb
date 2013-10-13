@@ -1,5 +1,5 @@
 class MyMail < ActionMailer::Base
-  default from: "welcome@mindsmesh.com"
+  default from: "mindsmesh@mindsmesh.com"
 
   # Subject can be set in your I18n file at config/locales/en.yml
   # with the following lookup:
@@ -29,8 +29,14 @@ class MyMail < ActionMailer::Base
 
   def invite(invite_request, email)
     @invite_request = ir = invite_request
-    @subject    = "Your friend #{ir.user.name} has invited you to study for #{ir.topic.title} on MindsMesh.com"
-    @link       = nice_invite_request_url(@invite_request, @invite_request.user.name.parameterize, host: host)
+    tid = ""
+    if invite_request.group_id.nil?
+        tid = ir.topic.name
+    else
+        tid = ir.group.name
+    end
+    @subject    = "#{ir.user.name} has invited you to #{tid} at #{ir.entity.name} on MindsMesh.com"
+    @link       = "http://www.mindsmesh.com/join/#{ir.entity.token}"
     @photo_url  = @invite_request.user.photo_url('large')
 
     mail to: 'noreply@mindsmesh.com', bcc: email, subject: @subject

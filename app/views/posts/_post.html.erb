@@ -11,9 +11,9 @@
 
 
   <div class="post_left">
-    <div class="image">
+    <div>
 
-      <%= link_to image_tag(post.user.photo_url('large'), width: 64), post.user %>
+      <%= link_to image_tag(post.user.photo_url('large'), :style => "max-width:64px;max-height:64px"), post.user %>
 
     </div>
   </div>

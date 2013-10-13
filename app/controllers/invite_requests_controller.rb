@@ -24,14 +24,14 @@ class InviteRequestsController < ApplicationController
                   }
     @invite_request = InviteRequest.where(conditions).first_or_initialize
       if !params[:invite_receiver_ids].nil?
-          puts "sdfsdfdsfsdfdsfsdfsdf"
-          Resque.enqueue(NotifyNewInvite, p[:group_id], me.id, params[:invite_receiver_ids])
+          Resque.enqueue(NotifyNewInvite, p[:invite_receiver_ids], me.id, params[:invite_receiver_ids])
       end
     if @invite_request.save
-      if !params[:emails].nil?
-      @invite_request.send_emails(params[:emails])
+      if !params[:emails].empty?
+          @invite_request.send_emails(params[:emails])
       end
-      render json: true
+      flash[:notice] = "Invites sent successfully!"
+      redirect_to :back
     else
       render json: @invite_request.errors, status: :unprocessable_entity
     end

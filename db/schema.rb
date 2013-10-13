@@ -11,18 +11,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130916035637) do
+ActiveRecord::Schema.define(:version => 20131013220821) do
 
   create_table "background_jobs", :force => true do |t|
     t.string   "name"
-    t.string   "type"
+    t.string   "job_type"
     t.integer  "entity_id"
     t.integer  "transactions"
-    t.integer  "total_records"
     t.integer  "campaign_id"
     t.string   "status"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
   end
 
   create_table "delayed_jobs", :force => true do |t|

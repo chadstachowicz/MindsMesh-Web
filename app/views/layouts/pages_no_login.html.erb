@@ -48,10 +48,18 @@
             <li><a id="logo" href="/"><%= image_tag('appicon-72.png') %></a></li>
             <!-- placeholder ajax_application.js -->
           </ul>
+          <ul class="nav pull-right" id="top_menu_right">
+            <li><%= link_to 'Login',
+                    "#login_modal",
+                    id: 'try-button',
+                    data: {toggle: 'modal'} %></li>
+            <!-- placeholder ajax_application.js -->
+          </ul>
 
       </div>
     </div>
   </div>
+   <%= render '/partials/application/login' %>
 
 
 

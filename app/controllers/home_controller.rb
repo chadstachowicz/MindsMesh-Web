@@ -224,7 +224,7 @@ class HomeController < ApplicationController
                 
             params[:files] and params[:files].values.each do |file|
                 MessageAttachment.my_create_file!(@post, file)
-        end
+            end
             rescue => e
             flash[:alert] = e.message
         end
