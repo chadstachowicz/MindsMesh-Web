@@ -116,7 +116,7 @@ class Notification < ActiveRecord::Base
     n.actors_count = new_actors_count
     n.save! #ensure it's persisted
     if !user.fb_id.nil?
-        n.notify_on_facebook #TODO: rescue, log in db
+        #   n.notify_on_facebook #TODO: rescue, log in db
     end
     n
   end
