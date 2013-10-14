@@ -23,7 +23,8 @@ class Notification < ActiveRecord::Base
   end
 
   def facebook_message
-    "#{pluralize(actors_count, 'person')} #{action_as_verb}"
+    user_name = User.find(user_id)
+    "#{user_name} #{action_as_verb}"
   end
 
   def action_as_verb
@@ -39,7 +40,7 @@ class Notification < ActiveRecord::Base
     elsif action == ACTION_LIKED
       "pinned <u>#{truncate text, length: 40}</u>"
     elsif action == ACTION_INVITED
-      "invited you to <u></u>"
+      "invited you to <u>#{truncate text, length: 40}</u>"
     end
   end
 
@@ -116,7 +117,7 @@ class Notification < ActiveRecord::Base
     n.actors_count = new_actors_count
     n.save! #ensure it's persisted
     if !user.fb_id.nil?
-        #   n.notify_on_facebook #TODO: rescue, log in db
+        n.notify_on_facebook #TODO: rescue, log in db
     end
     n
   end
