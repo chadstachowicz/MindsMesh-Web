@@ -66,7 +66,7 @@ class Ability
       topic.entity.entity_users.where(user_id: @current_user.id).exists?
     end
       can [:show, :join, :leave], Group do |group|
-          group.entity.entity_users.where(user_id: @current_user.id).exists? || group.invite_request.where(user_id: @current_user.id).exists?
+          group.entity.entity_users.where(user_id: @current_user.id).exists? || group.invite_requests.where(user_id: @current_user.id).exists?
       end
     #TODO: stop testing only as a master
       can [:more_posts], Topic do |topic|
