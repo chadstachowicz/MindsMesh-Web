@@ -99,7 +99,7 @@ class Notification < ActiveRecord::Base
     def self.notify_invitees(group, action, user_ids, ignore_user_id)
         users = user_ids.split(/,/)
         users.each do |user_id|
-            notify_user!(User.find(user_id), group, action, group.name) unless user.id == ignore_user_id
+            notify_user!(User.find(user_id.to_i), group, action, group.name) unless user.id == ignore_user_id
         end
     end
 
