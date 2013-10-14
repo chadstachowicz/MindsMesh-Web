@@ -99,8 +99,8 @@ class Notification < ActiveRecord::Base
 
     def self.notify_invitees(group, action, user_ids, ignore_user_id)
         users = user_ids.split(/,/)
-        users.each do |user_id|
-            notify_user!(User.find(user_id.to_i), group, action, group.name)
+        users.each do |usr|
+            notify_user!(User.find(usr.to_i), group, action, group.name)
         end
     end
 
