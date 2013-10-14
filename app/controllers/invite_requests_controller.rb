@@ -23,8 +23,8 @@ class InviteRequestsController < ApplicationController
                   group_id:   p[:group_id]
                   }
     @invite_request = InviteRequest.where(conditions).first_or_initialize
-      if !params[:invite_receiver_ids].nil?
-          Resque.enqueue(NotifyNewInvite, p[:invite_receiver_ids], me.id, params[:invite_receiver_ids])
+      if !params[:invite_receiver_ids].empty?
+          Resque.enqueue(NotifyNewInvite, p[:group_id], me.id, params[:invite_receiver_ids])
       end
     if @invite_request.save
       if !params[:emails].empty?

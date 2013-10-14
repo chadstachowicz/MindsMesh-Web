@@ -16,6 +16,6 @@ class NotifyNewInvite
  def self.perform(group_id, user_id, users)
     puts "-"*60
     group = Group.find(group_id)
-    Notification.notify_invitees(group, Notification::ACTION_POSTED, users, user_id)
+    Notification.notify_invitees(group, Notification::ACTION_INVITED, users, user_id)
  end
 end
