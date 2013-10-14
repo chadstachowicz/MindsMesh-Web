@@ -18,23 +18,24 @@ class InviteRequestsController < ApplicationController
   # POST /invite_requests.json
   def create
     p = params[:invite_request]
-    conditions = {user_id:    me.id,
-                  entity_id:  p[:entity_id],
-                  group_id:   p[:group_id]
-                  }
-    @invite_request = InviteRequest.where(conditions).first_or_initialize
       if !params[:invite_receiver_ids].empty?
+          users = params[:invite_receiver_ids].split(/,/)
+          users.each do |u|
+              conditions = {user_id:    me.id,
+                  entity_id:  p[:entity_id],
+                  group_id:   p[:group_id],
+                  to_user_id:  u
+              }
+              @invite_request = InviteRequest.where(conditions).first_or_create
+            end
+              
           Resque.enqueue(NotifyNewInvite, p[:group_id], me.id, params[:invite_receiver_ids])
       end
-    if @invite_request.save
       if !params[:emails].empty?
           @invite_request.send_emails(params[:emails])
       end
       flash[:notice] = "Invites sent successfully!"
       redirect_to :back
-    else
-      render json: @invite_request.errors, status: :unprocessable_entity
-    end
   end
 
 =begin

@@ -112,7 +112,7 @@ class Notification < ActiveRecord::Base
   end
 
   def self.notify_user!(usr, target, action, text, new_actors_count=1)
-n = where(user_id: usr.id, target_type: target.class.name, target_id: target.id, action: action, :to_user_id => usr.id).first_or_initialize(text: text)
+n = where(user_id: usr.id, target_type: target.class.name, target_id: target.id, action: action).first_or_initialize(text: text)
     n.b_read = false
     n.actors_count = new_actors_count
     n.save! #ensure it's persisted
