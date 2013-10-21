@@ -23,7 +23,7 @@ class Notification < ActiveRecord::Base
   end
 
   def facebook_message
-    user_name = User.find(user_id)
+    user_name = User.find(user_id).name
     "#{user_name} #{action_as_verb}"
   end
 
