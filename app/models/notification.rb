@@ -123,13 +123,14 @@ class Notification < ActiveRecord::Base
   end
 
   def new_apn(device_token,environment,os)
-    n = Rapns::Apns::Notification.new
     if os == 'android'
+        n = Rapns::Gcm::Notification.new
         n.app = Rapns::Gcm::App.find_by_name("android_app")
         n.registration_ids = ["#{device_token}"]
         n.data = {:message => facebook_message, :notification_id => id, :target_type => target_type, :target_id => target_id}
         n.save!
     else
+     n = Rapns::Apns::Notification.new
      if environment == 'production'
         n.app = Rapns::Apns::App.find_by_name("ios_app_production")
      else
