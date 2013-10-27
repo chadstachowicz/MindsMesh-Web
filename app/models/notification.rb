@@ -145,8 +145,7 @@ class Notification < ActiveRecord::Base
         :target_id    =>    target_id
      }
      n.save!
-    
-    }
+    end
   end
 
   def mark_as_read!
