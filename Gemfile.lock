@@ -407,6 +407,7 @@ DEPENDENCIES
   google-api-client
   guard-rspec
   haml
+  httparty
   ims-lti
   jquery-datatables-rails
   jquery-rails (= 2.1.4)

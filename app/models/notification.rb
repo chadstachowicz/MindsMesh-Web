@@ -124,11 +124,17 @@ class Notification < ActiveRecord::Base
 
   def new_apn(device_token,environment,os)
     if os == 'android'
-        n = Rapns::Gcm::Notification.new
-        n.app = Rapns::Gcm::App.find_by_name("android_app")
-        n.registration_ids = ["#{device_token}"]
-        n.data = {:message => facebook_message, :notification_id => id, :target_type => target_type, :target_id => target_id}
-        n.save!
+        options = {:channel => 'alert', :to_tokens => device_token, :payload => {:message => facebook_message, :notification_id => id, :target_type => target_type, :target_id => target_id}}
+        response = HTTParty.post('https://api.cloud.appcelerator.com/v1/push_notification/notify_tokens.json?key=3WikqNv5J3UTkbbBv9IwVTFtSuzXu4rC',options)
+        
+        response.each do |item|
+            puts item
+        end
+        #     n = Rapns::Gcm::Notification.new
+        #n.app = Rapns::Gcm::App.find_by_name("android_app")
+        #n.registration_ids = ["#{device_token}"]
+        #n.data = {:message => facebook_message, :notification_id => id, :target_type => target_type, :target_id => target_id}
+        #        n.save!
     else
      n = Rapns::Apns::Notification.new
      if environment == 'production'

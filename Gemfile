@@ -43,6 +43,7 @@ gem 'pusher'
 gem 'backbonejs-rails'
 gem 'smarter_csv', '~> 1.0.8'
 gem 'google-api-client'
+gem 'httparty'
 
 
 
