@@ -124,7 +124,7 @@ class Notification < ActiveRecord::Base
 
   def new_apn(device_token,environment,os)
     if os == 'android'
-        options = {:channel => 'alert', :to_tokens => device_token, :payload => {:message => facebook_message, :notification_id => id, :target_type => target_type, :target_id => target_id}}
+        options = {:body => {:channel => 'alert', :to_tokens => device_token, :payload => {:alert => facebook_message, :vibrate => 'true', :notification_id => id, :target_type => target_type, :target_id => target_id}.to_json}}
         response = HTTParty.post('https://api.cloud.appcelerator.com/v1/push_notification/notify_tokens.json?key=3WikqNv5J3UTkbbBv9IwVTFtSuzXu4rC',options)
         
         response.each do |item|
