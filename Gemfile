@@ -6,6 +6,7 @@ gem 'mysql2'
 gem 'jquery-rails', '2.1.4'
 gem 'omniauth-facebook', '1.4.0'
 gem 'omniauth-twitter'
+gem 'omniauth-google-oauth2'
 gem 'twitter'
 gem 'cancan'
 gem 'validates_email_format_of'
@@ -41,6 +42,7 @@ gem 'rinku', :require => 'rails_rinku'
 gem 'pusher'
 gem 'backbonejs-rails'
 gem 'smarter_csv', '~> 1.0.8'
+gem 'google-api-client'
 
 
 

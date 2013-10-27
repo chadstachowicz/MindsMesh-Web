@@ -91,7 +91,7 @@ class Notification < ActiveRecord::Base
 
       #notify mobile devices
       user.user_devices.each do |ud|
-        n.new_apn(ud.token,ud.environment)
+        n.new_apn(ud.token,ud.environment, ud.os)
       end
     end
     true
@@ -124,21 +124,29 @@ class Notification < ActiveRecord::Base
 
   def new_apn(device_token,environment)
     n = Rapns::Apns::Notification.new
-    if environment == 'production'
-        n.app = Rapns::Apns::App.find_by_name("ios_app_production")
+    if ud.os == 'android'
+        n.app = Rapns::Gcm::App.find_by_name("android_app")
+        n.registration_ids = ["#{device_token}"]
+        n.data = {:message => facebook_message, :notification_id => id, :target_type => target_type, :target_id => target_id}
+        n.save!
     else
+     if environment == 'production'
+        n.app = Rapns::Apns::App.find_by_name("ios_app_production")
+     else
         n.app = Rapns::Apns::App.find_by_name("ios_app_development")
-    end
-    n.device_token = device_token
-    n.alert = facebook_message
-    n.sound = "1.aiff"
-    n.expiry = 1.day.to_i
-    n.attributes_for_device = {
+     end
+     n.device_token = device_token
+     n.alert = facebook_message
+     n.sound = "1.aiff"
+     n.expiry = 1.day.to_i
+     n.attributes_for_device = {
         :notification_id => id,
         :target_type =>      target_type,
         :target_id    =>    target_id
+     }
+     n.save!
+    
     }
-    n.save!
   end
 
   def mark_as_read!
