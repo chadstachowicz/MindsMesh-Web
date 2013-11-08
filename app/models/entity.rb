@@ -1,13 +1,17 @@
+
+# MindsMesh (c) 2013
+
 class Entity < ActiveRecord::Base
 
 
-    attr_accessible :name, :slug, :self_joining, :domains, :state_name, :moodle_url, :token, :moodle_sso
+  attr_accessible :name, :slug, :self_joining, :domains, :state_name, :moodle_url, :token, :moodle_sso
 
   has_many :entity_user_requests, dependent: :destroy
   has_many :entity_users, 		    dependent: :destroy
   has_many :hashtags, 		    dependent: :destroy
   has_one :entity_advanced_setting,     dependent: :destroy
   has_many :topics, 			        dependent: :destroy
+
   validates_presence_of :name
   validates_presence_of :domains
   validates_presence_of :state_name
@@ -29,6 +33,7 @@ class Entity < ActiveRecord::Base
   scope :non_self_joinings, where(self_joining: false)
   scope :self_joinings,     where(self_joining: true)
 
+  # entity_users
   def user_join!(user)
     transaction do
       eu = entity_users.create!(user: user)
@@ -50,3 +55,4 @@ class Entity < ActiveRecord::Base
     a
   end
 end
+

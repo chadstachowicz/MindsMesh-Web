@@ -1,3 +1,6 @@
+
+# MindsMesh (c) 2013
+
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
@@ -231,35 +234,31 @@ unless user
         #                                  end
 
     end
-end
-user
+ end
+ user
 
 end
 
-
-
+# query method
 def self.find_for_lti_oauth(auth, signed_in_resource=nil, entity_id)
 
-nu_email = auth.lis_person_contact_email_primary
-user = User.where(:email => auth.lis_person_contact_email_primary).first
-unless user
-    user = User.create(name:auth.lis_person_name_full,
+  nu_email = auth.lis_person_contact_email_primary
+  user = User.where(:email => auth.lis_person_contact_email_primary).first
+  unless user
+     user = User.create(name:auth.lis_person_name_full,
                        email:nu_email,
                        password:Devise.friendly_token[0,20]
                        )
+   end
+   eur = user.entity_user_requests.where(entity_id: entity_id, email: nu_email).first_or_initialize
+   eur.save
+   eur.confirm
+   user
 end
-eur = user.entity_user_requests.where(entity_id: entity_id, email: nu_email).first_or_initialize
-eur.save
-eur.confirm
-user
-end
 
 
-
-
-  #login
-  def save_with_facebook_data!(fb_uid, name, gender, token, expires_at)
-    #
+#login
+def save_with_facebook_data!(fb_uid, name, gender, token, expires_at)
     self.name          = name
     self.gender        = gender
     self.fb_id         = fb_uid
@@ -269,30 +268,30 @@ end
     self.save!
     #stores friend self
     #list.user.store_fb_friends!
-  end
+ end
 
-  private
+ private
 
-  def joins_self_joining_entities
+ def joins_self_joining_entities
     Entity.self_joinings.each { |e| e.user_join!(self) }
-  end
+ end
 
-  #user matches the mininum requirement
-  def role_is?(given_role_i)
+ #user matches the mininum requirement
+ def role_is?(given_role_i)
     role_i >= User::ROLES[given_role_i]
-  end
+ end
 
-  def role_is_school?(given_role_i)
+ def role_is_school?(given_role_i)
     self.entity_users.each do |role|
         if role.role_i == 1
             return true
         end
     end
-      return false
-  end
+    return false
+ end
                                           
  def self.import_users(chunk)
-     end
+end
 
 def role_is_topic?(given_role_i)
     self.topic_users.each do |role|
@@ -312,13 +311,13 @@ def role_is_group?(given_role_i)
     return false
 end
 
-def self.import(file)
+  def self.import(file)
     campaign = EmailCampaign.create(:status => 'processing')
     job = BackgroundJob.create(:status => 'processing')
     n = SmarterCSV.process(file.tempfile.to_path.to_s, {:chunk_size => 5}) do |chunk|
         Resque.enqueue( ImportUsers, chunk ) # pass chunks of CSV-data to Resque workers for parallel processing
     end
+  end
+
 end
 
-
-end

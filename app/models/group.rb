@@ -1,4 +1,8 @@
+
+# MindsMesh (c) 2013
+
 class Group < ActiveRecord::Base
+
     attr_accessible :description, :entity_user_id, :group_users_count, :name, :posts_count, :slug, :user_id, :privacy
     
     belongs_to :entity, counter_cache: true
