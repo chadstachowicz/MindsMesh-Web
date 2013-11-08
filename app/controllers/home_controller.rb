@@ -1,3 +1,6 @@
+
+# MindsMesh (c) 2013
+
 class HomeController < ApplicationController
     
   load_and_authorize_resource class: false
@@ -86,8 +89,10 @@ class HomeController < ApplicationController
         render text: text
   end
 
+  # get entity
   def create_entity_request
     entity = Entity.find_by_email_domain(params[:email])
+    return render :text => entity.to_s
     return render text: entity if entity.is_a? String
     eur = EntityUserRequest.where(entity_id: entity.id, email: params[:email]).first_or_initialize
     eur.user_id = current_user.id

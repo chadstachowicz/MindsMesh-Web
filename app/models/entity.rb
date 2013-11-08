@@ -22,7 +22,7 @@ class Entity < ActiveRecord::Base
   before_validation :slugify
 
   def slugify
-    self.slug = name.parameterize if self.slug.blank?
+    self.slug = self.name.parameterize if self.slug.blank?
   end
 
   def as_json(options={})

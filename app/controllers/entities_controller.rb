@@ -1,5 +1,10 @@
+
+# MindsMesh (c) 2013
+
 class EntitiesController < ApplicationController
+
   respond_to :html, :json, :js
+
   load_and_authorize_resource
 
   # GET /entities
