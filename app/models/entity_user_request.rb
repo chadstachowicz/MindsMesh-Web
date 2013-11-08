@@ -1,4 +1,8 @@
+
+# MindsMesh (c) 2013
+
 class EntityUserRequest < ActiveRecord::Base
+
   belongs_to :entity
   belongs_to :user
 
@@ -16,14 +20,14 @@ class EntityUserRequest < ActiveRecord::Base
 
   def generate_and_mail_new_token
     transaction do
-      self.last_email_sent_at = Time.now
-      self.confirmation_token = Digest::MD5.hexdigest(Time.now.to_s)
+        self.last_email_sent_at = Time.now
+        self.confirmation_token = Digest::MD5.hexdigest(Time.now.to_s)
       
-      if save && Rails.env.development?
-        confirm
-      else
-        MyMail.confirmation(self).deliver
-      end
+        if save && Rails.env.development?
+            confirm
+        else
+            MyMail.confirmation(self).deliver
+        end
     end
   end
 
@@ -32,7 +36,7 @@ class EntityUserRequest < ActiveRecord::Base
   end
 
   def confirmed?
-    confirmed_at.present?
+    confirmed_at.present?  # email is already confirmed
   end
 
   def confirm

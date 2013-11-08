@@ -1,4 +1,8 @@
+
+# MindsMesh (c) 2013
+
 class MyMail < ActionMailer::Base
+
   default from: "mindsmesh@mindsmesh.com"
 
   # Subject can be set in your I18n file at config/locales/en.yml
@@ -13,11 +17,11 @@ class MyMail < ActionMailer::Base
     mail to: entity_user_request.email, subject: "Welcome to MindsMesh!"
   end
     
-    def signup_confirmation(signup_request)
-        @link  = home_confirm_signup_request_url(signup_request.confirmation_token, host: 'edumesh.com')
+  def signup_confirmation(signup_request)
+    @link  = home_confirm_signup_request_url(signup_request.confirmation_token, host: 'edumesh.com')
         
-        mail to: signup_request.email, subject: "MindsMesh confirmation email!"
-    end
+    mail to: signup_request.email, subject: "MindsMesh confirmation email!"
+  end
 
   def notify_new_reply(user, post, email)
     @user = user

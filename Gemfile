@@ -66,6 +66,8 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'capybara'
   gem 'launchy'
+  gem 'launchy'
+  gem "factory_girl"
   gem 'database_cleaner'
   gem 'guard-rspec'
   gem 'railroady'

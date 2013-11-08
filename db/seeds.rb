@@ -4,6 +4,11 @@
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
 
+Entity.transaction do
+    if Rails.env.development?
+        User.create({email:'mmontoya@gmail.com', fname: 'Manuel', lname:'Montoya', uname:'aarkerio', active: true, password: 'qwerty78', password_confirmation: 'qwerty78', group_id: 1})
+  end
+end
 
 Entity.transaction do
 

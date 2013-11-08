@@ -79,6 +79,8 @@ GEM
     eventmachine (1.0.3)
     execjs (2.0.1)
     fabrication (2.7.2)
+    factory_girl (4.2.0)
+      activesupport (>= 3.0.0)
     faker (1.2.0)
       i18n (~> 0.5)
     faraday (0.8.8)
@@ -378,6 +380,7 @@ DEPENDENCIES
   database_cleaner
   devise (~> 2.2.7)
   fabrication
+  factory_girl
   faker
   font-awesome-sass-rails
   friendly_id

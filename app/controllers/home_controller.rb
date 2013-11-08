@@ -92,8 +92,8 @@ class HomeController < ApplicationController
   # get entity
   def create_entity_request
     entity = Entity.find_by_email_domain(params[:email])
-    return render :text => entity.to_s
-    return render text: entity if entity.is_a? String
+    # return render :text => entity.inspect
+    return render text: entity if entity.is_a? String  # Not an object, so render not found domain message
     eur = EntityUserRequest.where(entity_id: entity.id, email: params[:email]).first_or_initialize
     eur.user_id = current_user.id
     eur.generate_and_mail_new_token

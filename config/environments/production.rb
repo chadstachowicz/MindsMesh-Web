@@ -1,4 +1,8 @@
+
+# MindsMesh (c) 2013
+
 require "#{Rails.root}/lib/settings.rb"
+
 ActionMailer::Base.smtp_settings = {
   user_name:            Settings.env['sendgrid']['username'],
   password:             Settings.env['sendgrid']['password'],
@@ -78,3 +82,4 @@ Mindsmesh::Application.configure do
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
 end
+
