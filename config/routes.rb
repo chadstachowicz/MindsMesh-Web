@@ -1,38 +1,28 @@
+
+# MindsMesh (c) 2013
+
 Mindsmesh::Application.routes.draw do
-
-
 
 
   resources :background_jobs
 
-
   resources :email_campaigns
-
-
   resources :post_hashtags
-
-
   resources :hashtags
   resources :feedback_bugs
 
-
   resources :entity_user_lms
 
-
   resources :entity_lms
-
-
   resources :lms_providers
 
-
-    devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks"}
+  devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks"}
 
   #rails generate versionist:new_controller notifications api/V1
   #then adapt the generated files
     
     
   namespace 'api' do
-
     api_version(:module => "V1", :path=> {:value => "v1"}) do
       resources :posts, only: [:index, :show, :create] do
         member do
@@ -101,9 +91,7 @@ Mindsmesh::Application.routes.draw do
       post '/home/register_device'
       post "/home/entities" => "home#create_entity_request"
       match '*path' => 'base#render_404'
-
-    end
-    
+    end  
   end
 
   resources :notifies, only: [:index, :destroy]
@@ -211,15 +199,16 @@ Mindsmesh::Application.routes.draw do
   match "/auth/failure" => "home#denied"
     
   match "/auth/failure" => "home#denied"
+
   #relating to an entity
   get "home/entities"
   post "home/entities" => "home#create_entity_request", as: 'home_create_entity_request'
   get "home/confirm/:confirmation_token" => "home#confirm_entity_request", as: 'home_confirm_entity_request'
     
-    post "home/signup" => "home#create_signup_request", as: 'home_create_signup_request'
-    get "home/confirm_signup/:confirmation_token" => "home#confirm_signup_request", as: 'home_confirm_signup_request'
+  post "home/signup" => "home#create_signup_request", as: 'home_create_signup_request'
+  get "home/confirm_signup/:confirmation_token" => "home#confirm_signup_request", as: 'home_confirm_signup_request'
 
-   get "join/:token" => "home#join_entity"
+  get "join/:token" => "home#join_entity"
 
   #client, a user associated to entity
   match "fb_canvas" => 'home#fb_canvas'
@@ -242,7 +231,6 @@ Mindsmesh::Application.routes.draw do
   #questionnaire
   post "home/feedback"
 
-
   #other roles
   #get "home/moderator"
   #get "home/manager"
@@ -252,3 +240,4 @@ Mindsmesh::Application.routes.draw do
   root to: "home#index"
   get "home/denied", as: 'denied'
 end
+

@@ -1,4 +1,7 @@
+# MindsMesh (c) 2013
+
 class Ability
+
   include CanCan::Ability
 
   def everybody

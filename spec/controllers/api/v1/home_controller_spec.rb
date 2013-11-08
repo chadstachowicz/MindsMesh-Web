@@ -3,7 +3,7 @@
 
 require 'spec_helper'
 
-describe Api::V1::SessionController do
+describe Api::V1::HomeController do
 
   def valid_params
     @user = Fabricate(:user)
