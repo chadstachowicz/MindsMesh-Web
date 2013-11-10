@@ -101,6 +101,7 @@ class HomeController < ApplicationController
     render text: text
   end
 
+  # check if the confirmation_token is ok
   def confirm_entity_request
     eur = EntityUserRequest.find_by_confirmation_token!(params[:confirmation_token])
     user = User.find_by_email(eur.email)

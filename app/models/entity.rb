@@ -3,7 +3,6 @@
 
 class Entity < ActiveRecord::Base
 
-
   attr_accessible :name, :slug, :self_joining, :domains, :state_name, :moodle_url, :token, :moodle_sso
 
   has_many :entity_user_requests, dependent: :destroy
@@ -47,7 +46,7 @@ class Entity < ActiveRecord::Base
     domain = email.downcase.split('@').last
     domain_split = domain.split('.')
     domain = domain_split[-2] + '.' + domain_split[-1]
-    # where("domains LIKE ?", "|#{domain}|").first || "@#{domain} is not in our database of valid universities and colleges in the U.S."
+    #where("domains LIKE ?", "|#{domain}|").first || "@#{domain} is not in our database of valid universities and colleges in the U.S."
     where("domains LIKE ?", "#{domain}").first || "@#{domain} is not in our database of valid universities and colleges in the U.S."
   end
 

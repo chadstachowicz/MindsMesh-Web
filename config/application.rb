@@ -1,9 +1,9 @@
+
 # MindsMesh (c) 2013
 
 require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
-
 
 if defined?(Bundler)
   # If you precompile assets before deploying to production, use this line
@@ -25,8 +25,6 @@ module Mindsmesh
       g.fixture_replacement :fabrication
     end
     
-
-
     # Only load the plugins named here, in the order given (default is alphabetical).
     # :all can be used as a placeholder for all plugins not explicitly named.
     # config.plugins = [ :exception_notification, :ssl_requirement, :all ]
@@ -70,3 +68,4 @@ module Mindsmesh
     config.assets.initialize_on_precompile=false
   end
 end
+

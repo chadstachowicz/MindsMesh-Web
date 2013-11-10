@@ -1,3 +1,7 @@
+
+# MindsMesh (c) 2013
+# http://www.w3.org/TR/P3P11/
+
 class P3p
 
   def self.install_policy(policy)
