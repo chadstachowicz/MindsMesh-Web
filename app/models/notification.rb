@@ -123,36 +123,27 @@ class Notification < ActiveRecord::Base
   end
 
   def new_apn(device_token,environment,os)
+   if environment == 'production'
     if os == 'android'
         options = {:body => {:channel => 'alert', :to_tokens => device_token, :payload => {:alert => facebook_message, :vibrate => 'true', :notification_id => id, :target_type => target_type, :target_id => target_id}.to_json}}
-        response = HTTParty.post('https://api.cloud.appcelerator.com/v1/push_notification/notify_tokens.json?key=3WikqNv5J3UTkbbBv9IwVTFtSuzXu4rC',options)
-        
-        response.each do |item|
-            puts item
-        end
-        #     n = Rapns::Gcm::Notification.new
-        #n.app = Rapns::Gcm::App.find_by_name("android_app")
-        #n.registration_ids = ["#{device_token}"]
-        #n.data = {:message => facebook_message, :notification_id => id, :target_type => target_type, :target_id => target_id}
-        #        n.save!
-    else
-     n = Rapns::Apns::Notification.new
-     if environment == 'production'
-        n.app = Rapns::Apns::App.find_by_name("ios_app_production")
+        response = HTTParty.post('https://api.cloud.appcelerator.com/v1/push_notification/notify_tokens.json?key=NuMqdARV6T9oNDLF3ulcZ4Rt93K7xw1x',options)
      else
-        n.app = Rapns::Apns::App.find_by_name("ios_app_development")
+
+      options = {:body => {:channel => 'alert', :to_tokens => device_token, :payload => {:alert => facebook_message, :notification_id => id, :target_type => target_type, :target_id => target_id}.to_json}}
+      response = HTTParty.post('https://api.cloud.appcelerator.com/v1/push_notification/notify_tokens.json?key=AeJdeTWgQfQnDKfeWnPdpKhFH6f0cCgP',options)
+
      end
-     n.device_token = device_token
-     n.alert = facebook_message
-     n.sound = "1.aiff"
-     n.expiry = 1.day.to_i
-     n.attributes_for_device = {
-        :notification_id => id,
-        :target_type =>      target_type,
-        :target_id    =>    target_id
-     }
-     n.save!
-    end
+    else
+     if os == 'android'
+      options = {:body => {:channel => 'alert', :to_tokens => device_token, :payload => {:alert => facebook_message, :vibrate => 'true', :notification_id => id, :target_type => target_type, :target_id => target_id}.to_json}}
+      response = HTTParty.post('https://api.cloud.appcelerator.com/v1/push_notification/notify_tokens.json?key=3WikqNv5J3UTkbbBv9IwVTFtSuzXu4rC',options)
+     else
+      
+      options = {:body => {:channel => 'alert', :to_tokens => device_token, :payload => {:alert => facebook_message, :notification_id => id, :target_type => target_type, :target_id => target_id}.to_json}}
+      response = HTTParty.post('https://api.cloud.appcelerator.com/v1/push_notification/notify_tokens.json?key=VqrInB7qyxetHfzNxIKIvzctf6Y3k2U1',options)
+      
+     end
+   end
   end
 
   def mark_as_read!
