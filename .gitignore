@@ -21,3 +21,11 @@
 
 # ignore emacs and gedit temp files
 *~
+# OS generated files #
+######################
+*/.DS_Store
+.DS_Store?
+._*
+__MACOSX
+.DS_Store
+

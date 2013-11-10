@@ -21,7 +21,7 @@ class MyMail < ActionMailer::Base
     logger.debug  "\n  entity_user_request.confirmation_token:" +  entity_user_request.confirmation_token + "\n"
     @link  = home_confirm_entity_request_url(entity_user_request.confirmation_token, host: host)
 
-    mail( to: entity_user_request.email, subject: "Welcome to MindsMesh!").deliver
+    mail( to: entity_user_request.email, subject: "Welcome to MindsMesh!")
   end
 
   #  signup_request
