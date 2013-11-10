@@ -54,16 +54,15 @@ class HomeController < ApplicationController
         # cookies['suggest_invites'] = "true"
     end
     @type = 'post'
-      if params[:type] == 'following'
-          @posts = current_user.posts_feed({},true)
-      else
-          @posts = current_user.posts_feed({},false)
-      end
-                                           
+    if params[:type] == 'following'
+       s @posts = current_user.posts_feed({},true)
+    else
+        @posts = current_user.posts_feed({},false)
+    end                                         
     
     redirect_to_landing_home_page
   end
-
+  
   def ajax_application
   end
 

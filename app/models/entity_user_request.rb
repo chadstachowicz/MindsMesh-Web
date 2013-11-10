@@ -29,9 +29,8 @@ class EntityUserRequest < ActiveRecord::Base
         #    MyMail.confirmation(self).deliver
         # end
         if save
-           logger.debug "eur saved!!"
+           # logger.debug "eur saved!!"
            MyMail.confirmation(self)
-           
         end
     end
   end
