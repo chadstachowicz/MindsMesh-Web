@@ -6,7 +6,7 @@
 
 Entity.transaction do
     if Rails.env.development?
-        User.create({email:'mmontoya@gmail.com', fname: 'Manuel', lname:'Montoya', uname:'aarkerio', active: true, password: 'qwerty78', password_confirmation: 'qwerty78', group_id: 1})
+        # User.create({email:'mmontoya@gmail.com', fname: 'Manuel', lname:'Montoya', uname:'aarkerio', active: true, password: 'qwerty78', password_confirmation: 'qwerty78', group_id: 1})
   end
 end
 

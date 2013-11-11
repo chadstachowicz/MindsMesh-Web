@@ -39,23 +39,27 @@ class HomeController < ApplicationController
     end
     render nothing: true
   end
-
+ 
   def index
     eu = current_user.entity_users.first
     ent = EntityAdvancedSetting.find_by_entity_id(eu.entity_id)
+
     if !ent.nil?
         if ent.can_create_topic == 1
             @hidetopic = 1
         end
     end
+
     if current_user.current_sign_in_at.nil? || current_user.current_sign_in_at < 7.days.ago
         # cookies['suggest_follows'] = "true"
     elsif current_user.current_sign_in_at.nil? || current_user.current_sign_in_at < 3.days.ago
         # cookies['suggest_invites'] = "true"
     end
+
     @type = 'post'
+
     if params[:type] == 'following'
-       s @posts = current_user.posts_feed({},true)
+        @posts = current_user.posts_feed({},true)
     else
         @posts = current_user.posts_feed({},false)
     end                                         
@@ -64,6 +68,7 @@ class HomeController < ApplicationController
   end
   
   def ajax_application
+
   end
 
   def login
@@ -79,16 +84,17 @@ class HomeController < ApplicationController
   end
 
   def entities
+
   end
     
   def create_signup_request
-      sr = SignupRequest.where(email: params[:signup_request][:email]).first_or_initialize
-        sr.generate_and_mail_new_token
-        text = sr.save ? "a confirmation email has been sent to #{params[:signup_request][:email]}" : sr.errors.full_messages.to_sentence.to_s
-        render text: text
+    sr = SignupRequest.where(email: params[:signup_request][:email]).first_or_initialize
+    sr.generate_and_mail_new_token
+    text = sr.save ? "a confirmation email has been sent to #{params[:signup_request][:email]}" : sr.errors.full_messages.to_sentence.to_s
+    render text: text
   end
 
-  # get entity
+  # create entity process begins
   def create_entity_request
     entity = Entity.find_by_email_domain(params[:email])
     # return render :text => entity.inspect
@@ -148,9 +154,12 @@ class HomeController < ApplicationController
      #for user logged in
     
      sr = @srr.confirm
+
      @entity = Entity.find_by_email_domain(@srr.email)
+
      if (!@entity.nil?)
-         @eu = @entity.entity_users.order("RAND()").limit(21)
+         order = EntityUserRequest::random 
+         @eu = @entity.entity_users.order(order).limit(21)
      end
                                             
     render :action => 'join_entity', :layout => 'pages_no_login'
@@ -158,9 +167,10 @@ class HomeController < ApplicationController
                                             
   def join_entity
     @entity = Entity.find_by_token(params[:token])
-    puts @entity.name
+    # puts @entity.name
     if (!@entity.nil?)
-        @eu = @entity.entity_users.order("RAND()").limit(21)
+        order = EntityUserRequest::random
+        @eu = @entity.entity_users.order(order).limit(21)
     end
     
     render :action => 'join_entity', :layout => 'pages_no_login'
@@ -170,8 +180,8 @@ class HomeController < ApplicationController
   def topics
   end
     
-    def groups
-    end
+  def groups
+  end
 
   def change_access_token
     current_user.change_access_token
@@ -179,17 +189,16 @@ class HomeController < ApplicationController
     render nothing: true
   end
     
-        def saml
-            settings = Onelogin::Saml::Settings.new
-            settings.assertion_consumer_service_url = "https://test.mindsmesh.com:3000/users/auth/saml/callback"
-            settings.name_identifier_format = "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress"
-            settings.issuer = "http://DC2012MM.MINDSMESH.COM/adfs/services/trust"
-            settings.idp_sso_target_url = "https://test.mindsmesh.com:3000/users/auth/saml/callback"
-            settings.idp_cert_fingerprint = "6d:68:ca:7c:e9:bf:c3:13:56:83:11:5e:0f:77:7e:3d:02:d8:34:80"
-            meta = Onelogin::Saml::Metadata.new
-            render :xml => meta.generate(settings)
-        end
-
+  def saml
+    settings = Onelogin::Saml::Settings.new
+    settings.assertion_consumer_service_url = "https://test.mindsmesh.com:3000/users/auth/saml/callback"
+    settings.name_identifier_format = "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress"
+    settings.issuer = "http://DC2012MM.MINDSMESH.COM/adfs/services/trust"
+    settings.idp_sso_target_url = "https://test.mindsmesh.com:3000/users/auth/saml/callback"
+    settings.idp_cert_fingerprint = "6d:68:ca:7c:e9:bf:c3:13:56:83:11:5e:0f:77:7e:3d:02:d8:34:80"
+    meta = Onelogin::Saml::Metadata.new
+    render :xml => meta.generate(settings)
+   end
 
   def create_post
     begin
@@ -210,33 +219,32 @@ class HomeController < ApplicationController
     redirect_to :back
   end
 
-    def create_message
-        begin
-            message_thread_ids = params[:message_receiver_ids].split(/,/)
-            message_thread_ids << params[:message][:user_id]
-            # create a new thread
-            thread = MessageThread.create(user_id: current_user.id)
+  def create_message
+      begin
+          message_thread_ids = params[:message_receiver_ids].split(/,/)
+          message_thread_ids << params[:message][:user_id]
+          # create a new thread
+          thread = MessageThread.create(user_id: current_user.id)
 
-            # add each User to the thread_participants table
-            message_thread_ids.each do |t|
-                ThreadParticipant.create(:message_thread_id => thread.id, :user_id => t.to_i)
-            end
+          # add each User to the thread_participants table
+          message_thread_ids.each do |t|
+              ThreadParticipant.create(:message_thread_id => thread.id, :user_id => t.to_i)
+          end
 
-            # create a new Message and add the MessageThread that it belongs to
-            @message = Message.new(params[:message])
-            @message.message_thread_id = thread.id
-            @message.save
+          # create a new Message and add the MessageThread that it belongs to
+          @message = Message.new(params[:message])
+          @message.message_thread_id = thread.id
+          @message.save
                 
-            params[:files] and params[:files].values.each do |file|
+          params[:files] and params[:files].values.each do |file|
                 MessageAttachment.my_create_file!(@post, file)
-            end
-            rescue => e
+          end
+          rescue => e
             flash[:alert] = e.message
         end
         redirect_to :back
-    end
-    
-    
+  end
+  
   def more_posts
     @posts = current_user.posts_feed(params.slice(:limit, :before))
     render '/posts/more_posts', layout: false

@@ -18,7 +18,7 @@ class MyMail < ActionMailer::Base
   def confirmation(entity_user_request)
     
     @user  = entity_user_request.user
-    logger.debug  "\n  entity_user_request.confirmation_token:" +  entity_user_request.confirmation_token + "\n"
+    logger.debug  "\n  entity_user_request.confirmation_token:" +  entity_user_request.confirmation_token + "\n" if Rails.env.development?
     @link  = home_confirm_entity_request_url(entity_user_request.confirmation_token, host: host)
 
     mail( to: entity_user_request.email, subject: "Welcome to MindsMesh!")

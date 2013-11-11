@@ -14,6 +14,7 @@ class EntityUserRequest < ActiveRecord::Base
 
   validates_email_format_of :email
 
+  # overridden ActiveRecord 
   def to_param
     confirmation_token
   end
@@ -51,5 +52,11 @@ class EntityUserRequest < ActiveRecord::Base
       update_attribute(:confirmed_at, Time.now)
       entity_user = entity.user_join!(user)
     end
+  end
+
+  def self.random
+     order = self.connection.adapter_name == 'postgresql' ? 'RANDOM()' : 'RAND()';
+     logger.debug "### connection.adapter_name: " + self.connection.adapter_name + "\n"
+     return order
   end
 end

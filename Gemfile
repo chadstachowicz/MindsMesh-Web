@@ -75,6 +75,7 @@ group :development, :test do
   gem 'template_rider'
   gem 'faker'
   gem 'spork'
+  gem "better_errors"
   gem 'fabrication'
   
 end

@@ -148,7 +148,7 @@ ActiveRecord::Schema.define(:version => 20131013222841) do
 
   create_table "group_users", :force => true do |t|
     t.integer  "user_id"
-    t.string   "role"
+    t.integer  "role_i"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.integer  "group_id"
@@ -465,7 +465,7 @@ ActiveRecord::Schema.define(:version => 20131013222841) do
   create_table "topic_users", :force => true do |t|
     t.integer  "topic_id"
     t.integer  "user_id"
-    t.string   "role"
+    t.integer  "role_i"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
