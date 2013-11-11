@@ -89,10 +89,6 @@ class Notification < ActiveRecord::Base
       puts email = user.entity_user_requests.first.email
       MyMail.notify_new_reply(user, post, email).deliver
 
-      #notify mobile devices
-      user.user_devices.each do |ud|
-        n.new_apn(ud.token,ud.environment, ud.os)
-      end
     end
     true
   end
@@ -116,6 +112,12 @@ class Notification < ActiveRecord::Base
     n.b_read = false
     n.actors_count = new_actors_count
     n.save! #ensure it's persisted
+
+    #notify mobile devices
+    user.user_devices.each do |ud|
+        n.new_apn(ud.token,ud.environment, ud.os)
+    end
+
     if !user.fb_id.nil?
         n.notify_on_facebook #TODO: rescue, log in db
     end
