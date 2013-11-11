@@ -148,7 +148,7 @@ ActiveRecord::Schema.define(:version => 20131013222841) do
 
   create_table "group_users", :force => true do |t|
     t.integer  "user_id"
-    t.integer  "role_i"
+    t.string   "role"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.integer  "group_id"
@@ -387,26 +387,26 @@ ActiveRecord::Schema.define(:version => 20131013222841) do
   create_table "rapns_notifications", :force => true do |t|
     t.integer  "badge"
     t.string   "device_token",      :limit => 64
-    t.string   "sound",                                 :default => "default"
+    t.string   "sound",                           :default => "default"
     t.string   "alert"
     t.text     "data"
-    t.integer  "expiry",                                :default => 86400
-    t.boolean  "delivered",                             :default => false,     :null => false
+    t.integer  "expiry",                          :default => 86400
+    t.boolean  "delivered",                       :default => false,     :null => false
     t.datetime "delivered_at"
-    t.boolean  "failed",                                :default => false,     :null => false
+    t.boolean  "failed",                          :default => false,     :null => false
     t.datetime "failed_at"
     t.integer  "error_code"
     t.text     "error_description"
     t.datetime "deliver_after"
-    t.datetime "created_at",                                                   :null => false
-    t.datetime "updated_at",                                                   :null => false
-    t.boolean  "alert_is_json",                         :default => false
-    t.string   "type",                                                         :null => false
+    t.datetime "created_at",                                             :null => false
+    t.datetime "updated_at",                                             :null => false
+    t.boolean  "alert_is_json",                   :default => false
+    t.string   "type",                                                   :null => false
     t.string   "collapse_key"
-    t.boolean  "delay_while_idle",                      :default => false,     :null => false
-    t.text     "registration_ids",  :limit => 16777215
-    t.integer  "app_id",                                                       :null => false
-    t.integer  "retries",                               :default => 0
+    t.boolean  "delay_while_idle",                :default => false,     :null => false
+    t.text     "registration_ids"
+    t.integer  "app_id",                                                 :null => false
+    t.integer  "retries",                         :default => 0
   end
 
   add_index "rapns_notifications", ["app_id", "delivered", "failed", "deliver_after"], :name => "index_rapns_notifications_multi"
@@ -465,7 +465,7 @@ ActiveRecord::Schema.define(:version => 20131013222841) do
   create_table "topic_users", :force => true do |t|
     t.integer  "topic_id"
     t.integer  "user_id"
-    t.integer  "role_i"
+    t.string   "role"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
