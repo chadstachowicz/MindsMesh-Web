@@ -21,11 +21,11 @@ production:
   adapter: postgresql
   encoding: utf8
   reconnect: true
-  host: mindsmesh.cwzbtuo3ucf9.us-east-1.rds.amazonaws.com
-  database: mindsmesh_production
+  host: ec2-54-204-2-217.compute-1.amazonaws.com
+  database: d17a1cv4lksnip
   pool: 5
-  username: M1ndsM3sh
-  password: 'This!sM1ndsM3sh'
+  username: fadsvyxhprrenf
+  password: '5TG_nJ569TbGhiCRmlUucv_jtw'
 
 
 # Warning: The database defined as "test" will be erased and
