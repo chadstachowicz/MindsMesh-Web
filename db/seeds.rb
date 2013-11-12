@@ -10,7 +10,7 @@ Entity.transaction do
   end
 end
 
-Entity.transaction do
+# Entity.transaction do
 
   if Rails.env.development?
     ls = Array.new
@@ -53,7 +53,7 @@ Entity.transaction do
     end
   end
 
-end
+# end
 
 puts "Seeded.".green
 puts "Entities: #{Entity.count} | Topic: #{Topic.count}".green
