@@ -112,6 +112,7 @@ class HomeController < ApplicationController
     eur = EntityUserRequest.find_by_confirmation_token!(params[:confirmation_token])
     user = User.find_by_email(eur.email)
     eur.confirm
+    
     if user.nil?
         #for user logged in
         user = User.find(eur.user_id)
@@ -125,27 +126,29 @@ class HomeController < ApplicationController
         user.save
         sign_in user
     end
-      roster = Roster.find_all_by_email(eur.email)
-      if !roster.nil?
-          roster.each do |cls|
+
+    roster = Roster.find_all_by_email(eur.email)
+
+    if !roster.nil?
+        roster.each do |cls|
               tu = TopicUser.where(:user_id => user.id, :topic_id => cls.topic_id).first_or_initialize
               tu.role_i = cls.role
               tu.save
-          end
-       end
-      #      entity = Entity.find_by_email_domain(eur.email)
-      #    eur = user.entity_user_requests.where(entity_id: entity.id, email: eur.email).first_or_initialize
-      #    eur.save
-      #   eur.confirm
-      #    text = "#{current_user.name} #joined the #{entity.name} network.  Take a moment to welcome them."
-      #    @post = Post.where(:text => text, :user_id => user.id).create
-      #    @tags = @post.text.scan(/(?:\s|^)(?:#(?!\d+(?:\s|$)))(\w+)(?=\s|$)/i)
-      #    if !@tags.nil?
-      #          @tags.each do |tag|
-      #              hashtag = Hashtag.where(:name => tag[0]).first_or_create
-      #              HashtagsPost.create(:post_id => @post.id, :hashtag_id => hashtag.id)
-      #          end
-      #      end
+        end
+    end
+    # entity = Entity.find_by_email_domain(eur.email)
+    # eur = user.entity_user_requests.where(entity_id: entity.id, email: eur.email).first_or_initialize
+    # eur.save
+    # eur.confirm
+    # text = "#{current_user.name} #joined the #{entity.name} network.  Take a moment to welcome them."
+    # @post = Post.where(:text => text, :user_id => user.id).create
+    # @tags = @post.text.scan(/(?:\s|^)(?:#(?!\d+(?:\s|$)))(\w+)(?=\s|$)/i)
+    # if !@tags.nil?
+    #     @tags.each do |tag|
+    #         hashtag = Hashtag.where(:name => tag[0]).first_or_create
+    #         HashtagsPost.create(:post_id => @post.id, :hashtag_id => hashtag.id)
+    #     end
+    # end
                                 
     redirect_to :root
   end

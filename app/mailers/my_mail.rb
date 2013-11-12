@@ -3,7 +3,8 @@
 
 class MyMail < ActionMailer::Base
   
-  default from: email
+  
+  self.default(from: 'mmontoya@gmail.com')
 
   def mail_test
     @subject    = "Test mailer MindsMesh"
@@ -61,6 +62,10 @@ class MyMail < ActionMailer::Base
     @subject    = "MindsMesh"
     mail to: 'welcome@mindsmesh.com', bcc: @user.email, subject: @subject
   end
+   
+  def email
+    Settings.env['email']  # settings.yml
+  end
 
   private
 
@@ -68,9 +73,7 @@ class MyMail < ActionMailer::Base
     Settings.env['domain']  # settings.yml
   end
 
-  def email
-    Settings.env['email']  # settings.yml
-  end
+  
 
 end
 
