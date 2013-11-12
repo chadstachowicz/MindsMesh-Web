@@ -21,7 +21,6 @@ Mindsmesh::Application.routes.draw do
   #rails generate versionist:new_controller notifications api/V1
   #then adapt the generated files
     
-    
   namespace 'api' do
     api_version(:module => "V1", :path=> {:value => "v1"}) do
       resources :posts, only: [:index, :show, :create] do
@@ -45,7 +44,7 @@ Mindsmesh::Application.routes.draw do
             member do
                 post 'mark_as_read'
             end
-       end
+      end
       resources :replies, only: [:show] do
         member do
           get 'likes'
@@ -95,7 +94,6 @@ Mindsmesh::Application.routes.draw do
   end
 
   resources :notifies, only: [:index, :destroy]
-
 
   #for now, we're sending IRs to login, but we plan on making a custom login page showing invitor, entity and topic
   resources :invite_requests, only: [:create] #, :show

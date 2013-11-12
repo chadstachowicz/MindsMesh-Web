@@ -2,12 +2,12 @@
 # MindsMesh (c) 2013
 
 class MyMail < ActionMailer::Base
-
-  default from: "mindsmesh@mindsmesh.com"
+  
+  default from: email
 
   def mail_test
     @subject    = "Test mailer MindsMesh"
-    mail( to: 'test@mindsmesh.com', bcc: "mmontoya@gmail.com", subject: @subject, body: "Test body" ).deliver
+    mail( to: 'test@mindsmesh.com', bcc: email, subject: @subject, body: "Test body" ).deliver
   end
 
   # Subject can be set in your I18n file at config/locales/en.yml
@@ -18,7 +18,8 @@ class MyMail < ActionMailer::Base
   def confirmation(entity_user_request)
     
     @user  = entity_user_request.user
-    logger.debug  "\n  entity_user_request.confirmation_token:" +  entity_user_request.confirmation_token + "\n" if Rails.env.development?
+    logger.debug  "\n  Debug: entity_user_request.confirmation_token:" +  entity_user_request.confirmation_token + "\n" if Rails.env.development?
+    logger.debug  "\n  Debug: host:" +  host + "\n" if Rails.env.development?
     @link  = home_confirm_entity_request_url(entity_user_request.confirmation_token, host: host)
 
     mail( to: entity_user_request.email, subject: "Welcome to MindsMesh!")
@@ -64,7 +65,11 @@ class MyMail < ActionMailer::Base
   private
 
   def host
-    Settings.env['domain']
+    Settings.env['domain']  # settings.yml
+  end
+
+  def email
+    Settings.env['email']  # settings.yml
   end
 
 end

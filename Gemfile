@@ -15,6 +15,7 @@ gem 'best_in_place'
 gem 'friendly_id'
 gem 'haml'
 gem 'koala'
+gem 'capistrano'
 gem 'daemons'
 gem 'whenever', require: false
 gem 'versionist'
@@ -34,25 +35,23 @@ gem "squeel"
 gem "zencoder"
 gem "omniauth-saml"
 gem "switch_user"
-gem "omniauth-wsfed"
-gem "simple_form"
-gem "ims-lti"
+gem 'omniauth-wsfed'
+gem 'simple_form'
+gem 'ims-lti'
 gem 'roo'
 gem 'rinku', :require => 'rails_rinku'
 gem 'pusher'
 gem 'backbonejs-rails'
 gem 'smarter_csv', '~> 1.0.8'
 
-
-
-  gem 'sass' #so other gems don't alert
-  gem 'sass-rails'
-  gem 'coffee-rails'
-  gem 'uglifier', '>= 1.0.3'
-  gem 'therubyracer', :platform => :ruby
-  gem 'bootstrap-sass'
-  gem 'font-awesome-sass-rails'
-  gem 'select2-rails'
+gem 'sass' #so other gems don't alert
+gem 'sass-rails'
+gem 'coffee-rails'
+gem 'uglifier', '>= 1.0.3'
+gem 'therubyracer', :platform => :ruby
+gem 'bootstrap-sass'
+gem 'font-awesome-sass-rails'
+gem 'select2-rails'
 
 group :assets do
 
@@ -68,14 +67,14 @@ group :development, :test do
   gem 'capybara'
   gem 'launchy'
   gem 'launchy'
-  gem "factory_girl"
+  gem 'factory_girl'
   gem 'database_cleaner'
   gem 'guard-rspec'
   gem 'railroady'
   gem 'template_rider'
   gem 'faker'
   gem 'spork'
-  gem "better_errors"
+  gem 'better_errors'
   gem 'fabrication'
   
 end

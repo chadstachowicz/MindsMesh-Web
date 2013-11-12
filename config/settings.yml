@@ -28,6 +28,7 @@ defaults: &defaults
 development:
   <<: *defaults
   domain: 0.0.0.0:5000
+  email: mmontoya@gmail.com
   facebook:
     <<: *facebook
   s3:
@@ -39,6 +40,7 @@ test:
 production:
  <<: *defaults
  domain: www.mindsmesh.com
+ email: mindsmesh@mindsmesh.com
  sendgrid:
    username: cstachowicz
    password: M1ndsM3sh1

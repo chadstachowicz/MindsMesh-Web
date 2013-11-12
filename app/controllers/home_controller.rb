@@ -8,7 +8,35 @@ class HomeController < ApplicationController
   def denied
     redirect_to_landing_home_page
   end
+  
+  # root app
+  def index
+    eu = current_user.entity_users.first
+    ent = EntityAdvancedSetting.find_by_entity_id(eu.entity_id)
+
+    if !ent.nil?
+        if ent.can_create_topic == 1
+            @hidetopic = 1
+        end
+    end
+
+    if current_user.current_sign_in_at.nil? || current_user.current_sign_in_at < 7.days.ago
+        # cookies['suggest_follows'] = "true"
+    elsif current_user.current_sign_in_at.nil? || current_user.current_sign_in_at < 3.days.ago
+        # cookies['suggest_invites'] = "true"
+    end
+
+    @type = 'post'
+
+    if params[:type] == 'following'
+        @posts = current_user.posts_feed({},true)
+    else
+        @posts = current_user.posts_feed({},false)
+    end                                         
     
+    redirect_to_landing_home_page
+  end
+  
   def search_users
       users = User.joins(:entity_users).where('entity_users.entity_id in (?) and name like ?', current_user.entity_users.map(&:entity_id),"%#{params[:query]}%").uniq.limit(8)
       users.each do |user|
@@ -39,34 +67,7 @@ class HomeController < ApplicationController
     end
     render nothing: true
   end
- 
-  def index
-    eu = current_user.entity_users.first
-    ent = EntityAdvancedSetting.find_by_entity_id(eu.entity_id)
 
-    if !ent.nil?
-        if ent.can_create_topic == 1
-            @hidetopic = 1
-        end
-    end
-
-    if current_user.current_sign_in_at.nil? || current_user.current_sign_in_at < 7.days.ago
-        # cookies['suggest_follows'] = "true"
-    elsif current_user.current_sign_in_at.nil? || current_user.current_sign_in_at < 3.days.ago
-        # cookies['suggest_invites'] = "true"
-    end
-
-    @type = 'post'
-
-    if params[:type] == 'following'
-        @posts = current_user.posts_feed({},true)
-    else
-        @posts = current_user.posts_feed({},false)
-    end                                         
-    
-    redirect_to_landing_home_page
-  end
-  
   def ajax_application
 
   end
@@ -188,7 +189,9 @@ class HomeController < ApplicationController
     current_user.save
     render nothing: true
   end
-    
+  
+  # https://onelogin.zendesk.com/entries/106754-OneLogin-Terminology
+  # maybe we should move this to settings.yaml file 
   def saml
     settings = Onelogin::Saml::Settings.new
     settings.assertion_consumer_service_url = "https://test.mindsmesh.com:3000/users/auth/saml/callback"
@@ -198,8 +201,9 @@ class HomeController < ApplicationController
     settings.idp_cert_fingerprint = "6d:68:ca:7c:e9:bf:c3:13:56:83:11:5e:0f:77:7e:3d:02:d8:34:80"
     meta = Onelogin::Saml::Metadata.new
     render :xml => meta.generate(settings)
-   end
+  end
 
+  # send post
   def create_post
     begin
       @post = Post.create! params[:post]

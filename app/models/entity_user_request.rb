@@ -54,9 +54,11 @@ class EntityUserRequest < ActiveRecord::Base
     end
   end
 
-  def self.random
-     order = self.connection.adapter_name == 'postgresql' ? 'RANDOM()' : 'RAND()';
-     logger.debug "### connection.adapter_name: " + self.connection.adapter_name + "\n"
-     return order
+  class << self
+    def random
+       order = ActiveRecord::Base.connection.adapter_name == 'PostgreSQL' ? 'RANDOM()' : 'RAND()';
+       # logger.debug "### connection.adapter_name: " + self.connection.adapter_name + "\n"
+       return order
+    end
   end
 end
