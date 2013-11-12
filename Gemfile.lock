@@ -416,6 +416,7 @@ DEPENDENCIES
   koala
   launchy
   lazy_high_charts
+  mail (>= 2.4.4)
   mails_viewer
   mini_magick
   omniauth-facebook (= 1.4.0)
