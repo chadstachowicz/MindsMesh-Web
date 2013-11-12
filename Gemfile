@@ -59,6 +59,7 @@ end
 
 group :production do
   gem 'unicorn'
+  gem 'rails_12factor'  # heroku gem
 end
 
 group :development, :test do
