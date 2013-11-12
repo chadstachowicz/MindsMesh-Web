@@ -52,6 +52,7 @@ gem 'therubyracer', :platform => :ruby
 gem 'bootstrap-sass'
 gem 'font-awesome-sass-rails'
 gem 'select2-rails'
+gem 'mail', '>= 2.4.4'
 
 group :assets do
 
@@ -77,5 +78,4 @@ group :development, :test do
   gem 'spork'
   gem 'better_errors'
   gem 'fabrication'
-  
 end
