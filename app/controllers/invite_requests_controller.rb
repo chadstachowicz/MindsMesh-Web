@@ -49,7 +49,7 @@ class InviteRequestsController < ApplicationController
               group_id:   p[:group_id],
           }
           @invite_request = InviteRequest.where(conditions).first_or_create
-          @invite_request.send_emails(emails)
+          @invite_request.send_emails(params[:emails])
       end
       flash[:notice] = "Invites sent successfully!"
       redirect_to :back
