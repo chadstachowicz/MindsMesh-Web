@@ -1,0 +1,29 @@
+<h1>Listing admin_newsletters</h1>
+
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Plainemail</th>
+    <th>Htmlemail</th>
+    <th>Status</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @admin_newsletters.each do |admin_newsletter| %>
+  <tr>
+    <td><%= admin_newsletter.title %></td>
+    <td><%= admin_newsletter.plainemail %></td>
+    <td><%= admin_newsletter.htmlemail %></td>
+    <td><%= admin_newsletter.status %></td>
+    <td><%= link_to 'Show', admin_newsletter %></td>
+    <td><%= link_to 'Edit', edit_admin_newsletter_path(admin_newsletter) %></td>
+    <td><%= link_to 'Destroy', admin_newsletter, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Newsletter', new_admin_newsletter_path %>

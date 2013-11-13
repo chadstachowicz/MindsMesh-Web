@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Title:</b>
+  <%= @admin_newsletter.title %>
+</p>
+
+<p>
+  <b>Plainemail:</b>
+  <%= @admin_newsletter.plainemail %>
+</p>
+
+<p>
+  <b>Htmlemail:</b>
+  <%= @admin_newsletter.htmlemail %>
+</p>
+
+<p>
+  <b>Status:</b>
+  <%= @admin_newsletter.status %>
+</p>
+
+
+<%= link_to 'Edit', edit_admin_newsletter_path(@admin_newsletter) %> |
+<%= link_to 'Back', admin_newsletters_path %>
