@@ -8,7 +8,8 @@ class InviteRequest < ActiveRecord::Base
   validates_presence_of :user
   validates_presence_of :entity
 
-  def send_emails(emails)
+  def send_emails(emails_s)
+    emails = emails_s.split(/[\s,;]/).select { |s| !s.blank? && s =~ /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i }.uniq
     logger.info "Delivering InviteRequest ##{id} to #{emails}"
     MyMail.invite(self, emails).deliver
   end

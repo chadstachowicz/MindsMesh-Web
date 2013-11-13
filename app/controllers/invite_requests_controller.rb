@@ -49,7 +49,7 @@ class InviteRequestsController < ApplicationController
           if !not_ids.empty?
               Resque.enqueue(NotifyNewInvite, p[:group_id], me.id, not_ids.to_sentence)
           end
-          @invite_request.send_emails(emails)
+          @invite_request.send_emails(params[:emails])
       end
       flash[:notice] = "Invites sent successfully!"
       redirect_to :back
