@@ -8,7 +8,7 @@ class InviteRequest < ActiveRecord::Base
   validates_presence_of :user
   validates_presence_of :entity
 
-  def send_emails(emails_s)
+  def send_emails(emails)
     logger.info "Delivering InviteRequest ##{id} to #{emails}"
     MyMail.invite(self, emails).deliver
   end
