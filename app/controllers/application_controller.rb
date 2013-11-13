@@ -10,6 +10,7 @@ class ApplicationController < ActionController::Base
   protected
 
   before_filter do
+    #return render :text => current_user.to_yaml
     logger.info "Custom: #{custom_log_hash}"
     if Rails.env.test? #capybara
       ident = session[:session_id].object_id

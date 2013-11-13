@@ -1,3 +1,6 @@
+
+# MindsMesh, Inc. (c) 2012-2013
+
 class FeedbackBugsController < ApplicationController
 
  load_and_authorize_resource

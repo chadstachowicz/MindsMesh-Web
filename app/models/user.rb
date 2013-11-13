@@ -294,23 +294,23 @@ def save_with_facebook_data!(fb_uid, name, gender, token, expires_at)
  def self.import_users(chunk)
 end
 
-def role_is_topic?(given_role_i)
+  def role_is_topic?(given_role_i)
     self.topic_users.each do |role|
         if role.role_i == 1
             return true
         end
     end
     return false
-end
+  end
 
-def role_is_group?(given_role_i)
+  def role_is_group?(given_role_i)
     self.group_users.each do |role|
         if role.role_i == 1
             return true
         end
     end
     return false
-end
+  end
 
   def self.import(file)
     campaign = EmailCampaign.create(:status => 'processing')
@@ -319,6 +319,5 @@ end
         Resque.enqueue( ImportUsers, chunk ) # pass chunks of CSV-data to Resque workers for parallel processing
     end
   end
-
 end
 
