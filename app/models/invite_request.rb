@@ -8,8 +8,7 @@ class InviteRequest < ActiveRecord::Base
   validates_presence_of :user
   validates_presence_of :entity
 
-  def send_emails(emails)
-    save! #it must be saved to perform this operation
+  def send_emails(emails_s)
     logger.info "Delivering InviteRequest ##{id} to #{emails}"
     MyMail.invite(self, emails).deliver
   end
