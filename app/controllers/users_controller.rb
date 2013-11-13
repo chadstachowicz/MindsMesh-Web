@@ -1,5 +1,9 @@
+
+# MindsMesh, Inc. (c) 2012-2013
+
 class UsersController < ApplicationController
   respond_to :html#, :json, :xml
+
   load_and_authorize_resource
 
   layout 'datatables', only: [:index]
@@ -74,8 +78,8 @@ class UsersController < ApplicationController
     respond_with(@user)
   end
     
-    def import
-        User.import(params[:file])
-        redirect_to root_url, notice: "Users imported."
-    end
+  def import
+      User.import(params[:file])
+      redirect_to root_url, notice: "Users imported."
+  end
 end

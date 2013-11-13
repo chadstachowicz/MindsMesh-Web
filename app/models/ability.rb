@@ -1,9 +1,35 @@
-# MindsMesh (c) 2013
+
+# MindsMesh, Inc. (c) 2012-2013
 
 class Ability
 
   include CanCan::Ability
 
+  def initialize(current_user)
+    everybody
+    return not_logged_in unless current_user
+    @current_user = current_user
+    
+    # alias_action :create, :read, :update, :destroy, :to => :crud  # only CRUD methods
+
+    logged_in
+    return if current_user.entity_users.size.zero?
+
+    index
+    master    if current_user.master?
+    school_admin    if current_user.school_admin?
+    topic_admin    if current_user.topic_admin?
+    group_admin    if current_user.group_admin?
+
+    # TODO: admin can manage/destroy TopicUser in their entity
+    # TODO: teacher can manage/destroy TopicUser in topic they are moderator
+    # TODO: moderator can destroy TopicUser in topic they are moderator if it has no privileges
+    can [:destroy], Post do |post|
+      post.user_id == current_user.id
+    end
+  end
+  
+  
   def everybody
       can [:denied, :fb_canvas, :confirm_entity_request, :create_signup_request, :confirm_signup_request, :saml, :demoforik12, :join_entity], :home
       can [:lti], Entity
@@ -19,48 +45,22 @@ class Ability
       can :index, :setting
       can [:create, :new], FeedbackBug
       can :create, InviteRequest
-      
-
   end
   
-  def initialize(current_user)
-    everybody
-    return not_logged_in unless current_user
-    @current_user = current_user
-    #
-    logged_in
-    return if current_user.entity_users.size.zero?
-
-
-    index
-    master    if current_user.master?
-    school_admin    if current_user.school_admin?
-    topic_admin    if current_user.topic_admin?
-    group_admin    if current_user.group_admin?
-
-    # TODO: admin can manage/destroy TopicUser in their entity
-    # TODO: teacher can manage/destroy TopicUser in topic they are moderator
-    # TODO: moderator can destroy TopicUser in topic they are moderator if it has no privileges
-    can [:destroy], Post do |post|
-      post.user_id == current_user.id
-    end
-
-  end
-
   def index
-      can [:index, :create_post, :more_posts, :feedback, :topics, :groups], :home
+    can [:index, :create_post, :more_posts, :feedback, :topics, :groups], :home
 
     #TODO: stop testing only as a master
-      can :show, Hashtag
+    can :show, Hashtag
       
-      can [:show, :more_posts, :follow, :unfollow, :all, :update], User do |usr|
-          see = false
-          usr.entity_users.all.each do |eu|
-              if !@current_user.entity_users.find_by_entity_id(eu.entity_id).nil?
-                  see = true
-              end
-          end
-          see
+    can [:show, :more_posts, :follow, :unfollow, :all, :update], User do |usr|
+        see = false
+        usr.entity_users.all.each do |eu|
+            if !@current_user.entity_users.find_by_entity_id(eu.entity_id).nil?
+                see = true
+            end
+        end
+        see
     end
       
     can [:create, :filter], Topic

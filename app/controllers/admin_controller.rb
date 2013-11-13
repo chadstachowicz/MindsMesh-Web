@@ -1,3 +1,7 @@
+
+
+# MindsMesh, Inc. (c) 2012-2013
+
 class AdminController < ApplicationController
 
   authorize_resource class: false
@@ -6,13 +10,13 @@ class AdminController < ApplicationController
     redirect_to_landing_home_page
   end
 
-      def index
-        users_joined = Report::Users.users_joined(params[:daterange])
-          daterange = params[:daterange]
-          if daterange.nil? || daterange.empty?
-              currenttime = Time.new
-              startdate = currenttime.month
-          else
+  def index
+      users_joined = Report::Users.users_joined(params[:daterange])
+      daterange = params[:daterange]
+      if daterange.nil? || daterange.empty?
+          currenttime = Time.new
+          startdate = currenttime.month
+      else
               date_a = daterange.split(" - ")
               startdate = Date.strptime date_a[0], "%m/%d/%Y"
               enddate = Date.strptime date_a[1], "%m/%d/%Y"

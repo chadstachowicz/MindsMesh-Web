@@ -1,3 +1,6 @@
+
+# MindsMesh, Inc. (c) 2012-2013
+
 class EntitiesDatatable
   #delegate :view.params, :h, :link_to, :number_to_currency, :image_tag, :raw, :icon_text, to: :@view
 

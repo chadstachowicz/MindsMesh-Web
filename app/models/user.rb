@@ -1,7 +1,8 @@
 
-# MindsMesh (c) 2013
+# MindsMesh, Inc. (c) 2012-2013
 
 class User < ActiveRecord::Base
+
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
@@ -11,7 +12,7 @@ class User < ActiveRecord::Base
   devise :omniauthable, :omniauth_providers => [:facebook, :twitter, :saml, :edu_facebook]
     
   # Setup accessible (or protected) attributes for your model
-    attr_protected
+  attr_protected
   has_many :logins,               dependent: :destroy
   has_many :entity_user_requests, dependent: :destroy
   has_many :signup_requests, dependent: :destroy
