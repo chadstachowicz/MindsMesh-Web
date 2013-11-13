@@ -3,7 +3,6 @@
 
 Mindsmesh::Application.routes.draw do
 
-
   resources :background_jobs
 
   resources :email_campaigns
@@ -213,7 +212,6 @@ Mindsmesh::Application.routes.draw do
   match "home/search" => 'home#search_users'
   match 'switch_user' => 'switch_user#set_current_user'
   get '/' => 'home#index', as: 'home_index'
-  get '/admin' => 'admin#index', as: 'admin_index'
   get "home/more_posts"
   get "hashtags/more_posts"
   get "hash/:tag" => "hashtags#show"
@@ -237,5 +235,17 @@ Mindsmesh::Application.routes.draw do
 
   root to: "home#index"
   get "home/denied", as: 'denied'
+
+  #get '/admin' => 'admin#index', as: 'admin_index'
+
+  #namespace :admin do 
+  #  get '', to: '#index', as: 'admin_index'
+  # end 
+  namespace :admin do
+    root :to => "admin#index", as: 'admin_index'
+    resources :admin
+    resources :newsletters
+  end
+  
 end
 

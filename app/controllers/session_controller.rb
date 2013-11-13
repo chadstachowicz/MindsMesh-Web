@@ -1,17 +1,17 @@
-class SessionController < ApplicationController
 
+# MindsMesh, Inc. (c) 2012-2013
+
+class SessionController < ApplicationController
 
   #TODO: cancan all controllers
   def logout
     session.clear
     redirect_to_landing_home_page
   end
-
+  
   def create
     user = Login.auth! request.env["omniauth.auth"]
     session[:user_id] = user.id
-
-
 
     #last login at
     #this cookie will be checked and unset at home/ajax_application.js

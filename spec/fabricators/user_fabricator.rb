@@ -1,3 +1,6 @@
+
+# MindsMesh, Inc. (c) 2012-2013
+
 Fabricator(:user) do
   name { Faker::Name.name }
   gender "male"

@@ -1,6 +1,19 @@
 
 # MindsMesh (c) 2013
 
+require "#{Rails.root}/lib/settings.rb"
+
+# Send Grid config
+ActionMailer::Base.smtp_settings = {
+  user_name:            Settings.env['sendgrid']['username'],
+  password:             Settings.env['sendgrid']['password'],
+  domain:               Settings.env['domain'],
+  address:              "smtp.sendgrid.net",
+  port:                 587,
+  authentication:       :plain,
+  enable_starttls_auto: true
+}
+
 Mindsmesh::Application.configure do
 
   # Settings specified here will take precedence over those in config/application.rb
@@ -19,15 +32,8 @@ Mindsmesh::Application.configure do
   config.consider_all_requests_local       = true
   config.action_controller.perform_caching = false
     
-  # config.action_mailer.default_url_options = { :host => "127.0.0.1:1025" }
-  # Postfix config
+  # Send Grid
   config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = { 
-                  :address => "127.0.0.1", 
-                  :port => 25,
-                  :enable_starttls_auto => true,
-                  :openssl_verify_mode  => 'none'
- }
 
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true

@@ -1,3 +1,6 @@
+
+# MindsMesh, Inc. (c) 2012-2013
+
 class InviteRequestsController < ApplicationController
   load_and_authorize_resource
 =begin
@@ -13,28 +16,33 @@ class InviteRequestsController < ApplicationController
 
   # GET /invite_requests/1
   def show
+
   end
 
   # POST /invite_requests.json
   def create
     p = params[:invite_request]
-      if !params[:invite_receiver_ids].empty?
-          users = params[:invite_receiver_ids].split(/,/)
-          users.each do |u|
-              conditions = {user_id:    me.id,
-                  entity_id:  p[:entity_id],
-                  group_id:   p[:group_id],
-                  to_user_id:  u
-              }
-              @invite_request = InviteRequest.where(conditions).first_or_create
-            end
+    if !params[:invite_receiver_ids].empty?
+        users = params[:invite_receiver_ids].split(/,/)
+        users.each do |u|
+            conditions = { 
+                user_id:    me.id,
+                entity_id:  p[:entity_id],
+                group_id:   p[:group_id],
+                to_user_id: u
+            }
+            @invite_request = InviteRequest.where(conditions).first_or_create
+        end
               
-          Resque.enqueue(NotifyNewInvite, p[:group_id], me.id, params[:invite_receiver_ids])
+        Resque.enqueue(NotifyNewInvite, p[:group_id], me.id, params[:invite_receiver_ids])
       end
+
       if !params[:emails].empty?
           @invite_request.send_emails(params[:emails])
       end
+
       flash[:notice] = "Invites sent successfully!"
+      
       redirect_to :back
   end
 

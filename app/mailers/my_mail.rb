@@ -2,8 +2,7 @@
 # MindsMesh (c) 2013
 
 class MyMail < ActionMailer::Base
-  
-  
+    
   self.default(from: 'mmontoya@gmail.com')
 
   def mail_test

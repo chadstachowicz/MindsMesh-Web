@@ -1,5 +1,5 @@
 
-# MindsMesh (c) 2013
+# MindsMesh, Inc. (c) 2012-2013
 
 class HomeController < ApplicationController
     
@@ -37,6 +37,7 @@ class HomeController < ApplicationController
     redirect_to_landing_home_page
   end
   
+  # 
   def search_users
       users = User.joins(:entity_users).where('entity_users.entity_id in (?) and name like ?', current_user.entity_users.map(&:entity_id),"%#{params[:query]}%").uniq.limit(8)
       users.each do |user|
@@ -209,17 +210,17 @@ class HomeController < ApplicationController
   # send post
   def create_post
     begin
-      @post = Post.create! params[:post]
-      @tags = @post.text.scan(/(?:\s|^)(?:#(?!\d+(?:\s|$)))(\w+)(?=\s|$)/i)
+        @post = Post.create! params[:post]
+        @tags = @post.text.scan(/(?:\s|^)(?:#(?!\d+(?:\s|$)))(\w+)(?=\s|$)/i)
         if !@tags.nil?
             @tags.each do |tag|
             hashtag = Hashtag.where(:name => tag[0]).first_or_create
             HashtagsPost.create(:post_id => @post.id, :hashtag_id => hashtag.id)
            end
         end
-      params[:files] and params[:files].values.each do |file|
+        params[:files] and params[:files].values.each do |file|
         PostAttachment.my_create_file!(@post, file)
-      end
+    end
     rescue => e
       flash[:alert] = e.message
     end

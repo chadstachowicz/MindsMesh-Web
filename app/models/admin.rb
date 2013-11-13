@@ -1,6 +1,9 @@
 
-# MindsMesh (c) 2013
+# MindsMesh, Inc. (c) 2012-2013
 
-class Admin < ActiveRecord::Base
-
+module Admin
+  def self.table_name_prefix
+    'admin_'
+  end
 end
+
