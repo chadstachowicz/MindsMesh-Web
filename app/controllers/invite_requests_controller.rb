@@ -41,8 +41,7 @@ class InviteRequestsController < ApplicationController
               end
           end
           if !not_ids.empty?
-              not_ids.to_sentence
-              Resque.enqueue(NotifyNewInvite, p[:group_id], me.id, params[:invite_receiver_ids])
+              Resque.enqueue(NotifyNewInvite, p[:group_id], me.id, not_ids.to_sentence)
           end
           conditions = {user_id:    me.id,
               entity_id:  p[:entity_id],
