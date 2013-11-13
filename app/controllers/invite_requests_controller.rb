@@ -37,6 +37,12 @@ class InviteRequestsController < ApplicationController
           emails.each do |eml|
               u = User.find_by_email(eml)
               if !u.nil?
+                  conditions = {user_id:    me.id,
+                      entity_id:  p[:entity_id],
+                      group_id:   p[:group_id],
+                      to_user_id:  u.id
+                  }
+                  @invite_request = InviteRequest.where(conditions).first_or_create
                   not_ids.push(u.id)
               end
           end
