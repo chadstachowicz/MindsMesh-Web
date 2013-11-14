@@ -4,6 +4,7 @@
 class Admin::NewslettersController < ApplicationController
 
   load_and_authorize_resource
+
   
   # TODO: name these comments properly with all the matching URLs to each action
   # GET /admin/newsletters
@@ -13,7 +14,7 @@ class Admin::NewslettersController < ApplicationController
 
   # GET /admin/newsletters/1
   def show
-
+    @admin_newsletter = Admin::Newsletter.find(params[:id])
   end
 
   # GET /admin/newsletters/new
@@ -23,6 +24,7 @@ class Admin::NewslettersController < ApplicationController
 
   # POST /admin/newsletters
   def create
+    @admin_newsletter = Admin::Newsletter.new(params[:admin_newsletter])
     if @admin_newsletter.save
       redirect_to @admin_newsletter, notice: 'Newsletter was created.'
     else

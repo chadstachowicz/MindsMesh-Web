@@ -9,6 +9,7 @@
     "commit": "7c2ac6a564889ef924184e4854624673b8075525"
   },
   "_source": "git://github.com/tinymce/tinymce.git",
-  "_target": "*",
-  "_originalSource": "tinymce"
+  "_target": "~4.0.10",
+  "_originalSource": "tinymce",
+  "_direct": true
 }

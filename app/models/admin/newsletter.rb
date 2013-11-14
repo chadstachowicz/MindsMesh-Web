@@ -7,4 +7,8 @@ class Admin::Newsletter < ActiveRecord::Base
 
   scope :limited, lambda { |num| { :limit => num } }
 
+  validates_presence_of :title, length: { is: 4 }, :message => "can't be minor to four characters"
+
+  validates_presence_of :htmlemail, length: { is: 20 }, :message => "can't be minor to twenty characters"
+
 end

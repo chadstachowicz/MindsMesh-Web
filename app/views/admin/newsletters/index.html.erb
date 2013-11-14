@@ -1,25 +1,25 @@
 <h1>Listing newsletters</h1>
 
-<table>
+<table style="border:2px solid gray;margin:18px auto;text-aling:left;padding:6px;background-color:#fff;">
   <tr>
     <th>Title</th>
-    <th>Status</th>
-    <th></th>
+    <th>Sent</th>
+    <th>Preview</th>
     <th></th>
     <th></th>
   </tr>
 
 <% @admin_newsletters.each do |admin_newsletter| %>
-  <tr>
+  <tr style="border:1px dotted gray;margin:18px auto;text-aling:center;">
     <td><%= admin_newsletter.title %></td>
     <td><%= admin_newsletter.status %></td>
-    <td><%= link_to 'Show', admin_newsletter %></td>
-    <td><%= link_to 'Edit', edit_admin_newsletter_path(admin_newsletter) %></td>
-    <td><%= link_to 'Destroy', admin_newsletter, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><%= link_to image_tag('icon-preview.png', :title=>'Preview', :alt=>'Preview'), admin_newsletter %></td>
+    <td><%= link_to image_tag('icon-edit.png', :title=>'Edit', :alt=>'Edit'), edit_admin_newsletter_path(admin_newsletter) %></td>
+    <td><%= link_to image_tag('icon-add.png', :title=>'Remove', :alt=>'Remove'), admin_newsletter, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New Newsletter', new_admin_newsletter_path %>
+<%= link_to image_tag('icon-add.png', :title=>'Add newsletter', :alt=>'Add newsletter'), new_admin_newsletter_path %>
