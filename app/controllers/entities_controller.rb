@@ -46,8 +46,6 @@ class EntitiesController < ApplicationController
 
   end
 
-
-
   # GET /entities/datatable_filter
   def datatable_filter
     render json: EntitiesDatatable.new(view_context)

@@ -1,21 +1,20 @@
 
-<p id="notice"><%= notice %></p>
+<div style="padding:10px;margin:6px;background-color:#fff;border: 2px solid gray;">
 
-<p>
-  <b>Title:</b>
+<h3 style="border-bottom:1px dotted gray;">
   <%= @admin_newsletter.title %>
+</h3>
+
+<p>
+    <%= raw @admin_newsletter.htmlemail %> 
 </p>
 
 <p>
-  <b>Htmlemail:</b>
-  <%= @admin_newsletter.htmlemail %> 
-</p>
-
-<p>
-  <b>Status:</b>
+  <b>Sent:</b>
   <%= @admin_newsletter.status %>
 </p>
 
+</div>
 
 <%= link_to image_tag('icon-edit.png', :title=>'Edit', :alt=>'Edit'), edit_admin_newsletter_path(@admin_newsletter) %> |
 

@@ -5,7 +5,7 @@ class Admin::NewslettersController < ApplicationController
 
   load_and_authorize_resource
 
-  
+
   # TODO: name these comments properly with all the matching URLs to each action
   # GET /admin/newsletters
   def index
@@ -34,10 +34,14 @@ class Admin::NewslettersController < ApplicationController
 
   # GET /admin/newsletters/1/edit
   def edit
+    @admin_newsletter = Admin::Newsletter.find(params[:id])
   end
 
   # PUT /admin/newsletters/1
   def update
+    
+    @admin_newsletter = Admin::Newsletter.find(params[:id])
+
     if @admin_newsletter.update_attributes(params[:admin_newsletter])
       redirect_to @admin_newsletter, notice: 'Newsletter was updated.'
     else

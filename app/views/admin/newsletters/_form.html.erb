@@ -27,7 +27,13 @@ tinymce.init({
   <div class="form-inputs">
     <%= label_tag(:title, "Title") %>
     <%= f.text_field :title, :class => "input-xxlarge" %>
-    <%= f.input :htmlemail, :input_html  => { :value => "<h3>First Subject</h3><p>This is newsletter initial value.</p>" }, :label => false %>
+    <%
+      options =  {:label => false}
+
+      options[:input_html] = { :value => "<h3>First Subject</h3><p>This is newsletter initial value.</p>" } if current_page?(:action => 'new')
+      
+    %>
+    <%= f.input :htmlemail, options %>
   </div>
 
   <div class="form-actions">

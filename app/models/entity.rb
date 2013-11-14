@@ -46,8 +46,8 @@ class Entity < ActiveRecord::Base
     domain = email.downcase.split('@').last
     domain_split = domain.split('.')
     domain = domain_split[-2] + '.' + domain_split[-1]
-    #where("domains LIKE ?", "|#{domain}|").first || "@#{domain} is not in our database of valid universities and colleges in the U.S."
-    where("domains LIKE ?", "#{domain}").first || "@#{domain} is not in our database of valid universities and colleges in the U.S."
+    where("domains LIKE ?", "|#{domain}|").first || "@#{domain} is not in our database of valid universities and colleges in the U.S."
+    #where("domains LIKE ?", "#{domain}").first || "@#{domain} is not in our database of valid universities and colleges in the U.S."
   end
 
   def self.import!(domain, name, state_name, slug_pre)
