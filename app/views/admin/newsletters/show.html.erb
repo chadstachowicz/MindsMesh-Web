@@ -9,11 +9,6 @@
     <%= raw @admin_newsletter.htmlemail %> 
 </p>
 
-<p>
-  <b>Sent:</b>
-  <%= @admin_newsletter.status %>
-</p>
-
 </div>
 
 <%= link_to image_tag('icon-edit.png', :title=>'Edit', :alt=>'Edit'), edit_admin_newsletter_path(@admin_newsletter) %> |

@@ -25,6 +25,8 @@ class Admin::NewslettersController < ApplicationController
   # POST /admin/newsletters
   def create
     @admin_newsletter = Admin::Newsletter.new(params[:admin_newsletter])
+    # @admin_newsletter.status = false
+
     if @admin_newsletter.save
       redirect_to @admin_newsletter, notice: 'Newsletter was created.'
     else
@@ -39,7 +41,7 @@ class Admin::NewslettersController < ApplicationController
 
   # PUT /admin/newsletters/1
   def update
-    
+
     @admin_newsletter = Admin::Newsletter.find(params[:id])
 
     if @admin_newsletter.update_attributes(params[:admin_newsletter])

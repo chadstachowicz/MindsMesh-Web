@@ -1,6 +1,6 @@
 <h1>Listing newsletters</h1>
 
-<table style="border:2px solid gray;margin:18px auto;text-aling:left;padding:6px;background-color:#fff;">
+<table style="border:2px solid gray;margin:18px auto;text-align:left;padding:6px;background-color:#fff;">
   <tr>
     <th>Title</th>
     <th>Sent</th>
@@ -10,7 +10,7 @@
   </tr>
 
 <% @admin_newsletters.each do |admin_newsletter| %>
-  <tr style="border:1px dotted gray;margin:18px auto;text-aling:center;">
+  <tr style="border:1px dotted gray;margin:18px auto;text-align:left;">
     <td><%= admin_newsletter.title %></td>
     <td><%= admin_newsletter.status %></td>
     <td><%= link_to image_tag('icon-preview.png', :title=>'Preview', :alt=>'Preview'), admin_newsletter %></td>
