@@ -11,7 +11,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131013222841) do
+ActiveRecord::Schema.define(:version => 20131113012404) do
+
+  create_table "admin_newsletters", :force => true do |t|
+    t.string   "title"
+    t.text     "plainemail"
+    t.text     "htmlemail"
+    t.boolean  "status"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "background_jobs", :force => true do |t|
     t.string   "name"

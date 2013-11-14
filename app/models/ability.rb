@@ -17,7 +17,7 @@ class Ability
     return if current_user.entity_users.size.zero?
 
     index
-    
+
     master    if current_user.master?
     school_admin    if current_user.school_admin?
     topic_admin    if current_user.topic_admin?
@@ -47,6 +47,7 @@ class Ability
     can :index, :setting
     can [:create, :new], FeedbackBug
     can :create, InviteRequest
+    can :manage, Admin::Newsletter
   end
   
   def index
