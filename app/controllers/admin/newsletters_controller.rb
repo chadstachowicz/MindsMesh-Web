@@ -8,14 +8,17 @@ class Admin::NewslettersController < ApplicationController
   # TODO: name these comments properly with all the matching URLs to each action
   # GET /admin/newsletters
   def index
+    @admin_newsletters = Admin::Newsletter.paginate(:page => params[:page], :per_page => 10).order('id DESC')
   end
 
   # GET /admin/newsletters/1
   def show
+
   end
 
   # GET /admin/newsletters/new
   def new
+    @admin_newsletter = Admin::Newsletter.new
   end
 
   # POST /admin/newsletters

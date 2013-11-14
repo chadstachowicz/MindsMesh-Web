@@ -3,9 +3,8 @@
 
   <div class="form-inputs">
     <%= f.input :title %>
-    <%= f.input :plainemail %>
-    <%= f.input :htmlemail %>
-    <%= f.input :status %>
+    <%= f.input :htmlemail, cols: 80, rows: 12 %>
+    <%= f.input :status, :label => 'Published' %>
   </div>
 
   <div class="form-actions">

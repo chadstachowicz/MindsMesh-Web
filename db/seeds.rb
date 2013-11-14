@@ -15,15 +15,15 @@ Entity.transaction do
   # if Rails.env.development?
       ls = Array.new
       entities = [
-           {name: 'South D Test', state_name: 'SD', domains: 'dakotaunitest.edu' },
-           {name: 'San Antonio Test',  state_name: 'TX', domains: 'sanantoniotest.edu'},
-           {name: 'NYC College Test', state_name: 'NY', domains: 'nytest.edu'},
-           {name: 'North D Test', state_name: 'ND', domains: 'testschool.edu'},
-           {name: 'Charlotte College Test', state_name: 'NC', domains: 'charlottetest.edu'},
-           {name: 'South Testville', state_name: 'SC', domains: 'southcartest.edu'},
-           {name: 'Dakotest College', state_name: 'SD', domains: 'dakotest.edu'},
-           {name: 'UCLA test', state_name: 'CA', domains: 'uclatest.edu'},
-           {name: 'Unin Test Louis', state_name: 'LA', domains: 'lousianatest.edu'} 
+           {name: 'South D Test', state_name: 'SD', domains: '|dakotaunitest.edu|' },
+           {name: 'San Antonio Test',  state_name: 'TX', domains: '|sanantoniotest.edu|'},
+           {name: 'NYC College Test', state_name: 'NY', domains: '|nytest.edu|'},
+           {name: 'North D Test', state_name: 'ND', domains: '|testschool.edu|'},
+           {name: 'Charlotte College Test', state_name: 'NC', domains: '|charlottetest.edu|'},
+           {name: 'South Testville', state_name: 'SC', domains: '|southcartest.edu|'},
+           {name: 'Dakotest College', state_name: 'SD', domains: '|dakotest.edu|'},
+           {name: 'UCLA test', state_name: 'CA', domains: '|uclatest.edu|'},
+           {name: 'Unin Test Louis', state_name: 'LA', domains: '|lousianatest.edu|'} 
        ]
 
       entities.each do |k|
