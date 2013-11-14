@@ -1,3 +1,4 @@
+
 # MindsMesh, Inc. (c) 2012-2013
 
 require 'spec_helper'
