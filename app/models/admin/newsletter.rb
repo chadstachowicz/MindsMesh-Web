@@ -23,7 +23,7 @@ class Admin::Newsletter < ActiveRecord::Base
                   @data = Entity.find(:all)
                   return @data
               when 'class' 
-                  return @data = Entity.find(:all)
+                  return @data = Topic.find(:all)
               when 'group' 
                   return @data = Group.find(:all) 
               when 'user' 

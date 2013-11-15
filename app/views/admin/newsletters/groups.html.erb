@@ -16,9 +16,15 @@
 
 
 <% if @group == 'group' %>
-
     <%=  content_tag :h2, 'Groups'  %>
+    <% @data.each do | d | %>
+       <input type="checkbox"  name="element_id" value="<%= d.id  %>"><%= d.name  %> <br />
+    <% end %>
+    
+<% end %>
 
+<% if @group == 'class' %>
+    <%=  content_tag :h2, 'Class Rooms'  %>
     <% @data.each do | d | %>
        <input type="checkbox"  name="element_id" value="<%= d.id  %>"><%= d.name  %> <br />
     <% end %>
@@ -33,7 +39,8 @@
     <% end %>
 <% end %>
   
-
+   <br />
+   <br /> 
    <div style="margin:5px;"><input type="submit" value="save"></div>
 </form>
 
