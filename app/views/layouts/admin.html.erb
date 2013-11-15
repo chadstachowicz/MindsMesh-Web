@@ -9,7 +9,7 @@
     <meta name="author" content="">
     <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
-    <%= stylesheet_link_tag    "application", "admin/font-awesome", "admin/elements", "admin/theme", :media => "all" %>
+    <%= stylesheet_link_tag    "application", "admin/elements", "admin/theme", :media => "all" %>
     <%= javascript_include_tag "application" %>
     <%= csrf_meta_tags %>
     <%= favicon_link_tag '/favicon.ico' %>
@@ -69,7 +69,7 @@
                     </li>
                     <!-- %end% -->
                 </ul>
-                <a class="brand" href="index.html"><span class="first">MindsMesh</span> <span class="second">Panel</span></a>
+                <a class="brand" href="/admin/panels/"><span class="first">MindsMesh</span> <span class="second">Panel</span></a>
         </div>
     </div>
     <!-- %end% -->
@@ -79,41 +79,27 @@
     <div class="sidebar-nav">
         <a href="#dashboard-menu" class="nav-header" data-toggle="collapse"><i class="icon-dashboard"></i>Dashboard</a>
         <ul id="dashboard-menu" class="nav nav-list">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="index.html">Home</a></li>
-            <!-- %= menu_item('Users', 'Sample List')% -->
-            <!-- %= menu_item('User', 'Sample Item')% -->
-            <!-- %= menu_item('Media')% -->
-            <!-- %= menu_item('Calendar')% -->
+            <li><a href="/admin/panels/">Statics</a></li>
+            <li><a href="/admin/panels/">Recient activity</a></li>
         </ul>
 
         <a href="#accounts-menu" class="nav-header" data-toggle="collapse"><i class="icon-briefcase"></i>Account<span class="label label-info">+3</span></a>
         <ul id="accounts-menu" class="nav nav-list collapse">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="index.html">Home</a></li>
-            <!-- %= menu_item('Sign In') % -->
-            <!-- %= menu_item('Sign Up') % -->
-            <!-- %= menu_item('Reset Password') % -->
+            <li><a href="/admin/panels/">Messages</a></li>
+            <li><a href="/admin/panels/">Home</a></li>
         </ul>
 
-        <a href="#error-menu" class="nav-header collapsed" data-toggle="collapse"><i class="icon-exclamation-sign"></i>Error Pages <i class="icon-chevron-up"></i></a>
+        <a href="#error-menu" class="nav-header collapsed" data-toggle="collapse"><i class="icon-exclamation-sign"></i>Pedagogic Elements <i class="icon-chevron-up"></i></a>
         <ul id="error-menu" class="nav nav-list collapse">
-                        <li><a href="index.html">Home</a></li>
-            <li><a href="index.html">Home</a></li>
-
-            <!-- % =menu_item('403', '403 page') % -->
-            <!-- % =menu_item('404', '404 page') % -->
-            <!-- % =menu_item('500', '500 page') % -->
-            <!-- % =menu_item('503', '503 page') % -->
+            <li><a href="/admin/panels/">Webquest</a></li>
+            <li><a href="/admin/panels/">Quizzes</a></li>
+            <li><a href="/admin/panels/">Study guides</a></li>
         </ul>
 
         <a href="#legal-menu" class="nav-header" data-toggle="collapse"><i class="icon-legal"></i>Legal</a>
         <ul id="legal-menu" class="nav nav-list">
-                        <li><a href="index.html">Home</a></li>
-            <li><a href="index.html">Home</a></li>
-
-            <!-- %=menu_item('Privacy Policy')% -->
-            <!-- %=menu_item('Terms and Conditions')% -->
+            <li><a href="/admin/panels/">Home</a></li>
+            <li><a href="/admin/panels/">Home</a></li>
         </ul>
 
         <a href="help.html" class="nav-header" ><i class="icon-question-sign"></i>Help</a>

@@ -241,20 +241,26 @@ Mindsmesh::Application.routes.draw do
 
   root to: "home#index"
   get "home/denied", as: 'denied'
-
+   
+  # Admin section  
   #get '/admin' => 'admin#index', as: 'admin_index'
 
-  #namespace :admin do 
-  #  get '', to: '#index', as: 'admin_index'
-  # end 
   namespace :admin do
-    root :to => "admin#index", as: 'admin_index'
-    resources :admin
+     root:to => "admin/panels#index"
+
+    #get  "select"    => "panels#index",   :as => 'panela_index'
+    resources :panels do
+      collection do
+          get  "index"    => "panels#index",   :as => 'pindex'
+      end
+    end
+
+
     resources :newsletters do
       collection do
           get  "select/:id"    => "newsletters#select",   :as => 'ns_select'
           get  "test/:id"      => "newsletters#test",     :as => 'test'
-          get  "send/:id"      => "newsletters#send",     :as => 'send'
+          get  "send/"         => "newsletters#send",     :as => 'send'
           get  "historic/:id"  => "newsletters#historic", :as => 'historic'
           get  "groups/:group" => "newsletters#groups",   :as => 'groups'
       end
