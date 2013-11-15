@@ -47,7 +47,7 @@ class Ability
     can :index, :setting
     can [:create, :new], FeedbackBug
     can :create, InviteRequest
-    can :manage, Admin::Newsletter
+    can :manage, [Admin::Newsletter, Admin::Campaign]
   end
   
   def index

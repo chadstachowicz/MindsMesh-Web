@@ -3,6 +3,7 @@
   xmlns:fb="https://www.facebook.com/2008/fbml">
 <head>
   <title>MindsMesh.com - Collaborate with your classmates</title>
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
@@ -37,10 +38,9 @@
   <div class="navbar navbar-fixed-top">
     <div class="navbar-inner">
       <div class="container">
-
         <% if current_user %>
           <ul class="nav pull-left" id="top_menu_left">
-            <li><a id="logo" href="/"><%= image_tag('appicon-72.png', :height => 50, :width => 50) %></a></li>
+            <li><a id="logo" href="/"><%= image_tag('appicon-72.png', :height => 50, :width => 50, :alt => 'MindsMesh', :title => 'MindsMesh') %></a></li>
             <!-- placeholder ajax_application.js -->
           </ul>
           <div style="float:none;margin-left:28%;margin-right:auto" >
@@ -51,6 +51,9 @@
           </div>
           <ul class="nav pull-right" id="top_menu_right">
             <li><a href="/"><i class="icon-home"></i> Home</a></li>
+            <% if current_user.role_i == 30 %>
+               <li><a href="/admin/newsletters"><i class="glyphicon glyphicon-list"></i> Admin Section </a></li>
+            <% end %>
             <!-- placeholder ajax_application.js -->
           </ul>
         <% end %>
@@ -116,9 +119,7 @@
     <%= render '/groups/new_group' %>
   </div>
   
-
-  <!-- placeholder ajax_application.js -->
-
+<!-- placeholder ajax_application.js -->
 <script type="text/javascript">
   $.getScript("<%= home_ajax_application_path %>");
 </script>

@@ -3,8 +3,11 @@
 
 class Admin::NewslettersController < ApplicationController
 
-  load_and_authorize_resource
+  respond_to :html, :json, :js
 
+  self.layout "admin"
+
+  load_and_authorize_resource
 
   # TODO: name these comments properly with all the matching URLs to each action
   # GET /admin/newsletters
@@ -14,6 +17,28 @@ class Admin::NewslettersController < ApplicationController
 
   # GET /admin/newsletters/1
   def show
+    @admin_newsletter = Admin::Newsletter.find(params[:id])
+  end
+  
+  # GET /admin/newsletters/select/1
+  def select
+    @admin_newsletter = Admin::Newsletter.find(params[:id])
+  end
+
+  # GET /admin/newsletters/group/1
+  def groups
+    @data = Admin::Newsletter.get_group(params[:group])
+
+    #@group = params[:group]
+  end
+
+  # GET /admin/newsletters/test/1
+  def test
+    @admin_newsletter = Admin::Newsletter.find(params[:id])
+  end
+  
+    # GET /admin/newsletters/test/1
+  def historic
     @admin_newsletter = Admin::Newsletter.find(params[:id])
   end
 

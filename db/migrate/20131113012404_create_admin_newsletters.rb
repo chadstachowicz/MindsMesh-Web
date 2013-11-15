@@ -1,3 +1,8 @@
+
+# MindsMesh, Inc. (c) 2012-2013
+
+# rails g scaffold admin/Newsletter title:string plainemail:text htmlemail:text status:boolean
+
 class CreateAdminNewsletters < ActiveRecord::Migration
   def change
     create_table :admin_newsletters do |t|
@@ -10,3 +15,4 @@ class CreateAdminNewsletters < ActiveRecord::Migration
     end
   end
 end
+

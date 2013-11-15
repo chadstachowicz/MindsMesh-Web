@@ -1,5 +1,5 @@
 
-# MindsMesh (c) 2013
+# MindsMesh, Inc. (c) 2012-2013
 
 class EntityUserRequest < ActiveRecord::Base
 

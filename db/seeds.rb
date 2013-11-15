@@ -4,10 +4,10 @@
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
 
-
+# pass: querty at argentina 
 User.transaction do
     # if Rails.env.development?
-        User.create({name:'Admin Test User', role_1:30, email:'admin@lousianatest.edu', fname: 'Manuel', lname:'Montoya', uname:'aarkerio', active: true, password: 'qwerty78', password_confirmation: 'qwerty78', group_id: 1})
+    User.create({name:'Admin Test User', role_i:30, email:'admin@lousianatest.edu', name: 'Admin User', encrypted_password:'$2a$10$4R.gf6j9AmV4GAgszYVLxeCaoNFiRbsLm0VSM5hoOn0YxD8DNwt2u'})
    #end
 end
 
@@ -34,7 +34,7 @@ Entity.transaction do
    
       ls.each { |record| puts record.name.green }
 
-      entity = Entity.find_by_domains('dakotaunitest.edu')
+      entity = Entity.find_by_domains('|dakotaunitest.edu|')
     
       topics = [
           {name: 'Physics 1 (2301-001)', title: 'Title one', number: '111178687' },
@@ -49,11 +49,22 @@ Entity.transaction do
       ]
       ts = Array.new
       topics.each do |t|
-          # puts "#{k}  \n"
+          # puts "#{t}  \n"
           ts << ( entity.topics.create!( t ) )
       end
   # end  #  Rails.env.development? ends 
 end  # transaction ends
+
+# finishing the regiustratio process
+EntityUserRequest.transaction do
+  EntityUserRequest.attr_accessible :entity_id, :user_id, :email, :confirmation_token, :last_email_sent_at, :confirmed_at
+  EntityUserRequest.create({entity_id:1, user_id:1, email:'admin@lousianatest.edu', confirmation_token:'936af849fd007fb57ae7d6593',last_email_sent_at: Time.now,confirmed_at:Time.now})
+end 
+
+EntityUser.transaction do
+  EntityUser.create({entity_id:1, user_id:1, role_i:30 })
+end
+
 
 puts "Seeded.".green
 puts "Entities: #{Entity.count} | Topic: #{Topic.count}".green

@@ -33,8 +33,7 @@ class UsersController < ApplicationController
     end
     respond_with(@user)
   end
-    
-    
+  
   # GET /users/1/more_posts.js
   def more_posts
     @posts = @user.posts.as_feed(params.slice(:limit, :before))
@@ -59,18 +58,18 @@ class UsersController < ApplicationController
     respond_with(@user, location: @user)
   end
 
-    # PUT /users/1/follow
-    def follow
-        UserFollow.create user_id: @current_user.id.to_i, follow_id: @user.id.to_i
-        redirect_to @user
-    end
+  # PUT /users/1/follow
+  def follow
+    UserFollow.create user_id: @current_user.id.to_i, follow_id: @user.id.to_i
+    redirect_to @user
+  end
 
-    # PUT /users/1/unfollow
-    def unfollow
-        uf = UserFollow.where(:user_id => @current_user.id.to_i, :follow_id => @user.id.to_i)
-        uf.destroy(uf)
-        redirect_to @user
-    end
+  # PUT /users/1/unfollow
+  def unfollow
+    uf = UserFollow.where(:user_id => @current_user.id.to_i, :follow_id => @user.id.to_i)
+    uf.destroy(uf)
+    redirect_to @user
+  end
     
   # DELETE /users/1
   def destroy

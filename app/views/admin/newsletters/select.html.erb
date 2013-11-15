@@ -1,0 +1,47 @@
+
+<div style="padding:10px;margin:6px;background-color:#fff;border: 2px solid gray;">
+<div><%= link_to image_tag('icon-back.png', :title=>'Go back', :alt=>'Go back'), admin_newsletters_path %></div>
+
+<h3 style="border-bottom:1px dotted gray;">
+  <%= @admin_newsletter.title %>
+</h3>
+
+<div>
+<p>A specific school (all user classes)<br />
+ A pecific class at a specific school <br />
+ A pecific user class(faculty/admin/student) at a specific school <br />
+A student group/organization<br />
+</p>
+
+<div>Select group to send email:</div>
+
+<div>
+    <form action="/admin/" method="post" id="fselect">
+    <select id="nsgroups">
+        <option value="0" selected="selected">Select</option>
+        <option value="college">Colleges</option>
+        <option value="class">Class</option>
+        <option value="user">User</option>
+        <option value="group">Group</option>
+        <option value="all">Send to all users</option>
+    </select>
+</form>
+</div>
+
+<div id="groups"></div>
+
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+      $("#fselect").click(function () {
+        var text = $("#nsgroups option:selected").text();
+        var value = $("#nsgroups option:selected").val();
+        // alert("Selected text=" + text + " Selected value= " + value);
+        // $("#groups").html("<!--  % = j(render('groups_admin_newsletters_path', :group_id => @groups)) % -->");
+        $("#groups").load('/admin/newsletters/groups/'+value);
+      });
+    });
+</script>
+
+

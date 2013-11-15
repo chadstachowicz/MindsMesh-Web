@@ -3,6 +3,11 @@
 
 Mindsmesh::Application.routes.draw do
 
+  namespace :admin do
+    resources :campaigns
+  end
+
+
   resources :background_jobs
 
   resources :email_campaigns
@@ -153,15 +158,15 @@ Mindsmesh::Application.routes.draw do
     end
   end
     
-    resources :rosters do
-        member do
-        end
-        collection do
-            get :filter
-            get 'datatable_filter', format: 'json'
-            post :import
-        end
-    end
+  resources :rosters do
+      member do
+      end
+      collection do
+          get :filter
+          get 'datatable_filter', format: 'json'
+          post :import
+      end
+  end
 
     
   resources :groups do
@@ -171,6 +176,7 @@ Mindsmesh::Application.routes.draw do
         get :more_posts
     end
   end
+
   resources :posts, except: [:new, :create, :edit] do
     member do
       post 'replies', action: 'create_reply'
@@ -244,7 +250,15 @@ Mindsmesh::Application.routes.draw do
   namespace :admin do
     root :to => "admin#index", as: 'admin_index'
     resources :admin
-    resources :newsletters
+    resources :newsletters do
+      collection do
+          get  "select/:id"    => "newsletters#select",   :as => 'ns_select'
+          get  "test/:id"      => "newsletters#test",     :as => 'test'
+          get  "send/:id"      => "newsletters#send",     :as => 'send'
+          get  "historic/:id"  => "newsletters#historic", :as => 'historic'
+          get  "groups/:group" => "newsletters#groups",   :as => 'groups'
+      end
+    end
   end
   
 end

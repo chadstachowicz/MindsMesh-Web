@@ -170,11 +170,11 @@ class User < ActiveRecord::Base
         
   end
 
-    def posts_feed_old(options={})
-        topic_ids = topic_users.map(&:topic_id)
-        return [] if topic_ids.empty?
-        Post.where(topic_id: topic_ids).as_feed(options)
-    end
+  def posts_feed_old(options={})
+    topic_ids = topic_users.map(&:topic_id)
+    return [] if topic_ids.empty?
+    Post.where(topic_id: topic_ids).as_feed(options)
+  end
     
   def search_topics(q)
     entity_ids = entities.pluck('entities.id')
@@ -206,9 +206,9 @@ class User < ActiveRecord::Base
 end
 
 def self.find_for_twitter_oauth(auth, signed_in_resource=nil, conf_token=nil)
-user = User.where(:email => auth.uid).first
+  user = User.where(:email => auth.uid).first
 
-unless user
+  unless user
     nu_email = auth.info.email
     if !conf_token.nil?
         srr = SignupRequest.find_by_confirmation_token!(conf_token)

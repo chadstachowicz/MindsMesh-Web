@@ -1,10 +1,13 @@
-<h1>Listing newsletters</h1>
+<h1 style="margin:5px;paddibng:7px;">Emails Manager</h1>
 
 <table style="border:2px solid gray;margin:18px auto;text-align:left;padding:6px;background-color:#fff;">
   <tr>
     <th>Title</th>
     <th>Sent</th>
     <th>Preview</th>
+    <th>Test</th>
+    <th>Select group</th>
+    <th>Historic</th>
     <th></th>
     <th></th>
   </tr>
@@ -14,6 +17,9 @@
     <td><%= admin_newsletter.title %></td>
     <td><%= admin_newsletter.status %></td>
     <td><%= link_to image_tag('icon-preview.png', :title=>'Preview', :alt=>'Preview'), admin_newsletter %></td>
+    <td><%= link_to image_tag('icon-send.png', :title=>'Send me a test', :alt=>'Send me a test'), test_admin_newsletters_path(admin_newsletter) %></td>
+    <td><%= link_to image_tag('icon-mail.png', :title=>'Select', :alt=>'Select'),  ns_select_admin_newsletters_path(admin_newsletter) %></td>
+    <td><%= link_to image_tag('icon-files.png', :title=>'Historic', :alt=>'Historic'),  historic_admin_newsletters_path(admin_newsletter) %></td>
     <td><%= link_to image_tag('icon-edit.png', :title=>'Edit', :alt=>'Edit'), edit_admin_newsletter_path(admin_newsletter) %></td>
     <td><%= link_to image_tag('icon-add.png', :title=>'Remove', :alt=>'Remove'), admin_newsletter, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>

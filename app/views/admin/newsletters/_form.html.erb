@@ -30,7 +30,7 @@ tinymce.init({
     <%
       options =  {:label => false}
 
-      options[:input_html] = { :value => "<h3>First Subject</h3><p>This is newsletter initial value.</p>" } if current_page?(:action => 'new')
+      options[:input_html] = { :value => "<h3>First Subject</h3><p>This is the email initial value.</p>" } if current_page?(:action => 'new')
       
     %>
     <%= f.input :htmlemail, options %>

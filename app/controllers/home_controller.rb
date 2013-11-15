@@ -13,7 +13,7 @@ class HomeController < ApplicationController
   def index
     eu = current_user.entity_users.first
     ent = EntityAdvancedSetting.find_by_entity_id(eu.entity_id)
-
+    
     if !ent.nil?
         if ent.can_create_topic == 1
             @hidetopic = 1
@@ -109,6 +109,7 @@ class HomeController < ApplicationController
   end
 
   # check if the confirmation_token is ok
+  # GET      /home/confirm/:confirmation_token(.:format)
   def confirm_entity_request
     eur = EntityUserRequest.find_by_confirmation_token!(params[:confirmation_token])
     user = User.find_by_email(eur.email)
