@@ -17,10 +17,11 @@ class Admin::Newsletter < ActiveRecord::Base
 
   class << self
       def get_group(group)
-          @group = group
+          
           case group
               when 'college' 
-                  return @data = Entity.find(:all)
+                  @data = Entity.find(:all)
+                  return @data
               when 'class' 
                   return @data = Entity.find(:all)
               when 'group' 
