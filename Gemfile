@@ -44,7 +44,7 @@ gem 'rinku', :require => 'rails_rinku'
 gem 'pusher'
 gem 'backbonejs-rails'
 gem 'smarter_csv', '~> 1.0.8'
-
+gem 'less'
 gem 'sass' #so other gems don't alert
 gem 'sass-rails'
 gem 'coffee-rails'
