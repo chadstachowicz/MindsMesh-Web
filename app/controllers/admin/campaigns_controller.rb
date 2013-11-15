@@ -32,7 +32,7 @@ class Admin::CampaignsController < ApplicationController
     @admin_campaign.historic = false 
 
     if @admin_campaign.save
-      redirect_to :controller =>'newsletter', :action=>'historic', notice: 'Campaign was created.'
+      redirect_to admin_campaigns_path, notice: 'Campaign was created.'
     else
       render action: "new"
     end

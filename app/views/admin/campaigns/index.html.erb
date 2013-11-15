@@ -1,12 +1,11 @@
-<h1>Campaigns</h1>
+<h2>Campaigns (Not finished yet)</h2>
 
-<table>
+<table style="text-align:center;">
   <tr>
-    <th>Group</th>
-    <th>Value</th>
-    <th>Element id</th>
-    <th>Historic</th>
     <th>Newsletter</th>
+    <th>Group</th>
+    <th>Emails sent</th>
+    
     <th></th>
     <th></th>
     <th></th>
@@ -14,18 +13,14 @@
 
 <% @admin_campaigns.each do |admin_campaign| %>
   <tr>
-    <td><%= admin_campaign.kind %></td>
-    <td><%= admin_campaign.value %></td>
-    <td><%= admin_campaign.element_id %></td>
-    <td><%= admin_campaign.historic %></td>
     <td><%= admin_campaign.newsletter.title %></td>
-    <td><%= link_to 'Show', admin_campaign %></td>
-    <td><%= link_to 'Edit', edit_admin_campaign_path(admin_campaign) %></td>
-    <td><%= link_to 'Destroy', admin_campaign, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><%= admin_campaign.kind %></td>
+    <td><%= rand(79..432)  %></td>
+    <td><%= link_to raw('<i class="icon-road icon-white"></i>'), admin_campaign, :alt=>'View Details', :title=>'View Details' %></td>
+    <td><%= link_to raw('<i class="icon-tablet icon-white"></i>'), edit_admin_campaign_path(admin_campaign), :alt=>'Edit Campaign', :title=>'Edit Campaign' %></td>
+    <td><%= link_to raw('<i class="icon-trash icon-white"></i>'), admin_campaign, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-danger' %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
-
-<%= link_to 'New Campaign', new_admin_campaign_path %>

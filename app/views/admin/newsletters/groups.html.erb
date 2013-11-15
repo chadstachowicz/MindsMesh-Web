@@ -1,16 +1,20 @@
 
 
-<form action="<%= admin_campaigns_path %>" method="post">
-<%= csrf_meta_tags %>
-<input type="hidden" name="kind" value="<%= @group %>">
-<input type="hidden" name="newsletter_id" value="<%= @newsletter_id %>">
 
+<%= simple_form_for(@admin_campaign) do |f| %>
+  <%= f.error_notification %>
+
+<input type="hidden" name="admin_campaign[kind]" value="<%= @group %>">
+<input type="hidden" name="admin_campaign[newsletter_id]"  value="<%= @newsletter_id %>">
+
+<div class="form-inputs">
+  
 <% if @group == 'college' %>
 
     <%=  content_tag :h2, 'Colleges'  %>
     
     <% @data.each do | d | %>
-       <input type="checkbox" name="element_id" value="<%= d.id  %>"><%= d.name  %> <br />
+       <input type="checkbox" name="admin_campaign[element_id]" value="<%= d.id  %>"><%= d.name  %> <br />
     <% end %>
 <% end %>
 
@@ -18,7 +22,7 @@
 <% if @group == 'group' %>
     <%=  content_tag :h2, 'Groups'  %>
     <% @data.each do | d | %>
-       <input type="checkbox"  name="element_id" value="<%= d.id  %>"><%= d.name  %> <br />
+       <input type="checkbox"  name="admin_campaign[element_id]" value="<%= d.id  %>"><%= d.name  %> <br />
     <% end %>
     
 <% end %>
@@ -26,7 +30,7 @@
 <% if @group == 'class' %>
     <%=  content_tag :h2, 'Class Rooms'  %>
     <% @data.each do | d | %>
-       <input type="checkbox"  name="element_id" value="<%= d.id  %>"><%= d.name  %> <br />
+       <input type="checkbox"  name="admin_campaign[element_id]" value="<%= d.id  %>"><%= d.name  %> <br />
     <% end %>
     
 <% end %>
@@ -35,12 +39,15 @@
     <%=  content_tag :h2, 'Users'  %>
 
     <% @data.each do | d | %>
-       <input type="checkbox" name="element_id" value="<%= d[:id]  %>"> <%= d[:name]  %><br />
+       <input type="checkbox" name="admin_campaign[element_id]" value="<%= d[:id]  %>"> <%= d[:name]  %><br />
     <% end %>
 <% end %>
   
    <br />
-   <br /> 
-   <div style="margin:5px;"><input type="submit" value="save"></div>
-</form>
+ </div> <!-- form inputs -->
+   <div class="form-actions">
+    <input class="btn" name="commit" type="submit" value="Create Campaign">
+  </div>
 
+</form>
+<% end %>

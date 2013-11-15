@@ -27,7 +27,7 @@ class Admin::Newsletter < ActiveRecord::Base
               when 'group' 
                   return @data = Group.find(:all) 
               when 'user' 
-                  return @data = Array[{name:'Admins', id:1}, {name:'Professors', id:2}, {name:'Students', id:3}]
+                  return @data = Array[{name:'Admins', id:1}, {name:'Professors', id:2}, {name:'Students', id:3}, {name:'This is a global mail', id:4}]
               else              
                   return @data = Entity.find(:all)
           end

@@ -79,6 +79,7 @@
         <ul id="dashboard-menu" class="nav nav-list">
             <li><a href="/admin/panels/statics">Statics</a></li>
             <li><a href="/admin/panels/recent">Recient activity</a></li>
+            <li><a href="#">Site Settings</a></li>
         </ul>
 
         <a href="#legal-menu" class="nav-header" data-toggle="collapse"><i class="icon-legal"></i>Campaigns</a>
@@ -110,6 +111,9 @@
         <!-- %= yield_content :breadcrumb % -->
         <div class="container-fluid">
             <div class="row-fluid">
+                  <%= "<div class='alert alert-success'><a class='close' data-dismiss='alert' href='#'>×</a><b>#{notice}</b></div>".html_safe if notice %>
+    <%= "<div class='alert alert-error'><a class='close' data-dismiss='alert' href='#'>×</a><b>#{alert}</b></div>".html_safe   if alert %>
+  
                     <%= yield %>
 
                     <!-- %unless data.page.show_footer == false % -->

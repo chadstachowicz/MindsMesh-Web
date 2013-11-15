@@ -3,11 +3,6 @@
 
 Mindsmesh::Application.routes.draw do
 
-  namespace :admin do
-    resources :campaigns
-  end
-
-
   resources :background_jobs
 
   resources :email_campaigns
