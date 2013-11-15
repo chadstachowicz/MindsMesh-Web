@@ -241,7 +241,7 @@ Mindsmesh::Application.routes.draw do
   #get '/admin' => 'admin#index', as: 'admin_index'
 
   namespace :admin do
-     root:to => "admin/panels#index"
+     root:to => "admin/panels#index", :as => 'admin_index'
 
     #get  "select"    => "panels#index",   :as => 'panela_index'
     resources :panels do
