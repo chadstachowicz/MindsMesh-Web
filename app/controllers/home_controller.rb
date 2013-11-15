@@ -11,7 +11,7 @@ class HomeController < ApplicationController
   
   # root app
   def index
-    eu = current_user.entity_users.first
+    eu  = current_user.entity_users.first
     ent = EntityAdvancedSetting.find_by_entity_id(eu.entity_id)
     
     if !ent.nil?
