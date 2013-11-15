@@ -47,7 +47,8 @@ class Ability
     can :index, :setting
     can [:create, :new], FeedbackBug
     can :create, InviteRequest
-    can :manage, [Admin::Newsletter, Admin::Campaign]                  # admin section
+    can :manage, Admin::Newsletter
+    can :manage, Admin::Campaign                 # admin section
     can [:index, :show, :statics, :recent], :admin_panels             # admin section
   end
   

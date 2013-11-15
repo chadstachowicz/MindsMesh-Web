@@ -27,15 +27,14 @@ class Admin::NewslettersController < ApplicationController
   
   # GET /admin/newsletters/group/1
   def groups
-    @group = params[:group]
-    @data  = Admin::Newsletter.get_group(params[:group])
+    @group         = params[:group]
+    @newsletter_id = params[:newsletter_id]
+    @data          = Admin::Newsletter.get_group(params[:group])
 
-    # render 'newsletters/groups', :layout => false        
     respond_to do |format|
         format.html { render :layout => !request.xhr? }
-        # other formats
     end
-    #@group = params[:group]
+    
   end
 
   # GET /admin/newsletters/test/1

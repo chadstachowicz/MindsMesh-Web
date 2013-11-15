@@ -5,21 +5,30 @@ class Admin::CampaignsController < ApplicationController
 
   load_and_authorize_resource
   
+  self.layout "admin"
+
   # TODO: name these comments properly with all the matching URLs to each action
   # GET /admin/campaigns
   def index
+    @admin_campaigns = Admin::Campaign.all
   end
 
   # GET /admin/campaigns/1
   def show
+     @admin_campaign = Admin::Campaign.find(params[:id])
   end
 
   # GET /admin/campaigns/new
   def new
+    @admin_campaign = Admin::Campaign.new
   end
 
   # POST /admin/campaigns
   def create
+    @admin_campaign = Admin::Campaign.new(params[:admin_campaign])
+
+    @admin_campaign.historic = false 
+
     if @admin_campaign.save
       redirect_to @admin_campaign, notice: 'Campaign was created.'
     else

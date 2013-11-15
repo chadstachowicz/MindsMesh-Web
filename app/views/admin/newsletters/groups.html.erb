@@ -1,46 +1,38 @@
 
 
-<form action_="/admin/newsletters/add" method="post">
+<form action="<%= admin_campaigns_path %>" method="post">
 
 <input type="hidden" name="kind" value="<%= @group %>">
-<input type="hidden" name="newsletter_id" value="<%= @group %>">
+<input type="hidden" name="newsletter_id" value="<%= @newsletter_id %>">
 
 <% if @group == 'college' %>
-    <p>Please select the college that you want to send this email: </p>
 
     <%=  content_tag :h2, 'Colleges'  %>
     
     <% @data.each do | d | %>
-       <input type="checkbox" name="vehicle" value="<%= d.id  %>"><%= d.name  %> <br />
+       <input type="checkbox" value="<%= d.id  %>"><%= d.name  %> <br />
     <% end %>
- % end %>
+<% end %>
 
 
-<% if @group == 'groups' %>
-    <p>Please select the college that you want to send this email: </p>
+<% if @group == 'group' %>
 
     <%=  content_tag :h2, 'Groups'  %>
 
     <% @data.each do | d | %>
-       <input type="checkbox" name="vehicle" value="<%= d.id  %>"><%= d.name  %> <br />
+       <input type="checkbox"  value="<%= d.id  %>"><%= d.name  %> <br />
     <% end %>
-    <input type="submit" value="Submit">
-    </form>
+    
 <% end %>
 
-<% if @group == 'users' %>
-    <p>Please type first that you want to send this email: </p>
-
+<% if @group == 'user' %>
     <%=  content_tag :h2, 'Users'  %>
 
     <% @data.each do | d | %>
-       <input type="checkbox" name="vehicle" value="<%= d.id  %>"><%= d.name  %> <br />
+       <input type="checkbox" value="<%= d[:id]  %>"> <%= d[:name]  %><br />
     <% end %>
-    <input type="submit" value="Submit">
-    </form>
 <% end %>
-
-
+  
 
    <div style="margin:5px;"><input type="submit" value="save"></div>
 </form>

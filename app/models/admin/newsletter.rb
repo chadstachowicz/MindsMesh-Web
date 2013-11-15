@@ -3,7 +3,7 @@
 
 class Admin::Newsletter < ActiveRecord::Base
 
-  # has_many :admin_campaigns
+  has_many :admin_campaigns
 
   attr_accessible :htmlemail, :plainemail, :status, :title
   
@@ -27,7 +27,7 @@ class Admin::Newsletter < ActiveRecord::Base
               when 'group' 
                   return @data = Group.find(:all) 
               when 'user' 
-                  return @data = User.find(:all)
+                  return @data = Array[{name:'Admins', id:1}, {name:'Professors', id:2}, {name:'Students', id:3}]
               else              
                   return @data = Entity.find(:all)
           end

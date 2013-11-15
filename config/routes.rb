@@ -257,6 +257,7 @@ Mindsmesh::Application.routes.draw do
       end
     end
 
+    resources :campaigns
 
     resources :newsletters do
       collection do
@@ -264,7 +265,7 @@ Mindsmesh::Application.routes.draw do
           get  "test/:id"      => "newsletters#test",     :as => 'test'
           get  "send/"         => "newsletters#send",     :as => 'send'
           get  "historic/:id"  => "newsletters#historic", :as => 'historic'
-          get  "groups/:group" => "newsletters#groups",   :as => 'groups'
+          get  "groups/:group/:newsletter_id" => "newsletters#groups",  :as => 'groups'
       end
     end
   end

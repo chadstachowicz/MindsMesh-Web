@@ -1,13 +1,18 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <b>Group:</b>
-  <%= @admin_campaign.group %>
+  <b>Kind:</b>
+  <%= @admin_campaign.kind %>
 </p>
 
 <p>
   <b>Value:</b>
   <%= @admin_campaign.value %>
+</p>
+
+<p>
+  <b>Element id:</b>
+  <%= @admin_campaign.element_id %>
 </p>
 
 <p>
@@ -17,7 +22,7 @@
 
 <p>
   <b>Newsletter:</b>
-  <%= @admin_campaign.newsletter %>
+  <%= @admin_campaign.newsletter.title %>
 </p>
 
 

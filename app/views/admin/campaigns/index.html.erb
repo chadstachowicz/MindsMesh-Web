@@ -1,9 +1,10 @@
-<h1>Listing admin_campaigns</h1>
+<h1>Campaigns</h1>
 
 <table>
   <tr>
     <th>Group</th>
     <th>Value</th>
+    <th>Element id</th>
     <th>Historic</th>
     <th>Newsletter</th>
     <th></th>
@@ -13,10 +14,11 @@
 
 <% @admin_campaigns.each do |admin_campaign| %>
   <tr>
-    <td><%= admin_campaign.group %></td>
+    <td><%= admin_campaign.kind %></td>
     <td><%= admin_campaign.value %></td>
+    <td><%= admin_campaign.element_id %></td>
     <td><%= admin_campaign.historic %></td>
-    <td><%= admin_campaign.newsletter %></td>
+    <td><%= admin_campaign.newsletter.title %></td>
     <td><%= link_to 'Show', admin_campaign %></td>
     <td><%= link_to 'Edit', edit_admin_campaign_path(admin_campaign) %></td>
     <td><%= link_to 'Destroy', admin_campaign, method: :delete, data: { confirm: 'Are you sure?' } %></td>

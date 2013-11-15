@@ -12,6 +12,7 @@
 </h3>
 
 <div>
+Requirements:<br />
 <p>A specific school (all user classes)<br />
  A pecific class at a specific school <br />
  A pecific user class(faculty/admin/student) at a specific school <br />
@@ -27,7 +28,6 @@ A student group/organization<br />
         <option value="college">Colleges</option>
         <option value="user">Kind of user</option>
         <option value="group">Group</option>
-        <option value="all">Send to all users</option>
     </select>
 </form>
 </div>
@@ -43,7 +43,7 @@ A student group/organization<br />
         var value = $("#nsgroups option:selected").val();
         // alert("Selected text=" + text + " Selected value= " + value);
         // $("#groups").html("<!--  % = j(render('groups_admin_newsletters_path', :group_id => @groups)) % -->");
-        $("#groups").load('/admin/newsletters/groups/'+value);
+        $("#groups").load('/admin/newsletters/groups/'+value+'/'+<%= @admin_newsletter.id %>);
       });
     });
 </script>
