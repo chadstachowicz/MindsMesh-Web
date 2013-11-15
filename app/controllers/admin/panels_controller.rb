@@ -18,4 +18,12 @@ class Admin::PanelsController < ApplicationController
 
   end 
 
+  def statics
+
+  end 
+  
+  def recent
+
+  end 
+
 end

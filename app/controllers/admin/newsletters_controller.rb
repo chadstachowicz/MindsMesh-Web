@@ -24,11 +24,15 @@ class Admin::NewslettersController < ApplicationController
   def select
     @admin_newsletter = Admin::Newsletter.find(params[:id])
   end
-
+  
   # GET /admin/newsletters/group/1
   def groups
     @data = Admin::Newsletter.get_group(params[:group])
-
+    # render 'newsletters/groups', :layout => false        
+    respond_to do |format|
+        format.html { render :layout => !request.xhr? }
+        # other formats
+    end
     #@group = params[:group]
   end
 
@@ -50,7 +54,7 @@ class Admin::NewslettersController < ApplicationController
   # POST /admin/newsletters
   def create
     @admin_newsletter = Admin::Newsletter.new(params[:admin_newsletter])
-    # @admin_newsletter.status = false
+    @admin_newsletter.status = false
 
     if @admin_newsletter.save
       redirect_to @admin_newsletter, notice: 'Newsletter was created.'

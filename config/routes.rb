@@ -252,6 +252,8 @@ Mindsmesh::Application.routes.draw do
     resources :panels do
       collection do
           get  "index"    => "panels#index",   :as => 'pindex'
+          get  "statics"  => "panels#statics", :as => 'statics'
+          get  "recent"   => "panels#recent",  :as => 'recent'
       end
     end
 
