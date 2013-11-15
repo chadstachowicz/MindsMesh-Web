@@ -1,7 +1,7 @@
 
 
 <form action="<%= admin_campaigns_path %>" method="post">
-
+<%= csrf_meta_tags %>
 <input type="hidden" name="kind" value="<%= @group %>">
 <input type="hidden" name="newsletter_id" value="<%= @newsletter_id %>">
 
@@ -10,7 +10,7 @@
     <%=  content_tag :h2, 'Colleges'  %>
     
     <% @data.each do | d | %>
-       <input type="checkbox" value="<%= d.id  %>"><%= d.name  %> <br />
+       <input type="checkbox" name="element_id" value="<%= d.id  %>"><%= d.name  %> <br />
     <% end %>
 <% end %>
 
@@ -20,7 +20,7 @@
     <%=  content_tag :h2, 'Groups'  %>
 
     <% @data.each do | d | %>
-       <input type="checkbox"  value="<%= d.id  %>"><%= d.name  %> <br />
+       <input type="checkbox"  name="element_id" value="<%= d.id  %>"><%= d.name  %> <br />
     <% end %>
     
 <% end %>
@@ -29,7 +29,7 @@
     <%=  content_tag :h2, 'Users'  %>
 
     <% @data.each do | d | %>
-       <input type="checkbox" value="<%= d[:id]  %>"> <%= d[:name]  %><br />
+       <input type="checkbox" name="element_id" value="<%= d[:id]  %>"> <%= d[:name]  %><br />
     <% end %>
 <% end %>
   

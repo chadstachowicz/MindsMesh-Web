@@ -4,6 +4,8 @@
 class Admin::CampaignsController < ApplicationController
 
   load_and_authorize_resource
+
+  respond_to :html, :json, :js
   
   self.layout "admin"
 
@@ -30,7 +32,7 @@ class Admin::CampaignsController < ApplicationController
     @admin_campaign.historic = false 
 
     if @admin_campaign.save
-      redirect_to @admin_campaign, notice: 'Campaign was created.'
+      redirect_to :controller =>'newsletter', :action=>'historic', notice: 'Campaign was created.'
     else
       render action: "new"
     end

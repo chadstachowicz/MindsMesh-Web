@@ -7,7 +7,6 @@ class CreateAdminCampaigns < ActiveRecord::Migration
   def change
     create_table :admin_campaigns do |t|
       t.string :kind
-      t.string :value
       t.integer :element_id
       t.boolean :historic
       t.references :newsletter

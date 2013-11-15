@@ -5,6 +5,6 @@ class Admin::Campaign < ActiveRecord::Base
 
   belongs_to :newsletter
 
-  attr_accessible :kind, :element_id, :value, :historic, :newsletter_id
+  attr_accessible :kind, :element_id, :historic, :newsletter_id
 
 end
