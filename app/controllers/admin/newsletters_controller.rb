@@ -5,8 +5,6 @@ class Admin::NewslettersController < ApplicationController
 
   respond_to :html, :json, :js
 
-  self.layout "admin"
-
   load_and_authorize_resource
 
   # TODO: name these comments properly with all the matching URLs to each action

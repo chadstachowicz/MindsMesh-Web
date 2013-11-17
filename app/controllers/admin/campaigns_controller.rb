@@ -7,8 +7,6 @@ class Admin::CampaignsController < ApplicationController
 
   respond_to :html, :json, :js
   
-  self.layout "admin"
-
   # TODO: name these comments properly with all the matching URLs to each action
   # GET /admin/campaigns
   def index

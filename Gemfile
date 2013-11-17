@@ -50,6 +50,9 @@ gem 'sass-rails'
 gem 'coffee-rails'
 gem 'uglifier', '>= 1.0.3'
 gem 'therubyracer', :platform => :ruby
+gem "therubyracer"
+gem "less-rails"
+gem "twitter-bootstrap-rails"
 gem 'bootstrap-sass'
 gem 'font-awesome-sass-rails'
 gem 'select2-rails'

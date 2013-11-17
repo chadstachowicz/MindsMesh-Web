@@ -238,10 +238,9 @@ Mindsmesh::Application.routes.draw do
   get "home/denied", as: 'denied'
    
   # Admin section  
-  #get '/admin' => 'admin#index', as: 'admin_index'
+  get '/admin' => 'admin#index', as: 'admin_index'
 
   namespace :admin do
-     root:to => "admin/panels#index", :as => 'admin_index'
 
     #get  "select"    => "panels#index",   :as => 'panela_index'
     resources :panels do
