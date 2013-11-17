@@ -20,34 +20,68 @@ A student group/organization<br />
 </p>
 
 
-
-<div style="padding:8px;background-color:#fff;margin:8px;border:1px dotted gray;">
+<div style="padding:8px;background-color:#fff;margin:8px;border:1px dotted gray;" id='divcbxs'>
     <div>Select elements that you want to send email:</div>
-    <form id="fselect">
-    <select id="nsgroups">
-        <option value="0" selected="selected">Select</option>
-        <option value="college">Colleges</option>
-        <option value="user">Kind of user</option>
-        <option value="group">Groups</option>
-        <option value="class">Classes</option>
-    </select>
-</form>
 
+<%= simple_form_for(@admin_newsletter,  :url => url_for(:action => 'groups', :controller => 'newsletters'), :html => { :method => :post, :onsubmit => 'return checkCB();' } )   do |f| %>
+  
+  <input type="hidden" name="admin_campaign[newsletter_id]"  value="<%= @newsletter_id %>">
+  <input type="checkbox" id="selectall" name="admin_campaign[all]" value="all" class="selectedId">Select all <br />
+
+    <% @entities.each do | d | %>
+       <input type="checkbox"  name="admin_campaign[element_id]" value="<%= d.id  %>" class="selectedId"><%= d.name  %> <br />
+    <% end %>
+
+    <div class="form-actions">
+        <input class="btn" name="commit" type="submit" value="Second Step &gt;&gt;">
+    </div>
+
+</form>
+<% end %>
 
 <div id="groups"></div>
 </div>
 </div>
 
 <script type="text/javascript">
-    $(document).ready(function () {
-      $("#fselect").click(function () {
-        var text = $("#nsgroups option:selected").text();
-        var value = $("#nsgroups option:selected").val();
-        // alert("Selected text=" + text + " Selected value= " + value);
-        // $("#groups").html("<!--  % = j(render('groups_admin_newsletters_path', :group_id => @groups)) % -->");
-        $("#groups").load('/admin/newsletters/groups/'+value+'/'+<%= @admin_newsletter.id %>);
-      });
+
+$(document).ready(function () {
+    $('#selectall').click(function () {
+        $('.selectedId').prop('checked', isChecked('selectall'));
     });
+});
+    
+function isChecked(checkboxId) {
+    var id = '#' + checkboxId;
+    return $(id).is(":checked");
+}
+
+function resetSelectAll() {
+    // if all checkboxes are selected, check the selectall CB
+    // and of course viceversa
+    if ($(".selectedId").length == $(".selectedId:checked").length) {
+        $("#selectall").attr("checked", "checked");
+    } else {
+        $("#selectall").removeAttr("checked");
+    }
+
+    if ($(".selectedId:checked").length > 0) {
+        $('#edit').attr("disabled", false);
+    } else {
+        $('#edit').attr("disabled", true);
+    }
+}
+
+function checkCB() {
+         
+         if ( $(".selectedId:checked").length < 1)
+         {
+            alert('Choose at least one college');
+            return false;
+         }
+    return true;
+}
+
 </script>
 
 

@@ -1,5 +1,4 @@
 
-
 # MindsMesh, Inc. (c) 2012-2013
 
 class AdminController < ApplicationController

@@ -260,7 +260,7 @@ Mindsmesh::Application.routes.draw do
           get  "send/"         => "newsletters#send",     :as => 'send'
           get  "settings/"         => "newsletters#settings",     :as => 'settings'
           get  "historic/:id"  => "newsletters#historic", :as => 'historic'
-          get  "groups/:group/:newsletter_id" => "newsletters#groups",  :as => 'groups'
+          post  "groups/" => "newsletters#groups",  :as => 'groups'
       end
     end
   end
