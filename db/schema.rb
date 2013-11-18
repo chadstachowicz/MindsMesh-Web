@@ -13,17 +13,6 @@
 
 ActiveRecord::Schema.define(:version => 20131114210409) do
 
-  create_table "admin_campaigns", :force => true do |t|
-    t.string   "group"
-    t.string   "value"
-    t.boolean  "historic"
-    t.integer  "newsletter_id"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
-  end
-
-  add_index "admin_campaigns", ["newsletter_id"], :name => "index_admin_campaigns_on_newsletter_id"
-
   create_table "admin_newsletters", :force => true do |t|
     t.string   "title"
     t.text     "plainemail"
