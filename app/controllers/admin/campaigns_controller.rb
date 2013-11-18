@@ -25,19 +25,17 @@ class Admin::CampaignsController < ApplicationController
 
   # POST /admin/campaigns
   def create
-    @admin_campaign = Admin::Campaign.new(params[:admin_campaign])
 
-    @admin_campaign.historic = false 
+    return render :text => params
 
-    if @admin_campaign.save
-      redirect_to admin_campaigns_path, notice: 'Campaign was created.'
-    else
-      render action: "new"
-    end
+    @emails_sent = Admin::Campaign.send_mails_and_save(params)
+
+    redirect_to admin_campaigns_path, notice: 'Campaign was created.'
   end
 
   # GET /admin/campaigns/1/edit
   def edit
+    
   end
 
   # PUT /admin/campaigns/1

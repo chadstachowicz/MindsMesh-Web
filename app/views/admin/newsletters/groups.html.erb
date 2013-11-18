@@ -1,43 +1,103 @@
 
-<%= @data.inspect %>
+Kind: <%= @kind %>
+<%= simple_form_for(@admin_campaign,  :url => url_for(:action => 'create', :controller => 'campaigns'), :html => { :method => :post, :onsubmit => 'return checkCB();' })  do |f| %>
 
-<%= simple_form_for(@admin_campaign) do |f| %>
   <%= f.error_notification %>
+  <input type="hidden" name="admin_campaign[kind]" value="<%= @kind %>">
+  <input type="hidden" name="admin_campaign[newsletter_id]"  value="<%= @newsletter_id %>">
 
-<input type="hidden" name="admin_campaign[kind]" value="<%= @kind %>">
-<input type="hidden" name="admin_campaign[newsletter_id]"  value="<%= @newsletter_id %>">
+  <div class="form-inputs">
 
-<div class="form-inputs">
+  <% @data.each do | d | %>
+  <!-- %= d.inspect % -->
+      <%=  content_tag :h3, "College: #{d[:name]} "  %>
 
-<% if @kind == 'group' %>
-    <%=  content_tag :h2, 'Groups'  %>
-    <% @data.each do | d | %>
-       <input type="checkbox"  name="admin_campaign[element_id]" value="<%= d.id  %>"><%= d.name  %> <br />
-    <% end %>
-    
-<% end %>
+      <% if @kind == 'users' %>    
+          <% if d.has_key?(:users) %>
+           <input type="hidden" name="admin_campaign[college_id]"  value="<%= d[:id] %>">
+              <% d[:users].each do |k,v| %>
+                  <input type="checkbox" class="eleclass" name="admin_campaign[element_id][]" value="<%= k  %>"><%= v  %> <br />
+              <% end %>
+          <% else %>
+             <p>There is no groups in this college</p>
+          <% end %>  
+      <% end %>
 
-<% if @kind == 'class' %>
-    <%=  content_tag :h2, 'Class Rooms'  %>
-    <% @data.each do | d | %>
-       <input type="checkbox"  name="admin_campaign[element_id]" value="<%= d.id  %>"><%= d.name  %> <br />
-    <% end %>
-    
-<% end %>
+      <% if @kind == 'groups' %>    
+          <% if d.has_key?(:groups) %>
+           <input type="hidden" name="admin_campaign[college_id]"  value="<%= d[:id] %>">
+              <% d[:groups].each do |g| %>
+                  <input type="checkbox" class="eleclass" name="admin_campaign[element_id][]" value="<%= g.id  %>"><%= g.name  %> <br />
+              <% end %>
+          <% else %>
+             <p>There is no groups in this college</p>
+          <% end %>  
+      <% end %>
 
-<% if @kind == 'user' %>
-    <%=  content_tag :h2, 'Users'  %>
+      <% if @kind == 'topics' %> 
+          <% if d.has_key?(:topics) %>
+           <input type="hidden" name="admin_campaign[college_id]"  value="<%= d[:id] %>">
+              <% d[:topics].each do |t| %>
+                  <input type="checkbox" class="eleclass" name="admin_campaign[element_id][]" value="<%= t.id  %>"><%= t.name  %> <br />
+              <% end %>
+          <% else %>
+             <p>There is no topics in this college</p>
+          <% end %>  
+      <% end %>
 
-    <% @data.each do | d | %>
-       <input type="checkbox" name="admin_campaign[element_id]" value="<%= d[:id]  %>"> <%= d[:name]  %><br />
-    <% end %>
-<% end %>
-  
-   <br />
- </div> <!-- form inputs -->
-   <div class="form-actions">
-    <input class="btn" name="commit" type="submit" value="Create Campaign">
+  <% end %>  
+  <br />
+
+  </div> <!-- form inputs -->
+
+  <div class="form-actions">
+      <input class="btn" name="commit" type="submit" value="Create Campaign">
   </div>
 
-</form>
+  </form>
 <% end %>
+
+
+<script type="text/javascript">
+
+$(document).ready(function () {
+    $('#selectall').click(function () {
+        $('.selectedId').prop('checked', isChecked('selectall'));
+    });
+});
+    
+function isChecked(checkboxId) {
+    var id = '#' + checkboxId;
+    return $(id).is(":checked");
+}
+
+function resetSelectAll() {
+    // if all checkboxes are selected, check the selectall CB
+    // and of course viceversa
+    if ($(".selectedId").length == $(".selectedId:checked").length) {
+        $("#selectall").attr("checked", "checked");
+    } else {
+        $("#selectall").removeAttr("checked");
+    }
+
+    if ($(".selectedId:checked").length > 0) {
+        $('#edit').attr("disabled", false);
+    } else {
+        $('#edit').attr("disabled", true);
+    }
+}
+
+function checkCB() {
+         
+         if ( $(".eleclass:checked").length < 1)
+         {
+            alert('Choose at least one element');
+            return false;
+         }
+    return true;
+}
+
+</script>
+
+
+

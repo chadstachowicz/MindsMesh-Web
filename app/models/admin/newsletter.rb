@@ -19,25 +19,45 @@ class Admin::Newsletter < ActiveRecord::Base
       def get_group(entities, kind)
 
         Rails.logger.debug entities.inspect
-        if kind == 'user'
-            return data = {admin: 'Admin', moderator: 'Moderator', student:'Student'}
-        else  
-          data = Array.new
-        end
+        
+        users = {admin: 'Admin', moderator: 'Moderator', student:'Student'}
 
-        entities.each do |e|
-            # Rails.logger.debug "account: #{e}"
-            w = {entity_id: e }
-            
-            if kind == 'group'
-              result = Group.where( w )
-            else
-              result = Topic.where( w )
+        data = Array.new
+        #data << {kind: kind}
+        
+        ents = Entity.find(entities, :select => "id,name")
+        
+        Rails.logger.debug "Ents:  #{kind} \n \n"
+        #raise 
+        ents.each do |e|
+            Rails.logger.debug "entity: #{e.inspect}"
+
+            entity = {name:e.name, id: e.id}
+
+            case kind
+                when 'users'
+                    entity[:users] = users
+                when 'groups'
+                    groups = Group.where(entity_id:e.id).select("id,name")
+
+                    if !groups.empty?
+                        entity[:groups] = groups
+                    end
+                    #groups.each do |g|
+                    #    entity['users'] = [g.id, g.name]
+                    #end            
+                when 'topics'
+                    topics = Topic.where(entity_id:e.id).select("id,name")
+                    if !topics.empty?
+                        entity[:topics] = topics 
+                    end
+                    #topics.each do |t|
+                    #    data << [e.id, e.name] << [t.id, t.name] 
+                    #end           
             end
+          
             # Rails.logger.debug "result: #{result.inspect} \n\n"
-            if !result.empty?
-              data << result
-            end
+            data << entity    
         end
 
         return data
