@@ -5,7 +5,7 @@ class Admin::Newsletter < ActiveRecord::Base
 
   has_many :admin_campaigns
 
-  attr_accessible :htmlemail, :plainemail, :status, :title
+  attr_accessible :htmlemail, :plainemail, :status, :title, :element_id, :kind
   
   attr_accessor :get_group
 
@@ -16,21 +16,33 @@ class Admin::Newsletter < ActiveRecord::Base
   validates_presence_of :htmlemail, length: { is: 20 }, :message => "can't be minor to twenty characters"
 
   class << self
-      def get_group(group)
-          
-          case group
-              when 'college' 
-                  @data = Entity.find(:all)
-                  return @data
-              when 'class' 
-                  return @data = Topic.find(:all)
-              when 'group' 
-                  return @data = Group.find(:all) 
-              when 'user' 
-                  return @data = Array[{name:'Admins', id:1}, {name:'Professors', id:2}, {name:'Students', id:3}, {name:'This is a global mail', id:4}]
-              else              
-                  return @data = Entity.find(:all)
-          end
-    end
+      def get_group(entities, kind)
+
+        Rails.logger.debug entities.inspect
+        if kind == 'user'
+            return data = {admin: 'Admin', moderator: 'Moderator', student:'Student'}
+        else  
+          data = Array.new
+        end
+
+        entities.each do |e|
+            # Rails.logger.debug "account: #{e}"
+            w = {entity_id: e }
+            
+            if kind == 'group'
+              result = Group.where( w )
+            else
+              result = Topic.where( w )
+            end
+            # Rails.logger.debug "result: #{result.inspect} \n\n"
+            if !result.empty?
+              data << result
+            end
+        end
+
+        return data
+
+      end
   end
+
 end

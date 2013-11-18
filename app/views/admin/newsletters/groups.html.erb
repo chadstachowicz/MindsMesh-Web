@@ -1,25 +1,15 @@
 
-
+<%= @data.inspect %>
 
 <%= simple_form_for(@admin_campaign) do |f| %>
   <%= f.error_notification %>
 
-<input type="hidden" name="admin_campaign[kind]" value="<%= @group %>">
+<input type="hidden" name="admin_campaign[kind]" value="<%= @kind %>">
 <input type="hidden" name="admin_campaign[newsletter_id]"  value="<%= @newsletter_id %>">
 
 <div class="form-inputs">
-  
-<% if @group == 'college' %>
 
-    <%=  content_tag :h2, 'Colleges'  %>
-    
-    <% @data.each do | d | %>
-       <input type="checkbox" name="admin_campaign[element_id]" value="<%= d.id  %>"><%= d.name  %> <br />
-    <% end %>
-<% end %>
-
-
-<% if @group == 'group' %>
+<% if @kind == 'group' %>
     <%=  content_tag :h2, 'Groups'  %>
     <% @data.each do | d | %>
        <input type="checkbox"  name="admin_campaign[element_id]" value="<%= d.id  %>"><%= d.name  %> <br />
@@ -27,7 +17,7 @@
     
 <% end %>
 
-<% if @group == 'class' %>
+<% if @kind == 'class' %>
     <%=  content_tag :h2, 'Class Rooms'  %>
     <% @data.each do | d | %>
        <input type="checkbox"  name="admin_campaign[element_id]" value="<%= d.id  %>"><%= d.name  %> <br />
@@ -35,7 +25,7 @@
     
 <% end %>
 
-<% if @group == 'user' %>
+<% if @kind == 'user' %>
     <%=  content_tag :h2, 'Users'  %>
 
     <% @data.each do | d | %>
