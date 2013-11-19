@@ -15,6 +15,23 @@ class MyMail < ActionMailer::Base
   #
   #   en.my_mail.confirmation.subject
   #
+  def send_newsletter(user, nl)
+    
+    #@user  = entity_user_request.user
+    #logger.debug  "\n  Debug: entity_user_request.confirmation_token:" +  entity_user_request.confirmation_token + "\n" if Rails.env.development?
+    #logger.debug  "\n  Debug: host:" +  host + "\n" if Rails.env.development?
+    #@link  = home_confirm_entity_request_url(entity_user_request.confirmation_token, host: host)
+
+    #mail( to: user.email, subject: nl.title, body:nl.body)
+    mail( to: 'mmontoya@gmail.com', subject: nl.title, body:nl.htmlemail)
+  end
+
+
+  # Subject can be set in your I18n file at config/locales/en.yml
+  # with the following lookup:
+  #
+  #   en.my_mail.confirmation.subject
+  #
   def confirmation(entity_user_request)
     
     @user  = entity_user_request.user
@@ -73,6 +90,5 @@ class MyMail < ActionMailer::Base
   end
 
   
-
 end
 

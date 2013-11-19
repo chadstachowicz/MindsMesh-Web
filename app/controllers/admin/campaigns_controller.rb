@@ -3,7 +3,7 @@
 
 class Admin::CampaignsController < ApplicationController
 
-  load_and_authorize_resource
+  #load_and_authorize_resource
 
   respond_to :html, :json, :js
   
@@ -23,14 +23,27 @@ class Admin::CampaignsController < ApplicationController
     @admin_campaign = Admin::Campaign.new
   end
 
+  def groups
+    # return render :text => params[:admin_campaign]
+
+    @newsletter_id  = params[:admin_campaign][:newsletter_id]
+    @kind  = params[:admin_campaign][:kind]
+    @admin_campaign = Admin::Campaign.new
+    @data           = Admin::Newsletter.get_group(params[:admin_campaign][:entity_id], params[:admin_campaign][:kind])  # pass the array
+    #return render :text => @data
+    #respond_to do |format|
+    #    format.html { render :layout => !request.xhr? }
+    #end
+    
+  end
+
   # POST /admin/campaigns
   def create
 
-    return render :text => params
+    #return render :text => params[:admin_campaign]
+                                   
+    @emails_sent = Admin::Campaign.send_mails_and_save(params[:admin_campaign])
 
-    @emails_sent = Admin::Campaign.send_mails_and_save(params)
-
-    redirect_to admin_campaigns_path, notice: 'Campaign was created.'
   end
 
   # GET /admin/campaigns/1/edit

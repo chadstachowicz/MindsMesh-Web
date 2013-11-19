@@ -1,6 +1,6 @@
 
 Kind: <%= @kind %>
-<%= simple_form_for(@admin_campaign,  :url => url_for(:action => 'create', :controller => 'campaigns'), :html => { :method => :post, :onsubmit => 'return checkCB();' })  do |f| %>
+<%= simple_form_for(@admin_campaign,  :url => url_for(:controller => 'campaigns', :action => 'create'), :html => { :method => :post, :onsubmit => 'return checkCB();' })  do |f| %>
 
   <%= f.error_notification %>
   <input type="hidden" name="admin_campaign[kind]" value="<%= @kind %>">
@@ -14,9 +14,8 @@ Kind: <%= @kind %>
 
       <% if @kind == 'users' %>    
           <% if d.has_key?(:users) %>
-           <input type="hidden" name="admin_campaign[entity_id]"  value="<%= d[:id] %>">
               <% d[:users].each do |k,v| %>
-                  <%= check_box_tag("admin_campaign[entity_ids][]", d[:id], false, {user_id:d[:id], class:'eleclass'} )  %><%= v  %> <br />
+                  <input type="checkbox" class="eleclass" name="admin_campaign[entity_ids][<%= d[:id] %>][user_ids][<%= k  %>]" value="<%= k  %>"><%= v  %> <br />
               <% end %>
           <% else %>
              <p>There is no groups in this college</p>

@@ -20,14 +20,14 @@ class Admin::NewslettersController < ApplicationController
   
   # GET /admin/newsletters/select/1
   def select
-    @newsletter_id = params[:id]
-    @admin_newsletter = Admin::Newsletter.new
-   
+    @admin_newsletter = Admin::Newsletter.find(params[:id])
     @entities = Entity.find(:all)
+    @admin_campaign = Admin::Campaign.new
   end
   
   # GET /admin/newsletters/group/1
   def groups
+    # DEPEERACTED
     # return render :text => params[:admin_newsletter][:element_id]
 
     @newsletter_id  = params[:newsletter_id]

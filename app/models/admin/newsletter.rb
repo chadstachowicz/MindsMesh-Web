@@ -37,23 +37,19 @@ class Admin::Newsletter < ActiveRecord::Base
             case kind
                 when 'users'
                     entity[:users] = users
+
                 when 'groups'
                     groups = Group.where(entity_id:e.id).select("id,name")
 
                     if !groups.empty?
                         entity[:groups] = groups
                     end
-                    #groups.each do |g|
-                    #    entity['users'] = [g.id, g.name]
-                    #end            
+                    
                 when 'topics'
                     topics = Topic.where(entity_id:e.id).select("id,name")
                     if !topics.empty?
                         entity[:topics] = topics 
                     end
-                    #topics.each do |t|
-                    #    data << [e.id, e.name] << [t.id, t.name] 
-                    #end           
             end
           
             # Rails.logger.debug "result: #{result.inspect} \n\n"

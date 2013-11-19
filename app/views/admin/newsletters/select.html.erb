@@ -16,31 +16,29 @@ Requirements:<br />
 <p>A specific school (all user classes)<br />
  A pecific class at a specific school <br />
  A pecific user class(faculty/admin/student) at a specific school <br />
-A student group/organization<br />
+ A student group/organization<br />
 </p>
 
-
 <div style="padding:8px;background-color:#fff;margin:8px;border:1px dotted gray;" id='divcbxs'>
-  
 
-<%= simple_form_for(@admin_newsletter,  :url => url_for(:action => 'groups', :controller => 'newsletters'), :html => { :method => :post, :onsubmit => 'return checkCB();' } )   do |f| %>
+<%= simple_form_for(@admin_campaign, :url => url_for(:controller => 'campaigns', :action => 'groups'), :html => { :method => :post, :onsubmit => 'return checkCB();' } )   do |f| %>
   
-  <input type="hidden" name="admin_campaign[newsletter_id]"  value="<%= @newsletter_id %>">
+  <input type="hidden" name="admin_campaign[newsletter_id]"  value="<%= @admin_newsletter.id %>">
 
-  <div> 
+  <div style="padding:8px;margin:4px;border:1px dotted gray;"> 
      <label for="firstname">Group the users according to:</label>
-     <input type="radio" name="kind" value="users"> Kind of Users 
-     <input type="radio" name="kind" value="topics"> Class 
-     <input type="radio" name="kind" value="groups" checked="checked"> Groups<br />
+     <input type="radio" name="admin_campaign[kind]" value="users"> Kind of Users 
+     <input type="radio" name="admin_campaign[kind]" value="topics"> Class 
+     <input type="radio" name="admin_campaign[kind]" value="groups" checked="checked"> Groups<br />
   </div>
 
 
   <label>Select colleges that you want to send this email:</label>
-  <input type="checkbox" id="selectall" name="admin_newsletter[all]" value="all" class="selectedId">Select all <br />
+  <input type="checkbox" id="selectall" name="admin_campaign[all]" value="all" class="selectedId">Select all <br />
 
  
     <% @entities.each do | d | %>
-       <input type="checkbox"  name="admin_newsletter[element_id][]" value="<%= d.id  %>" class="selectedId"><%= d.name  %> <br />
+       <input type="checkbox"  name="admin_campaign[entity_id][]" value="<%= d.id  %>" class="selectedId"><%= d.name  %> <br />
        <!-- %= check_box_tag 'tos', d.id, false, :class => 'accept_tos' % -->
     <% end %>
 
