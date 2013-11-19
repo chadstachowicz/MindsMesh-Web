@@ -1,5 +1,7 @@
 
-Kind: <%= @kind %>
+<div style="padding:10px;margin:6px;background-color:#fff;border: 2px solid gray;">
+
+<h2>Select the <%= @kind %> you want to send this email to:</h2>
 
 <%= simple_form_for(@admin_campaign,  :url => url_for(:controller => 'campaigns', :action => 'create'), :html => { :method => :post, :onsubmit => 'return checkCB();' })  do |f| %>
 
@@ -56,6 +58,7 @@ Kind: <%= @kind %>
   </form>
 <% end %>
 
+</div>
 
 <script type="text/javascript">
 
