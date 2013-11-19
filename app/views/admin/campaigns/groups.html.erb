@@ -1,5 +1,6 @@
 
 Kind: <%= @kind %>
+
 <%= simple_form_for(@admin_campaign,  :url => url_for(:controller => 'campaigns', :action => 'create'), :html => { :method => :post, :onsubmit => 'return checkCB();' })  do |f| %>
 
   <%= f.error_notification %>
@@ -18,18 +19,17 @@ Kind: <%= @kind %>
                   <input type="checkbox" class="eleclass" name="admin_campaign[entity_ids][<%= d[:id] %>][user_ids][<%= k  %>]" value="<%= k  %>"><%= v  %> <br />
               <% end %>
           <% else %>
-             <p>There is no groups in this college</p>
+             <p>No groups in this college yet.</p>
           <% end %>  
       <% end %>
 
       <% if @kind == 'groups' %>    
           <% if d.has_key?(:groups) %>
-           <input type="hidden" name="admin_campaign[entity_id]"  value="<%= d[:id] %>">
               <% d[:groups].each do |g| %>
-                  <input type="checkbox" class="eleclass" name="admin_campaign[user_id][]" value="<%= g.id  %>"><%= g.name  %> <br />
+                <input type="checkbox" class="eleclass" name="admin_campaign[entity_ids][<%= d[:id] %>][user_ids][<%= g.id  %>]" value="<%= g.id  %>"><%= g.name  %> <br />
               <% end %>
           <% else %>
-             <p>There is no groups in this college</p>
+             <p>No groups in this college yet.</p>
           <% end %>  
       <% end %>
 
@@ -37,10 +37,10 @@ Kind: <%= @kind %>
           <% if d.has_key?(:topics) %>
            <input type="hidden" name="admin_campaign[entity_id]"  value="<%= d[:id] %>">
               <% d[:topics].each do |t| %>
-                  <input type="checkbox" class="eleclass" name="admin_campaign[user_id][]" value="<%= t.id  %>"><%= t.name  %> <br />
+                  <input type="checkbox" class="eleclass" name="admin_campaign[entity_ids][<%= d[:id] %>][user_ids][<%= t.id  %>]" value="<%= t.id  %>"><%= t.name  %> <br />
               <% end %>
           <% else %>
-             <p>There is no topics in this college</p>
+             <p>No topics in this college yet.</p>
           <% end %>  
       <% end %>
 

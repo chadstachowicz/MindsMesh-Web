@@ -23,7 +23,7 @@ class MyMail < ActionMailer::Base
     #@link  = home_confirm_entity_request_url(entity_user_request.confirmation_token, host: host)
 
     #mail( to: user.email, subject: nl.title, body:nl.body)
-    mail( to: 'mmontoya@gmail.com', subject: nl.title, body:nl.htmlemail)
+    mail( to: 'mmontoya@gmail.com', subject: nl.title, body:nl.htmlemail.html_safe)
   end
 
 
