@@ -18,4 +18,8 @@
  *= require jquery-ui-1.10.2.custom
  *= require ui.daterangepicker
  *= require jquery.pixelentity.flare.min
+ *= require /tinymce/themes/lightgray/skin.min
+ *= require /tinymce/themes/lightgray/content.min
+ * = require /tinymce/themes/advanced/skins/thebigreason/ui.css
+ * = require /tinymce/themes/advanced/skins/thebigreason/dialog.css
  */

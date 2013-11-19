@@ -58,6 +58,7 @@ gem 'bootstrap-sass'
 gem 'font-awesome-sass-rails'
 gem 'select2-rails'
 gem 'mail', '>= 2.4.4'
+gem 'tinymce-rails'
 
 group :assets do
 

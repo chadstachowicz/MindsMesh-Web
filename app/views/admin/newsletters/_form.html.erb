@@ -1,5 +1,5 @@
+<%= tinymce_assets %>
 
-<%= javascript_include_tag "tinymce-release/tinymce.min" %>
 
 <script type="text/javascript">
 tinymce.init({
@@ -25,8 +25,8 @@ tinymce.init({
   <%= f.error_notification %>
 
   <div class="form-inputs">
-    <%= label_tag(:title, "Title") %>
-    <%= f.text_field :title, :class => "input-xxlarge" %>
+    <%= label_tag(:title, "Email subject") %>
+    <%= f.text_field :title, :class => "tinymce" %>
     <%
       options =  {:label => false}
 
@@ -42,5 +42,5 @@ tinymce.init({
 <% end %>
 
 
-
+<%= tinymce %>
 

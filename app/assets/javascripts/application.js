@@ -38,4 +38,5 @@
 //= require underscore
 //= require backbone
 //= require bb-private-messages.js
-//= require tinymce-release/tinymce.min
+//= require tinymce
+
