@@ -23,6 +23,7 @@ gem 'versionist'
 gem 'resque'
 gem 'daemons', require: false
 gem 'paperclip'
+gem 'sendgrid'
 gem 'aws-sdk', '~> 1.3.4'
 gem 'mails_viewer'
 gem 'will_paginate'

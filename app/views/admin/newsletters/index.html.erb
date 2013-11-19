@@ -11,15 +11,12 @@
     <th></th>
     <th></th>
   </tr>
-<%
-msg = "alert('This email has been sent to:  #{current_user.email} '); return false"
-%>
 <% @admin_newsletters.each do |admin_newsletter| %>
   <tr style="border:1px dotted gray;margin:18px auto;text-align:left;">
     <td><%= admin_newsletter.title %></td>
     <td>Never Sent</td>
     <td><%= link_to image_tag('icon-preview.png', :title=>'Preview', :alt=>'Preview'), admin_newsletter %></td>
-    <td><%= link_to image_tag('icon-send.png', :title=>'Send me a test', :alt=>'Send me a test'), test_admin_newsletters_path(admin_newsletter), :onclick => msg %></td>
+    <td><%= link_to image_tag('icon-send.png', :title=>'Send me a test', :alt=>'Send me a test'), test_admin_newsletters_path(admin_newsletter) %></td>
     <td><%= link_to image_tag('icon-mail.png', :title=>'Select', :alt=>'Select'),  ns_select_admin_newsletters_path(admin_newsletter) %></td>
     <td><%= link_to image_tag('icon-files.png', :title=>'Historic', :alt=>'Historic'),  historic_admin_newsletters_path(admin_newsletter) %></td>
     <td><%= link_to image_tag('icon-edit.png', :title=>'Edit', :alt=>'Edit'), edit_admin_newsletter_path(admin_newsletter) %></td>

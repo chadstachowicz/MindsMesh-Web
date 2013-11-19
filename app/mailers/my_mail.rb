@@ -4,6 +4,10 @@
 class MyMail < ActionMailer::Base
     
   self.default(from: 'mmontoya@gmail.com')
+  include SendGrid
+  
+  sendgrid_category :use_subject_lines
+  sendgrid_enable   :ganalytics, :opentrack
 
   def mail_test
     @subject    = "Test mailer MindsMesh"
@@ -23,7 +27,7 @@ class MyMail < ActionMailer::Base
     #@link  = home_confirm_entity_request_url(entity_user_request.confirmation_token, host: host)
 
     #mail( to: user.email, subject: nl.title, body:nl.body)
-    mail( to: 'mmontoya@gmail.com', subject: nl.title, body:nl.htmlemail.html_safe)
+    mail( to: 'mmontoya@gmail.com', subject: nl.title, body: nl.htmlemail.html_safe)
   end
 
 

@@ -27,23 +27,22 @@ class Admin::NewslettersController < ApplicationController
   
   # GET /admin/newsletters/group/1
   def groups
-    # DEPEERACTED
+    # DEPRECATED
     # return render :text => params[:admin_newsletter][:element_id]
 
     @newsletter_id  = params[:newsletter_id]
-    @kind  = params[:kind]
+    @kind           = params[:kind]
     @admin_campaign = Admin::Campaign.new
     @data           = Admin::Newsletter.get_group(params[:admin_newsletter][:element_id], params[:kind])  # pass the array
-    #return render :text => @data
-    #respond_to do |format|
-    #    format.html { render :layout => !request.xhr? }
-    #end
-    
+
   end
 
   # GET /admin/newsletters/test/1
   def test
-    @admin_newsletter = Admin::Newsletter.find(params[:id])
+     nl   = Admin::Newsletter.find(params[:id])
+     user = User.find(current_user.id)
+     MyMail.send_newsletter(user,nl).deliver
+     redirect_to admin_newsletters_path, notice: "The email: \"#{nl.title}\" has been sent to you."
   end
   
     # GET /admin/newsletters/test/1

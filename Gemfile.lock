@@ -317,6 +317,8 @@ GEM
     select2-rails (3.4.8)
       sass-rails
       thor (~> 0.14)
+    sendgrid (1.2.0)
+      json
     signature (0.1.7)
     simple_form (2.1.0)
       actionpack (~> 3.0)
@@ -458,6 +460,7 @@ DEPENDENCIES
   sass
   sass-rails
   select2-rails
+  sendgrid
   simple_form
   smarter_csv (~> 1.0.8)
   spork
