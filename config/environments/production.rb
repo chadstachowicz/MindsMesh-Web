@@ -20,7 +20,7 @@ Mindsmesh::Application.configure do
   config.cache_classes = true
 
   # Full error reports are disabled and caching is turned on
-  config.consider_all_requests_local       = false
+  config.consider_all_requests_local       = true
   config.action_controller.perform_caching = true
     
   config.action_mailer.default_url_options = { :host => 'www.mindsmesh.com' }
@@ -48,7 +48,7 @@ Mindsmesh::Application.configure do
   config.force_ssl = false
 
   # See everything in the log (default is :info)
-  # config.log_level = :debug
+  config.log_level = :debug
 
   # Prepend all log lines with the following tags
   # config.log_tags = [ :subdomain, :uuid ]

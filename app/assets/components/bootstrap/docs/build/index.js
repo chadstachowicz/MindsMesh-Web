@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+//#!/usr/bin/env node
 var hogan = require('hogan.js')
   , fs    = require('fs')
   , prod  = process.argv[2] == 'production'
