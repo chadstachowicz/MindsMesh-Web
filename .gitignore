@@ -31,3 +31,4 @@ __MACOSX
 
 #ignore sass temporals
 .sass-cache
+/.sass-cache/
