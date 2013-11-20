@@ -11,7 +11,7 @@ class Admin::Campaign < ActiveRecord::Base
 
   attr_accessible :kind, :user_id, :historic, :newsletter_id, :entity_id 
   ROLES = {
-            'admin'     =>  30,
+            'admin'     => 30,
             'student'   => 10,
             'moderator' => 1
           }

@@ -7,7 +7,27 @@
 # pass: querty at argentina 
 User.transaction do
     # if Rails.env.development?
-    User.create({name:'Admin Test User', role_i:30, email:'admin@lousianatest.edu', name: 'Admin User', encrypted_password:'$2a$10$4R.gf6j9AmV4GAgszYVLxeCaoNFiRbsLm0VSM5hoOn0YxD8DNwt2u'})
+    # 'school admin'    20,  'student' = 10,          'moderator' = 1
+          
+    users = [
+              {name:'Admin Test User', role_i:30, email:'admin@lousianatest.edu', name: 'Admin User', encrypted_password:'$2a$10$4R.gf6j9AmV4GAgszYVLxeCaoNFiRbsLm0VSM5hoOn0YxD8DNwt2u'},
+         {name:'AdminTestUser',role_i:20,email:'scholadmin1@southcartest.edu', name: 'SchoolAdmin', encrypted_password:'$2a$10$4R.gfmV4GAgszYVLxeCaoNFiRbsLm0VDNwt2u'},
+         {name:'StudentUser',role_i:10,email:'scholadmin2@sanantoniotest.ed', name: 'SchoolAdmin2', encrypted_password:'$2a$10$4R.gfmV4GAgszYVLxeCaoNFiRbsLm0VDNwt2u'},
+         {name:'AdminTestUser',role_i:20,email:'scholadmin3@nytest.edu', name: 'SchoolAdmin3', encrypted_password:'$2a$10$4R.gfmV4GAgszYVLxeCaoNFiRbsLm0VDNwt2u'},
+         {name:'StudentUser',role_i:10,email:'scholadmin4@testschool.edu', name: 'Schoolusr2', encrypted_password:'$2a$10$4R.gfmV4GAgszYVLxeCaoNFiRbsLm0VDNwt2u'},
+         {name:'studentstUser',role_i:10,email:'scholadmin5@southcartest.edu', name: 'Schooluerts', encrypted_password:'$2a$10$4R.gfmV4GAgszYVLxeCaoNFiRbsLm0VDNwt2u'},
+         {name:'adminuser',role_i:20,email:'scholadmin6@charlottetest.edu', name: 'SchooltestAdmin', encrypted_password:'$2a$10$4R.gfmV4GAgszYVLxeCaoNFiRbsLm0VDNwt2u'},
+         {name:'studentuser',role_i:10,email:'scholadmin7@charlottetest.edu', name: 'School user', encrypted_password:'$2a$10$4R.gfmV4GAgszYVLxeCaoNFiRbsLm0VDNwt2u'},
+         {name:'adminuser',role_i:20,email:'scholadmin8@uclatest.edu', name: 'Aduser', encrypted_password:'$2a$10$4R.gfmV4GAgszYVLxeCaoNFiRbsLm0VDNwt2u'},
+         {name:'strudneser',role_i:10,email:'scholusr9@southcartest.edu', name: 'Stunding', encrypted_password:'$2a$10$4R.gfmV4GAgszYVLxeCaoNFiRbsLm0VDNwt2u'},
+         {name:'adminuser',role_i:20,email:'scholadmin10@uclatest.edu', name: 'ColleAdmin', encrypted_password:'$2a$10$4R.gfmV4GAgszYVLxeCaoNFiRbsLm0VDNwt2u'},
+         {name:'strudneser',role_i:10,email:'scholadmin11@southcartest.edu', name: 'Schooltest', encrypted_password:'$2a$10$4R.gfmV4GAgszYVLxeCaoNFiRbsLm0VDNwt2u'},
+         {name:'adminuser',role_i:1,email:'scholmode12@uclatest.edu', name: 'SchoolModera', encrypted_password:'$2a$10$4R.gfmV4GAgszYVLxeCaoNFiRbsLm0VDNwt2u'},
+         {name:'strudneser',role_i:1,email:'moder13@southcartest.edu', name: 'SchoolModer', encrypted_password:'$2a$10$4R.gfmV4GAgszYVLxeCaoNFiRbsLm0VDNwt2u'}
+           ]
+    users.each do |u|
+       User.create!(u)
+    end
    #end
 end
 
@@ -17,7 +37,7 @@ Entity.transaction do
       ls = Array.new
       entities = [
            {name: 'South D Test', state_name: 'SD', domains: '|dakotaunitest.edu|' },
-           {name: 'San Antonio Test',  state_name: 'TX', domains: '|sanantoniotest.edu|'},
+           {name: 'San Antonio Test',  state_name: 'TX', domains: '|sanantoniotest.ed|'},
            {name: 'NYC College Test', state_name: 'NY', domains: '|nytest.edu|'},
            {name: 'North D Test', state_name: 'ND', domains: '|testschool.edu|'},
            {name: 'Charlotte College Test', state_name: 'NC', domains: '|charlottetest.edu|'},

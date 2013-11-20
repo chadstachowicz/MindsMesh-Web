@@ -45,7 +45,7 @@ GEM
     better_errors (1.0.1)
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
-    bootstrap-sass (2.3.2.2)
+    bootstrap-sass (3.0.2.1)
       sass (~> 3.2)
     builder (3.0.4)
     cancan (1.6.10)
@@ -416,7 +416,7 @@ DEPENDENCIES
   backbonejs-rails
   best_in_place
   better_errors
-  bootstrap-sass
+  bootstrap-sass (~> 3.0.2.0)
   cancan
   capistrano
   capybara
@@ -460,7 +460,7 @@ DEPENDENCIES
   roo
   rspec-rails
   sass
-  sass-rails
+  sass-rails (>= 3.2)
   select2-rails
   sendgrid
   simple_form

@@ -1,0 +1,60 @@
+/*
+Syntax error: File to import not found or unreadable: bootstrap.
+              Load paths:
+                /home/aarkerio/entwicklung/rails/MindsMeshHeroku/app/assets/stylesheets/admin
+                /home/aarkerio/entwicklung/rails/MindsMeshHeroku/app/assets/stylesheets/admin
+        on line 5 of /home/aarkerio/entwicklung/rails/MindsMeshHeroku/app/assets/stylesheets/admin/admin.scss
+
+1: // Place all the styles related to the Hashtags controller here.
+2: // They will automatically be included in application.css.
+3: // You can use Sass (SCSS) here: http://sass-lang.com/
+4: 
+5: @import "bootstrap";
+6: 
+7: $color:"#ffff";
+8: 
+9: .sdafsdfsdf {
+10:     color:$color;
+
+Backtrace:
+/home/aarkerio/entwicklung/rails/MindsMeshHeroku/app/assets/stylesheets/admin/admin.scss:5
+/home/aarkerio/start/.rvm/gems/ruby-2.0.0-p195@mindsmesh/gems/sass-3.2.10/lib/sass/tree/import_node.rb:67:in `rescue in import'
+/home/aarkerio/start/.rvm/gems/ruby-2.0.0-p195@mindsmesh/gems/sass-3.2.10/lib/sass/tree/import_node.rb:45:in `import'
+/home/aarkerio/start/.rvm/gems/ruby-2.0.0-p195@mindsmesh/gems/sass-3.2.10/lib/sass/tree/import_node.rb:28:in `imported_file'
+/home/aarkerio/start/.rvm/gems/ruby-2.0.0-p195@mindsmesh/gems/sass-3.2.10/lib/sass/tree/import_node.rb:37:in `css_import?'
+/home/aarkerio/start/.rvm/gems/ruby-2.0.0-p195@mindsmesh/gems/sass-3.2.10/lib/sass/tree/visitors/perform.rb:217:in `visit_import'
+/home/aarkerio/start/.rvm/gems/ruby-2.0.0-p195@mindsmesh/gems/sass-3.2.10/lib/sass/tree/visitors/base.rb:37:in `visit'
+/home/aarkerio/start/.rvm/gems/ruby-2.0.0-p195@mindsmesh/gems/sass-3.2.10/lib/sass/tree/visitors/perform.rb:100:in `visit'
+/home/aarkerio/start/.rvm/gems/ruby-2.0.0-p195@mindsmesh/gems/sass-3.2.10/lib/sass/tree/visitors/base.rb:53:in `block in visit_children'
+/home/aarkerio/start/.rvm/gems/ruby-2.0.0-p195@mindsmesh/gems/sass-3.2.10/lib/sass/tree/visitors/base.rb:53:in `map'
+/home/aarkerio/start/.rvm/gems/ruby-2.0.0-p195@mindsmesh/gems/sass-3.2.10/lib/sass/tree/visitors/base.rb:53:in `visit_children'
+/home/aarkerio/start/.rvm/gems/ruby-2.0.0-p195@mindsmesh/gems/sass-3.2.10/lib/sass/tree/visitors/perform.rb:109:in `block in visit_children'
+/home/aarkerio/start/.rvm/gems/ruby-2.0.0-p195@mindsmesh/gems/sass-3.2.10/lib/sass/tree/visitors/perform.rb:121:in `with_environment'
+/home/aarkerio/start/.rvm/gems/ruby-2.0.0-p195@mindsmesh/gems/sass-3.2.10/lib/sass/tree/visitors/perform.rb:108:in `visit_children'
+/home/aarkerio/start/.rvm/gems/ruby-2.0.0-p195@mindsmesh/gems/sass-3.2.10/lib/sass/tree/visitors/base.rb:37:in `block in visit'
+/home/aarkerio/start/.rvm/gems/ruby-2.0.0-p195@mindsmesh/gems/sass-3.2.10/lib/sass/tree/visitors/perform.rb:128:in `visit_root'
+/home/aarkerio/start/.rvm/gems/ruby-2.0.0-p195@mindsmesh/gems/sass-3.2.10/lib/sass/tree/visitors/base.rb:37:in `visit'
+/home/aarkerio/start/.rvm/gems/ruby-2.0.0-p195@mindsmesh/gems/sass-3.2.10/lib/sass/tree/visitors/perform.rb:100:in `visit'
+/home/aarkerio/start/.rvm/gems/ruby-2.0.0-p195@mindsmesh/gems/sass-3.2.10/lib/sass/tree/visitors/perform.rb:7:in `visit'
+/home/aarkerio/start/.rvm/gems/ruby-2.0.0-p195@mindsmesh/gems/sass-3.2.10/lib/sass/tree/root_node.rb:20:in `render'
+/home/aarkerio/start/.rvm/gems/ruby-2.0.0-p195@mindsmesh/gems/sass-3.2.10/lib/sass/engine.rb:315:in `_render'
+/home/aarkerio/start/.rvm/gems/ruby-2.0.0-p195@mindsmesh/gems/sass-3.2.10/lib/sass/engine.rb:262:in `render'
+/home/aarkerio/start/.rvm/gems/ruby-2.0.0-p195@mindsmesh/gems/sass-3.2.10/lib/sass/plugin/compiler.rb:362:in `update_stylesheet'
+/home/aarkerio/start/.rvm/gems/ruby-2.0.0-p195@mindsmesh/gems/sass-3.2.10/lib/sass/plugin/compiler.rb:203:in `block in update_stylesheets'
+/home/aarkerio/start/.rvm/gems/ruby-2.0.0-p195@mindsmesh/gems/sass-3.2.10/lib/sass/plugin/compiler.rb:201:in `each'
+/home/aarkerio/start/.rvm/gems/ruby-2.0.0-p195@mindsmesh/gems/sass-3.2.10/lib/sass/plugin/compiler.rb:201:in `update_stylesheets'
+/home/aarkerio/start/.rvm/gems/ruby-2.0.0-p195@mindsmesh/gems/sass-3.2.10/lib/sass/plugin.rb:81:in `update_stylesheets'
+/home/aarkerio/start/.rvm/gems/ruby-2.0.0-p195@mindsmesh/gems/sass-3.2.10/lib/sass/exec.rb:435:in `watch_or_update'
+/home/aarkerio/start/.rvm/gems/ruby-2.0.0-p195@mindsmesh/gems/sass-3.2.10/lib/sass/exec.rb:318:in `process_result'
+/home/aarkerio/start/.rvm/gems/ruby-2.0.0-p195@mindsmesh/gems/sass-3.2.10/lib/sass/exec.rb:41:in `parse'
+/home/aarkerio/start/.rvm/gems/ruby-2.0.0-p195@mindsmesh/gems/sass-3.2.10/lib/sass/exec.rb:21:in `parse!'
+/home/aarkerio/start/.rvm/gems/ruby-2.0.0-p195@mindsmesh/gems/sass-3.2.10/bin/sass:9:in `<top (required)>'
+/home/aarkerio/start/.rvm/gems/ruby-2.0.0-p195@mindsmesh/bin/sass:23:in `load'
+/home/aarkerio/start/.rvm/gems/ruby-2.0.0-p195@mindsmesh/bin/sass:23:in `<main>'
+/home/aarkerio/start/.rvm/gems/ruby-2.0.0-p195@mindsmesh/bin/ruby_executable_hooks:15:in `eval'
+/home/aarkerio/start/.rvm/gems/ruby-2.0.0-p195@mindsmesh/bin/ruby_executable_hooks:15:in `<main>'
+*/
+body:before {
+  white-space: pre;
+  font-family: monospace;
+  content: "Syntax error: File to import not found or unreadable: bootstrap.\A               Load paths:\A                 /home/aarkerio/entwicklung/rails/MindsMeshHeroku/app/assets/stylesheets/admin\A                 /home/aarkerio/entwicklung/rails/MindsMeshHeroku/app/assets/stylesheets/admin\A         on line 5 of /home/aarkerio/entwicklung/rails/MindsMeshHeroku/app/assets/stylesheets/admin/admin.scss\A \A 1: // Place all the styles related to the Hashtags controller here.\A 2: // They will automatically be included in application.css.\A 3: // You can use Sass (SCSS) here: http://sass-lang.com/\A 4: \A 5: @import \"bootstrap\";\A 6: \A 7: $color:\"#ffff\";\A 8: \A 9: .sdafsdfsdf {\A 10:     color:$color;"; }
