@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery-ui
 //= require jquery_ujs
+//= require twitter/bootstrap
 //= require jquery.scrollTo-min
 //= require jquery.cookie
 //= require jquery.watermark.min

@@ -1,23 +1,24 @@
 /*
-Syntax error: File to import not found or unreadable: bootstrap.
+Syntax error: File to import not found or unreadable: twitter/bootstrap/bootstrap.
               Load paths:
                 /home/aarkerio/entwicklung/rails/MindsMeshHeroku/app/assets/stylesheets/admin
                 /home/aarkerio/entwicklung/rails/MindsMeshHeroku/app/assets/stylesheets/admin
-        on line 5 of /home/aarkerio/entwicklung/rails/MindsMeshHeroku/app/assets/stylesheets/admin/admin.scss
+        on line 7 of /home/aarkerio/entwicklung/rails/MindsMeshHeroku/app/assets/stylesheets/admin/admin.scss
 
-1: // Place all the styles related to the Hashtags controller here.
 2: // They will automatically be included in application.css.
 3: // You can use Sass (SCSS) here: http://sass-lang.com/
 4: 
-5: @import "bootstrap";
+5: //  @import "../bootstrap-custom";
 6: 
-7: $color:"#ffff";
-8: 
-9: .sdafsdfsdf {
-10:     color:$color;
+7: @import "twitter/bootstrap/bootstrap";
+8: @import "twitter/bootstrap/responsive";
+9: 
+10: $color:"#ffff";
+11:   
+12: .maindiv {
 
 Backtrace:
-/home/aarkerio/entwicklung/rails/MindsMeshHeroku/app/assets/stylesheets/admin/admin.scss:5
+/home/aarkerio/entwicklung/rails/MindsMeshHeroku/app/assets/stylesheets/admin/admin.scss:7
 /home/aarkerio/start/.rvm/gems/ruby-2.0.0-p195@mindsmesh/gems/sass-3.2.10/lib/sass/tree/import_node.rb:67:in `rescue in import'
 /home/aarkerio/start/.rvm/gems/ruby-2.0.0-p195@mindsmesh/gems/sass-3.2.10/lib/sass/tree/import_node.rb:45:in `import'
 /home/aarkerio/start/.rvm/gems/ruby-2.0.0-p195@mindsmesh/gems/sass-3.2.10/lib/sass/tree/import_node.rb:28:in `imported_file'
@@ -57,4 +58,4 @@ Backtrace:
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Syntax error: File to import not found or unreadable: bootstrap.\A               Load paths:\A                 /home/aarkerio/entwicklung/rails/MindsMeshHeroku/app/assets/stylesheets/admin\A                 /home/aarkerio/entwicklung/rails/MindsMeshHeroku/app/assets/stylesheets/admin\A         on line 5 of /home/aarkerio/entwicklung/rails/MindsMeshHeroku/app/assets/stylesheets/admin/admin.scss\A \A 1: // Place all the styles related to the Hashtags controller here.\A 2: // They will automatically be included in application.css.\A 3: // You can use Sass (SCSS) here: http://sass-lang.com/\A 4: \A 5: @import \"bootstrap\";\A 6: \A 7: $color:\"#ffff\";\A 8: \A 9: .sdafsdfsdf {\A 10:     color:$color;"; }
+  content: "Syntax error: File to import not found or unreadable: twitter/bootstrap/bootstrap.\A               Load paths:\A                 /home/aarkerio/entwicklung/rails/MindsMeshHeroku/app/assets/stylesheets/admin\A                 /home/aarkerio/entwicklung/rails/MindsMeshHeroku/app/assets/stylesheets/admin\A         on line 7 of /home/aarkerio/entwicklung/rails/MindsMeshHeroku/app/assets/stylesheets/admin/admin.scss\A \A 2: // They will automatically be included in application.css.\A 3: // You can use Sass (SCSS) here: http://sass-lang.com/\A 4: \A 5: //  @import \"../bootstrap-custom\";\A 6: \A 7: @import \"twitter/bootstrap/bootstrap\";\A 8: @import \"twitter/bootstrap/responsive\";\A 9: \A 10: $color:\"#ffff\";\A 11:   \A 12: .maindiv {"; }
