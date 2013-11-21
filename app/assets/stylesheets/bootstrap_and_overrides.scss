@@ -25,4 +25,10 @@ $dark-green: #074132;
     background-color: #45474d;
 }
 
+#ligas li a:link, a:visited {
+   color:$white !important; 
+}
 
+#ligas li a:hover {
+   color:yellow !important;
+}
