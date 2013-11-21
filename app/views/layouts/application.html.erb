@@ -3,12 +3,11 @@
   xmlns:fb="https://www.facebook.com/2008/fbml">
 <head>
   <title>MindsMesh.com - Collaborate with your classmates</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
   <%= favicon_link_tag '/favicon.ico' %>
-   
+
   <script type="text/javascript" charset="utf-8">    
     window.APP = {
       current_user: {
@@ -25,7 +24,7 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
 </head>
-<body>
+<body class="header_small">
 <script src="http://js.pusher.com/2.1/pusher.min.js"></script>
 	  <script type="text/javascript">
         jQuery(function($){
@@ -35,38 +34,30 @@
 </script>
   <script type="text/javascript">jwplayer.key="6q2XmZIAL0vmbFzfr2kXjH4TVQn0PfvFkmtqwQ==";</script>
   <div id="fb-root"></div>
+  <div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+      <div class="container">
 
-  <!-- admin Navbar starts  -->
-  <div class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container">
-      <div class="navbar-header">
-             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-              </button>
-        <a class="navbar-brand" href="/"> <%= image_tag('appicon-72.png', :height => 50, :width => 50, :alt => 'MindsMesh', :title => 'MindsMesh') %>     </a>
-      </div>
-     <form class="navbar-form navbar-left" role="search">
-      <div class="form-group">
-        <input type="text"  class="form-control" placeholder="Search for people or groups" id="searchAll" style="width:380px;margin-top:11px;margin-bottom:4px;margin-left:60px;"/>
-      </div>
-    </form>
+        <% if current_user %>
+          <ul class="nav pull-left" id="top_menu_left">
+            <li><a id="logo" href="/"><%= image_tag('appicon-72.png', :height => 50, :width => 50) %></a></li>
+            <!-- placeholder ajax_application.js -->
+          </ul>
+          <div style="float:none;margin-left:28%;margin-right:auto" >
+          <ul class="nav" id="top_menu_middle">
+            <li><input type="text"  placeholder="Search for people or groups" id="searchAll" style="width:380px;margin-top:11px;margin-bottom:4px;"/></li>
+          </ul>
+          
+          </div>
+          <ul class="nav pull-right" id="top_menu_right">
+            <li><a href="/"><i class="icon-home"></i> Home</a></li>
+            <!-- placeholder ajax_application.js -->
+          </ul>
+        <% end %>
 
-    <div class="collapse navbar-collapse">
-        <ul class="nav navbar-nav navbar-right" id="ligas">
-           <li><a href="/"><i class="icon-home"></i> Home</a></li>
-           <% if current_user.role_i == 30 %>
-               <li><a href="/admin/"><i class="glyphicon glyphicon-list"></i> Admin Section </a></li>
-            <% end %>
-    
-           <li><a href="#about">About</a></li>
-           <li><a href="#contact"> Contact</a></li>
-        </ul>
-      </div><!--/.nav-collapse -->
+      </div>
     </div>
   </div>
-<!-- admin Navbar ends  -->
 
   <div class="container">
     <%= "<div class='alert alert-success'><a class='close' data-dismiss='alert' href='#'>×</a><b>#{notice}</b></div>".html_safe if notice %>
@@ -100,6 +91,7 @@
 
       </div>
     </div>
+
     <table id="tablecontent" cellpadding="0">
       <tr>
         <td id="main">
@@ -124,7 +116,9 @@
     <%= render '/groups/new_group' %>
   </div>
   
-<!-- placeholder ajax_application.js -->
+
+  <!-- placeholder ajax_application.js -->
+
 <script type="text/javascript">
   $.getScript("<%= home_ajax_application_path %>");
 </script>

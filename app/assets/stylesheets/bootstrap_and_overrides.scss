@@ -1,3 +1,12 @@
+
+$iconSpritePath: '';
+$iconWhiteSpritePath: '';
+$errorText: 'orange';
+$white: rgb(255,255,255);
+$grayDark:  rgb(224,224,224);
+$infoText: rgb(1,64,5);
+$linkColor: rgb(12,64,5);
+
 //fix to use font-awesome
 $iconSpritePath: '';
 $iconWhiteSpritePath: '';
@@ -71,8 +80,6 @@ $dark-green: #074132;
   padding: 5px 0;
   label, span.help-inline { color:#fff; }
 }
-
-
 
 
 // Block level inputs
