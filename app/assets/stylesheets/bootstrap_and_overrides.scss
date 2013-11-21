@@ -1,0 +1,104 @@
+//fix to use font-awesome
+$iconSpritePath: '';
+$iconWhiteSpritePath: '';
+
+@import "bootstrap.min";
+body { padding-top: 60px; }
+@import "font-awesome";
+//@import "font-awesome-ie7";
+@import "bootstrap-responsive.min";
+
+
+// See http://twitter.github.com/bootstrap/less.html
+
+
+$dark-green: #074132;
+
+.navbar {
+	  filter: none;
+  background-color: #45474d;
+}
+
+.navbar-fixed-top {
+	  filter: none;
+  background-color: #45474d;
+}
+
+.navbar-inner {
+  min-height: 38px;
+  border-bottom:0px;
+  font-weight: normal;
+  filter: none;
+  background-color: #45474d;
+  background-image: none;
+  background-repeat: no-repeat;
+  border-top: 0px;
+  border-left: 0px;
+  border-right: 0px;
+  box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+}
+
+.navbar .nav > li > a {
+  background-color:  #45474d;
+  color:#fff;
+    margin-top: 3px;
+  font-size: 14px;
+   line-height: 35px;
+  padding: 9px 7px;
+  text-shadow: rgba(68, 74, 82, 0.2) 1px 1px 1px;
+  i { font-size:16px; }
+  &.inactive {
+    font-size:16px;color:black;
+  }
+  &.active {
+    color:#fff !important;
+  }
+  &:hover {
+    color:black !important;
+  }
+  small { position:absolute;right:3px;bottom:3px;font-size:11px; }
+}
+
+.navbar .nav > li.open > a {
+  background-color: $dark-green;
+}
+
+//form error
+
+.control-group.error2 {
+  background: $errorText;
+  padding: 5px 0;
+  label, span.help-inline { color:#fff; }
+}
+
+
+
+
+// Block level inputs
+.input-block-level {
+  display: block;
+  width: 100%;
+  min-height: 28px;
+  -moz-box-sizing:    border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing:         border-box;
+}
+
+.badge-white         { background-color: $white;color:$grayDark; }
+.badge-white[href]   { background-color: darken($white, 10%);color:darken($grayDark, 10%); }
+
+
+.nav.blue-nav {
+  .nav-header {
+    color: $infoText;
+  }
+  a span { font-size:11px; }
+  a:hover {
+    color: $white;
+    background-color: $linkColor;
+  }
+}
+.spacer {
+    margin-top: 70px; /* define margin as you see fit */
+}
