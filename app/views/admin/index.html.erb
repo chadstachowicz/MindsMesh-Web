@@ -29,7 +29,7 @@
 		    		<form action="/admin" method="GET" id="manage-rights">
 						<label>Date Range: </label><input name="daterange" id="datepicker" value="<%=params[:daterange]%>" maxlength="60" size="15" type="text"/>
 						<script>
-							$( "#datepicker").daterangepicker();
+							$( "#datepicker").datetimepicker();
 						</script>
 						<input type="hidden" id="authenticity_token" name="authenticity_token" value="<%= form_authenticity_token %>" />
 						<input type="hidden" id="res" name="res" value="<%= params[:res] %>" />

@@ -13,11 +13,10 @@
 //= require jquery
 //= require jquery-ui
 //= require jquery_ujs
-//= require twitter/bootstrap
+//= require bootstrap.min
 //= require jquery.scrollTo-min
 //= require jquery.cookie
 //= require jquery.watermark.min
-//= require bootstrap
 //= require jquery.purr
 //= require jquery-ui-1.10.2.custom.min
 //= require highcharts
@@ -31,8 +30,7 @@
 //= require posts
 //= require jwplayer
 //= require jwplayer.html5
-//= require jquery-ui-timepicker-addon
-//   require daterangepicker.jQuery  <-- old deprecated
+//= require daterangepicker.jQuery
 //= require livesearch
 //= require frontend
 //= require jquery.pixelentity.flare.min

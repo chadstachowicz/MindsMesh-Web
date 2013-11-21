@@ -45,24 +45,21 @@ gem 'rinku', :require => 'rails_rinku'
 gem 'pusher'
 gem 'backbonejs-rails'
 gem 'smarter_csv', '~> 1.0.8'
-# gem 'less'
 gem 'sass'   # so other gems don't alert
 gem 'coffee-rails'
 gem 'uglifier', '>= 1.0.3'
 gem 'therubyracer', :platform => :ruby
 gem "therubyracer"
-# gem "less-rails"
-gem "twitter-bootstrap-rails"
+gem "sass"
+gem 'sass-rails', '>= 3.2' # sass-rails needs to be higher than 3.2
+# gem 'bootstrap-sass', '~> 3.0.2.0'
 gem 'font-awesome-sass-rails'
 gem 'select2-rails'
 gem 'mail', '>= 2.4.4'
 gem 'tinymce-rails'
-gem 'sass-rails', '>= 3.2.3'    # sass-rails needs to be higher than 3.2
-gem 'bootstrap-sass', '~> 3.0.2.0'
 
-group :assets do
-
-end
+# group :assets do # the assets groups is now deprcated in rails
+# end
 
 group :production do
   gem 'unicorn'

@@ -11,6 +11,7 @@ class HomeController < ApplicationController
   
   # root app
   def index
+    # return render :text => env.inspect
     eu  = current_user.entity_users.first
     ent = EntityAdvancedSetting.find_by_entity_id(eu.entity_id)
     

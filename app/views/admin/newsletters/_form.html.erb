@@ -25,7 +25,7 @@ tinymce.init({
   <%= f.error_notification %>
 
   <div class="form-inputs">
-    <%= label_tag(:title, "Email subject") %>
+    <%= label_tag(:title, "Email subject") %><br />
     <%= f.text_field :title, :class => "tinymce" %>
     <%
       options =  {:label => false}

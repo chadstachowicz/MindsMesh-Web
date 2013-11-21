@@ -45,8 +45,6 @@ GEM
     better_errors (1.0.1)
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
-    bootstrap-sass (3.0.2.1)
-      sass (~> 3.2)
     builder (3.0.4)
     cancan (1.6.10)
     canonix (0.1.1)
@@ -367,11 +365,6 @@ GEM
       faraday (~> 0.8, < 0.10)
       multi_json (~> 1.0)
       simple_oauth (~> 0.2)
-    twitter-bootstrap-rails (2.2.8)
-      actionpack (>= 3.1)
-      execjs
-      rails (>= 3.1)
-      railties (>= 3.1)
     tzinfo (0.3.37)
     uglifier (2.2.1)
       execjs (>= 0.3.0)
@@ -410,7 +403,6 @@ DEPENDENCIES
   backbonejs-rails
   best_in_place
   better_errors
-  bootstrap-sass (~> 3.0.2.0)
   cancan
   capistrano
   capybara
@@ -452,7 +444,7 @@ DEPENDENCIES
   roo
   rspec-rails
   sass
-  sass-rails (>= 3.2.3)
+  sass-rails (>= 3.2)
   select2-rails
   sendgrid
   simple_form
@@ -466,7 +458,6 @@ DEPENDENCIES
   tinymce-rails
   turn
   twitter
-  twitter-bootstrap-rails
   uglifier (>= 1.0.3)
   unicorn
   validates_email_format_of

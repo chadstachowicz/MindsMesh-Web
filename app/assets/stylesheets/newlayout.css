@@ -23,7 +23,9 @@ body {
 
 #main {
   min-height: 600px;
-  height: 600px; }
+  /* height:600px; */
+  background-color: #fff;
+  border: 1px solid orange; }
 
 #main_index {
   background: #fff; }

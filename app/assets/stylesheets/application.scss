@@ -7,7 +7,7 @@
  *
  * You're free to add application-wide styles to this file and they'll appear at the top of the
  * compiled file, but it's generally better to create a new file per style scope.
- *
+ *  
  *= require_self
  *= require bootstrap_and_overrides
  *= require dataTables/jquery.dataTables
@@ -22,4 +22,4 @@
  *= require /tinymce/themes/lightgray/content.min
  * = require /tinymce/themes/advanced/skins/thebigreason/ui.css
  * = require /tinymce/themes/advanced/skins/thebigreason/dialog.css
- */
+ */  
