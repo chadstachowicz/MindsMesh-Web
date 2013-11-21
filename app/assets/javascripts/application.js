@@ -31,7 +31,8 @@
 //= require posts
 //= require jwplayer
 //= require jwplayer.html5
-//= require daterangepicker.jQuery
+//= require jquery-ui-timepicker-addon
+//   require daterangepicker.jQuery  <-- old deprecated
 //= require livesearch
 //= require frontend
 //= require jquery.pixelentity.flare.min

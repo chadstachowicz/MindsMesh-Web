@@ -1,23 +1,31 @@
 
-   <%= render '/admin/admin_menu', posts: @posts %>
-    <div class="row">
-		<div class="span2">
-			<ul class="nav nav-list">
-				<li class="nav-header">Report Categories</li>
-				<li><a href="/users/home?type=volume">Users</a></li>
-				<li><a href="/users/home?type=Invites">Invites</a></li>
-			</ul>
-			<ul class="nav nav-list spacer">
-				<li class="nav-header">Reports</li>
-				<li><a href="/users/home?type=volume">User Joins</a></li>
-				<li><a href="/users/home?type=agents">User Activity</a></li>
-				<li><a href="/users/home?type=agents">Top Users</a></li>
-			</ul>
-		</div>
-		<div class="span10">
-			<div class="row">
-				<p><%=@totalcounts%></p>
-				<div class="span4">
+<%= render '/admin/admin_menu', posts: @posts %>
+
+<div class="container text">
+    <div class="row">            
+      	<div class="col-lg-2">
+                	<ul class="nav nav-list">
+				 		<li class="nav-header">Report Categories</li>
+						<li><a href="/users/home?type=volume">Users</a></li>
+						<li><a href="/users/home?type=Invites">Invites</a></li>
+					</ul>
+					<ul class="nav nav-list spacer">
+						<li class="nav-header">Reports</li>
+						<li><a href="/users/home?type=volume">User Joins</a></li>
+						<li><a href="/users/home?type=agents">User Activity</a></li>
+						<li><a href="/users/home?type=agents">Top Users</a></li>
+					</ul>
+        </div><!-- lg2 ends -->
+
+        <div class="col-lg-10">
+               	<p><%= @totalcounts %></p>
+       			<ul class="nav nav-list col-lg-6">
+						<li class="nav-header">Graph Resolution</li>
+						<li><a href="/users/home?res=day">Day</a></li>
+						<li><a href="/users/home?res=month">Month</a></li>
+						<li><a href="/users/home?res=year">Year</a></li>
+				</ul>
+				<div class="col-lg-6">
 		    		<form action="/admin" method="GET" id="manage-rights">
 						<label>Date Range: </label><input name="daterange" id="datepicker" value="<%=params[:daterange]%>" maxlength="60" size="15" type="text"/>
 						<script>
@@ -27,16 +35,9 @@
 						<input type="hidden" id="res" name="res" value="<%= params[:res] %>" />
 						<input value="Search" type="submit"/>
 					</form>
-				</div>
-				<div class="span2 pull-right">
-					<ul class="nav nav-list">
-						<li class="nav-header">Graph Resolution</li>
-						<li><a href="/users/home?res=day">Day</a></li>
-						<li><a href="/users/home?res=month">Month</a></li>
-						<li><a href="/users/home?res=year">Year</a></li>
-					</ul>
-				</div>
-			</div>
-		 <%= high_chart("my_id", @h)%>
-        </div>
-   </div>
+		</div> <!-- lg2 ends -->
+		        <%= high_chart("my_id", @h)%>		
+		</div> <!-- lg10 ends -->
+	</div>  <!-- row ends -->
+</div>  <!-- container ends -->
+

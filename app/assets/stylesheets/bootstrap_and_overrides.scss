@@ -1,0 +1,28 @@
+//fix to use font-awesome
+$iconSpritePath: '';
+$iconWhiteSpritePath: '';
+$errorText: 'orange';
+$white: rgb(255,255,255);
+$grayDark:  rgb(224,224,224);
+$infoText: rgb(1,64,5);
+$linkColor: rgb(12,64,5);
+$dark-green: #074132;
+
+
+@import "bootstrap";
+@import "font-awesome";
+//@import "font-awesome-ie7";
+//@import "bootstrap-responsive";
+
+
+
+body { padding-top: 68px; }
+
+$dark-green: #074132;
+
+.navbar {
+    filter: none;
+    background-color: #45474d;
+}
+
+
