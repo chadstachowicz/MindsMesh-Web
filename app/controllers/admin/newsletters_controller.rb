@@ -1,11 +1,19 @@
 
 # MindsMesh, Inc. (c) 2012-2013
 
+require 'httparty'
+require 'json'
+require 'cgi'
+
 class Admin::NewslettersController < ApplicationController
 
   respond_to :html, :json, :js
 
   load_and_authorize_resource
+   
+  @api_base_uri = "https://api.sendgrid.com/api/"
+
+  def self.api_base_uri() @api_base_uri; end
 
   # TODO: name these comments properly with all the matching URLs to each action
   # GET /admin/newsletters
@@ -46,8 +54,34 @@ class Admin::NewslettersController < ApplicationController
   end
   
     # GET /admin/newsletters/test/1
-  def historic
+  def statics
+
     @admin_newsletter = Admin::Newsletter.find(params[:id])
+
+    api_options = { module:'stats', action:'get', format:'json'}
+
+    pwd   = Settings.env['sendgrid']['password']
+    uname = Settings.env['sendgrid']['username']
+
+    #send_data = "api_user=#{uname}&api_key=#{pwd}&start_date=2013-01-01&end_date=2013-01-02&data_type=global"
+
+    #send_data = "?api_user=#{uname}&api_key=#{pwd}&list=true"
+    formatted = CGI::escape(@admin_newsletter.title)
+    send_data = "?api_user=#{uname}&api_key=#{pwd}&category=#{formatted}"
+
+    url_new_string = self.class.api_base_uri + api_options[:module] + '.' + api_options[:action]+ '.' + api_options[:format]  + send_data
+
+
+    #return render :text => html_formatted
+
+    response =  HTTParty.post(url_new_string)  #submit the string to SG
+
+    parsed = JSON.parse(response)
+
+    # return render :json => parsed
+
+    @category = parsed
+
   end
 
   # GET /admin/newsletters/new

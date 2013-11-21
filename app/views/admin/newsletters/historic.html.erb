@@ -5,25 +5,11 @@
 
 <p>This page will show the deliveries, dates, opens and click of this email using SendGrid API. </p>
 
-<table style="border:2px solid gray;margin:18px auto;text-align:left;padding:6px;background-color:#fff;">
-  <tr>
-    <th>Title</th>
-    <th>Sent</th>
-    <th>Preview</th>
-    <th>Test</th>
-    <th>Select group</th>
-    <th>Historic</th>
-    <th></th>
-    <th></th>
-  </tr>
+<% @categories.each do |c|  %>
 
-<!-- % @admin_newsletters.each do |admin_newsletter| % -->
-  <tr style="border:1px dotted gray;margin:18px auto;text-align:left;">
-    <td><!-- %= admin_newsletter.title % --></td>
-  </tr>
-<!-- % end % -->
-</table>
+    <%= link_to url(:controller=>'newsletters', :action=> 'category', :id => c["category"]) %>  <br />
 
+<% end %>
 <br />
 
 

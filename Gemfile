@@ -57,6 +57,9 @@ gem 'font-awesome-sass-rails'
 gem 'select2-rails'
 gem 'mail', '>= 2.4.4'
 gem 'tinymce-rails'
+gem "turbo-sprockets-rails3", "~> 0.3.10"
+gem 'httparty'
+gem 'json'
 
 # group :assets do # the assets groups is now deprcated in rails
 # end

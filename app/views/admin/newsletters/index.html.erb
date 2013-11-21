@@ -18,7 +18,7 @@
     <td><%= link_to image_tag('icon-preview.png', :title=>'Preview', :alt=>'Preview'), admin_newsletter %></td>
     <td><%= link_to image_tag('icon-send.png', :title=>'Send me a test', :alt=>'Send me a test'), test_admin_newsletters_path(admin_newsletter) %></td>
     <td><%= link_to image_tag('icon-mail.png', :title=>'Select', :alt=>'Select'),  ns_select_admin_newsletters_path(admin_newsletter) %></td>
-    <td><%= link_to image_tag('icon-files.png', :title=>'Historic', :alt=>'Historic'),  historic_admin_newsletters_path(admin_newsletter) %></td>
+    <td><%= link_to image_tag('icon-files.png', :title=>'Statics', :alt=>'Statics'),  statics_admin_newsletters_path(admin_newsletter) %></td>
     <td><%= link_to image_tag('icon-edit.png', :title=>'Edit', :alt=>'Edit'), edit_admin_newsletter_path(admin_newsletter) %></td>
     <td><%= link_to image_tag('icon-remove.png', :title=>'Remove', :alt=>'Remove'), admin_newsletter, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
