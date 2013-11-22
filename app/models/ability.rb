@@ -47,8 +47,6 @@ class Ability
     can :index, :setting
     can [:create, :new], FeedbackBug
     can :create, InviteRequest
-    can :manage, Admin::Newsletter
-    can :manage, Admin::Campaign                 # admin section
     can [:index, :show, :statics, :recent], :admin_panels             # admin section
   end
   
@@ -108,6 +106,8 @@ class Ability
   end
 
   def school_admin
+    # can :manage, Admin::Newsletter
+    # can :manage, Admin::Campaign                 # admin section
     can [:index], :admin
     can [:index, :datatable_filter], Entity
     can [:index, :datatable_filter], Topic

@@ -259,13 +259,14 @@ Mindsmesh::Application.routes.draw do
 
     resources :newsletters do
       collection do
-          get  "select/:id"    => "newsletters#select",   :as => 'ns_select'
-          get  "test/:id"      => "newsletters#test",     :as => 'test'
-          get  "send/"         => "newsletters#send",     :as => 'send'
-          get  "settings/"     => "newsletters#settings",  :as => 'settings'
-          get  "statics/:id"  => "newsletters#statics", :as => 'statics'
-          get  "categories"    => "newsletters#categories", :as => 'categories'
-          post  "groups/"      => "newsletters#groups",  :as => 'groups'
+          get  "select/:id"           => "newsletters#select",       :as => 'ns_select'
+          get  "test/:id"             => "newsletters#test",         :as => 'test'
+          get  "send/"                => "newsletters#send",         :as => 'send'
+          get  "generalstats/:range"  => "newsletters#generalstats", :as => 'generalstats'
+          get  "settings/"            => "newsletters#settings",     :as => 'settings'
+          get  "statics/:id"          => "newsletters#statics",      :as => 'statics'
+          get  "categories"           => "newsletters#categories",   :as => 'categories'
+          post  "groups/"             => "newsletters#groups",       :as => 'groups'
       end
     end
   end

@@ -15,7 +15,7 @@ class Admin::Campaign < ActiveRecord::Base
             'student'   => 10,
             'moderator' => 1
           }
-  
+    
   def self.send_mails_and_save(data)
     nl   = Admin::Newsletter.find(data[:newsletter_id])
     kind = data[:kind]
@@ -38,6 +38,10 @@ class Admin::Campaign < ActiveRecord::Base
     return emails
   end
   
+  def send_remainders
+    MyMail.mail_test().deliver
+  end
+
   private
 
   # after choose between the options, get the users emails to send

@@ -50,7 +50,11 @@
           
           </div>
           <ul class="nav pull-right" id="top_menu_right">
+
             <li><a href="/"><i class="icon-home"></i> Home</a></li>
+            <% if current_user.role_i = 30  %>
+                <li><a href="/admin"><i class="icon-list"></i> Admin </a></li>
+            <% end %>
             <!-- placeholder ajax_application.js -->
           </ul>
         <% end %>
@@ -115,7 +119,6 @@
     <%= render '/footer' %>
     <%= render '/groups/new_group' %>
   </div>
-  
 
   <!-- placeholder ajax_application.js -->
 

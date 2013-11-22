@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery-ui
 //= require jquery_ujs
+//= require daterangepicker.jQuery
 //= require bootstrap.min
 //= require jquery.scrollTo-min
 //= require jquery.cookie
@@ -30,7 +31,6 @@
 //= require posts
 //= require jwplayer
 //= require jwplayer.html5
-//= require daterangepicker.jQuery
 //= require livesearch
 //= require frontend
 //= require jquery.pixelentity.flare.min

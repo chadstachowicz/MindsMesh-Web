@@ -12,8 +12,12 @@ class Admin::NewslettersController < ApplicationController
   load_and_authorize_resource
    
   @api_base_uri = "https://api.sendgrid.com/api/"
+  @pwd          = Settings.env['sendgrid']['password']
+  @uname        = Settings.env['sendgrid']['username']
 
   def self.api_base_uri() @api_base_uri; end
+  def self.pwd() @pwd; end
+  def self.uname() @uname; end
 
   # TODO: name these comments properly with all the matching URLs to each action
   # GET /admin/newsletters
@@ -53,34 +57,35 @@ class Admin::NewslettersController < ApplicationController
      redirect_to admin_newsletters_path, notice: "The email: \"#{nl.title}\" has been sent to you."
   end
   
-    # GET /admin/newsletters/test/1
+  # GET /admin/newsletters/statics/1
   def statics
 
     @admin_newsletter = Admin::Newsletter.find(params[:id])
-
     api_options = { module:'stats', action:'get', format:'json'}
-
-    pwd   = Settings.env['sendgrid']['password']
-    uname = Settings.env['sendgrid']['username']
-
-    #send_data = "api_user=#{uname}&api_key=#{pwd}&start_date=2013-01-01&end_date=2013-01-02&data_type=global"
-
-    #send_data = "?api_user=#{uname}&api_key=#{pwd}&list=true"
     formatted = CGI::escape(@admin_newsletter.title)
-    send_data = "?api_user=#{uname}&api_key=#{pwd}&category=#{formatted}"
+    send_data = "?api_user=#{self.class.uname}&api_key=#{self.class.pwd}&category=#{formatted}"
 
     url_new_string = self.class.api_base_uri + api_options[:module] + '.' + api_options[:action]+ '.' + api_options[:format]  + send_data
 
-
-    #return render :text => html_formatted
-
     response =  HTTParty.post(url_new_string)  #submit the string to SG
-
     parsed = JSON.parse(response)
 
     # return render :json => parsed
-
     @category = parsed
+
+  end
+  
+  # GET /admin/newsletters/generalstats
+  def generalstats
+
+    api_options = { module:'stats', action:'getAdvanced', format:'json'}
+    send_data = "?api_user=#{self.class.uname}&api_key=#{self.class.pwd}&start_date=2013-10-01&end_date=2013-11-02&data_type=global"
+    url_new_string = self.class.api_base_uri + api_options[:module] + '.' + api_options[:action]+ '.' + api_options[:format]  + send_data
+    response =  HTTParty.post(url_new_string)  #submit the string to SG
+    parsed = JSON.parse(response)
+
+    # return render :json => parsed
+    @stats = parsed
 
   end
 
