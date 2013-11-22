@@ -1,6 +1,14 @@
-<div style="font-weight:bold;font-size:14pt;margin:5px;padding:5px;text-align:center;">Edit Email</div>
 
-<%= render 'form' %>
+<div class="headline3">Edit Email</div>
 
-<%= link_to image_tag('icon-back.png', :title=>'Go back', :alt=>'Go back'), admin_newsletters_path %>
+<div style="padding:6px;">
+
+    <div style="margin-top:15px;">
+        <%= render 'form' %>
+    </div>
+
+    <div style="text-align:left;">
+        <%= link_to image_tag('icon-back.png', :title=>'Go back', :alt=>'Go back'), admin_newsletters_path %>
+    </div>
+</div>
 

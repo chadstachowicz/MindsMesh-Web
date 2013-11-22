@@ -1,10 +1,12 @@
-<h1>Campaign created</h1>
+
+
+<div class="headline3">Campaign created</div>
 
 
 <div style="padding:12px;margin:18px;background-color:#fff;">
 
-    <%= @emails_sent %> has been sent. Please view historic for details.
-    
-</div>
+    <%= @emails_sent %> email has been sent. <%= link_to 'Please view historic for details.', "/admin/newsletters/statics/#{@email_id}" %><br /><br />
 
-<%= link_to image_tag('icon-back.png', :title=>'Go back', :alt=>'Go back'), admin_newsletters_path %>
+    <%= link_to image_tag('icon-back.png', :title=>'Go back', :alt=>'Go back'), admin_newsletters_path %>
+
+</div>

@@ -2,17 +2,16 @@
 <%= javascript_include_tag params[:controller] %>
 <%= stylesheet_link_tag "admin/admin" %>
 
-<div style="padding:10px;margin:6px;background-color:#fff;border: 2px solid gray;">
+<div class="headline3">Email: <%= @admin_newsletter.title %> </div>
 
-<div style="padding:10px;margin:6px;background-color:#fff;border: 2px solid gray;float:right;">
-    <%= image_tag('campaign.jpg', :title => 'Campaign', :alt => 'Campaign') %>
+<div style="padding:10px;margin:6px;background-color:#fff;">
+
+<div style="padding:10px;margin:30px;float:right;">
+    <%= image_tag('campaign.jpg', :title => 'Campaign', :alt => 'Campaign', :width => '80%', :style=>'border:1px solid gray;') %>
 </div>
 
 <div><%= link_to image_tag('icon-back.png', :title=>'Go back', :alt=>'Go back'), admin_newsletters_path %></div>
 
-<h3 style="border-bottom:1px dotted gray;">Email: <br />
-  <%= @admin_newsletter.title %>
-</h3>
 
 <div>
 
@@ -22,7 +21,7 @@
   
   <input type="hidden" name="admin_campaign[newsletter_id]"  value="<%= @admin_newsletter.id %>">
 
-  <div style="padding:8px;margin:4px;border:1px dotted gray;"> 
+  <div style="padding:8px;margin:4px;border:1px dotted gray;width:70%;"> 
      <label for="firstname">Group the users according to:</label>
      <input type="radio" name="admin_campaign[kind]" value="users"> Users 
      <input type="radio" name="admin_campaign[kind]" value="topics"> Class 
@@ -31,13 +30,12 @@
 
  <br />
   <label>Select colleges that you want to send this email:</label>
-  <br /> 
-  <div style="margin:3px;padding:2px;border:1px dotted #e0e0e0;">
+  <div style="margin:3px;padding:2px;border:1px dotted #e0e0e0;width:70%;">
      <input type="checkbox" id="selectall" name="admin_campaign[all]" value="all" class="selectedId"> Select all
   </div>
  
     <% @entities.each do | d | %>
-    <div style="margin:3px;padding:3px;border:1px dotted #e0e0e0;">
+    <div style="margin:3px;padding:3px;border:1px dotted #e0e0e0;width:70%;">
        <input type="checkbox"  name="admin_campaign[entity_id][]" value="<%= d.id  %>" class="selectedId"> <%= d.name  %> 
        <!-- %= check_box_tag 'tos', d.id, false, :class => 'accept_tos' % -->
      </div>

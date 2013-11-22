@@ -1,16 +1,18 @@
 <div style="margin:5px;padding:7px;">
 
-<h1 style="margin:5px;padding:7px;">Email Manager</h1>
+<div class="headline3">Email Manager</div>
 
-<%= form_for Admin::Newsletter.new, :url => {:action => "generalstats"} do |f| %>
-    <%= f.submit "Comment", :type => :image, :src => "/assets/icon-chart.png", :title=>'All Statics', :alt=>'All Statics' %>
-</form>
+<div style="text-align:left;margin-top:10px;">
+  <%= form_for Admin::Newsletter.new, :url => {:action => "generalstats"} do |f| %>
+      <%= f.submit "Comment", :type => :image, :src => "/assets/icon-chart.png", :title=>'All Statics', :alt=>'All Statics' %>
+  </form>
+</div>
+
 <% end %>
 
 <table style="border:1px solid gray;margin:18px auto;text-align:left;padding:6px;background-color:#fff;">
-  <tr>
+  <tr style="background-color:#429b31;color:#fff;font-weight:bold;font-size:13pt;">
     <th>Title</th>
-    <th>Status</th>
     <th>Preview</th>
     <th>Test</th>
     <th>Select group</th>
@@ -19,9 +21,8 @@
     <th></th>
   </tr>
 <% @admin_newsletters.each do |admin_newsletter| %>
-  <tr style="border:1px dotted gray;margin:18px auto;text-align:left;">
-    <td><%= admin_newsletter.title %></td>
-    <td>Never Sent</td>
+  <tr style="border:1px dotted gray;margin:18px auto;">
+    <td style="text-align:left;"><%= admin_newsletter.title %></td>
     <td><%= link_to image_tag('icon-preview.png', :title=>'Preview', :alt=>'Preview'), admin_newsletter %></td>
     <td><%= link_to image_tag('icon-send.png', :title=>'Send me a test', :alt=>'Send me a test'), test_admin_newsletters_path(admin_newsletter) %></td>
     <td><%= link_to image_tag('icon-mail.png', :title=>'Select', :alt=>'Select'),  ns_select_admin_newsletters_path(admin_newsletter) %></td>
@@ -32,8 +33,22 @@
 <% end %>
 </table>
 
-<br />
-
-<%= link_to image_tag('icon-add.png', :title=>'Add newsletter', :alt=>'Add newsletter'), new_admin_newsletter_path %>
+<div style="text-align:left;">
+    <%= link_to image_tag('icon-add.png', :title=>'Add newsletter', :alt=>'Add newsletter'), new_admin_newsletter_path %>
+</div>
 
 </div>
+<style type="text/css">
+
+table
+{
+  border-collapse:collapse;
+}
+table,th, td
+{
+  border: 1px solid #429b31;
+  text-align: center;
+  padding:2px;
+}
+
+</style>

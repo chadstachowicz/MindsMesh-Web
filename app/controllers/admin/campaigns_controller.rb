@@ -43,6 +43,7 @@ class Admin::CampaignsController < ApplicationController
     #return render :text => params[:admin_campaign]
                                    
     @emails_sent = Admin::Campaign.send_mails_and_save(params[:admin_campaign])
+    @email_id    = params[:admin_campaign][:newsletter_id]
 
   end
 
