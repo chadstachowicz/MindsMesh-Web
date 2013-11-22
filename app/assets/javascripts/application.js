@@ -13,7 +13,6 @@
 //= require jquery
 //= require jquery-ui
 //= require jquery_ujs
-//= require daterangepicker.jQuery
 //= require bootstrap.min
 //= require jquery.scrollTo-min
 //= require jquery.cookie
@@ -39,4 +38,5 @@
 //= require backbone
 //= require bb-private-messages.js
 //= require tinymce
+//= require daterangepicker.jQuery
 

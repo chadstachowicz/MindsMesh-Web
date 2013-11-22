@@ -19,7 +19,7 @@
 				<p><%=@totalcounts%></p>
 				<div class="span4">
 		    		<form action="/admin" method="GET" id="manage-rights">
-						<label>Date Range: </label><input name="daterange" id="datepicker" value="<%=params[:daterange]%>" maxlength="60" size="15" type="text"/>
+						<label>Date Range: </label><input name="daterange" id="datepicker" value="<%= params[:daterange] %>" maxlength="60" size="15" type="text"/>
 						<script>
 							$( "#datepicker").datetimepicker();
 						</script>

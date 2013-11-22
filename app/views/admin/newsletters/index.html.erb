@@ -2,7 +2,12 @@
 
 <h1 style="margin:5px;padding:7px;">Email Manager</h1>
 
-<table style="border:2px solid gray;margin:18px auto;text-align:left;padding:6px;background-color:#fff;">
+<%= form_for Admin::Newsletter.new, :url => {:action => "generalstats"} do |f| %>
+    <%= f.submit "Comment", :type => :image, :src => "/assets/icon-chart.png", :title=>'All Statics', :alt=>'All Statics' %>
+</form>
+<% end %>
+
+<table style="border:1px solid gray;margin:18px auto;text-align:left;padding:6px;background-color:#fff;">
   <tr>
     <th>Title</th>
     <th>Status</th>
@@ -30,5 +35,5 @@
 <br />
 
 <%= link_to image_tag('icon-add.png', :title=>'Add newsletter', :alt=>'Add newsletter'), new_admin_newsletter_path %>
-<%= link_to image_tag('icon-add.png', :title=>'All Statics', :alt=>'All Statics'), {controller:'newsletters', action:'generalstats', range:'null'} %>
+
 </div>

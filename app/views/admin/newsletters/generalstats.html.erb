@@ -5,18 +5,17 @@
 <h2 style="margin:5px;padding:7px;">SendGrid General Statics</b></h1>
 
 <div>
-           <form method="get" id="manage-rights">
-            <label>Date Range: </label><input name="daterange" id="datepicker" value="<%= params[:daterange] %>" maxlength="60" size="15" type="text"/>
+           <form method="post" action="/admin/newsletters/generalstats/" id="manage-rights">
+            <label>Start date: </label><input name="from" id="from" value="" maxlength="60" size="15" type="text"/>
+             <label>End date: </label><input name="to" id="to" value="" maxlength="60" size="15" type="text"/>
             <input type="hidden" id="authenticity_token" name="authenticity_token" value="<%= form_authenticity_token %>" />
-            <input type="hidden" id="res" name="res" value="<%= params[:res] %>" />
             <input value="Search" type="submit"/>
           </form>
-    
 </div>
 
 
 <table style="width:60%;margin:auto;font-size:12pt;border:1px dotted gray;padding:5px;text-align:center;">
-   <tr style="font-size:1.1em;"><td> Date </td><td> Delivered</td><td> Request </td><td> Processed </td></tr>
+   <tr style="font-size:1.1em;background-color:#e0e0e0;border:1px solid black;"><td> Date </td><td> Delivered</td><td> Request </td><td> Processed </td></tr>
 
 <% @stats.each do |s|%>
    <tr> <td><%= s["date"] %> </td><td> <%= s["delivered"] %></td><td>   <%= s["request"] %></td><td>   <%= s["processed"] %></td></tr>
@@ -29,5 +28,8 @@
 
 
 <script type="text/javascript">
-    jQuery(function($) { $( "#datepicker" ).datepicker(); });
+$(function() {
+    $("#from").datepicker({ dateFormat: 'yyyy-mm-dd' });
+    $("#to").datepicker({ dateFormat: 'yyyy-mm-dd'});
+});
 </script>

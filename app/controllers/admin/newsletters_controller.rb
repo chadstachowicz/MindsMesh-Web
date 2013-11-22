@@ -4,6 +4,7 @@
 require 'httparty'
 require 'json'
 require 'cgi'
+require 'date'
 
 class Admin::NewslettersController < ApplicationController
 
@@ -72,15 +73,21 @@ class Admin::NewslettersController < ApplicationController
 
     # return render :json => parsed
     @category = parsed
-
   end
   
   # GET /admin/newsletters/generalstats
   def generalstats
+    now   = Date.today
+    # return render :text => params.inspect
 
+    # d = Date.parse( params[:from].gsub(/, */, '-') )
+    from = params.has_key?(:from) ? params[:from] : (now - 30);
+    to   = params.has_key?(:to)   ? params[:to]   : Date.today;
+  
     api_options = { module:'stats', action:'getAdvanced', format:'json'}
-    send_data = "?api_user=#{self.class.uname}&api_key=#{self.class.pwd}&start_date=2013-10-01&end_date=2013-11-02&data_type=global"
+    send_data = "?api_user=#{self.class.uname}&api_key=#{self.class.pwd}&start_date=#{from}&end_date=#{to}&data_type=global"
     url_new_string = self.class.api_base_uri + api_options[:module] + '.' + api_options[:action]+ '.' + api_options[:format]  + send_data
+    return render :text => url_new_string
     response =  HTTParty.post(url_new_string)  #submit the string to SG
     parsed = JSON.parse(response)
 
