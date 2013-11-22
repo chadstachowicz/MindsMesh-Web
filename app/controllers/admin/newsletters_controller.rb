@@ -87,7 +87,7 @@ class Admin::NewslettersController < ApplicationController
     api_options = { module:'stats', action:'getAdvanced', format:'json'}
     send_data = "?api_user=#{self.class.uname}&api_key=#{self.class.pwd}&start_date=#{from}&end_date=#{to}&data_type=global"
     url_new_string = self.class.api_base_uri + api_options[:module] + '.' + api_options[:action]+ '.' + api_options[:format]  + send_data
-    return render :text => url_new_string
+    #return render :text => url_new_string
     response =  HTTParty.post(url_new_string)  #submit the string to SG
     parsed = JSON.parse(response)
 
