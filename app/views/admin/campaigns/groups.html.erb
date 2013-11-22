@@ -18,7 +18,9 @@
       <% if @kind == 'users' %>    
           <% if d.has_key?(:users) %>
               <% d[:users].each do |k,v| %>
-                  <input type="checkbox" class="eleclass" name="admin_campaign[entity_ids][<%= d[:id] %>][user_ids][<%= k  %>]" value="<%= k  %>"><%= v  %> <br />
+              <div style="margin:3px;padding:3px;border:1px dotted #e0e0e0;">
+                  <input type="checkbox" class="eleclass" name="admin_campaign[entity_ids][<%= d[:id] %>][user_ids][<%= k  %>]" value="<%= k  %>"> <%= v  %>
+              </div>
               <% end %>
           <% else %>
              <p>No groups in this college yet.</p>
@@ -28,7 +30,9 @@
       <% if @kind == 'groups' %>    
           <% if d.has_key?(:groups) %>
               <% d[:groups].each do |g| %>
-                <input type="checkbox" class="eleclass" name="admin_campaign[entity_ids][<%= d[:id] %>][user_ids][<%= g.id  %>]" value="<%= g.id  %>"><%= g.name  %> <br />
+              <div style="margin:3px;padding:3px;border:1px dotted #e0e0e0;">
+                <input type="checkbox" class="eleclass" name="admin_campaign[entity_ids][<%= d[:id] %>][user_ids][<%= g.id  %>]" value="<%= g.id  %>"> <%= g.name  %> 
+                </div>
               <% end %>
           <% else %>
              <p>No groups in this college yet.</p>
@@ -39,7 +43,9 @@
           <% if d.has_key?(:topics) %>
            <input type="hidden" name="admin_campaign[entity_id]"  value="<%= d[:id] %>">
               <% d[:topics].each do |t| %>
-                  <input type="checkbox" class="eleclass" name="admin_campaign[entity_ids][<%= d[:id] %>][user_ids][<%= t.id  %>]" value="<%= t.id  %>"><%= t.name  %> <br />
+              <div style="margin:3px;padding:3px;border:1px dotted #e0e0e0;">
+                  <input type="checkbox" class="eleclass" name="admin_campaign[entity_ids][<%= d[:id] %>][user_ids][<%= t.id  %>]" value="<%= t.id  %>"> <%= t.name  %> 
+              </div>
               <% end %>
           <% else %>
              <p>No topics in this college yet.</p>

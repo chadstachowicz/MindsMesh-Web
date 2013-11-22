@@ -31,13 +31,16 @@
 
  <br />
   <label>Select colleges that you want to send this email:</label>
-  <br /> <br />
-  <input type="checkbox" id="selectall" name="admin_campaign[all]" value="all" class="selectedId">Select all <br />
-
+  <br /> 
+  <div style="margin:3px;padding:2px;border:1px dotted #e0e0e0;">
+     <input type="checkbox" id="selectall" name="admin_campaign[all]" value="all" class="selectedId"> Select all
+  </div>
  
     <% @entities.each do | d | %>
-       <input type="checkbox"  name="admin_campaign[entity_id][]" value="<%= d.id  %>" class="selectedId"><%= d.name  %> <br />
+    <div style="margin:3px;padding:3px;border:1px dotted #e0e0e0;">
+       <input type="checkbox"  name="admin_campaign[entity_id][]" value="<%= d.id  %>" class="selectedId"> <%= d.name  %> 
        <!-- %= check_box_tag 'tos', d.id, false, :class => 'accept_tos' % -->
+     </div>
     <% end %>
 
     <div class="form-actions">
@@ -91,5 +94,19 @@ function checkCB() {
 }
 
 </script>
+
+<style type="text/css">
+
+input[type=checkbox] {
+  color: #ccc;
+  font-style: italic;
+  font-size: 0.9em;
+} 
+
+input[type=checkbox]:checked  {
+  color: #f00;
+  font-style: normal;
+}
+</style>
 
 
