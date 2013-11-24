@@ -11,15 +11,16 @@ class AdminController < ApplicationController
 
   def index
       users_joined = Report::Users.users_joined(params[:daterange])
+      # return render text:users_joined
       daterange = params[:daterange]
       if daterange.nil? || daterange.empty?
           currenttime = Time.new
           startdate = currenttime.month
       else
-              date_a = daterange.split(" - ")
-              startdate = Date.strptime date_a[0], "%m/%d/%Y"
-              enddate = Date.strptime date_a[1], "%m/%d/%Y"
-          end
+          date_a    = daterange.split(" - ")
+          startdate = Date.strptime date_a[0], "%m/%d/%Y"
+          enddate   = Date.strptime date_a[1], "%m/%d/%Y"
+      end
           
           @h = LazyHighCharts::HighChart.new('graph') do |f|
               f.options[:chart][:defaultSeriesType] = "line"

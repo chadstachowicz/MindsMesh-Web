@@ -13,12 +13,19 @@
           </form>
 </div>
 
+<div class="row">
+    <div class="span12">
+       <%= 
+       high_chart("my_id", @data['chart']) 
+       %>
+    </div>
+</div>
 
 <table style="width:60%;margin:auto;font-size:12pt;border:1px dotted gray;padding:5px;text-align:center;">
    <tr style="font-size:1.1em;background-color:#e0e0e0;border:1px solid black;"><td> Date </td><td> Delivered</td><td> Request </td><td> Processed </td></tr>
 
-<% @stats.each do |s|%>
-   <tr> <td><%= s["date"] %> </td><td> <%= s["delivered"] %></td><td>   <%= s["request"] %></td><td>   <%= s["processed"] %></td></tr>
+<% @data[:json].each do |s| %>
+    <tr> <td><%= s["date"] %> </td><td> <%= s["delivered"] %></td><td>   <%= s["request"] %></td><td>   <%= s["processed"] %></td></tr>
 <% end %>
 </table>
 
