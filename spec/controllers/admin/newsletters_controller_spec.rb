@@ -23,12 +23,13 @@ require 'spec_helper'
 
 describe Admin::NewslettersController do
 
-   login_user    # spec macro for devise
+  current_user_master   # spec macro for devise
+
   # This should return the minimal set of attributes required to create a valid
   # Admin::Newsletter. As you add validations to Admin::Newsletter, be sure to
   # adjust the attributes here as well.
   
-  let(:valid_attributes) { FactoryGirl.attributes_for(:activity) }
+  let(:valid_attributes) { Fabricator.build('Admin::Newsletter') }
 
   let(:valid_session)    { {} } 
 

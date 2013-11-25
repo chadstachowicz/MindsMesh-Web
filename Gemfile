@@ -82,6 +82,7 @@ group :development, :test do
   gem 'template_rider'
   gem 'faker'
   gem 'spork'
+  # gem 'spork-rails'
   gem 'better_errors'
   gem 'fabrication'
 end

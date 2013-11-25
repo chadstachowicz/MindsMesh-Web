@@ -40,6 +40,17 @@ development:
 
 test:
     <<: *defaults
+    domain: www.mindsmesh.com
+    email: mindsmesh@mindsmesh.com
+    sendgrid:
+        username: cstachowicz
+        password: M1ndsM3sh1
+    facebook:
+        key: 391884850858794
+        secret:  3e2ce240f4214646bf11bacd11378ab0
+        options: {scope: 'email,user_education_history,friends_education_history,user_birthday,friends_birthday'}
+    s3:
+        <<: *s3
 
 production:
     <<: *defaults

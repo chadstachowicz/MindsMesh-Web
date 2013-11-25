@@ -1,3 +1,6 @@
+
+# MindsMesh, Inc. (c) 2012-2013
+
 Fabricator(:entity_user) do
   entity
   user
