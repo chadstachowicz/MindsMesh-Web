@@ -106,13 +106,12 @@ class Admin::Newsletter < ActiveRecord::Base
     end
 
     def single(id)
-      @admin_newsletter = Admin::Newsletter.find(params[:id])
-
+      nl = find(id)
       api_options = { module:'stats', action:'get', format:'json'}
-      formatted = CGI::escape(@admin_newsletter.title)
-      send_data = "?api_user=#{self.class.uname}&api_key=#{self.class.pwd}&category=#{formatted}"
+      formatted = CGI::escape(nl.title)
+      send_data = "?api_user=#{self.uname}&api_key=#{self.pwd}&category=#{formatted}"
 
-      url_new_string = self.class.api_base_uri + api_options[:module] + '.' + api_options[:action]+ '.' + api_options[:format]  + send_data
+      url_new_string = self.api_base_uri + api_options[:module] + '.' + api_options[:action]+ '.' + api_options[:format]  + send_data
 
       response =  HTTParty.post(url_new_string)  #submit the string to SG
       data = JSON.parse(response)

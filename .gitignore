@@ -32,3 +32,5 @@ __MACOSX
 #ignore sass temporals
 .sass-cache
 /.sass-cache/
+#ignore bower 
+/app/assets/components/

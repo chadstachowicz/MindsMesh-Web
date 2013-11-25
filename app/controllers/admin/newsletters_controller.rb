@@ -49,8 +49,9 @@ class Admin::NewslettersController < ApplicationController
   
   # GET /admin/newsletters/statics/1
   def statics
+    @admin_newsletter = Admin::Newsletter.find(params[:id])
 
-    @data = Admin::Newsletter.single(params[:id])
+    @category = Admin::Newsletter.single(params[:id])
 
   end
   
