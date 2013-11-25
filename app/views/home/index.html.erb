@@ -5,8 +5,6 @@
 <%= render '/posts/posts', posts: @posts, title: "My Mesh" %>
 </div>
 
-
-
 <div data-sidebar="left" class="sidebar_content">
   <ul class="nav blue-nav nav-list">
     <a href="#"
@@ -16,8 +14,8 @@
       <%= link_to image_tag(current_user.photo_url, :width => 50,:style => "margin-top:8px"), current_user %>
       <%= link_to current_user.name, current_user %>
   </a>
-  </br>
-   </br>
+   <br/>
+   <br/>
 
     <li class="nav-header">
       my classes

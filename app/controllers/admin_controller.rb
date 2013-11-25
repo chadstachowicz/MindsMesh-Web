@@ -22,7 +22,7 @@ class AdminController < ApplicationController
           enddate   = Date.strptime date_a[1], "%m/%d/%Y"
       end
           
-          @h = LazyHighCharts::HighChart.new('graph') do |f|
+      @h = LazyHighCharts::HighChart.new('graph') do |f|
               f.options[:chart][:defaultSeriesType] = "line"
               f.options[:title][:text] = 'Monthly New User Statistics'
             #  f.options[:subtitle][:text] = "#{monthname} #{time.year}"

@@ -20,7 +20,34 @@ class Post < ActiveRecord::Base
   after_commit :lazy_notify, on: :create
         
   #scope :includes_all , includes(:user, :topic, :replies, :likes)
+
   class << self
+    def statics(from=nil, to=nil)
+
+      #Rails.logger.debug from if Rails.env.development?
+
+      posts = count(:group => "DATE(created_at)", :order=>"date_created_at ASC", :limit=>30)
+      numbers  = Array.new 
+      dates    = Array.new
+      posts.each do |k, v|
+          numbers << v
+          dates   << k
+      end 
+
+      h = LazyHighCharts::HighChart.new('graph') do |f|
+              f.options[:chart][:defaultSeriesType] = "line"
+              f.options[:title][:text] = 'Posts Statics'
+              #  f.options[:subtitle][:text] = "#{monthname} #{time.year}"
+              f.options[:yAxis] = {:min => 0, :title => { :text => 'Posts by date' }}
+              f.options[:xAxis] = {:title => { :text => 'Date' },type: 'datetime', :categories => dates}
+              f.series(:name=>'Written posts', :data => numbers )
+              f.options[:legend] = { :layout => 'vertical', :backgroundColor => '#FFFFFF', :align => 'right', :verticalAlign => 'top', :x => -10, :y => 100 }
+      end
+
+      return h
+    end
+
+
     def before(id)
         id ? where("posts.id < ?", id) : scoped
     end
@@ -52,5 +79,4 @@ class Post < ActiveRecord::Base
     text = self.text.gsub(/(?:\s|^)(?:#(?!\d+(?:\s|$)))(\w+)(?=\s|$)/i) { "<a href=\"/hash/#{$1}\"> ##{$1}</a>" }
     Rinku.auto_link(text)
   end
-
 end
