@@ -4,27 +4,31 @@
 
 <h2 style="margin:5px;padding:7px;">Statics for email: <b style="color:green;"><%= @admin_newsletter.title %></b></h1>
 
-<% @category.each do |c|%>
-<table style="width:40%;margin:auto;font-size:14pt;">
-   <tr><td>Delivered          </td><td>   <%= c["delivered"] %></td></tr>
-   <tr><td>Unsubscribes       </td><td>   <%= c["unsubscribes"] %></td></tr>
-   <tr><td>Invalid emails     </td><td>   <%= c["invalid_email"] %></td></tr>
-   <tr><td>Bounces            </td><td>   <%= c["bounces"] %></td></tr> 
-   <tr><td>Repeat unsubscribes</td><td>   <%= c["repeat_unsubscribes"] %></td></tr>
-   <tr><td>Unique clicks      </td><td>   <%= c["unique_clicks"] %></td></tr>
-   <tr><td>Blocked            </td><td>   <%= c["blocked"] %></td></tr> 
-   <tr><td>Spam drop          </td><td>   <%= c["spam_drop"] %></td></tr>
-   <tr><td>Repeat bounces     </td><td>   <%= c["repeat_bounces"] %></td></tr>
-   <tr><td>Repeat spamreports </td><td>   <%= c["repeat_spamreports"] %></td></tr>
-   <tr><td>Date               </td><td>   <%= c["date"] %></td></tr>
-   <tr><td>Requests           </td><td>   <%= c["requests"] %></td></tr>
-   <tr><td>Spame reports      </td><td>   <%= c["spamreports"] %></td></tr>
-   <tr><td>Clicks             </td><td>   <%= c["clicks"] %></td></tr>
-   <tr><td>Opens              </td><td>   <%= c["opens"] %></td></tr>
-   <tr><td>Unique opens       </td><td>   <%= c["unique_opens"] %></td></tr>
-</table>
-<% end %>
+<% if  @data.count < 2 %>
+    <p>Apparently this email has never been sent.  <%= link_to "Do you want do it now?", ns_select_admin_newsletters_path(@admin_newsletter) %></p>
+<% else %>
+    <% @data.each do |c| %>
+         <table style="width:40%;margin:auto;font-size:14pt;">
+         <tr><td>Delivered          </td><td>   <%= c["delivered"] %></td></tr>
+         <tr><td>Unsubscribes       </td><td>   <%= c["unsubscribes"] %></td></tr>
+         <tr><td>Invalid emails     </td><td>   <%= c["invalid_email"] %></td></tr>
+         <tr><td>Bounces            </td><td>   <%= c["bounces"] %></td></tr> 
+         <tr><td>Repeat unsubscribes</td><td>   <%= c["repeat_unsubscribes"] %></td></tr>
+         <tr><td>Unique clicks      </td><td>   <%= c["unique_clicks"] %></td></tr>
+         <tr><td>Blocked            </td><td>   <%= c["blocked"] %></td></tr> 
+         <tr><td>Spam drop          </td><td>   <%= c["spam_drop"] %></td></tr>
+         <tr><td>Repeat bounces     </td><td>   <%= c["repeat_bounces"] %></td></tr>
+         <tr><td>Repeat spamreports </td><td>   <%= c["repeat_spamreports"] %></td></tr>
+         <tr><td>Date               </td><td>   <%= c["date"] %></td></tr>
+         <tr><td>Requests           </td><td>   <%= c["requests"] %></td></tr>
+         <tr><td>Spame reports      </td><td>   <%= c["spamreports"] %></td></tr>
+         <tr><td>Clicks             </td><td>   <%= c["clicks"] %></td></tr>
+         <tr><td>Opens              </td><td>   <%= c["opens"] %></td></tr>
+         <tr><td>Unique opens       </td><td>   <%= c["unique_opens"] %></td></tr>
+         </table>
+   <% end %>
 
+<% end %>
 <%= link_to image_tag('icon-back.png', :title=>'Go back', :alt=>'Go back'), admin_newsletters_path %>
 
 </div>

@@ -51,7 +51,7 @@ class Admin::NewslettersController < ApplicationController
   def statics
     @admin_newsletter = Admin::Newsletter.find(params[:id])
 
-    @category = Admin::Newsletter.single(params[:id])
+    @data = Admin::Newsletter.single(params[:id])
 
   end
   
