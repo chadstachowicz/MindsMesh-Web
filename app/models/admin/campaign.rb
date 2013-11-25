@@ -10,8 +10,10 @@ class Admin::Campaign < ActiveRecord::Base
   accepts_nested_attributes_for :user
 
   attr_accessible :kind, :user_id, :historic, :newsletter_id, :entity_id 
+  
   ROLES = {
-            'admin'     => 30,
+            'master'    => 30,
+            'admin'     => 20,
             'student'   => 10,
             'moderator' => 1
           }
@@ -23,7 +25,7 @@ class Admin::Campaign < ActiveRecord::Base
     data[:entity_ids].each do |k,v|    # k = entity_id
         users = get_emails(v, kind, k)
         users.each do |u|
-            logger.debug "#ll-> user  -> #{u}  \n \n" if Rails.env.development? 
+            # logger.debug "#ll-> user  -> #{u}  \n \n" if Rails.env.development? 
             campaing = { kind:kind, historic:false, user_id:u.id, newsletter_id:nl.id, entity_id:u.entity_id}
             transaction do
                 admin_campaign = new(campaing)
@@ -70,7 +72,7 @@ class Admin::Campaign < ActiveRecord::Base
 
   def self.get_groups(values, k)
     values[:user_ids].each do |ok, ov|
-        logger.debug "#lllllllll->llllllllllllll #{ok} -> #{ov} \n \n"  if Rails.env.development?   # false user_ids
+        # logger.debug "#llll-> #{ok} -> #{ov} \n \n"  if Rails.env.development?   # false user_ids
         
         q = "SELECT u.id AS id, u.name AS name, u.email AS email, g.entity_id AS entity_id FROM group_users AS gu, groups AS g, users AS u WHERE gu.group_id=g.id AND gu.user_id=u.id AND g.entity_id=#{k} AND g.id=#{ov}"
         logger.debug "#q:-> #{q} " if Rails.env.development?

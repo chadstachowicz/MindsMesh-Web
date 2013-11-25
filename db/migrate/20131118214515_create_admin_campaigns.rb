@@ -1,3 +1,6 @@
+
+# MindsMesh, Inc. (c) 2012-2013
+
 class CreateAdminCampaigns < ActiveRecord::Migration
   def change
     create_table :admin_campaigns do |t|

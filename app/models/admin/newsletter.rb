@@ -9,9 +9,9 @@ class Admin::Newsletter < ActiveRecord::Base
 
   has_many :admin_campaigns
 
-  attr_accessible :htmlemail, :plainemail, :status, :title, :element_id, :kind
+  attr_accessible :htmlemail, :plainemail, :status, :title, :element_id
   
-  attr_accessor :get_group
+  attr_accessor :get_group, :kind
 
   scope :limited, lambda { |num| { :limit => num } }
 
