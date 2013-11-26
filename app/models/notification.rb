@@ -27,7 +27,7 @@ class Notification < ActiveRecord::Base
     "#{user_name} #{action_as_verb}"
   end
 
-  def self.push_message_make(id)
+  def push_message_make(id)
     user_name = User.find(id).name
     "#{user_name} #{action_as_verb}"
   end
@@ -35,10 +35,6 @@ class Notification < ActiveRecord::Base
   def action_as_verb
     action_as_verb_html.gsub('<u>', '"').gsub('</u>', '"')
   end
-
-def self.action_as_verb
-    action_as_verb_html.gsub('<u>', '"').gsub('</u>', '"')
-end
 
   def action_as_verb_html
     #case action
@@ -52,19 +48,6 @@ end
       "invited you to <u>#{truncate text, length: 40}</u>"
     end
   end
-
-def self.action_as_verb_html
-    #case action
-    if action == ACTION_POSTED
-        "recently posted in <u>#{truncate text, length: 35}</u>"
-        elsif action == ACTION_REPLIED
-        "replied to <u>#{truncate text, length: 55}</u>"
-        elsif action == ACTION_LIKED
-        "pinned <u>#{truncate text, length: 40}</u>"
-        elsif action == ACTION_INVITED
-        "invited you to <u>#{truncate text, length: 40}</u>"
-    end
-end
 
   # TODO: test this
   ACTION_POSTED = 'posted'
@@ -137,7 +120,7 @@ end
 
     #notify mobile devices
     user.user_devices.each do |ud|
-        n.new_apn(ud.token,ud.environment, ud.os, push_message_make(user.id))
+        n.new_apn(ud.token,ud.environment, ud.os, n.push_message_make(user.id))
     end
 
     if !user.fb_id.nil?
