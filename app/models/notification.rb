@@ -27,7 +27,7 @@ class Notification < ActiveRecord::Base
     "#{user_name} #{action_as_verb}"
   end
 
-  def push_message_make(id)
+  def self.push_message_make(id)
     user_name = User.find(id).name
     "#{user_name} #{action_as_verb}"
   end
@@ -120,7 +120,7 @@ class Notification < ActiveRecord::Base
 
     #notify mobile devices
     user.user_devices.each do |ud|
-        n.new_apn(ud.token,ud.environment, ud.os, self.push_message_make(user.id))
+        n.new_apn(ud.token,ud.environment, ud.os, push_message_make(user.id))
     end
 
     if !user.fb_id.nil?
@@ -129,7 +129,7 @@ class Notification < ActiveRecord::Base
     n
   end
 
-  def new_apn(device_token,environment,os, push_message)
+  def new_apn(device_token,environment,os,push_message)
    if environment == 'production'
     if os == 'android'
         options = {:body => {:channel => 'alert', :to_tokens => device_token, :payload => {:alert => push_message, :vibrate => 'true', :notification_id => id, :target_type => target_type, :target_id => target_id}.to_json}}
