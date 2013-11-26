@@ -98,7 +98,7 @@ class Notification < ActiveRecord::Base
     true
   end
 
-    def self.notify_invitees(group, action, user_ids, ignore_user_id)
+    def self.notify_invitees(group, actsion, user_ids, ignore_user_id)
         users = user_ids.split(/,/)
         users.each do |usr|
             notify_user!(User.find(usr.to_i), group, action, group.name)
@@ -118,9 +118,16 @@ class Notification < ActiveRecord::Base
     n.actors_count = new_actors_count
     n.save! #ensure it's persisted
 
+    if !reply_id.nil?
+        message = n.push_message_make(reply_id)
+    else
+        message = n.facebook_message
+    end
+        
+
     #notify mobile devices
     user.user_devices.each do |ud|
-        n.new_apn(ud.token,ud.environment, ud.os, n.push_message_make(reply_id))
+        n.new_apn(ud.token,ud.environment, ud.os, message)
     end
 
     if !user.fb_id.nil?
