@@ -36,6 +36,10 @@ class Notification < ActiveRecord::Base
     action_as_verb_html.gsub('<u>', '"').gsub('</u>', '"')
   end
 
+def self.action_as_verb
+    action_as_verb_html.gsub('<u>', '"').gsub('</u>', '"')
+end
+
   def action_as_verb_html
     #case action
     if action == ACTION_POSTED
@@ -48,6 +52,19 @@ class Notification < ActiveRecord::Base
       "invited you to <u>#{truncate text, length: 40}</u>"
     end
   end
+
+def self.action_as_verb_html
+    #case action
+    if action == ACTION_POSTED
+        "recently posted in <u>#{truncate text, length: 35}</u>"
+        elsif action == ACTION_REPLIED
+        "replied to <u>#{truncate text, length: 55}</u>"
+        elsif action == ACTION_LIKED
+        "pinned <u>#{truncate text, length: 40}</u>"
+        elsif action == ACTION_INVITED
+        "invited you to <u>#{truncate text, length: 40}</u>"
+    end
+end
 
   # TODO: test this
   ACTION_POSTED = 'posted'
