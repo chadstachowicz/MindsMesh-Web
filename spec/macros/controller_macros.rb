@@ -4,13 +4,8 @@
 module ControllerMacros
   def login_user
     before(:each) do
-      @request.env["devise.mapping"] = Devise.mappings[:entity_user]
-      user = Fabricate(:entity_user)
-      @current_user ||= Fabricate(:entity_user).user
-      @current_user_master = Fabricate(:entity_user).user
-      @current_user_master.role = :master
-      @current_user_master.save
-      @current_user_master
+      @request.env["devise.mapping"] = Devise.mappings[:user]
+      user = Fabricate(:user)
       # user.confirm!
       sign_in user
     end

@@ -28,8 +28,8 @@ class MyMail < ActionMailer::Base
     #logger.debug  "\n  Debug: host:" +  host + "\n" if Rails.env.development?
     @body  = nl.htmlemail.html_safe
     # we create a category to track this email
-    ActionMailer::Base.default "X-SMTPAPI" => '{"category": "Newsletter Category"}'
-    #mail( to: user.email, subject: nl.title, body:nl.body)
+    ActionMailer::Base.default "X-SMTPAPI" => "{\"category\": #{nl.title}}"
+    
     mail( to: 'mmontoya@gmail.com', subject: nl.title)
   end
 
