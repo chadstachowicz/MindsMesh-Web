@@ -52,6 +52,7 @@ class Admin::NewslettersController < ApplicationController
     @admin_newsletter = Admin::Newsletter.find(params[:id])
 
     @data = Admin::Newsletter.single(params[:id])
+    # return render :text => @data
 
   end
   

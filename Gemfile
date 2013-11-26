@@ -85,4 +85,5 @@ group :development, :test do
   # gem 'spork-rails'
   gem 'better_errors'
   gem 'fabrication'
+  gem 'launchy'
 end

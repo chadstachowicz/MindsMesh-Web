@@ -14,8 +14,7 @@ class MyMail < ActionMailer::Base
 
   def mail_test
     @subject    = "Test mailer MindsMesh Heroku SCHEDULER"
-    mail( to: 'mmontoya@gmail.com', subject: @subject, body: "This is a Heroku scheduler APP/lib/tasks/scheduler.rake").deliver
-    mail( to: 'jkirkpatrick@mindsmesh.com', subject: @subject, body: "This is a Heroku scheduler APP/lib/tasks/scheduler.rake").deliver
+    mail( to:"mmontoya@gmail.com, jkirkpatrick@mindsmesh.com", subject: @subject, body: "This is a Heroku scheduler APP/lib/tasks/scheduler.rake").deliver
   end
 
   # Subject can be set in your I18n file at config/locales/en.yml

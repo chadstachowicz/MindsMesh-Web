@@ -2,9 +2,9 @@
 
 <div style="margin:5px;padding:7px;">
 
-<h2 style="margin:5px;padding:7px;">Statics for email: <b style="color:green;"><%= @admin_newsletter.title %></b></h1>
-
-<% if  @data.count < 2 %>
+<h2 style="margin:5px;padding:7px;">Statics for email: <b style="color:green;"><%= @admin_newsletter.title %> </b></h1>
+<%#  @data.is_a?(Hash)  %>
+<% if  @data.include? "error" %>
     <p>Apparently this email has never been sent.  <%= link_to "Do you want do it now?", ns_select_admin_newsletters_path(@admin_newsletter) %></p>
 <% else %>
     <% @data.each do |c| %>
