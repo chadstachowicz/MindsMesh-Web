@@ -89,7 +89,7 @@ class Notification < ActiveRecord::Base
     user_ids.delete(ignore_user_id)
     puts "user_ids to notify: #{user_ids}"
     User.find(user_ids).each do |user|
-      n = notify_user!(user, post, action, post.text, new_actors_count)
+      n = notify_user!(user, post, action, post.text, new_actors_count,reply.user_id)
       #TODO: unsubscribe
       puts email = user.entity_user_requests.first.email
       MyMail.notify_new_reply(user, post, email).deliver
@@ -112,7 +112,7 @@ class Notification < ActiveRecord::Base
     end
   end
 
-  def self.notify_user!(user, target, action, text, new_actors_count=1)
+  def self.notify_user!(user, target, action, text, new_actors_count=1, reply_id=nil)
     n = where(user_id: user.id, target_type: target.class.name, target_id: target.id, action: action).first_or_initialize(text: text)
     n.b_read = false
     n.actors_count = new_actors_count
@@ -120,7 +120,7 @@ class Notification < ActiveRecord::Base
 
     #notify mobile devices
     user.user_devices.each do |ud|
-        n.new_apn(ud.token,ud.environment, ud.os, n.push_message_make(user.id))
+        n.new_apn(ud.token,ud.environment, ud.os, n.push_message_make(reply_id))
     end
 
     if !user.fb_id.nil?
