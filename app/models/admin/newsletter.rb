@@ -9,11 +9,11 @@ class Admin::Newsletter < ActiveRecord::Base
 
   has_many :admin_campaigns
 
-  attr_accessible :htmlemail, :plainemail, :status, :title, :element_id
+  attr_accessible :htmlemail, :plainemail, :status, :title
   
-  attr_accessor :get_group, :kind
+  attr_accessor :get_group
 
-  scope :limited, lambda { |num| { :limit => num } }
+  #scope :limited, lambda { |num| { :limit => num } }
 
   validates_presence_of :title, length: { is: 4 }, :message => "can't be minor to four characters"
 

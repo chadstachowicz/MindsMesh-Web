@@ -1,9 +1,9 @@
 
 # MindsMesh, Inc. (c) 2012-2013
 
-Fabricator('Admin::Newsletter') do
+Fabricator(:admin_newsletters, class_name: :'Admin::Newsletter') do
   title      { Faker::Lorem.characters 12 }
   plainemail "MyText lorem ipsum dolorem  "
-  htmlemail  "<p>MyText lorem ipsum dolorem </p>"
-  status     { %w(false true) }
+  htmlemail  "<p>MyText lorem ipsum dolorem amet</p>"
+  status     'true'
 end
