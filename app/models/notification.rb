@@ -120,7 +120,7 @@ class Notification < ActiveRecord::Base
 
     #notify mobile devices
     user.user_devices.each do |ud|
-        n.new_apn(ud.token,ud.environment, ud.os, push_message_make(user.id))
+        n.new_apn(ud.token,ud.environment, ud.os, self.push_message_make(user.id))
     end
 
     if !user.fb_id.nil?
