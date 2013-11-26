@@ -10,7 +10,9 @@ class Admin::Campaign < ActiveRecord::Base
   accepts_nested_attributes_for :user
 
   attr_accessible :kind, :user_id, :historic, :newsletter_id, :entity_id 
-  
+
+  attr_accessor :send_reminders
+
   ROLES = {
             'master'    => 30,
             'admin'     => 20,
@@ -40,7 +42,7 @@ class Admin::Campaign < ActiveRecord::Base
     return emails
   end
   
-  def send_reminders
+  def self.send_reminders
     MyMail.mail_test().deliver
   end
 
