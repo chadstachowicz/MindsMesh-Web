@@ -31,7 +31,7 @@ class Admin::Campaign < ActiveRecord::Base
                 admin_campaign = new(campaing)
                 if admin_campaign.save
                     # logger.debug "eur saved!!" if Rails.env.development?
-                    MyMail.send_newsletter(u,nl).deliver
+                    MyMail.send_newsletter(u,nl,emails).deliver
                     emails = emails+1
                 end
             end
@@ -40,7 +40,7 @@ class Admin::Campaign < ActiveRecord::Base
     return emails
   end
   
-  def send_remainders
+  def send_reminders
     MyMail.mail_test().deliver
   end
 

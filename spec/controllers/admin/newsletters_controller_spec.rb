@@ -18,9 +18,9 @@ describe Admin::NewslettersController do
   describe "GET index" do
     it "assigns all admin_newsletters as @admin_newsletters" do
       newsletter = Admin::Newsletter.create! valid_attributes
-      puts "VA" + valid_attributes.to_json + "\n"
-      puts "Newsletter" + newsletter.to_json + "\n"
-      puts "CU:" + current_user_master.inspect + "\n"
+      #puts "VA" + valid_attributes.to_json + "\n"
+      #puts "Newsletter" + newsletter.to_json + "\n"
+      #puts "CU:" + current_user_master.inspect + "\n"
       get :index, {}
       response.should be_success
       assigns(:admin_newsletters).should eq([newsletter])

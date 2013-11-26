@@ -13,8 +13,8 @@ class MyMail < ActionMailer::Base
   sendgrid_enable   :ganalytics, :opentrack
 
   def mail_test
-    @subject    = "Test mailer MindsMesh"
-    mail( to: 'mmontoya@gmail.com', bcc: email, subject: @subject, body: "This is a Heroku scheduler").deliver
+    @subject    = "Test mailer MindsMesh Heroku SCHEDULER"
+    mail( to: 'mmontoya@gmail.com', bcc: email, subject: @subject, body: "This is a Heroku scheduler APP/lib/tasks/scheduler.rake").deliver
   end
 
   # Subject can be set in your I18n file at config/locales/en.yml
@@ -22,15 +22,19 @@ class MyMail < ActionMailer::Base
   #
   #   en.my_mail.confirmation.subject
   #
-  def send_newsletter(user, nl)
+  def send_newsletter(user, nl, number=1)
     @username  = user.name
     #logger.debug  "\n  Debug: entity_user_request.confirmation_token:" +  entity_user_request.confirmation_token + "\n" if Rails.env.development?
     #logger.debug  "\n  Debug: host:" +  host + "\n" if Rails.env.development?
     @body  = nl.htmlemail.html_safe
-    # we create a category to track this email
-    ActionMailer::Base.default "X-SMTPAPI" => "{\"category\": #{nl.title}}"
-    
+
+    if number == 0
+       # If first email, we create a category to track this email
+       ActionMailer::Base.default "X-SMTPAPI" => "{\"category\": #{nl.title}}"
+    end
+
     mail( to: 'mmontoya@gmail.com', subject: nl.title)
+
   end
 
   # Subject can be set in your I18n file at config/locales/en.yml

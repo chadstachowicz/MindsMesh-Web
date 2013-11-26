@@ -10,7 +10,7 @@ User.transaction do
     # 'school admin'    20,  'student' = 10,          'moderator' = 1
           
     users = [
-              {name:'Admin Test User', role_i:30, email:'admin@lousianatest.edu', name: 'Admin User', encrypted_password:'$2a$10$4R.gf6j9AmV4GAgszYVLxeCaoNFiRbsLm0VSM5hoOn0YxD8DNwt2u'},
+         {name:'Admin Test User', role_i:30, email:'admin@lousianatest.edu', name: 'Admin User', encrypted_password:'$2a$10$4R.gf6j9AmV4GAgszYVLxeCaoNFiRbsLm0VSM5hoOn0YxD8DNwt2u'},
          {name:'AdminTestUser',role_i:20,email:'scholadmin1@southcartest.edu', name: 'SchoolAdmin', encrypted_password:'$2a$10$4R.gfmV4GAgszYVLxeCaoNFiRbsLm0VDNwt2u'},
          {name:'StudentUser',role_i:10,email:'scholadmin2@sanantoniotest.ed', name: 'SchoolAdmin2', encrypted_password:'$2a$10$4R.gfmV4GAgszYVLxeCaoNFiRbsLm0VDNwt2u'},
          {name:'AdminTestUser',role_i:20,email:'scholadmin3@nytest.edu', name: 'SchoolAdmin3', encrypted_password:'$2a$10$4R.gfmV4GAgszYVLxeCaoNFiRbsLm0VDNwt2u'},
@@ -55,7 +55,7 @@ Entity.transaction do
       ls.each { |record| puts record.name.green }
 
       entity = Entity.find_by_domains('|dakotaunitest.edu|')
-    
+      entit2 = Entity.find_by_domains('|nytest.edu|')
       topics = [
           {name: 'Physics 1 (2301-001)', title: 'Title one', number: '111178687' },
           {name: 'Physics 1 (2301-002)', title: 'Title one', number: '7123687'},
@@ -71,21 +71,39 @@ Entity.transaction do
       topics.each do |t|
           # puts "#{t}  \n"
           ts << ( entity.topics.create!( t ) )
+          ts << ( entit2.topics.create!( t ) )
       end
   # end  #  Rails.env.development? ends 
 end  # transaction ends
 
-# finishing the regiustratio process
+# finishing the registration process
 EntityUserRequest.transaction do
   EntityUserRequest.attr_accessible :entity_id, :user_id, :email, :confirmation_token, :last_email_sent_at, :confirmed_at
   EntityUserRequest.create({entity_id:1, user_id:1, email:'admin@lousianatest.edu', confirmation_token:'936af849fd007fb57ae7d6593',last_email_sent_at: Time.now,confirmed_at:Time.now})
 end 
 
 EntityUser.transaction do
-  EntityUser.create({entity_id:1, user_id:1, role_i:30 })
-end
+    EntityUser.create({entity_id:1, user_id:1, role_i:30 })
+    EntityUser.create({entity_id:1, user_id:2, role_i:20})
+    EntityUser.create({entity_id:1, user_id:3, role_i:10 })
+    EntityUser.create({entity_id:1, user_id:4, role_i:20 })
+    EntityUser.create({entity_id:1, user_id:5, role_i:10})
+    EntityUser.create({entity_id:2, user_id:6, role_i:10 })
+    EntityUser.create({entity_id:2, user_id:7, role_i:20 })
+    EntityUser.create({entity_id:3, user_id:8, role_i:10 })
+    EntityUser.create({entity_id:3, user_id:9, role_i:10 })
+    EntityUser.create({entity_id:4, user_id:10,role_i:20 })
+    EntityUser.create({entity_id:5, user_id:11,role_i:10 })
+    EntityUser.create({entity_id:4, user_id:12,role_i:1 })
+    EntityUser.create({entity_id:3, user_id:13,role_i:1 })
+    EntityUser.create({entity_id:4, user_id:14,role_i:20 })
+  end
 
 
 puts "Seeded.".green
 puts "Entities: #{Entity.count} | Topic: #{Topic.count}".green
+
+
+
+ 
 
