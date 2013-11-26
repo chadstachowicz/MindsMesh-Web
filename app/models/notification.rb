@@ -10,7 +10,7 @@ class Notification < ActiveRecord::Base
   validates_presence_of :user
   validates_presence_of :target
   validates_presence_of :action
-  validates_presence_of :text
+  # validates_presence_of :text
 
   # TODO: test this
   scope :sorted, order('updated_at DESC')
