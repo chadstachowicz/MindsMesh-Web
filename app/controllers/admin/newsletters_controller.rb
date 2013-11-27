@@ -30,6 +30,7 @@ class Admin::NewslettersController < ApplicationController
   # GET /admin/newsletters/group/1
   def groups
     # DEPRECATED
+    # This method is deprecated
     # return render :text => params[:admin_newsletter][:element_id]
 
     @newsletter_id  = params[:newsletter_id]

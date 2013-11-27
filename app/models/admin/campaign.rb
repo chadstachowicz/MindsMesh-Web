@@ -19,7 +19,28 @@ class Admin::Campaign < ActiveRecord::Base
             'student'   => 10,
             'moderator' => 1
           }
-    
+
+  # send to all users
+  def self.everybody(newsletter_id)
+    nl   = Admin::Newsletter.find(newsletter_id)
+    emails = 0
+    users = User.find(:all)
+    users.each do |u|
+        # logger.debug "#ll-> user  -> #{u}  \n \n" if Rails.env.development? 
+        campaing = { kind:'general', historic:false, user_id:u.id, newsletter_id:nl.id}
+        transaction do
+            admin_campaign = new(campaing)
+            if admin_campaign.save
+                # logger.debug "eur saved!!" if Rails.env.development?
+                MyMail.send_newsletter(u,nl,emails).deliver
+                emails = emails+1
+            end
+        end
+    end
+    return emails
+  end
+  
+  # send and save in campaigns
   def self.send_mails_and_save(data)
     nl   = Admin::Newsletter.find(data[:newsletter_id])
     kind = data[:kind]

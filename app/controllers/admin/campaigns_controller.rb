@@ -24,12 +24,21 @@ class Admin::CampaignsController < ApplicationController
   end
 
   def groups
-    # return render :text => params[:admin_campaign]
 
     @newsletter_id  = params[:admin_campaign][:newsletter_id]
-    @kind  = params[:admin_campaign][:kind]
+    @kind           = params[:admin_campaign][:kind]
+
+    #return render :text => @kind
+     
+    if @kind == 'everybody'
+        @emails_sent = Admin::Campaign.everybody(@newsletter_id)
+        @email_id    = @newsletter_id
+        return render :template => '/admin/campaigns/create'
+    end
+
     @admin_campaign = Admin::Campaign.new
     @data           = Admin::Newsletter.get_group(params[:admin_campaign][:entity_id], params[:admin_campaign][:kind])  # pass the array
+
     #return render :text => @data
     #respond_to do |format|
     #    format.html { render :layout => !request.xhr? }
