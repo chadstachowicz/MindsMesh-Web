@@ -79,9 +79,9 @@ class Admin::Newsletter < ActiveRecord::Base
       url_new_string = self.api_base_uri + api_options[:module] + '.' + api_options[:action]+ '.' + api_options[:format]  + send_data
       Rails.logger.debug url_new_string if Rails.env.development?
 
-      response =  HTTParty.post(url_new_string)  #submit the string to SG
+      response  =  HTTParty.post(url_new_string)  #submit the string to SG
       jparsed   = JSON.parse(response)
-      data     = {json:jparsed}
+      data      = {json:jparsed}
 
       numbers  = Array.new 
       dates    = Array.new
@@ -89,7 +89,7 @@ class Admin::Newsletter < ActiveRecord::Base
           p["delivered"] = 0 if !p.has_key?"delivered"
           numbers << p["delivered"]
           dates   << p["date"]
-      end 
+      end
 
       h = LazyHighCharts::HighChart.new('graph') do |f|
               f.options[:chart][:defaultSeriesType] = "line"

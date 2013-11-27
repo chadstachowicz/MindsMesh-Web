@@ -52,18 +52,23 @@ class Admin::NewslettersController < ApplicationController
     @admin_newsletter = Admin::Newsletter.find(params[:id])
 
     @data = Admin::Newsletter.single(params[:id])
-    # return render :text => @data
-
+    #return render :text => @data.class
   end
   
   # GET /admin/newsletters/generalstats
   def generalstats
-    now   = Date.today
-    # return render :text => params.inspect
-    from = params.has_key?(:from) ? params[:from] : (now - 30);
-    to   = params.has_key?(:to)   ? params[:to]   : Date.today;
-    startdate = from
-    enddate   = to 
+
+    if  params.has_key?(:daterange)
+        range = params[:daterange]
+        from  = range[0..9]
+        to    = range[13..23]
+    else
+        from        = (Date.today - 30)
+        to          = Date.today
+    end
+  
+    #return render :text => "From  #{from}  to :  #{to}"
+    
     @data = Admin::Newsletter.general(from, to)
     #return render text:@data
   end
