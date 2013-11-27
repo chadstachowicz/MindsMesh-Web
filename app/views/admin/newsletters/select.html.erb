@@ -63,15 +63,18 @@ $(document).ready(function () {
     $('#selectall').click(function () {
         $('.selectedId').prop('checked', isChecked('selectall'));
     });
-
-    $('#everybody').click(function() {
-        if( $(this).is(':checked')) {
-        //if($("#everybody").attr("checked")==true)
-            $("#select_elements").fadeOut();
-        } else {
-            $("#select_elements").hide();
-        }
+     
+    $('[name^="admin_campaign[kind]"]').change(function(event) {
+        // do your staff here. It will fire any checkbox change
+            if ( $('#everybody').is(':checked') ) 
+            {
+                $("#select_elements").fadeOut();
+            } else {
+                $("#select_elements").fadeIn();
+            }
     }); 
+
+
 });
     
 function isChecked(checkboxId) {
