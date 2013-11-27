@@ -10,6 +10,9 @@
 
 <% end %>
 
+<div id="allclick">
+    
+</div>  
 <table style="border:1px solid gray;margin:18px auto;text-align:left;padding:6px;background-color:#fff;">
   <tr style="background-color:#429b31;color:#fff;font-weight:bold;font-size:13pt;">
     <th>Title</th>
@@ -24,7 +27,7 @@
   <tr style="border:1px dotted gray;margin:18px auto;">
     <td style="text-align:left;"><%= admin_newsletter.title %></td>
     <td><%= link_to image_tag('icon-preview.png', :title=>'Preview', :alt=>'Preview'), admin_newsletter %></td>
-    <td><%= link_to image_tag('icon-send.png', :title=>'Send me a test', :alt=>'Send me a test'), test_admin_newsletters_path(admin_newsletter) %></td>
+    <td><%= link_to image_tag('icon-send.png', :title=>'Send me a test', :alt=>'Send me a test'), test_admin_newsletters_path(admin_newsletter), {:remote => true, :id=>'clk', :"data-replace" => '#allclick'} %></td>
     <td><%= link_to image_tag('icon-mail.png', :title=>'Select', :alt=>'Select'),  ns_select_admin_newsletters_path(admin_newsletter) %></td>
     <td><%= link_to image_tag('icon-files.png', :title=>'Statics', :alt=>'Statics'),  statics_admin_newsletters_path(admin_newsletter) %></td>
     <td><%= link_to image_tag('icon-edit.png', :title=>'Edit', :alt=>'Edit'), edit_admin_newsletter_path(admin_newsletter) %></td>
@@ -54,3 +57,18 @@ table,th, td
 }
 
 </style>
+
+<script type="text/javascript">
+   
+  $(function() {
+  $('[data-remote][data-replace]')
+    .data('type', 'html')
+    .live('ajax:success', function(event, data) {
+      $('#allclick').fadeIn();
+      var $this = $(this);
+      $($this.data('replace')).html(data);
+      $this.trigger('ajax:replaced');
+    });
+});
+  
+</script>

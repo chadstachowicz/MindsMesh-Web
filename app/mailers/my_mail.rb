@@ -5,7 +5,7 @@ require 'sendgrid'
 
 class MyMail < ActionMailer::Base
     
-  self.default(from: 'mmontoya@gmail.com')
+  self.default(from: 'mindsmesh@mindsmesh.com')
 
   include SendGrid
 
@@ -34,6 +34,17 @@ class MyMail < ActionMailer::Base
     end
 
     mail( to: 'mmontoya@gmail.com', subject: nl.title)
+
+  end
+  
+  def send_newsletter_test(email, nl)
+    @username  = "Test User"
+    #logger.debug  "\n  Debug: entity_user_request.confirmation_token:" +  entity_user_request.confirmation_token + "\n" if Rails.env.development?
+    #logger.debug  "\n  Debug: host:" +  host + "\n" if Rails.env.development?
+    @body  = nl.htmlemail.html_safe
+
+
+    mail( to: email, subject: nl.title, :template_name => "send_newsletter")
 
   end
 

@@ -1,8 +1,20 @@
-<h2 style="margin:5px;paddibng:7px;">Emails Manager</h1>
 
-<p>This action send a test email to the current user: <%= current_user.email %></p>
+<form action="/admin/newsletters/test/<%= @admin_newsletter.id %>" method="GET" id="sendemail">
+            Email to send:<input name="email" id="email" value="<%= current_user.email %>" maxlength="20" size="15" type="text"/>                
+            <input type="hidden" id="authenticity_token" name="authenticity_token" value="<%= form_authenticity_token %>" />  
+            <input value="Send" type="submit"/>
+</form>
 
+<%= link_to image_tag('icon-close.png', :title=>'Close', :alt=>'Close'), "#", {:onclick => "$('#allclick').fadeOut();"}  %>
 
-<%= link_to image_tag('icon-back.png', :title=>'Go back', :alt=>'Go back'), admin_newsletters_path %>
-
-
+<script type="text/javascript"> 
+   $('.sendemail').submit(function() {
+       var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+       if( !emailReg.test( $email ) ) {
+           return false;
+       } else {
+         return true;
+       }
+       return validateForm($(this));
+   }
+</script>

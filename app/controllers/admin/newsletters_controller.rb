@@ -41,10 +41,20 @@ class Admin::NewslettersController < ApplicationController
 
   # GET /admin/newsletters/test/1
   def test
-     nl   = Admin::Newsletter.find(params[:id])
-     user = User.find(current_user.id)
-     MyMail.send_newsletter(user,nl).deliver
-     redirect_to admin_newsletters_path, notice: "The email: \"#{nl.title}\" has been sent to you."
+    @admin_newsletter   = Admin::Newsletter.find(params[:id])
+    #return render :text => @admin_newsletter.inspect
+    if request.xhr?
+        #format.html { render :layout => false } 
+        respond_with(@admin_newsletter, :layout => !request.xhr? )
+    else
+        # respond to normal request
+        email = params.has_key?(:email) ? params[:email] : current_user.email;
+        MyMail.send_newsletter_test(email,@admin_newsletter).deliver
+        title = @admin_newsletter.title
+        #return render :text => @admin_newsletter.inspect
+        redirect_to admin_newsletters_path, notice: "The email: \"#{title}\" has been sent to #{email}."
+    end
+
   end
   
   # GET /admin/newsletters/statics/1
