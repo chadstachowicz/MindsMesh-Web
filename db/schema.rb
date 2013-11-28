@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131118214515) do
+ActiveRecord::Schema.define(:version => 20131128173539) do
 
   create_table "admin_campaigns", :force => true do |t|
     t.string   "kind"
@@ -22,6 +22,17 @@ ActiveRecord::Schema.define(:version => 20131118214515) do
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
   end
+
+  create_table "admin_campaigns_users", :force => true do |t|
+    t.integer  "admin_campaign_id"
+    t.integer  "user_id"
+    t.boolean  "delivered"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+  end
+
+  add_index "admin_campaigns_users", ["admin_campaign_id"], :name => "index_admin_campaigns_users_on_admin_campaign_id"
+  add_index "admin_campaigns_users", ["user_id"], :name => "index_admin_campaigns_users_on_user_id"
 
   create_table "admin_newsletters", :force => true do |t|
     t.string   "title"

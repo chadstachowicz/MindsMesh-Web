@@ -1,22 +1,28 @@
-<h2>Campaigns (Not finished yet)</h2>
+
+<div style="margin:5px;padding:7px;">
+
+<div class="headline3">Campaigns</div>
 
 <table style="text-align:center;">
   <tr>
     <th>Newsletter</th>
-    <th>Group</th>
-    <th>Emails sent</th>
+    <th>To</th>
+    <th>Scheduled</th>
+    <th>Date Time</th>
+    <th>Emails</th>
     
     <th></th>
     <th></th>
     <th></th>
   </tr>
-
+<%  sch_options   = {1=>'Aready sent', 2=>'Scheduled', 3 => '24 h aft. reg.', 4 => 'Week aft. reg.'} %>
 <% @admin_campaigns.each do |admin_campaign| %>
   <tr>
     <td><%= admin_campaign.newsletter.title %></td>
     <td><%= admin_campaign.kind %></td>
-    <td><%= rand(79..432)  %></td>
-    <td><%= link_to raw('<i class="icon-road icon-white"></i>'), admin_campaign, :alt=>'View Details', :title=>'View Details' %></td>
+    <td><%= sch_options[admin_campaign.scheduled] %></td>
+    <td><%= admin_campaign.futuretime.to_formatted_s(:db) %></td>
+    <td><%= admin_campaign.campaigns_users.size  %></td>
     <td><%= link_to raw('<i class="icon-tablet icon-white"></i>'), edit_admin_campaign_path(admin_campaign), :alt=>'Edit Campaign', :title=>'Edit Campaign' %></td>
     <td><%= link_to raw('<i class="icon-trash icon-white"></i>'), admin_campaign, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-danger' %></td>
   </tr>
@@ -24,3 +30,7 @@
 </table>
 
 <br />
+    <div style="text-align:left;">
+          <%= link_to image_tag('icon-back.png', :title=>'Go back', :alt=>'Go back'), admin_newsletters_path %>
+    </div>
+</div>    

@@ -4,12 +4,16 @@
 class Admin::Campaign < ActiveRecord::Base
 
   belongs_to :newsletter
-  has_and_belongs_to_many :entity
-  has_and_belongs_to_many :user
-  accepts_nested_attributes_for :entity
-  accepts_nested_attributes_for :user
+  belongs_to :entity
+  has_many :campaigns_users, :class_name => 'Admin::CampaignsUsers',  foreign_key: "admin_campaign_id"
+  #has_many :user, :through => :campaign_user
 
-  attr_accessible :kind, :user_id, :historic, :newsletter_id, :entity_id, :delivered, :scheduled, :futuretime 
+  #has_and_belongs_to_many :entity
+  #has_and_belongs_to_many :user
+  accepts_nested_attributes_for :entity
+  #accepts_nested_attributes_for :user
+
+  attr_accessible :kind, :historic, :newsletter_id, :entity_id, :delivered, :scheduled, :futuretime 
 
   attr_accessor :send_reminders
 
@@ -21,38 +25,62 @@ class Admin::Campaign < ActiveRecord::Base
           }
 
   # send to all users
-  def self.everybody(newsletter_id, data)
-    nl   = Admin::Newsletter.find(newsletter_id)
-    emails = 0
-    users = User.find(:all)
+  def self.everybody(data)
+    sch_options   = {now:1, future:2, tfh:3, week:4}
+    nl            = Admin::Newsletter.find(data[:newsletter_id])
+    schedul       = sch_options[data[:scheduled].to_s.to_sym]
+    future        = data[:futuretime]
+    delivered     = data[:scheduled] == "now" ? true : false
+    kind          = data[:kind]
+    emails        = 0
+    usersfound    = 0
+
+    campaing      = { kind:kind, scheduled:schedul, futuretime:future, historic:false, newsletter_id:nl.id }
+
+    admin_campaign = create(campaing)
+    
+    users = User.find(:all,:select => "id, name, email")
+
     users.each do |u|
         # logger.debug "#ll-> user  -> #{u}  \n \n" if Rails.env.development? 
-        campaing = { kind:'general', historic:false, user_id:u.id, newsletter_id:nl.id}
+        usersfound    = usersfound+1
+        campaing_user = { admin_campaign_id:admin_campaign.id, delivered:delivered, user_id:u.id }
         transaction do
-            admin_campaign = new(campaing)
-            if admin_campaign.save
-                # logger.debug "eur saved!!" if Rails.env.development?
+            admin_campaign = Admin::CampaignsUsers.new(campaing_user)
+            if admin_campaign.save && delivered 
+                # logger.debug "Data saved!!" if Rails.env.development?
                 MyMail.send_newsletter(u,nl,emails).deliver
                 emails = emails+1
             end
         end
     end
-    return emails
+    data = {emails:emails, scheduled:schedul, usersfound:usersfound, nl_id:nl.id }
   end
   
   # send and save in campaigns
   def self.send_mails_and_save(data)
-    nl   = Admin::Newsletter.find(data[:newsletter_id])
-    kind = data[:kind]
-    emails = 0
+    sch_options   = {now:1, future:2, tfh:3, week:4}
+    nl            = Admin::Newsletter.find(data[:newsletter_id])
+    schedul       = sch_options[data[:scheduled].to_s.to_sym]
+    future        = data[:futuretime]
+    delivered     = data[:scheduled] == "now" ? true : false
+    kind          = data[:kind]
+    emails        = 0
+    usersfound    = 0
+
+    campaing      = { kind:kind, scheduled:schedul, futuretime:future, historic:false, newsletter_id:nl.id, entity_id:u.entity_id }
+
+    admin_campaign = create(campaing)
+    
     data[:entity_ids].each do |k,v|    # k = entity_id
         users = get_emails(v, kind, k)
         users.each do |u|
+            usersfound = usersfound+1
             # logger.debug "#ll-> user  -> #{u}  \n \n" if Rails.env.development? 
-            campaing = { kind:kind, historic:false, user_id:u.id, newsletter_id:nl.id, entity_id:u.entity_id}
+            campaing_user = { admin_campaign_id:admin_campaign.id, historic:false, user_id:u.id }
             transaction do
                 admin_campaign = new(campaing)
-                if admin_campaign.save
+                if admin_campaign.save && delivered
                     # logger.debug "eur saved!!" if Rails.env.development?
                     MyMail.send_newsletter(u,nl,emails).deliver
                     emails = emails+1
@@ -60,7 +88,7 @@ class Admin::Campaign < ActiveRecord::Base
             end
         end
     end
-    return emails
+    data = {emails:emails, scheduled:schedul, usersfound:usersfound, nl_id:nl.id}
   end
   
   def self.send_reminders

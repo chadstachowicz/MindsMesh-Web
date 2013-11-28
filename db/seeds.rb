@@ -100,10 +100,14 @@ EntityUser.transaction do
   end
 
 
+Group.transaction do
+    Group.create!({entity_id:2, name:'Group one',  slug:'group_one',   description: 'description one',  user_id:1, privacy:0})
+    Group.create!({entity_id:2, name:'Group three',slug:'group_three', description: 'description three', user_id:1, privacy:0})
+    Group.create!({entity_id:3, name:'Group four', slug:'group_four',  description: 'description four', user_id:1, privacy:0})
+    Group.create!({entity_id:3, name:'Group two',  slug:'group_two',   description: 'description one',  user_id:1, privacy:0})
+    Group.create!({entity_id:4, name:'Group five', slug:'group_five',  description: 'description five', user_id:1, privacy:0})
+end
+
 puts "Seeded.".green
 puts "Entities: #{Entity.count} | Topic: #{Topic.count}".green
-
-
-
- 
 

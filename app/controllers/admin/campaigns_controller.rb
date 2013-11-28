@@ -25,14 +25,11 @@ class Admin::CampaignsController < ApplicationController
 
   def groups
 
-    @newsletter_id  = params[:admin_campaign][:newsletter_id]
-    @kind           = params[:admin_campaign][:kind]
-    
-    return render :text => params.inspect
+    #return render :text => params[:admin_campaign].inspect
      
-    if @kind == 'everybody'
-        @emails_sent = Admin::Campaign.everybody(@newsletter_id, params)
-        @email_id    = @newsletter_id
+    if params[:admin_campaign][:kind] == 'everybody' 
+        @data = Admin::Campaign.everybody(params[:admin_campaign])
+        # return render :text => @data
         return render :template => '/admin/campaigns/create'
     end
 
@@ -43,7 +40,6 @@ class Admin::CampaignsController < ApplicationController
     #respond_to do |format|
     #    format.html { render :layout => !request.xhr? }
     #end
-    
   end
 
   # POST /admin/campaigns
@@ -58,7 +54,7 @@ class Admin::CampaignsController < ApplicationController
 
   # GET /admin/campaigns/1/edit
   def edit
-    
+    @admin_campaign = Admin::Campaign.find(params[:id]) 
   end
 
   # PUT /admin/campaigns/1
@@ -72,8 +68,21 @@ class Admin::CampaignsController < ApplicationController
 
   # DELETE /admin/campaigns/1
   def destroy
+    @admin_campaign = Admin::Campaign.find(params[:id])
     @admin_campaign.destroy
     redirect_to admin_campaigns_url
   end
 
+  # DELETE /admin/campaigns/1.json
+  def destroyii
+    @admin_campaign = Admin::Campaign.find(params[:id])
+    @admin_campaign.destroy
+
+    #beyond simple html
+    respond_to do |format|
+      format.html { redirect_to admin_campaigns_url }
+      format.js   {  } # destroy.js.erb
+      format.json { head :no_content }
+    end
+  end
 end
