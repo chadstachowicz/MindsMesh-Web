@@ -1,5 +1,5 @@
 
-<%= javascript_include_tag params[:controller] %>
+<%= javascript_include_tag "bootstrap-datetimepicker.min" %>
 <%= stylesheet_link_tag "admin/admin" %>
 
 <div class="headline3">Email: <%= @admin_newsletter.title %> </div>
@@ -17,30 +17,46 @@
 <div style="padding:8px;background-color:#fff;margin:8px;border:1px dotted gray;" id='divcbxs'>
 
 <%= simple_form_for(@admin_campaign, :url => url_for(:controller => 'campaigns', :action => 'groups'), :html => { :method => :post, :onsubmit => 'return checkCB();' } )   do |f| %>
-  
-  <input type="hidden" name="admin_campaign[newsletter_id]"  value="<%= @admin_newsletter.id %>">
 
-  <div style="padding:8px;margin:4px;border:1px dotted gray;width:75%;"> 
-      <label for="firstname">Group the users according to:</label>
-      <input type="radio" name="admin_campaign[kind]" value="users"> Users 
-      <input type="radio" name="admin_campaign[kind]" value="topics"> Class 
-      <input type="radio" name="admin_campaign[kind]" value="groups" checked="checked"> Groups
-      <input type="radio" name="admin_campaign[kind]" value="everybody" id="everybody"> Everybody 
-  </div>
+ <div style="padding:8px;margin:4px;border:1px dotted gray;width:75%;"> 
 
-<div id="select_elements">
-    <label>Select colleges that you want to send this email:</label>
-    <div style="margin:3px;padding:2px;border:1px dotted #e0e0e0;width:70%;">
-        <input type="checkbox" id="selectall" name="admin_campaign[all]" value="all" class="selectedId"> Select all
-    </div>
+      <select name="admin_campaign[scheduled]" id="selecttime">
+          <option value="now" selected="selected">Immediately</option>
+          <option value="future">Schedule</option>
+      </select>
+
+      <div class="well" id="future">
+          <div id="datetimepicker1" class="input-append date">
+              <input data-format="dd/MM/yyyy hh:mm:ss" type="text" name="admin_campaign[futuretime]"></input>
+              <span class="add-on">
+                  <i data-time-icon="icon-time" data-date-icon="icon-calendar">
+                  </i>
+              </span>
+          </div>
+      </div>
+      <input type="hidden" name="admin_campaign[newsletter_id]"  value="<%= @admin_newsletter.id %>">
+
+      <div style="padding:8px;margin:4px;border:1px dotted gray;width:75%;"> 
+          <label for="firstname">Group the users according to:</label>
+          <input type="radio" name="admin_campaign[kind]" value="users"> Users 
+          <input type="radio" name="admin_campaign[kind]" value="topics"> Class 
+          <input type="radio" name="admin_campaign[kind]" value="groups" checked="checked"> Groups
+          <input type="radio" name="admin_campaign[kind]" value="everybody" id="everybody"> Everybody 
+      </div>
+      <div id="select_elements">
+        <label>Select colleges that you want to send this email:</label>
+        <div style="margin:3px;padding:2px;border:1px dotted #e0e0e0;width:70%;">
+            <input type="checkbox" id="selectall" name="admin_campaign[all]" value="all" class="selectedId"> Select all
+        </div>
  
-    <% @entities.each do | d | %>
-    <div style="margin:3px;padding:3px;border:1px dotted #e0e0e0;width:70%;">
-        <input type="checkbox"  name="admin_campaign[entity_id][]" value="<%= d.id  %>" class="selectedId"> <%= d.name  %> 
-        <!-- %= check_box_tag 'tos', d.id, false, :class => 'accept_tos' % -->
-    </div>
-    <% end %>
+        <% @entities.each do | d | %>
+            <div style="margin:3px;padding:3px;border:1px dotted #e0e0e0;width:70%;">
+              <input type="checkbox"  name="admin_campaign[entity_id][]" value="<%= d.id  %>" class="selectedId"> <%= d.name  %> 
+              <!-- %= check_box_tag 'tos', d.id, false, :class => 'accept_tos' % -->
+            </div>
+        <% end %>
  </div> <!-- select_elements ends -->
+
  <div class="form-actions">
         <input class="btn" name="commit" type="submit" value="Second Step &gt;&gt;">
   </div>
@@ -58,7 +74,19 @@
 
 $(document).ready(function () {
 
+    $('#datetimepicker1').datetimepicker(); 
+
     $("#select_elements").show();
+    $("#future").hide();
+
+    $('#selecttime').change(function(){
+        if ( $(this).val() == 'now' ) 
+        {
+            $('#future').fadeOut(); 
+        } else {
+            $('#future').fadeIn(); 
+        } 
+    });
 
     $('#selectall').click(function () {
         $('.selectedId').prop('checked', isChecked('selectall'));

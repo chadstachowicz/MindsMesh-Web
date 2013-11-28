@@ -23,23 +23,10 @@ class Admin::NewslettersController < ApplicationController
   # GET /admin/newsletters/select/1
   def select
     @admin_newsletter = Admin::Newsletter.find(params[:id])
-    @entities = Entity.find(:all)
-    @admin_campaign = Admin::Campaign.new
+    @entities         = Entity.find(:all)
+    @admin_campaign   = Admin::Campaign.new
   end
   
-  # GET /admin/newsletters/group/1
-  def groups
-    # DEPRECATED
-    # This method is deprecated
-    # return render :text => params[:admin_newsletter][:element_id]
-
-    @newsletter_id  = params[:newsletter_id]
-    @kind           = params[:kind]
-    @admin_campaign = Admin::Campaign.new
-    @data           = Admin::Newsletter.get_group(params[:admin_newsletter][:element_id], params[:kind])  # pass the array
-
-  end
-
   # GET /admin/newsletters/test/1
   def test
     @admin_newsletter   = Admin::Newsletter.find(params[:id])
@@ -55,7 +42,6 @@ class Admin::NewslettersController < ApplicationController
         #return render :text => @admin_newsletter.inspect
         redirect_to admin_newsletters_path, notice: "The email: \"#{title}\" has been sent to #{email}."
     end
-
   end
   
   # GET /admin/newsletters/statics/1

@@ -9,7 +9,7 @@ class Admin::Campaign < ActiveRecord::Base
   accepts_nested_attributes_for :entity
   accepts_nested_attributes_for :user
 
-  attr_accessible :kind, :user_id, :historic, :newsletter_id, :entity_id 
+  attr_accessible :kind, :user_id, :historic, :newsletter_id, :entity_id, :delivered, :scheduled, :futuretime 
 
   attr_accessor :send_reminders
 
@@ -21,7 +21,7 @@ class Admin::Campaign < ActiveRecord::Base
           }
 
   # send to all users
-  def self.everybody(newsletter_id)
+  def self.everybody(newsletter_id, data)
     nl   = Admin::Newsletter.find(newsletter_id)
     emails = 0
     users = User.find(:all)
@@ -67,8 +67,47 @@ class Admin::Campaign < ActiveRecord::Base
     MyMail.mail_test().deliver
   end
 
+  def self.cronjobs
+    twenty_hours
+    scheduled
+  end
+
   private
 
+=begin def self.twenty_hours
+    return false
+    campaigns = Admin::Newsletter.where(:scheduled=>true);
+    campaigns = find(); 
+    uer   = UserEntityRequest.where(confirmed_at 24)
+    uer.each do |u|
+        campaing = { kind:kind, historic:false, user_id:u.id, newsletter_id:nl.id, entity_id:u.entity_id}
+            transaction do
+                admin_campaign = new(campaing)
+                if admin_campaign.save
+                    # logger.debug "eur saved!!" if Rails.env.development?
+                    MyMail.send_newsletter(u,nl,emails).deliver
+                    emails = emails+1
+                end
+            end
+    end
+  end
+
+  def self.scheduled
+    return false
+    campaigns = Admin::Campaign.where(:scheduled=>true, :futuretime => );
+    uer.each do |u|
+        campaing = { kind:kind, historic:false, user_id:u.id, newsletter_id:nl.id, entity_id:u.entity_id}
+            transaction do
+                admin_campaign = new(campaing)
+                if MyMail.send_newsletter(u,nl,emails).deliver
+                    # logger.debug "eur saved!!" if Rails.env.development?
+                    delivered_campaign = Admin::Campaign.find()
+                    delivered_.update_column(:delivered, true)
+                end
+            end
+    end
+  end
+=end
   # after choose between the options, get the users emails to send
   def self.get_emails(values, kind, k)
     case kind

@@ -27,11 +27,11 @@ class Admin::CampaignsController < ApplicationController
 
     @newsletter_id  = params[:admin_campaign][:newsletter_id]
     @kind           = params[:admin_campaign][:kind]
-
-    #return render :text => @kind
+    
+    return render :text => params.inspect
      
     if @kind == 'everybody'
-        @emails_sent = Admin::Campaign.everybody(@newsletter_id)
+        @emails_sent = Admin::Campaign.everybody(@newsletter_id, params)
         @email_id    = @newsletter_id
         return render :template => '/admin/campaigns/create'
     end
