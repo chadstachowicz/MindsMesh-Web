@@ -47,8 +47,8 @@ class Admin::CampaignsController < ApplicationController
 
   # POST /admin/campaigns
   def create
-    #return render :text => params[:admin_campaign]                          
-    @data = Admin::Campaign.send_mails_and_save(params[:admin_campaign])
+    #return render :text => params[:admin_campaign]
+    @data = Admin::Campaign.create_campaign(params[:admin_campaign])
   end
 
   # GET /admin/campaigns/1/edit

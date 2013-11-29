@@ -11,16 +11,26 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131128173539) do
+ActiveRecord::Schema.define(:version => 20131129183204) do
+
+  create_table "admin_campaign_attrs", :force => true do |t|
+    t.integer  "admin_campaign_id"
+    t.string   "key"
+    t.integer  "value"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+  end
+
+  add_index "admin_campaign_attrs", ["admin_campaign_id"], :name => "index_admin_campaign_attrs_on_admin_campaign_id"
 
   create_table "admin_campaigns", :force => true do |t|
     t.string   "kind"
     t.boolean  "historic"
-    t.integer  "user_id"
     t.integer  "newsletter_id"
-    t.integer  "entity_id"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
+    t.integer  "scheduled"
+    t.datetime "futuretime"
   end
 
   create_table "admin_campaigns_users", :force => true do |t|
@@ -29,6 +39,7 @@ ActiveRecord::Schema.define(:version => 20131128173539) do
     t.boolean  "delivered"
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
+    t.integer  "entity_id"
   end
 
   add_index "admin_campaigns_users", ["admin_campaign_id"], :name => "index_admin_campaigns_users_on_admin_campaign_id"
