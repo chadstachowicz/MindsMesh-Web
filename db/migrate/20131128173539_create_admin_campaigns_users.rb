@@ -6,8 +6,9 @@ class CreateAdminCampaignsUsers < ActiveRecord::Migration
     create_table :admin_campaigns_users do |t|
       t.references :admin_campaign
       t.references :user
-      t.boolean :delivered   # scheduled = true or not
-       
+      t.boolean    :delivered   # already sent = true or not
+      t.integer    :entity_id
+
       t.timestamps
     end
     add_index :admin_campaigns_users, :admin_campaign_id

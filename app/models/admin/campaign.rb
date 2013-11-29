@@ -5,8 +5,9 @@ class Admin::Campaign < ActiveRecord::Base
 
   belongs_to :newsletter
   belongs_to :entity
-  has_many :campaigns_users, :class_name => 'Admin::CampaignsUsers',  foreign_key: "admin_campaign_id"
+  has_many :campaigns_users, :class_name => 'Admin::CampaignsUsers',  foreign_key: "admin_campaign_id", :dependent => :delete_all
   #has_many :user, :through => :campaign_user
+  serialize :entity, Hash
 
   #has_and_belongs_to_many :entity
   #has_and_belongs_to_many :user
@@ -68,8 +69,8 @@ class Admin::Campaign < ActiveRecord::Base
     emails        = 0
     usersfound    = 0
 
-    campaing      = { kind:kind, scheduled:schedul, futuretime:future, historic:false, newsletter_id:nl.id, entity_id:u.entity_id }
-
+    campaing      = { kind:kind, scheduled:schedul, futuretime:future, historic:false, newsletter_id:nl.id }
+    
     admin_campaign = create(campaing)
     
     data[:entity_ids].each do |k,v|    # k = entity_id
@@ -77,7 +78,7 @@ class Admin::Campaign < ActiveRecord::Base
         users.each do |u|
             usersfound = usersfound+1
             # logger.debug "#ll-> user  -> #{u}  \n \n" if Rails.env.development? 
-            campaing_user = { admin_campaign_id:admin_campaign.id, historic:false, user_id:u.id }
+            campaing_user = { admin_campaign_id:admin_campaign.id, historic:false, user_id:u.id, entity_id:u.entity_id }
             transaction do
                 admin_campaign = new(campaing)
                 if admin_campaign.save && delivered

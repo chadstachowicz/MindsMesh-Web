@@ -10,7 +10,6 @@ class CreateAdminCampaigns < ActiveRecord::Migration
       t.integer :type            # 1 = 24 hours, 2=croned 
       t.timestamps :futuretime   # when mthe email, will be send
       t.references :newsletter, index: true
-      t.references :entity, index: true
 
       t.timestamps
     end
