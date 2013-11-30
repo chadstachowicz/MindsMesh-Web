@@ -60,7 +60,7 @@ class Admin::Campaign < ActiveRecord::Base
     data = {emails:emails, scheduled:schedul, usersfound:usersfound, nl_id:nl.id }
   end
   
-  # send and save in campaigns
+  # Only create the campaign
   def self.create_campaign(data)
     sch_options   = {now:1, future:2, tfh:3, week:4}
     schedul       = sch_options[data[:scheduled].to_s.to_sym]
@@ -80,40 +80,46 @@ class Admin::Campaign < ActiveRecord::Base
         end
     end
     
-    #admin_campaign.campaign_attr << entities
-
     admin_campaign.save
     
-    if schedul == 1
-        send_mails_and_save(admin_campaign.id)
+    if schedul == 1 
+        data = send_mails_and_save(admin_campaign.id)
     end
+
+    return data
   end
 
+  # Send and save in campaign_users
   def self.send_mails_and_save(campaign_id)
 
     admin_campaign = find(campaign_id)
-    
-    emails        = 0
-    usersfound    = 0
-    #entities = 
-    entities.each do |k,v|    # k = entity_id 
-        #logger.debug "#### Entity-> values  -> #{v}  \n \n" if Rails.env.development? 
-        users = get_emails(v, kind, k)
-        users.each do |u|
-            usersfound = usersfound+1
-            # logger.debug "#ll-> user  -> #{u}  \n \n" if Rails.env.development? 
-            campaing_user = { admin_campaign_id:admin_campaign.id, historic:false, user_id:u.id, entity_id:u.entity_id }
-            transaction do
-                admin_campaign = new(campaing)
-                if admin_campaign.save && delivered
-                    # logger.debug "eur saved!!" if Rails.env.development?
-                    MyMail.send_newsletter(u,nl,emails).deliver
-                    emails = emails+1
+    nl             = Admin::Newsletter.find(admin_campaign.newsletter_id)
+    emails         = 0
+    usersfound     = 0
+    entities       = Admin::CampaignAttr.where(:admin_campaign_id=>campaign_id, :key=>'entity')
+
+    entities.each do |entity|    # k = entity_id 
+
+        type = Admin::CampaignAttr.where(:admin_campaign_id=>campaign_id, :key=>admin_campaign.kind)
+        type.each do |t|
+            logger.debug "#### Entity-> values  -> #{t.inspect}  \n \n" if Rails.env.development? 
+
+            users = get_emails(t.value, admin_campaign.kind, entity.value)
+            users.each do |u|
+                usersfound = usersfound+1
+                # logger.debug "#ll-> user  -> #{u}  \n \n" if Rails.env.development?
+                transaction do
+                    camp_user = {admin_campaign_id:admin_campaign.id, delivered:true, user_id:u.id, entity_id:entity.key}
+                    campaigns_users = new(camp_user)
+                    if campaigns_users.save
+                        MyMail.send_newsletter(u,nl,emails).deliver
+                        emails = emails+1
+                    end
                 end
             end
         end
     end
-    data = {emails:emails, scheduled:schedul, usersfound:usersfound, nl_id:nl.id}
+    data = {emails:emails, scheduled:admin_campaign.scheduled, usersfound:usersfound, nl_id:nl.id}
   end
   
   def self.send_reminders
@@ -121,7 +127,7 @@ class Admin::Campaign < ActiveRecord::Base
   end
 
   def self.cronjobs
-    twenty_hours
+    twentyfour_hours
     scheduled
   end
 
@@ -132,91 +138,79 @@ class Admin::Campaign < ActiveRecord::Base
     campaigns = Admin::Campaign.find_by_sql(q);
 
     campaigns.each do |c|
-        nl = Admin::Newsletters.find(c.newsletter_id)
-        users = Admin::CampaignsUsers.where(:admin_campaign_id => c.id)
-        users.each do |u|
-            transaction do
-                if MyMail.send_newsletter(u,nl,email).deliver
-                    # logger.debug "eur saved!!" if Rails.env.development?
-                    delivered_campaign = Admin::Campaign.find()
-                    delivered_.update_column(:delivered, true)
+       data = send_mails_and_save(admin_campaign.id)
+    end
+  end
+
+  # check if there is a 24h campaign
+  def self.twentyfour_hours
+    campaigns = Admin::Campaign.where(:scheduled=>2)
+    campaigns.each do |c|
+        entities       = Admin::CampaignAttr.where(:admin_campaign_id=>c.id, :key=>'entity')
+        entities.each do |ent|
+
+            case ent.kind
+                when 'users'
+                    q  = "SELECT u.id AS id, u.name AS name, u.email AS email, eu.entity_id AS entity_id FROM entity_users AS eu, users AS u, entity_user_requests AS eur "
+                    q += "WHERE eu.user_id=u.id AND eur.user_id=u.id AND eu.entity_id=#{ent.value} AND u.role_i=#{type.value} AND eur.confirmed_at < CURRENT_TIMESTAMP - INTERVAL '1 hour'"
+                when 'groups'
+                    q="SELECT user_id, email FROM entity_user_requests WHERE confirmed_at < CURRENT_TIMESTAMP - INTERVAL '1 hour'" 
+                when 'topics'
+                    q="SELECT user_id, email FROM entity_user_requests WHERE confirmed_at < CURRENT_TIMESTAMP - INTERVAL '1 hour'" 
+            end 
+            users = User.find_by_sql(q)
+            if !users.empty?
+                nl   = Admin::Newsletter.find(c.newsletter_id)
+            else
+                break
+            end
+            users.each do |u|
+                campaing = { kind:c.kind, delivered:true, user_id:u.id, newsletter_id:nl.id, entity_id:u.entity_id}
+                transaction do
+                    admin_campaign = new(campaing)
+                    if admin_campaign.save
+                        # logger.debug "eur saved!!" if Rails.env.development?
+                        MyMail.send_newsletter(u,nl,emails).deliver
+                        emails = emails+1
+                    end
                 end
             end
+        end
     end
-  
-
-    end 
-   end
+  end
 
 
   private
   
   # after choose between the options, get the users emails to send
-  def self.get_emails(values, kind, k)
+  def self.get_emails(value, kind, entity_id)
     case kind
         when 'users'
-            return get_users(values, k)
+            return get_users(value, entity_id)
         when 'groups'
-            return get_groups(values, k)
+            return get_groups(value, entity_id)
         when 'topics'
-            return get_topics(values, k)
+            return get_topics(value, entity_id)
      end 
   end
   
-  def self.get_users(values, k)
-    values[:user_ids].each do |ok, ov|
-        #logger.debug "#lllllllll->llllllllllllll #{ok} -> #{ov} \n \n"  if Rails.env.development?
-        role_integer = ROLES[ok] 
-        # logger.debug "#ll-> hashu -> #{hashu}  \n \n"
-        q = "SELECT u.id AS id, u.name AS name, u.email AS email, eu.entity_id AS entity_id FROM entity_users AS eu, users AS u WHERE eu.user_id=u.id AND eu.entity_id=#{k} AND u.role_i=#{role_integer}"
-        # logger.debug "#q:-> #{q} "
-        users = User.find_by_sql(q)
-        return users
-    end    
+  def self.get_users(value, entity_id)
+    q = "SELECT u.id AS id, u.name AS name, u.email AS email, eu.entity_id AS entity_id FROM entity_users AS eu, users AS u WHERE eu.user_id=u.id AND eu.entity_id=#{entity_id} AND u.role_i=#{value}"
+    # logger.debug "#q:-> #{q} "
+    users = User.find_by_sql(q)
   end
 
-  def self.get_groups(values, k)
-    #user_ids = group_id
-    values[:user_ids].each do |ok, ov|
-        Rails.logger.debug "######Groups- >Entity: #{k} Group-> #{ov} \n \n"  if Rails.env.development?   # false user_ids
-        
-        q = "SELECT u.id AS id, u.name AS name, u.email AS email, g.entity_id AS entity_id FROM group_users AS gu, groups AS g, users AS u WHERE gu.group_id=g.id AND gu.user_id=u.id AND g.entity_id=#{k} AND g.id=#{ov}"
-        #logger.debug "#q:-> #{q} " if Rails.env.development?
-        users = User.find_by_sql(q)
-        return users
-    end    
+  def self.get_groups(value, entity_id)
+    q = "SELECT u.id AS id, u.name AS name, u.email AS email, g.entity_id AS entity_id FROM group_users AS gu, groups AS g, users AS u WHERE gu.group_id=g.id AND gu.user_id=u.id AND g.entity_id=#{entity_id} AND g.id=#{value}"
+    #logger.debug "#q:-> #{q} " if Rails.env.development?
+    users = User.find_by_sql(q)
   end
 
 
-  def self.get_topics(values, k)
-    values[:user_ids].each do |ok, ov|
-        logger.debug "# at get_topics ->  #{ok} -> #{ov} \n \n"  if Rails.env.development?
-        
-        q = "SELECT u.id AS id, u.name AS name, u.email AS email, t.entity_id AS entity_id FROM topic_users AS tu, topics AS t,users AS u WHERE t.user_id=u.id AND tu.topic_id=t.id AND t.entity_id=#{k} AND tu.topic_id=#{ov}"
-        # logger.debug "#q:-> #{q} " if Rails.env.development?
-        users = User.find_by_sql(q)
-        return users
-    end    
+  def self.get_topics(value, entity_id) 
+    q = "SELECT u.id AS id, u.name AS name, u.email AS email, t.entity_id AS entity_id FROM topic_users AS tu, topics AS t,users AS u WHERE t.user_id=u.id AND tu.topic_id=t.id AND t.entity_id=#{entity_id} AND tu.topic_id=#{value}"
+    # logger.debug "#q:-> #{q} " if Rails.env.development?
+    users = User.find_by_sql(q)
   end
-
-=begin def self.twenty_hours
-    return false
-    campaigns = Admin::Newsletter.where(:scheduled=>true);
-    campaigns = find(); 
-    uer   = UserEntityRequest.where(confirmed_at 24)
-    uer.each do |u|
-        campaing = { kind:kind, historic:false, user_id:u.id, newsletter_id:nl.id, entity_id:u.entity_id}
-            transaction do
-                admin_campaign = new(campaing)
-                if admin_campaign.save
-                    # logger.debug "eur saved!!" if Rails.env.development?
-                    MyMail.send_newsletter(u,nl,emails).deliver
-                    emails = emails+1
-                end
-            end
-    end
-  end
-
-=end
 
 end
