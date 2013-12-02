@@ -10,7 +10,7 @@ class Admin::CampaignsController < ApplicationController
   # TODO: name these comments properly with all the matching URLs to each action
   # GET /admin/campaigns
   def index
-    @admin_campaigns = Admin::Campaign.order('id DESC').where(:historic=>false)
+    @admin_campaigns = Admin::Campaign.order('id DESC')
   end
 
   # GET /admin/campaigns/1
@@ -39,16 +39,15 @@ class Admin::CampaignsController < ApplicationController
     @admin_campaign = Admin::Campaign.new
     @data           = Admin::Newsletter.get_group(params[:admin_campaign][:entity_id], params[:admin_campaign][:kind])  # pass the array
 
-    #return render :text => @data
-    #respond_to do |format|
-    #    format.html { render :layout => !request.xhr? }
-    #end
+    # return render :text => @data
+
   end
 
   # POST /admin/campaigns
   def create
     #return render :text => params[:admin_campaign]
     @data = Admin::Campaign.create_campaign(params[:admin_campaign])
+    redirect_to admin_campaigns_path , notice: 'Campaign was created.'
   end
 
   # GET /admin/campaigns/1/edit

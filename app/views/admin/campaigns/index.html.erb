@@ -15,7 +15,7 @@
     <th></th>
     <th></th>
   </tr>
-<%  sch_options   = {1=>'Aready sent', 2=>'Scheduled', 3 => '24 h aft. reg.', 4 => 'Week aft. reg.'} %>
+<%  sch_options   = {1=>'Immediately', 2=>'Scheduled', 3 => '24 h aft. reg.', 4 => 'Week aft. reg.'} %>
 <% @admin_campaigns.each do |admin_campaign| %>
   <tr>
     <td><%= admin_campaign.newsletter.title %></td>

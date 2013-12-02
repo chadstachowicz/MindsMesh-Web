@@ -13,6 +13,7 @@ class Admin::NewslettersController < ApplicationController
   # GET /admin/newsletters
   def index
     @admin_newsletters = Admin::Newsletter.paginate(:page => params[:page], :per_page => 12).order('id DESC')
+    @campaign_users    = Admin::CampaignsUsers.paginate(:page => params[:page], :per_page => 40).order('id DESC')
   end
 
   # GET /admin/newsletters/1

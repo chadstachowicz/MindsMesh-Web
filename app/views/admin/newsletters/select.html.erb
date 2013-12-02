@@ -21,8 +21,9 @@
  <div style="padding:8px;margin:4px;border:1px dotted gray;width:75%;"> 
 
       <select name="admin_campaign[scheduled]" id="selecttime">
-          <option value="now" selected="selected">Immediately</option>
-          <option value="future">Schedule</option>
+          <option value="1" selected="selected">Immediately</option>
+          <option value="3">Send 24hrs after registration</option>
+          <option value="2">Schedule</option>
       </select>
 
       <div class="well" id="future">
@@ -80,12 +81,12 @@ $(document).ready(function () {
     $("#future").hide();
 
     $('#selecttime').change(function(){
-        if ( $(this).val() == 'now' ) 
+        if ( $(this).val() == 2 ) 
         {
-            $('#future').fadeOut(); 
+            $('#future').fadeIn();  
         } else {
-            $('#future').fadeIn(); 
-        } 
+            $('#future').fadeOut();
+        }
     });
 
     $('#selectall').click(function () {
@@ -101,7 +102,6 @@ $(document).ready(function () {
                 $("#select_elements").fadeIn();
             }
     }); 
-
 
 });
     
@@ -149,12 +149,15 @@ input[type=checkbox] {
   color: #ccc;
   font-style: italic;
   font-size: 0.9em;
+   border-radius: 8px;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, .2);  
 } 
 
 input[type=checkbox]:checked  {
   color: #f00;
   font-style: normal;
 }
+
 </style>
 
 

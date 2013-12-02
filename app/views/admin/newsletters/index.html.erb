@@ -44,6 +44,23 @@
 </div>
 
 </div>
+
+<div style="text-align:center;font-size:14pt;margin-top:55px;">Last sent emails</div>
+<div style="overflow:scroll;width:80%;height:400px;margin:auto;">
+
+<table style="border:1px solid gray;margin:18px auto;text-align:left;padding:6px;background-color:#fff;">
+  <tr style="background-color:#e0e0e0;color:#fff;font-weight:bold;font-size:11pt;">
+    <th>Campaign</th>
+    <th>Username</th>
+    <th>Email</th>
+    <th>Sent</th>
+  </tr>
+<% @campaign_users.each do |cusers| %>
+   <tr><td><%= cusers.admin_campaign_id.inspect %> </td><td>  <%= cusers.user.name %> </td><td> <%= cusers.user.email %>  </td><td> <%= cusers.created_at %></td></tr>
+<% end %> 
+</table>
+</div>
+
 <style type="text/css">
 
 table

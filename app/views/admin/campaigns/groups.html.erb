@@ -28,7 +28,7 @@
               <% one_value = true %>
               <% d[:users].each do |k,v| %>
               <div style="margin:3px;padding:3px;border:1px dotted #e0e0e0;">
-                  <input type="checkbox" class="eleclass" name="admin_campaign[entity_ids][<%= d[:id] %>][user_ids][<%= k  %>]" value="<%= k  %>"> <%= v  %>
+                  <input type="checkbox" class="eleclass" name="admin_campaign[entity_ids][<%= d[:id] %>][user_ids][<%= v  %>]" value="<%= v  %>"> <%= k  %>
               </div>
               <% end %>
           <% else %>
@@ -115,7 +115,7 @@ function checkCB() {
             alert('Choose at least one element');
             return false;
          }
-        return confirm("Are you sure you want to send this email?");
+        // return confirm("Are you sure you want to send this email?");
 }
 
 </script>

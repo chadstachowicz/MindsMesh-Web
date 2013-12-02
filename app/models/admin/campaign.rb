@@ -29,11 +29,10 @@ class Admin::Campaign < ActiveRecord::Base
 
   # send to all users
   def self.everybody(data)
-    sch_options   = {now:1, future:2, tfh:3, week:4}
     nl            = Admin::Newsletter.find(data[:newsletter_id])
-    schedul       = sch_options[data[:scheduled].to_s.to_sym]
+    schedul       = data[:scheduled]
     future        = data[:futuretime]
-    delivered     = data[:scheduled] == "now" ? true : false
+    delivered     = data[:scheduled] == "1" ? true : false
     kind          = data[:kind]
     emails        = 0
     usersfound    = 0
@@ -62,16 +61,15 @@ class Admin::Campaign < ActiveRecord::Base
   
   # Only create the campaign
   def self.create_campaign(data)
-    sch_options   = {now:1, future:2, tfh:3, week:4}
-    schedul       = sch_options[data[:scheduled].to_s.to_sym]
-    future        = data[:futuretime]
+    schedul       = data[:scheduled]
+    future        = schedul == '2' ? data[:futuretime] : Time.now.strftime("%Y-%m-%d %H:%M:%S")
     kind          = data[:kind]
    
     campaign      = { kind:kind, scheduled:schedul, futuretime:future, delivered:false, newsletter_id:data[:newsletter_id] }
     
     admin_campaign = new(campaign)
     entities = Hash.new
-    data[:entity_ids].each do |k,v|    # k = entity_id 
+    data[:entity_ids].each do |k,v|    # k = entity_id , v = values
         # logger.debug "#ll-> user  -> #{u}  \n \n" if Rails.env.development?
         admin_campaign.campaign_attr.build({key:'entity',value:k})
         #entities['entity'] = k
@@ -82,7 +80,7 @@ class Admin::Campaign < ActiveRecord::Base
     
     admin_campaign.save
     
-    if schedul == 1 
+    if schedul == '1'
         data = send_mails_and_save(admin_campaign.id)
     end
 
@@ -110,7 +108,7 @@ class Admin::Campaign < ActiveRecord::Base
                 # logger.debug "#ll-> user  -> #{u}  \n \n" if Rails.env.development?
                 transaction do
                     camp_user = {admin_campaign_id:admin_campaign.id, delivered:true, user_id:u.id, entity_id:entity.key}
-                    campaigns_users = new(camp_user)
+                    campaigns_users = Admin::CampaignsUsers.new(camp_user)
                     if campaigns_users.save
                         MyMail.send_newsletter(u,nl,emails).deliver
                         emails = emails+1

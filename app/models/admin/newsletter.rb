@@ -31,8 +31,8 @@ class Admin::Newsletter < ActiveRecord::Base
       def get_group(entities, kind)
 
         Rails.logger.debug entities.inspect if Rails.env.development?  
-        # school_admin:     20, faculty:   10,   moderator: 1
-        users = {admin: 'Admin', moderator: 'Moderator', student:'Student'}
+        
+        users = {'Admin'=>20, 'Student'=>10, 'Moderator'=>1 }
 
         data = Array.new
         #data << {kind: kind}
@@ -65,47 +65,50 @@ class Admin::Newsletter < ActiveRecord::Base
             end
           
             # Rails.logger.debug "result: #{result.inspect} \n\n"
-            data << entity    
-        end
-
-        return data
-
-      end
-
-    def general(from, to)
-
-      api_options = { module:'stats', action:'getAdvanced', format:'json'}
-      send_data = "?api_user=#{self.uname}&api_key=#{self.pwd}&start_date=#{from}&end_date=#{to}&data_type=global"
-      url_new_string = self.api_base_uri + api_options[:module] + '.' + api_options[:action]+ '.' + api_options[:format]  + send_data
-      Rails.logger.debug url_new_string if Rails.env.development?
-
-      response  =  HTTParty.post(url_new_string)  #submit the string to SG
-      jparsed   = JSON.parse(response)
-      data      = {json:jparsed}
-
-      numbers  = Array.new 
-      dates    = Array.new
-      jparsed.each do |p|
-          p["delivered"] = 0 if !p.has_key?"delivered"
-          numbers << p["delivered"]
-          dates   << p["date"]
-      end
-
-      h = LazyHighCharts::HighChart.new('graph') do |f|
-              f.options[:chart][:defaultSeriesType] = "line"
-              f.options[:title][:text] = 'Emails Statics'
-              #  f.options[:subtitle][:text] = "#{monthname} #{time.year}"
-              f.options[:yAxis] = {:min => 0, :title => { :text => 'Emails' }}
-              f.options[:xAxis] = {:title => { :text => 'Date' },type: 'datetime', :categories => dates}
-              f.series(:name=>'Emails delivered', :data => numbers )
-              f.options[:legend] = { :layout => 'vertical', :backgroundColor => '#FFFFFF', :align => 'right', :verticalAlign => 'top', :x => -10, :y => 100 }
-      end
-
-      data['chart'] = h 
-      return data
+            data << entity 
     end
 
-    def single(id)
+    return data
+
+  end
+
+  def general(from, to)
+
+    api_options = { module:'stats', action:'getAdvanced', format:'json'}
+    send_data = "?api_user=#{self.uname}&api_key=#{self.pwd}&start_date=#{from}&end_date=#{to}&data_type=global"
+    url_new_string = self.api_base_uri + api_options[:module] + '.' + api_options[:action]+ '.' + api_options[:format]  + send_data
+    Rails.logger.debug url_new_string if Rails.env.development?
+
+    response  =  HTTParty.post(url_new_string)  #submit the string to SG
+    jparsed   = JSON.parse(response)
+    data      = {json:jparsed}
+    
+    numbers  = Array.new 
+    dates    = Array.new
+    jparsed.each do |p|
+        p["delivered"] = 0 if !p.has_key?"delivered"
+        numbers << p["delivered"]
+        dates   << p["date"]
+    end
+    
+    h = LazyHighCharts::HighChart.new('graph') do |f|
+        f.options[:chart][:defaultSeriesType] = "line"
+        f.options[:title][:text] = 'Emails Statics'
+        #  f.options[:subtitle][:text] = "#{monthname} #{time.year}"
+        f.options[:yAxis] = {:min => 0, :title => { :text => 'Emails' }}
+        f.options[:xAxis] = {:title => { :text => 'Date' },type: 'datetime', :categories => dates}
+        f.series(:name=>'Emails delivered', :data => numbers )
+        f.options[:legend] = { :layout => 'vertical', :backgroundColor => '#fff', :align => 'right', :verticalAlign => 'top', :x => -10, :y => 100 }
+    end
+
+    data['chart'] = h
+
+    # Rails.logger.debug data.inspect if Rails.env.development?
+
+    return data 
+  end
+
+  def single(id)
       nl = find(id)
       api_options = { module:'stats', action:'get', format:'json'}
       formatted = CGI::escape(nl.title)
@@ -118,6 +121,6 @@ class Admin::Newsletter < ActiveRecord::Base
 
     end
 
-  end
+  end # end private methods
 
 end
