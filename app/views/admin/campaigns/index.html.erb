@@ -8,7 +8,8 @@
     <th>Newsletter</th>
     <th>To</th>
     <th>Scheduled</th>
-    <th>Date Time</th>
+    <th>Date to deliver</th>
+    <th>Created</th>
     <th>Emails</th>
     
     <th></th>
@@ -21,7 +22,12 @@
     <td><%= admin_campaign.newsletter.title %></td>
     <td><%= admin_campaign.kind %></td>
     <td><%= sch_options[admin_campaign.scheduled] %></td>
-    <td><%= admin_campaign.futuretime.to_formatted_s(:app) %></td>
+    <% if admin_campaign.scheduled == 2 %> 
+        <td><%= admin_campaign.futuretime.to_formatted_s(:app) %></td>
+    <% else %>
+        <td>Not scheduled</td>
+    <% end %>
+    <td><%= admin_campaign.created_at %></td>
     <td><%= admin_campaign.campaigns_users.size  %></td>
     <td><%= link_to raw('<i class="icon-tablet icon-white"></i>'), edit_admin_campaign_path(admin_campaign), :alt=>'Edit Campaign', :title=>'Edit Campaign' %></td>
     <td><%= link_to raw('<i class="icon-trash icon-white"></i>'), admin_campaign, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-danger' %></td>
