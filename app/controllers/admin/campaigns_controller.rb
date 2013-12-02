@@ -10,7 +10,7 @@ class Admin::CampaignsController < ApplicationController
   # TODO: name these comments properly with all the matching URLs to each action
   # GET /admin/campaigns
   def index
-    @admin_campaigns = Admin::Campaign.order('id DESC')
+    @admin_campaigns = Admin::Campaign.paginate(:page => params[:page], :per_page => 25).order('id DESC')
   end
 
   # GET /admin/campaigns/1
