@@ -51,12 +51,13 @@
 <table style="border:1px solid gray;margin:18px auto;text-align:left;padding:6px;background-color:#fff;">
   <tr style="background-color:#e0e0e0;color:#fff;font-weight:bold;font-size:11pt;">
     <th>Campaign</th>
+    <th>Kind</th>
     <th>Username</th>
     <th>Email</th>
     <th>Sent</th>
   </tr>
 <% @campaign_users.each do |cusers| %>
-   <tr> <td><%= cusers.campaign %> </td ><td> <%= cusers.name %> </td> <td> <%= cusers.email %>  </td><td> <%= cusers.sent %></td></tr>
+   <tr> <td><%= cusers.campaign %> </td> <td><%= cusers.kind %> </td> <td> <%= cusers.name %> </td> <td> <%= cusers.email %>  </td><td> <%= cusers.sent %></td></tr>
 <% end %> 
 </table>
 </div>

@@ -31,32 +31,17 @@ class Admin::Campaign < ActiveRecord::Base
   def self.everybody(data)
     nl            = Admin::Newsletter.find(data[:newsletter_id])
     schedul       = data[:scheduled]
-    future        = data[:futuretime]
+    future        = schedul == '2' ? data[:futuretime] : Time.now.strftime("%Y-%m-%d %H:%M:%S")
     delivered     = data[:scheduled] == "1" ? true : false
-    kind          = data[:kind]
-    emails        = 0
-    usersfound    = 0
+    kind          = 'everybody'
 
-    campaing      = { kind:kind, scheduled:schedul, futuretime:future, historic:false, newsletter_id:nl.id }
+    campaign      = { kind:kind, scheduled:schedul, futuretime:future, delivered:delivered, newsletter_id:nl.id }
 
-    admin_campaign = create(campaing)
+    admin_campaign = create(campaign)
     
-    users = User.find(:all,:select => "id, name, email")
-
-    users.each do |u|
-        # logger.debug "#ll-> user  -> #{u}  \n \n" if Rails.env.development? 
-        usersfound    = usersfound+1
-        campaing_user = { admin_campaign_id:admin_campaign.id, delivered:delivered, user_id:u.id }
-        transaction do
-            admin_campaign = Admin::CampaignsUsers.new(campaing_user)
-            if admin_campaign.save && delivered 
-                # logger.debug "Data saved!!" if Rails.env.development?
-                MyMail.send_newsletter(u,nl,emails).deliver
-                emails = emails+1
-            end
-        end
+    if schedul == '1'
+        data = send_mails_and_save(admin_campaign.id)
     end
-    data = {emails:emails, scheduled:schedul, usersfound:usersfound, nl_id:nl.id }
   end
   
   # Only create the campaign
@@ -64,8 +49,9 @@ class Admin::Campaign < ActiveRecord::Base
     schedul       = data[:scheduled]
     future        = schedul == '2' ? data[:futuretime] : Time.now.strftime("%Y-%m-%d %H:%M:%S")
     kind          = data[:kind]
+    delivered     = data[:scheduled] == "1" ? true : false
    
-    campaign      = { kind:kind, scheduled:schedul, futuretime:future, delivered:false, newsletter_id:data[:newsletter_id] }
+    campaign      = { kind:kind, scheduled:schedul, futuretime:future, delivered:delivered, newsletter_id:data[:newsletter_id] }
     
     admin_campaign = new(campaign)
     entities = Hash.new
@@ -83,7 +69,7 @@ class Admin::Campaign < ActiveRecord::Base
     if schedul == '1'
         data = send_mails_and_save(admin_campaign.id)
     end
-
+    
     return data
   end
 
@@ -94,30 +80,49 @@ class Admin::Campaign < ActiveRecord::Base
     nl             = Admin::Newsletter.find(admin_campaign.newsletter_id)
     emails         = 0
     usersfound     = 0
-    entities       = Admin::CampaignAttr.where(:admin_campaign_id=>campaign_id, :key=>'entity')
+    
 
-    entities.each do |entity|    # k = entity_id 
+    if admin_campaign.kind == 'everybody'
+        users = User.find(:all,:select => "id, name, email")
+        users.each do |u|
+            # logger.debug "#ll-> user  -> #{u}  \n \n" if Rails.env.development? 
+            usersfound    = usersfound+1
+            campaing_user = { admin_campaign_id:admin_campaign.id, delivered:true, user_id:u.id }
+            transaction do
+                admin_campaign = Admin::CampaignsUsers.new(campaing_user)
+                if admin_campaign.save 
+                    # logger.debug "Data saved!!" if Rails.env.development?
+                    MyMail.send_newsletter(u,nl,emails).deliver
+                    emails = emails+1
+                end
+            end
+        end
+    else
+        entities       = Admin::CampaignAttr.where(:admin_campaign_id=>campaign_id, :key=>'entity')
+    
+        entities.each do |entity|    # k = entity_id 
 
-        type = Admin::CampaignAttr.where(:admin_campaign_id=>campaign_id, :key=>admin_campaign.kind)
-        type.each do |t|
-            logger.debug "#### Entity-> values  -> #{t.inspect}  \n \n" if Rails.env.development? 
+            type = Admin::CampaignAttr.where(:admin_campaign_id=>campaign_id, :key=>admin_campaign.kind)
+            type.each do |t|
+                logger.debug "#### Entity-> values  -> #{t.inspect}  \n \n" if Rails.env.development?
 
-            users = get_emails(t.value, admin_campaign.kind, entity.value)
-            users.each do |u|
-                usersfound = usersfound+1
-                # logger.debug "#ll-> user  -> #{u}  \n \n" if Rails.env.development?
-                transaction do
-                    camp_user = {admin_campaign_id:admin_campaign.id, delivered:true, user_id:u.id, entity_id:entity.key}
-                    campaigns_users = Admin::CampaignsUsers.new(camp_user)
-                    if campaigns_users.save
-                        MyMail.send_newsletter(u,nl,emails).deliver
-                        emails = emails+1
+                users = get_emails(t.value, admin_campaign.kind, entity.value)
+                users.each do |u|
+                    usersfound = usersfound+1
+                    # logger.debug "#ll-> user  -> #{u}  \n \n" if Rails.env.development?
+                    transaction do
+                        camp_user = {admin_campaign_id:admin_campaign.id, delivered:true, user_id:u.id, entity_id:entity.key}
+                        campaigns_users = Admin::CampaignsUsers.new(camp_user)
+                        if campaigns_users.save
+                            MyMail.send_newsletter(u,nl,emails).deliver
+                            emails = emails+1
+                        end
                     end
                 end
             end
         end
     end
-    data = {emails:emails, scheduled:admin_campaign.scheduled, usersfound:usersfound, nl_id:nl.id}
+    data = {emails:emails, usersfound:usersfound, nl_id:nl.id}
   end
   
   def self.send_reminders

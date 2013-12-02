@@ -13,7 +13,7 @@ class Admin::NewslettersController < ApplicationController
   # GET /admin/newsletters
   def index
     @admin_newsletters = Admin::Newsletter.paginate(:page => params[:page], :per_page => 12).order('id DESC')
-    @campaign_users    = User.find_by_sql("SELECT u.name AS name, u.email AS email, nl.title AS campaign, acu.created_at AS sent, acu.id AS id FROM users AS u, admin_newsletters AS nl, admin_campaigns_users AS acu, admin_campaigns AS ac 
+    @campaign_users    = User.find_by_sql("SELECT u.name AS name, u.email AS email, nl.title AS campaign, acu.created_at AS sent, acu.id AS id, ac.kind AS kind FROM users AS u, admin_newsletters AS nl, admin_campaigns_users AS acu, admin_campaigns AS ac 
 WHERE nl.id = ac.newsletter_id AND acu.admin_campaign_id = ac.id AND u.id=acu.user_id ORDER BY acu.id DESC LIMIT 100")
   end
 

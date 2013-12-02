@@ -30,7 +30,7 @@ class Admin::CampaignsController < ApplicationController
     if params[:admin_campaign][:kind] == 'everybody' 
         @data = Admin::Campaign.everybody(params[:admin_campaign])
         # return render :text => @data
-        return render :template => '/admin/campaigns/create'
+        return redirect_to admin_campaigns_path , notice: 'Campaign was created.'
     end
     @scheduled      = params[:admin_campaign][:scheduled]
     @futuretime     = params[:admin_campaign][:futuretime]
