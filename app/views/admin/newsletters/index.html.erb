@@ -56,7 +56,7 @@
     <th>Sent</th>
   </tr>
 <% @campaign_users.each do |cusers| %>
-   <tr><td><%= cusers.admin_campaign_id.inspect %> </td><td>  <%= cusers.user.name %> </td><td> <%= cusers.user.email %>  </td><td> <%= cusers.created_at %></td></tr>
+   <tr> <td><%= cusers.campaign %> </td ><td> <%= cusers.name %> </td> <td> <%= cusers.email %>  </td><td> <%= cusers.sent %></td></tr>
 <% end %> 
 </table>
 </div>
