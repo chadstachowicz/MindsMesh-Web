@@ -16,7 +16,7 @@ class Admin::Campaign < ActiveRecord::Base
   accepts_nested_attributes_for :campaign_attr, :allow_destroy => :true
   #accepts_nested_attributes_for :user
 
-  attr_accessible :kind, :historic, :newsletter_id, :entity_id, :delivered, :scheduled, :futuretime 
+  attr_accessible :kind, :historic, :newsletter_id, :delivered, :scheduled, :futuretime 
 
   attr_accessor :send_reminders
 
