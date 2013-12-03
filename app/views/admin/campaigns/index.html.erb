@@ -29,7 +29,7 @@
     <% end %>
     <td><%= admin_campaign.created_at %></td>
     <td><%= admin_campaign.campaigns_users.size  %></td>
-    <td><%= link_to raw('<i class="icon-envelope icon-white"></i>'), sendcamp_admin_campaigns_path(admin_campaign), :alt=>'Send now', :title=>'Send now',:confirm => "Are you sure to send this campaign?" %>
+    <td><%= link_to raw('<i class="icon-envelope icon-white"></i>'), sendcamp_admin_campaigns_path(admin_campaign), :alt=>'Send now', :title=>'Send now',:confirm => "Are you sure to deliver this campaign now?" %>
     <td><%= link_to raw('<i class="icon-tablet icon-white"></i>'), edit_admin_campaign_path(admin_campaign), :alt=>'Edit Campaign', :title=>'Edit Campaign' %></td>
     <td><%= link_to raw('<i class="icon-trash icon-white"></i>'), admin_campaign, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-danger' %></td>
   </tr>

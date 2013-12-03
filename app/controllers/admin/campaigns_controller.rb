@@ -51,7 +51,7 @@ class Admin::CampaignsController < ApplicationController
   end
 
  # POST /admin/campaigns/send
-  def sendcamp
+  def osendcamp
     data = Admin::Campaign.send_mails_and_save(params[:id])
     redirect_to admin_campaigns_path , notice: 'Campaign was delivered.'
   end
