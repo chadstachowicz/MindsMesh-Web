@@ -25,7 +25,7 @@ WHERE nl.id = ac.newsletter_id AND acu.admin_campaign_id = ac.id AND u.id=acu.us
   # GET /admin/newsletters/select/1
   def select
     @admin_newsletter = Admin::Newsletter.find(params[:id])
-    @entities         = Entity.find(:all).order('name')
+    @entities         = Entity.order('name').all
     @admin_campaign   = Admin::Campaign.new
   end
   
