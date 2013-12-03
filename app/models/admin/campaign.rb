@@ -55,7 +55,7 @@ class Admin::Campaign < ActiveRecord::Base
     
     admin_campaign = new(campaign)
     entities = Hash.new
-    data[:entity_ids].each do |k,v|    # k = entity_id , v = values
+    data[:entity_ids].each do |k,v|    # k = entity_id , v = values_selected
         # logger.debug "#ll-> user  -> #{u}  \n \n" if Rails.env.development?
         admin_campaign.campaign_attr.build({entity_id:k, key:'entity'})
         #entities['entity'] = k
@@ -81,7 +81,6 @@ class Admin::Campaign < ActiveRecord::Base
     emails         = 0
     usersfound     = 0
     
-
     if admin_campaign.kind == 'everybody'
         users = User.find(:all,:select => "id, name, email")
         users.each do |u|
@@ -98,20 +97,17 @@ class Admin::Campaign < ActiveRecord::Base
             end
         end
     else
-        entities  = Admin::CampaignAttr.where(:admin_campaign_id=>campaign_id, :key=>'entity')
-    
-        entities.each do |entity|    # k = entity_id 
-
-            type = Admin::CampaignAttr.where(:admin_campaign_id=>campaign_id, :entity_id => entity.entity_id, :key=>admin_campaign.kind)
-            type.each do |t|
+        entities  = Admin::CampaignAttr.where(:admin_campaign_id=>admin_campaign.id, :key=>'entity')
+        entities.each do |entity|
+            types = Admin::CampaignAttr.where(:admin_campaign_id=>admin_campaign.id, :entity_id => entity.entity_id, :key=>admin_campaign.kind)
+            types.each do |t|
                 # logger.debug "#### Entity-> values  -> #{t.inspect}  \n \n" if Rails.env.development?
-
-                users = get_emails(t.value, admin_campaign.kind, entity.value)
+                users = get_emails(t.value, admin_campaign.kind, entity.entity_id)
                 users.each do |u|
                     usersfound = usersfound+1
                     # logger.debug "#ll-> user  -> #{u}  \n \n" if Rails.env.development?
                     transaction do
-                        camp_user = {admin_campaign_id:admin_campaign.id, delivered:true, user_id:u.id, entity_id:entity.key}
+                        camp_user = {admin_campaign_id:admin_campaign.id, delivered:true, user_id:u.id, entity_id:entity.entity_id}
                         campaigns_users = Admin::CampaignsUsers.new(camp_user)
                         if campaigns_users.save
                             MyMail.send_newsletter(u,nl,emails).deliver
@@ -130,39 +126,39 @@ class Admin::Campaign < ActiveRecord::Base
   end
 
   def self.cronjobs
-    twentyfour_hours
+    after_registration
     scheduled
   end
 
   def self.scheduled
+    # q='SELECT id FROM admin_campaigns WHERE scheduled = 2 AND (EXTRACT(EPOCH FROM current_timestamp - "futuretime")/3600)::Integer = 0'  Occam razor
+    q="SELECT id FROM admin_campaigns WHERE scheduled = 2 AND date_trunc('hour', current_timestamp) = date_trunc('hour', futuretime)"
 
-    q='SELECT id FROM admin_campaigns WHERE scheduled = 2 AND (EXTRACT(EPOCH FROM current_timestamp - "futuretime")/3600)::Integer = 0'
-
-    campaigns = Admin::Campaign.find_by_sql(q);
+    campaigns = Admin::Campaign.find_by_sql(q)
 
     campaigns.each do |c|
-       data = send_mails_and_save(admin_campaign.id)
+       data = send_mails_and_save(c.id)
     end
   end
 
-  # Send the 24h campaign
-  def self.twentyfour_hours
-    campaigns = Admin::Campaign.where(:scheduled => 2)
-    tfourhs='(EXTRACT(EPOCH FROM current_timestamp - "eur"."confirmed_at")/3600)::Integer = 24'
+  # Send n hours after registration
+  def self.after_registration(hours=24)
+    campaigns = Admin::Campaign.where(:scheduled => 3)
+    extract="(EXTRACT(EPOCH FROM current_timestamp - \"eur\".\"confirmed_at\")/3600)::Integer = #{hours}"
     campaigns.each do |c|
         entities       = Admin::CampaignAttr.where(:admin_campaign_id=>c.id, :key=>'entity')
         entities.each do |ent|
-            types = Admin::CampaignAttr.where(:admin_campaign_id=>c.id, :key=>c.kind)
+            types = Admin::CampaignAttr.where(:admin_campaign_id=>c.id, :entity_id => ent.entity_id, :key=>c.kind)
             types.each do |t|
                 case c.kind
                     when 'users'
                         q  = "SELECT u.id AS id, u.name AS name, u.email AS email, eu.entity_id AS entity_id FROM entity_users AS eu, users AS u, entity_user_requests AS eur "
-                        q += "WHERE eu.user_id=u.id AND eur.user_id=u.id AND eu.entity_id=#{ent.value} AND u.role_i=#{t.value} AND #{tfourhs}"
+                        q += "WHERE eu.user_id=u.id AND eur.user_id=u.id AND eu.entity_id=#{t.entity_id} AND u.role_i=#{t.value} AND #{extract}"
                         # logger.debug "#q:-> #{q} "
                     when 'groups'
-                        q = "SELECT u.id AS id, u.name AS name, u.email AS email, g.entity_id AS entity_id FROM group_users AS gu, groups AS g, users AS u WHERE gu.group_id=g.id AND gu.user_id=u.id AND g.entity_id=#{entity_id} AND g.id=#{value} AND #{tfourhs}"
+                        q = "SELECT u.id AS id, u.name AS name, u.email AS email, g.entity_id AS entity_id FROM group_users AS gu, groups AS g, users AS u WHERE gu.group_id=g.id AND gu.user_id=u.id AND g.entity_id=#{entity_id} AND g.id=#{value} AND #{extract}"
                     when 'topics'
-                        q = "SELECT u.id AS id, u.name AS name, u.email AS email, t.entity_id AS entity_id FROM topic_users AS tu, topics AS t,users AS u WHERE t.user_id=u.id AND tu.topic_id=t.id AND t.entity_id=#{entity_id} AND tu.topic_id=#{value} AND #{tfourhs}"
+                        q = "SELECT u.id AS id, u.name AS name, u.email AS email, t.entity_id AS entity_id FROM topic_users AS tu, topics AS t,users AS u WHERE t.user_id=u.id AND tu.topic_id=t.id AND t.entity_id=#{entity_id} AND tu.topic_id=#{value} AND #{extract}"
                 end 
                 users = User.find_by_sql(q)
 
@@ -173,7 +169,7 @@ class Admin::Campaign < ActiveRecord::Base
                 end
                 users.each do |u|
                     transaction do
-                        camp_user = {admin_campaign_id:c.id, delivered:true, user_id:u.id, entity_id:ent.value}
+                        camp_user = {admin_campaign_id:c.id, delivered:true, user_id:u.id, entity_id:ent.entity_id}
                         campaigns_users = Admin::CampaignsUsers.new(camp_user)
                         if campaigns_users.save
                             # logger.debug "eur saved!!" if Rails.env.development?

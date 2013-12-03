@@ -45,13 +45,13 @@ class Admin::CampaignsController < ApplicationController
 
   # POST /admin/campaigns
   def create
-    return render :text => params[:admin_campaign]
+    #return render :text => params[:admin_campaign]
     @data = Admin::Campaign.create_campaign(params[:admin_campaign])
     redirect_to admin_campaigns_path , notice: 'Campaign was created.'
   end
 
  # POST /admin/campaigns/send
-  def osendcamp
+  def sendcamp
     data = Admin::Campaign.send_mails_and_save(params[:id])
     redirect_to admin_campaigns_path , notice: 'Campaign was delivered.'
   end
