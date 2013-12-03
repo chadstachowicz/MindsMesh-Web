@@ -254,20 +254,21 @@ Mindsmesh::Application.routes.draw do
 
     resources :campaigns do
       collection do
-          post  "groups/" => "campaigns#groups",  :as => 'groups'
+          post  "groups/"      => "campaigns#groups",   :as => 'groups'
+          get   "sendcamp/:id" => "campaigns#sendcamp", :as => 'sendcamp'
       end
     end
 
     resources :newsletters do
       collection do
-          get  "select/:id"              => "newsletters#select",       :as => 'ns_select'
-          get  "test/:id"                => "newsletters#test",         :as => 'test'
-          get  "send/"                   => "newsletters#send",         :as => 'send'
-          post "generalstats/"           => "newsletters#generalstats", :as => 'generalstats'
-          get  "settings/"               => "newsletters#settings",     :as => 'settings'
-          get  "statics/:id"             => "newsletters#statics",      :as => 'statics'
-          get  "categories"              => "newsletters#categories",   :as => 'categories'
-          post  "groups/"                => "newsletters#groups",       :as => 'groups'
+          get   "select/:id"           => "newsletters#select",       :as => 'ns_select'
+          get   "test/:id"             => "newsletters#test",         :as => 'test'
+          get   "send/"                => "newsletters#send",         :as => 'send'
+          post  "generalstats/"        => "newsletters#generalstats", :as => 'generalstats'
+          get   "settings/"            => "newsletters#settings",     :as => 'settings'
+          get   "statics/:id"          => "newsletters#statics",      :as => 'statics'
+          get   "categories"           => "newsletters#categories",   :as => 'categories'
+          post  "groups/"              => "newsletters#groups",       :as => 'groups'
       end
     end
   end
