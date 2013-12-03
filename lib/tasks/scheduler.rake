@@ -7,6 +7,6 @@ desc "This task is called by the Heroku scheduler add-on"
 #end
 
 task :users_reminders => :environment do
-  Admin::Campaign.send_reminders
+  Admin::Campaign.cronjobs
 end
 
