@@ -7,7 +7,7 @@ class CreateAdminCampaigns < ActiveRecord::Migration
       t.string :kind
       t.integer :scheduled       # scheduled = true or not
       t.boolean :delivered       # delivered = true or not
-      t.timestamps :futuretime   # when mthe email, will be send
+      t.timestamp :futuretime   # when mthe email, will be send
       t.references :newsletter, index: true
 
       t.timestamps

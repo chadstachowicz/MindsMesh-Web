@@ -28,9 +28,10 @@ ActiveRecord::Schema.define(:version => 20131129183204) do
     t.string   "kind"
     t.integer  "scheduled"
     t.boolean  "delivered"
+    t.datetime "futuretime"
+    t.integer  "newsletter_id"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
-    t.integer  "newsletter_id"
   end
 
   create_table "admin_campaigns_users", :force => true do |t|
