@@ -57,10 +57,10 @@ class Admin::Campaign < ActiveRecord::Base
     entities = Hash.new
     data[:entity_ids].each do |k,v|    # k = entity_id , v = values
         # logger.debug "#ll-> user  -> #{u}  \n \n" if Rails.env.development?
-        admin_campaign.campaign_attr.build({key:'entity',value:k})
+        admin_campaign.campaign_attr.build({entity_id:k, key:'entity'})
         #entities['entity'] = k
         v[:user_ids].each do |ok, ov|
-           admin_campaign.campaign_attr.build({key:kind,value:ov})
+           admin_campaign.campaign_attr.build({entity_id:k,key:kind,value:ov})
         end
     end
     
@@ -98,13 +98,13 @@ class Admin::Campaign < ActiveRecord::Base
             end
         end
     else
-        entities       = Admin::CampaignAttr.where(:admin_campaign_id=>campaign_id, :key=>'entity')
+        entities  = Admin::CampaignAttr.where(:admin_campaign_id=>campaign_id, :key=>'entity')
     
         entities.each do |entity|    # k = entity_id 
 
-            type = Admin::CampaignAttr.where(:admin_campaign_id=>campaign_id, :key=>admin_campaign.kind)
+            type = Admin::CampaignAttr.where(:admin_campaign_id=>campaign_id, :entity_id => entity.entity_id, :key=>admin_campaign.kind)
             type.each do |t|
-                logger.debug "#### Entity-> values  -> #{t.inspect}  \n \n" if Rails.env.development?
+                # logger.debug "#### Entity-> values  -> #{t.inspect}  \n \n" if Rails.env.development?
 
                 users = get_emails(t.value, admin_campaign.kind, entity.value)
                 users.each do |u|

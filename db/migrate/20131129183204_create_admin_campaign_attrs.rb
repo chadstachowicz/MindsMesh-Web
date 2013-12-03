@@ -5,6 +5,7 @@ class CreateAdminCampaignAttrs < ActiveRecord::Migration
   def change
     create_table :admin_campaign_attrs do |t|
       t.references :admin_campaign
+      t.integer :entity_id
       t.string :key
       t.integer :value
 
