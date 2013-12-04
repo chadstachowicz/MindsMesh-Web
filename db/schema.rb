@@ -11,7 +11,49 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131013222841) do
+ActiveRecord::Schema.define(:version => 20131129183204) do
+
+  create_table "admin_campaign_attrs", :force => true do |t|
+    t.integer  "admin_campaign_id"
+    t.integer  "entity_id"
+    t.string   "key"
+    t.integer  "value"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+  end
+
+  add_index "admin_campaign_attrs", ["admin_campaign_id"], :name => "index_admin_campaign_attrs_on_admin_campaign_id"
+
+  create_table "admin_campaigns", :force => true do |t|
+    t.string   "kind"
+    t.integer  "scheduled"
+    t.boolean  "delivered"
+    t.datetime "futuretime"
+    t.integer  "newsletter_id"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  create_table "admin_campaigns_users", :force => true do |t|
+    t.integer  "admin_campaign_id"
+    t.integer  "user_id"
+    t.boolean  "delivered"
+    t.integer  "entity_id"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+  end
+
+  add_index "admin_campaigns_users", ["admin_campaign_id"], :name => "index_admin_campaigns_users_on_admin_campaign_id"
+  add_index "admin_campaigns_users", ["user_id"], :name => "index_admin_campaigns_users_on_user_id"
+
+  create_table "admin_newsletters", :force => true do |t|
+    t.string   "title"
+    t.text     "plainemail"
+    t.text     "htmlemail"
+    t.boolean  "status"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "background_jobs", :force => true do |t|
     t.string   "name"
@@ -365,7 +407,7 @@ ActiveRecord::Schema.define(:version => 20131013222841) do
   create_table "rapns_apps", :force => true do |t|
     t.string   "name",                       :null => false
     t.string   "environment"
-    t.text     "certificate"
+    t.text     "certificate",                :null => false
     t.string   "password"
     t.integer  "connections", :default => 1, :null => false
     t.datetime "created_at",                 :null => false

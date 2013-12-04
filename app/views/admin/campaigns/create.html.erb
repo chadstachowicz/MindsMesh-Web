@@ -1,0 +1,17 @@
+
+
+<div class="headline3">Campaign created</div>
+
+
+<div style="padding:15px;margin:19px;background-color:#fff;">
+<%# = @data.inspect %>
+    <%= @data[:usersfound] %> users found. <%= @data[:emails] %> email has been sent. 
+    <% if @data[:scheduled] == 1 %>
+        <%= link_to 'Please view historic for details.', "/admin/newsletters/statics/#{@data[:nl_id]}" %><br /><br />
+    <% else%>    
+         Campaign <%= @data[:schedule] %> scheduled.
+    <% end %>
+
+    <p><%= link_to image_tag('icon-back.png', :title=>'Go back', :alt=>'Go back'), admin_newsletters_path %></p>
+
+</div>

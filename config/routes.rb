@@ -1,31 +1,21 @@
 Mindsmesh::Application.routes.draw do
 
-
-
-
   resources :background_jobs
-
 
   resources :email_campaigns
 
-
   resources :post_hashtags
-
 
   resources :hashtags
   resources :feedback_bugs
 
-
   resources :entity_user_lms
-
 
   resources :entity_lms
 
-
   resources :lms_providers
 
-
-    devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks"}
+  devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks"}
 
   #rails generate versionist:new_controller notifications api/V1
   #then adapt the generated files
@@ -251,4 +241,40 @@ Mindsmesh::Application.routes.draw do
 
   root to: "home#index"
   get "home/denied", as: 'denied'
+
+
+  # Admin email manager  3-XII-13
+  namespace :admin do
+
+    #get  "select"    => "panels#index",   :as => 'panela_index'
+    resources :panels do
+      collection do
+          get  "index"    => "panels#index",   :as => 'pindex'
+          get  "statics"  => "panels#statics", :as => 'statics'
+          get  "recent"   => "panels#recent",  :as => 'recent'
+          get  "posts"    => "panels#posts",   :as => 'posts'
+      end
+    end
+
+    resources :campaigns do
+      collection do
+          post  "groups/"      => "campaigns#groups",   :as => 'groups'
+          get   "sendcamp/:id" => "campaigns#sendcamp", :as => 'sendcamp'
+      end
+    end
+
+    resources :newsletters do
+      collection do
+          get   "select/:id"           => "newsletters#select",       :as => 'ns_select'
+          get   "test/:id"             => "newsletters#test",         :as => 'test'
+          get   "send/"                => "newsletters#send",         :as => 'send'
+          post  "generalstats/"        => "newsletters#generalstats", :as => 'generalstats'
+          get   "settings/"            => "newsletters#settings",     :as => 'settings'
+          get   "statics/:id"          => "newsletters#statics",      :as => 'statics'
+          get   "categories"           => "newsletters#categories",   :as => 'categories'
+          post  "groups/"              => "newsletters#groups",       :as => 'groups'
+      end
+    end
+  end
+  
 end

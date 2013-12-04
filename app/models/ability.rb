@@ -1,3 +1,5 @@
+
+
 class Ability
   include CanCan::Ability
 
@@ -92,6 +94,9 @@ class Ability
   def master
     #can :home_master
     can :manage, :all
+    #can :manage, Admin::Newsletter
+    #can :manage, Admin::Campaign                 # admin section
+  
   end
 
   def school_admin

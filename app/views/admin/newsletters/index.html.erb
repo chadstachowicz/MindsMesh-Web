@@ -1,0 +1,94 @@
+
+<div id="admincontainer">
+<%= render '/admin/admin_menu' %>
+<div class="headline3">Email Manager</div>
+
+<div style="text-align:left;margin-top:10px;">
+  <%= form_for Admin::Newsletter.new, :url => {:action => "generalstats"} do |f| %>
+      <%= f.submit "Comment", :type => :image, :src => "/assets/icon-chart.png", :title=>'All Statics', :alt=>'All Statics' %>
+  </form>
+</div>
+
+<% end %>
+
+<div id="allclick">
+
+</div>
+<table style="border:1px solid gray;margin:18px auto;text-align:left;padding:6px;background-color:#fff;">
+  <tr style="background-color:#429b31;color:#fff;font-weight:bold;font-size:13pt;">
+    <th>Title</th>
+    <th>Preview</th>
+    <th>Test</th>
+    <th>Scheduler</th>
+    <th>Statics</th>
+    <th></th>
+    <th></th>
+  </tr>
+<% @admin_newsletters.each do |admin_newsletter| %>
+  <tr style="border:1px dotted gray;margin:18px auto;">
+    <td style="text-align:left;"><%= admin_newsletter.title %></td>
+    <td><%= link_to image_tag('icon-preview.png', :title=>'Preview', :alt=>'Preview'), admin_newsletter %></td>
+    <td><%= link_to image_tag('icon-send.png', :title=>'Send me a test', :alt=>'Send me a test'), test_admin_newsletters_path(admin_newsletter), {:remote => true, :id=>'clk', :"data-replace" => '#allclick'} %></td>
+    <td><%= link_to image_tag('icon-mail.png', :title=>'Select', :alt=>'Select'),  ns_select_admin_newsletters_path(admin_newsletter) %></td>
+    <td><%= link_to image_tag('icon-files.png', :title=>'Statics', :alt=>'Statics'),  statics_admin_newsletters_path(admin_newsletter) %></td>
+    <td><%= link_to image_tag('icon-edit.png', :title=>'Edit', :alt=>'Edit'), edit_admin_newsletter_path(admin_newsletter) %></td>
+    <td><%= link_to image_tag('icon-remove.png', :title=>'Remove', :alt=>'Remove'), admin_newsletter, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= will_paginate @admin_newsletters %>
+
+<div style="text-align:left;">
+    <%= link_to image_tag('icon-add.png', :title=>'Add newsletter', :alt=>'Add newsletter'), new_admin_newsletter_path %>
+    <%= link_to image_tag('icon-schedule.png', :title=>'Campaigns', :alt=>'Campaigns'), admin_campaigns_path %>
+</div>
+
+
+<div style="text-align:center;font-size:14pt;margin-top:55px;">Last sent emails</div>
+<div style="overflow:scroll;width:80%;height:400px;margin:auto;">
+
+<table style="border:1px solid gray;margin:18px auto;text-align:left;padding:6px;background-color:#fff;">
+  <tr style="background-color:#e0e0e0;color:#fff;font-weight:bold;font-size:11pt;">
+    <th>Campaign</th>
+    <th>Kind</th>
+    <th>Username</th>
+    <th>Email</th>
+    <th>Sent</th>
+  </tr>
+<% @campaign_users.each do |cusers| %>
+   <tr> <td><%= cusers.campaign %> </td> <td><%= cusers.kind %> </td> <td> <%= cusers.name %> </td> <td> <%= cusers.email %>  </td><td> <%= cusers.sent %></td></tr>
+<% end %> 
+</table>
+
+</div>
+
+<style type="text/css">
+
+table
+{
+  border-collapse:collapse;
+}
+table,th, td
+{
+  border: 1px solid #429b31;
+  text-align: center;
+  padding:2px;
+}
+
+</style>
+
+<script type="text/javascript">
+   
+  $(function() {
+  $('[data-remote][data-replace]')
+    .data('type', 'html')
+    .live('ajax:success', function(event, data) {
+      $('#allclick').fadeIn();
+      var $this = $(this);
+      $($this.data('replace')).html(data);
+      $this.trigger('ajax:replaced');
+    });
+});
+  
+</script>

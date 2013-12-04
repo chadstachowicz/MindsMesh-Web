@@ -1,0 +1,49 @@
+
+<div id="admincontainer">
+
+<div class="headline3">Campaigns</div>
+<br />
+<table style="text-align:center;">
+  <tr>
+    <th>Newsletter</th>
+    <th>To</th>
+    <th>Scheduled</th>
+    <th>Date to deliver</th>
+    <th>Created</th>
+    <th>Emails</th>
+    <th>Send</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+<%  sch_options   = {1=>'Immediately', 2=>'Scheduled', 3 => '24 h aft. reg.', 4 => 'Week aft. reg.'} %>
+<% @admin_campaigns.each do |admin_campaign| %>
+  <tr>
+    <td><%= admin_campaign.newsletter.title %></td>
+    <td><%= admin_campaign.kind %></td>
+    <td><%= sch_options[admin_campaign.scheduled] %></td>
+    <% if admin_campaign.scheduled == 2 %> 
+        <td><%= admin_campaign.futuretime %>
+            <%#=localize(admin_campaign.futuretime, :format => :long) %>
+        </td>
+    <% else %>
+        <td>Not scheduled</td>
+    <% end %>
+    <td><%= admin_campaign.created_at %></td>
+    <td><%= admin_campaign.campaigns_users.size  %></td>
+    <td><%= link_to raw('<i class="icon-envelope icon-white"></i>'), sendcamp_admin_campaigns_path(admin_campaign), :alt=>'Send now', :title=>'Send now',:confirm => "Are you sure to deliver this campaign now?" %>
+    <td><%= link_to raw('<i class="icon-tablet icon-white"></i>'), edit_admin_campaign_path(admin_campaign), :alt=>'Edit Campaign', :title=>'Edit Campaign' %></td>
+    <td><%= link_to raw('<i class="icon-trash icon-white"></i>'), admin_campaign, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-danger' %></td>
+  </tr>
+<% end %>
+</table>
+
+<div style="text-align:center;margin:5px;">
+<%= will_paginate @admin_campaigns %>
+</div>
+
+<br />
+    <div style="text-align:left;">
+          <%= link_to image_tag('icon-back.png', :title=>'Go back', :alt=>'Go back'), admin_newsletters_path %>
+    </div>
+</div>    
