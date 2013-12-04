@@ -41,4 +41,3 @@
 //= require tinymce/tinymce.min
 //= require daterangepicker.jQuery
 
-
