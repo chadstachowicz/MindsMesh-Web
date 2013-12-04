@@ -157,11 +157,11 @@ class Admin::Campaign < ActiveRecord::Base
                 case c.kind
                     when 'users'
                         q  = "SELECT u.id AS id, u.name AS name, u.email AS email, eu.entity_id AS entity_id FROM entity_users AS eu, users AS u, entity_user_requests AS eur "
-                        q += "WHERE eu.user_id=u.id AND eur.user_id=u.id AND eu.entity_id=#{t.entity_id} AND u.role_i=#{t.value} AND #{extract}"
+                        q += "WHERE eu.user_id=u.id AND eur.user_id=u.id AND eu.entity_id=#{t.entity_id} AND u.role_i=#{t.value} AND #{extract} GROUP BY u.id"
                     when 'groups'
-                        q = "SELECT u.id AS id, u.name AS name, u.email AS email, g.entity_id AS entity_id FROM group_users AS gu, groups AS g, users AS u, entity_user_requests AS eur  WHERE gu.group_id=g.id AND gu.user_id=u.id AND g.entity_id=#{entity_id} AND g.id=#{value} AND #{extract}"
+                        q = "SELECT u.id AS id, u.name AS name, u.email AS email, g.entity_id AS entity_id FROM group_users AS gu, groups AS g, users AS u, entity_user_requests AS eur  WHERE gu.group_id=g.id AND gu.user_id=u.id AND g.entity_id=#{entity_id} AND g.id=#{value} AND #{extract} GROUP BY u.id"
                     when 'topics'
-                        q = "SELECT u.id AS id, u.name AS name, u.email AS email, t.entity_id AS entity_id FROM topic_users AS tu, topics AS t,users AS u, entity_user_requests AS eur WHERE t.user_id=u.id AND tu.topic_id=t.id AND t.entity_id=#{entity_id} AND tu.topic_id=#{value} AND #{extract}"
+                        q = "SELECT u.id AS id, u.name AS name, u.email AS email, t.entity_id AS entity_id FROM topic_users AS tu, topics AS t,users AS u, entity_user_requests AS eur WHERE t.user_id=u.id AND tu.topic_id=t.id AND t.entity_id=#{entity_id} AND tu.topic_id=#{value} AND #{extract} GROUP BY u.id"
                 end 
                 logger.debug "#query:-> #{q}" if Rails.env.development?
                 users = User.find_by_sql(q)
@@ -203,20 +203,20 @@ class Admin::Campaign < ActiveRecord::Base
   end
   
   def self.get_users(value, entity_id)
-    q = "SELECT u.id AS id, u.name AS name, u.email AS email, eu.entity_id AS entity_id FROM entity_users AS eu, users AS u WHERE eu.user_id=u.id AND eu.entity_id=#{entity_id} AND u.role_i=#{value}"
+    q = "SELECT u.id AS id, u.name AS name, u.email AS email, eu.entity_id AS entity_id FROM entity_users AS eu, users AS u WHERE eu.user_id=u.id AND eu.entity_id=#{entity_id} AND u.role_i=#{value} GROUP BY u.id"
     # logger.debug "#q:-> #{q} "
     users = User.find_by_sql(q)
   end
 
   def self.get_groups(value, entity_id)
-    q = "SELECT u.id AS id, u.name AS name, u.email AS email, g.entity_id AS entity_id FROM group_users AS gu, groups AS g, users AS u WHERE gu.group_id=g.id AND gu.user_id=u.id AND g.entity_id=#{entity_id} AND g.id=#{value}"
+    q = "SELECT u.id AS id, u.name AS name, u.email AS email, g.entity_id AS entity_id FROM group_users AS gu, groups AS g, users AS u WHERE gu.group_id=g.id AND gu.user_id=u.id AND g.entity_id=#{entity_id} AND g.id=#{value} GROUP BY u.id"
     #logger.debug "#q:-> #{q} " if Rails.env.development?
     users = User.find_by_sql(q)
   end
 
 
   def self.get_topics(value, entity_id) 
-    q = "SELECT u.id AS id, u.name AS name, u.email AS email, t.entity_id AS entity_id FROM topic_users AS tu, topics AS t,users AS u WHERE t.user_id=u.id AND tu.topic_id=t.id AND t.entity_id=#{entity_id} AND tu.topic_id=#{value}"
+    q = "SELECT u.id AS id, u.name AS name, u.email AS email, t.entity_id AS entity_id FROM topic_users AS tu, topics AS t,users AS u WHERE t.user_id=u.id AND tu.topic_id=t.id AND t.entity_id=#{entity_id} AND tu.topic_id=#{value} GROUP BY u.id"
     # logger.debug "#q:-> #{q} " if Rails.env.development?
     users = User.find_by_sql(q)
   end

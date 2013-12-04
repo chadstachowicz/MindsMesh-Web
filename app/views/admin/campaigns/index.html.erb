@@ -3,8 +3,8 @@
 
 <div class="headline3">Campaigns</div>
 <br />
-<table style="text-align:center;">
-  <tr>
+<table style="border:1px solid gray;margin:18px auto;text-align:left;padding:6px;background-color:#fff;">
+  <tr style="background-color:#d9d9d9;color:#fff;font-weight:bold;font-size:13pt;">
     <th>Newsletter</th>
     <th>To</th>
     <th>Scheduled</th>
@@ -18,7 +18,7 @@
   </tr>
 <%  sch_options   = {1=>'Immediately', 2=>'Scheduled', 3 => '24 h aft. reg.', 4 => 'Week aft. reg.'} %>
 <% @admin_campaigns.each do |admin_campaign| %>
-  <tr>
+   <tr style="border:1px dotted gray;margin:18px auto;padding:3px;">
     <td><%= admin_campaign.newsletter.title %></td>
     <td><%= admin_campaign.kind %></td>
     <td><%= sch_options[admin_campaign.scheduled] %></td>
