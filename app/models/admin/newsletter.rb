@@ -7,7 +7,7 @@ require 'date'
 
 class Admin::Newsletter < ActiveRecord::Base
 
-  has_many :admin_campaigns
+  has_many :admin_campaigns,:class_name => 'Admin::Campaign', :dependent => :destroy
 
   attr_accessible :htmlemail, :plainemail, :status, :title
   

@@ -1,11 +1,21 @@
 <%= simple_form_for(@admin_campaign) do |f| %>
   <%= f.error_notification %>
 
-  <div class="form-inputs">
-    <%= f.input :futuretime %>
+  <div class="form-inputs" style="width:30%;">
+    <%= f.input :futuretime, :class => "datepicker", :label => "Scheduled Date" %>
   </div>
 
-  <div class="form-actions">
-    <%= f.button :submit %>
-  </div>
+  <!-- starts -->
+  <label>Send:</label>
+  <div style="padding:8px;margin:4px;border:1px dotted gray;width:75%;"> 
+      <select name="admin_campaign[scheduled]" id="selecttime">
+          <option value="1" selected="selected">Immediately</option>
+          <option value="3">Send 24hrs after registration</option>
+          <option value="2">Schedule</option>
+      </select>
+
+    <div class="form-actions">
+       <%= f.button :submit %>
+    </div>
+ <!-- ends -->
 <% end %>

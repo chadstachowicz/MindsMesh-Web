@@ -110,7 +110,6 @@ $dark-green: #074132;
     margin-top: 70px; /* define margin as you see fit */
 }
 
-
 .headline3 {
   position: relative;
   margin-left: -22px; /* 15px padding + 7px border ribbon shadow*/
@@ -141,4 +140,10 @@ $dark-green: #074132;
   left: auto;
   right: 0;
   bottom: -6px;
+}
+
+#admincontainer{
+  border: 1px solid #e0e0e0;
+  padding: 5px;
+  margin:;
 }

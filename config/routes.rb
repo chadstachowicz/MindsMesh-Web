@@ -3,6 +3,9 @@
 
 Mindsmesh::Application.routes.draw do
 
+  resources :removes
+
+
   resources :background_jobs
 
   resources :email_campaigns
@@ -239,7 +242,8 @@ Mindsmesh::Application.routes.draw do
    
   # Admin section  
   get '/admin' => 'admin#index', as: 'admin_index'
-
+  
+  # Admin email manager  3-XII-13
   namespace :admin do
 
     #get  "select"    => "panels#index",   :as => 'panela_index'
