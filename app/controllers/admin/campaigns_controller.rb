@@ -53,7 +53,7 @@ class Admin::CampaignsController < ApplicationController
  # POST /admin/campaigns/send
   def sendcamp
     data = Admin::Campaign.send_mails_and_save(params[:id])
-    redirect_to admin_campaigns_path , notice: 'Campaign was delivered.'
+    redirect_to admin_campaigns_path, notice: 'Campaign was delivered.'
   end
 
   # GET /admin/campaigns/1/edit
@@ -63,8 +63,10 @@ class Admin::CampaignsController < ApplicationController
 
   # PUT /admin/campaigns/1
   def update
+    @admin_campaign = Admin::Campaign.find(params[:id])
+
     if @admin_campaign.update_attributes(params[:admin_campaign])
-      redirect_to @admin_campaign, notice: 'Campaign was updated.'
+      redirect_to admin_campaigns_path, notice: 'Campaign was updated.'
     else
       render action: "edit"
     end

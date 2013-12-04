@@ -134,7 +134,8 @@ class Admin::Campaign < ActiveRecord::Base
 
   def self.scheduled
     # q='SELECT id FROM admin_campaigns WHERE scheduled = 2 AND (EXTRACT(EPOCH FROM current_timestamp - "futuretime")/3600)::Integer = 0'  Occam razor
-    q="SELECT id FROM admin_campaigns WHERE scheduled = 2 AND date_trunc('hour', current_timestamp) = date_trunc('hour', futuretime)"
+    # q="SELECT id FROM admin_campaigns WHERE scheduled = 2 AND date_trunc('hour', current_timestamp) = date_trunc('hour', futuretime)  AND futuretime < now()"
+    q="SELECT id FROM admin_campaigns WHERE date(now()) = date(futuretime) AND hour(now()) = hour(futuretime)"
 
     campaigns = Admin::Campaign.find_by_sql(q)
 
@@ -146,7 +147,8 @@ class Admin::Campaign < ActiveRecord::Base
   # Send n hours after registration
   def self.after_registration(hours=24)
     campaigns = Admin::Campaign.where(:scheduled => 3)
-    extract="(EXTRACT(EPOCH FROM current_timestamp - \"eur\".\"confirmed_at\")/3600)::Integer = #{hours}"
+    # extract="(EXTRACT(EPOCH FROM current_timestamp - \"eur\".\"confirmed_at\")/3600)::Integer = #{hours}" pgsql
+    extract = "HOUR(eur.confirmed_at) = #{hours}"
     campaigns.each do |c|
         entities       = Admin::CampaignAttr.where(:admin_campaign_id=>c.id, :key=>'entity')
         entities.each do |ent|
@@ -161,7 +163,7 @@ class Admin::Campaign < ActiveRecord::Base
                     when 'topics'
                         q = "SELECT u.id AS id, u.name AS name, u.email AS email, t.entity_id AS entity_id FROM topic_users AS tu, topics AS t,users AS u, entity_user_requests AS eur WHERE t.user_id=u.id AND tu.topic_id=t.id AND t.entity_id=#{entity_id} AND tu.topic_id=#{value} AND #{extract}"
                 end 
-                # logger.debug "#query:-> #{q}" if Rails.env.development?
+                logger.debug "#query:-> #{q}" if Rails.env.development?
                 users = User.find_by_sql(q)
 
                 if !users.empty?
