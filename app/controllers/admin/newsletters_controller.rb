@@ -108,9 +108,9 @@ WHERE nl.id = ac.newsletter_id AND acu.admin_campaign_id = ac.id AND u.id=acu.us
 
   # DELETE /admin/newsletters/1
   def destroy
+    @admin_newsletter = Admin::Newsletter.find(params[:id])
     @admin_newsletter.destroy
-    redirect_to admin_newsletters_url
+    redirect_to admin_newsletters_url, notice: 'Newsletter removed.'
   end
 
-  private 
 end
