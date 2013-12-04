@@ -23,8 +23,8 @@
     <td><%= admin_campaign.kind %></td>
     <td><%= sch_options[admin_campaign.scheduled] %></td>
     <% if admin_campaign.scheduled == 2 %> 
-        <td><%= admin_campaign.futuretime.to_formatted_s(:app) %>
-            <%=localize(admin_campaign.futuretime, :format => :long) %>
+        <td><%= admin_campaign.futuretime %>
+            <%#=localize(admin_campaign.futuretime, :format => :long) %>
         </td>
     <% else %>
         <td>Not scheduled</td>

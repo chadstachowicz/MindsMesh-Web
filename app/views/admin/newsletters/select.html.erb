@@ -28,7 +28,7 @@
 
       <div class="well" id="future">
           <div id="datetimepicker1" class="input-append date">
-              <input data-format="dd/MM/yyyy hh:mm:ss" type="text" name="admin_campaign[futuretime]" value="<%= Time.new %>"></input>
+              <input data-format="yyyy-MM-dd hh:mm" type="text" name="admin_campaign[futuretime]" value="<%= Time.zone.now %>"></input>
               <span class="add-on">
                   <i data-time-icon="icon-time" data-date-icon="icon-calendar">
                   </i>
@@ -75,7 +75,9 @@
 
 $(document).ready(function () {
 
-    $('#datetimepicker1').datetimepicker(); 
+    $('#datetimepicker1').datetimepicker(
+          {format:'yyyy-MM-dd hh:mm:ss'}
+      ); 
 
     $("#select_elements").show();
     $("#future").hide();

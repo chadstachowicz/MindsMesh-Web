@@ -27,6 +27,8 @@ class Admin::Campaign < ActiveRecord::Base
             'moderator' => 1
           }
 
+  self.skip_time_zone_conversion_for_attributes = [:futuretime]
+
   # send to all users
   def self.everybody(data)
     nl            = Admin::Newsletter.find(data[:newsletter_id])
