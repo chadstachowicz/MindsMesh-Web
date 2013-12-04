@@ -122,6 +122,7 @@ class Notification < ActiveRecord::Base
         message = n.push_message_make(reply_id)
     else
         message = n.facebook_message
+        
     end
         
 
