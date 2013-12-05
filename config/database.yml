@@ -14,7 +14,7 @@ development:
   reconnect: false
   database: mindsmesh_development
   pool: 5
-  username: postgre
+  username: postgres
   password: '123456'
 
 #production:
