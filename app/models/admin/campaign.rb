@@ -162,6 +162,8 @@ class Admin::Campaign < ActiveRecord::Base
                         q = "SELECT u.id AS id, u.name AS name, u.email AS email, g.entity_id AS entity_id FROM group_users AS gu, groups AS g, users AS u, entity_user_requests AS eur WHERE gu.group_id=g.id AND gu.user_id=u.id AND g.entity_id=#{entity_id} AND g.id=#{value} AND #{extract} GROUP BY u.id"
                     when 'topics'
                         q = "SELECT u.id AS id, u.name AS name, u.email AS email, t.entity_id AS entity_id FROM topic_users AS tu, topics AS t,users AS u, entity_user_requests AS eur WHERE t.user_id=u.id AND tu.topic_id=t.id AND t.entity_id=#{entity_id} AND tu.topic_id=#{value} AND #{extract} GROUP BY u.id"
+                    when 'everybody'
+                        q = "SELECT u.id AS id, u.name AS name, u.email AS email, eur.entity_id AS entity_id FROM users AS u, entity_user_requests AS eur WHERE eur.user_id=u.id AND #{extract} GROUP BY u.id" 
                 end 
                 logger.debug "#query:-> #{q}" if Rails.env.development?
                 users = User.find_by_sql(q)
