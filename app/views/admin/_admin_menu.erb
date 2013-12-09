@@ -4,6 +4,8 @@
       <li class="active"><a href="admin">Statistics</a></li>
       <% if current_user.master? || current_user.school_admin? %>
       	<li ><a href="users">Users</a></li>
+        <li ><a href="/admin/newsletters">Campaigns</a></li>
+        <!-- li ><a href="/admin/panels/posts">Posts</a></li -->
       <% end %>
       <% if current_user.master? || current_user.school_admin? || current_user.topic_admin? %>
       	<li ><a href="topics">Classes</a></li>

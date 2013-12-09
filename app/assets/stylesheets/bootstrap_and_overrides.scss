@@ -72,9 +72,6 @@ $dark-green: #074132;
   label, span.help-inline { color:#fff; }
 }
 
-
-
-
 // Block level inputs
 .input-block-level {
   display: block;
@@ -101,4 +98,44 @@ $dark-green: #074132;
 }
 .spacer {
     margin-top: 70px; /* define margin as you see fit */
+}
+
+// email manager
+.headline3 {
+  position: relative;
+  margin-left: -22px; /* 15px padding + 7px border ribbon shadow*/
+  margin-right: -22px;
+  text-align: left;
+  padding: 15px;
+  background: #e5e5e5;
+  background: linear-gradient(#f5f5f5, #e5e5e5);
+  box-shadow: 0 -1px 0 rgba(255,255,255,.8) inset;
+  text-shadow: 0 1px 0 #fff;
+  font-size: 18pt;
+}
+
+.headline3:before,
+.headline3:after {
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  content:'';
+  border-top: 6px solid #555;
+  border-left: 6px solid transparent;
+}
+
+.headline3:before {
+  border-top: 6px solid #555;
+  border-right: 6px solid transparent;
+  border-left: none;
+  left: auto;
+  right: 0;
+  bottom: -6px;
+}
+
+#admincontainer{
+  border: 1px solid #e0e0e0;
+  background-color:#fff;
+  padding: 4px;
+  margin:0;
 }

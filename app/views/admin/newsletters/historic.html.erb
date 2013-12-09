@@ -1,0 +1,15 @@
+
+<h2 style="margin:5px;padding:7px;">Historic. <b style="color:green;"><%= @admin_newsletter.title %></b> (mockup)</h1>
+
+<%= link_to image_tag('icon-back.png', :title=>'Go back', :alt=>'Go back'), admin_newsletters_path %>
+
+<p>This page will show the deliveries, dates, opens and click of this email using SendGrid API. </p>
+
+<% @categories.each do |c|  %>
+
+    <%= link_to url(:controller=>'newsletters', :action=> 'category', :id => c["category"]) %>  <br />
+
+<% end %>
+<br />
+
+

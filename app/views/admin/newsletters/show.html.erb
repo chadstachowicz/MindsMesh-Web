@@ -1,0 +1,16 @@
+
+<div id="admincontainer">
+
+<h3 style="border-bottom:1px dotted gray;">
+  <%= @admin_newsletter.title %>
+</h3>
+
+<p>
+    <%= raw @admin_newsletter.htmlemail %> 
+</p>
+
+<%= link_to image_tag('icon-edit.png', :title=>'Edit', :alt=>'Edit'), edit_admin_newsletter_path(@admin_newsletter) %> |
+
+<%= link_to image_tag('icon-back.png', :title=>'Go back', :alt=>'Go back'), admin_newsletters_path %>
+
+</div>

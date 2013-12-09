@@ -1,3 +1,5 @@
+
+
 class Post < ActiveRecord::Base
     belongs_to :topic, counter_cache: true
     belongs_to :group, counter_cache: true
@@ -15,8 +17,8 @@ class Post < ActiveRecord::Base
     
 
     
-    #scope :includes_all , includes(:user, :topic, :replies, :likes)
-    class << self
+#scope :includes_all , includes(:user, :topic, :replies, :likes)
+class << self
     def before(id)
         id ? where("posts.id < ?", id) : scoped
     end
@@ -25,6 +27,33 @@ class Post < ActiveRecord::Base
         options = options.reverse_merge(limit: 10)
         order("id DESC").limit(options[:limit]).before(options[:before])
     end
+
+    def statics(from=nil, to=nil)
+
+      #Rails.logger.debug from if Rails.env.development?
+
+      posts = count(:group => "DATE(created_at)", :order=>"date_created_at ASC", :limit=>30)
+      numbers  = Array.new 
+      dates    = Array.new
+      posts.each do |k, v|
+          numbers << v
+          dates   << k
+      end 
+
+      h = LazyHighCharts::HighChart.new('graph') do |f|
+              f.options[:chart][:defaultSeriesType] = "line"
+              f.options[:title][:text] = 'Posts Statics'
+              #  f.options[:subtitle][:text] = "#{monthname} #{time.year}"
+              f.options[:yAxis] = {:min => 0, :title => { :text => 'Posts by date' }}
+              f.options[:xAxis] = {:title => { :text => 'Date' },type: 'datetime', :categories => dates}
+              f.series(:name=>'Written posts', :data => numbers )
+              f.options[:legend] = { :layout => 'vertical', :backgroundColor => '#FFFFFF', :align => 'right', :verticalAlign => 'top', :x => -10, :y => 100 }
+      end
+
+      return h
+    end
+
+
 end
 
 def user_liked?(user)
@@ -39,9 +68,6 @@ def user_ids_involved
     replies.map { |r| r.likes.pluck(:user_id) }
     ].flatten.uniq
 end
-
-
-
 
 
 after_commit :lazy_notify, on: :create

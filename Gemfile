@@ -45,16 +45,22 @@ gem 'smarter_csv', '~> 1.0.8'
 gem 'google-api-client'
 gem 'httparty'
 
+gem 'sass' #so other gems don't alert
+gem 'sass-rails'
+gem 'coffee-rails'
+gem 'uglifier', '>= 1.0.3'
+gem 'therubyracer', :platform => :ruby
+gem 'bootstrap-sass'
+gem 'font-awesome-sass-rails'
+gem 'select2-rails'
 
+#Mail Manager
+gem 'httparty'
+gem 'json'
+gem 'tinymce-rails'
+gem 'better_errors'
+gem 'sendgrid'
 
-  gem 'sass' #so other gems don't alert
-  gem 'sass-rails'
-  gem 'coffee-rails'
-  gem 'uglifier', '>= 1.0.3'
-  gem 'therubyracer', :platform => :ruby
-  gem 'bootstrap-sass'
-  gem 'font-awesome-sass-rails'
-  gem 'select2-rails'
 
 group :assets do
 

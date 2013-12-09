@@ -1,0 +1,165 @@
+
+<%= javascript_include_tag "bootstrap-datetimepicker.min" %>
+<%= stylesheet_link_tag "admin/admin" %>
+
+<div class="headline3">Email: <%= @admin_newsletter.title %> </div>
+
+<div style="padding:10px;margin:6px;background-color:#fff;" id="divcontainer">
+
+<div style="padding:10px;margin:30px;float:right;">
+   <%= image_tag('campaign.jpg', :title => 'Campaign', :alt => 'Campaign', :width => '80%', :style=>'border:1px solid gray;') %>
+</div>
+
+<div><%= link_to image_tag('icon-back.png', :title=>'Go back', :alt=>'Go back'), admin_newsletters_path %></div>
+
+<div>
+
+<div style="padding:8px;background-color:#fff;margin:8px;border:1px dotted gray;" id='divcbxs'>
+
+<%= simple_form_for(@admin_campaign, :url => url_for(:controller => 'campaigns', :action => 'groups'), :html => { :method => :post, :onsubmit => 'return checkCB();' } )   do |f| %>
+
+ <div style="padding:8px;margin:4px;border:1px dotted gray;width:75%;"> 
+
+      <select name="admin_campaign[scheduled]" id="selecttime">
+          <option value="1" selected="selected">Immediately</option>
+          <option value="3">Send 24hrs after registration</option>
+          <option value="2">Schedule</option>
+      </select>
+
+      <div class="well" id="future">
+          <div id="datetimepicker1" class="input-append date">
+              <input data-format="yyyy-MM-dd hh:mm" type="text" name="admin_campaign[futuretime]" value="<%= Time.zone.now %>"></input>
+              <span class="add-on">
+                  <i data-time-icon="icon-time" data-date-icon="icon-calendar">
+                  </i>
+              </span>
+          </div>
+      </div>
+      <input type="hidden" name="admin_campaign[newsletter_id]"  value="<%= @admin_newsletter.id %>">
+
+      <div style="padding:8px;margin:4px;border:1px dotted gray;width:75%;"> 
+          <label for="firstname">Group the users according to:</label>
+          <input type="radio" name="admin_campaign[kind]" value="users"> Users 
+          <input type="radio" name="admin_campaign[kind]" value="topics"> Class 
+          <input type="radio" name="admin_campaign[kind]" value="groups" checked="checked"> Groups
+          <input type="radio" name="admin_campaign[kind]" value="everybody" id="everybody"> Everybody 
+      </div>
+      <div id="select_elements">
+        <label>Select colleges that you want to send this email:</label>
+        <div style="margin:3px;padding:2px;border:1px dotted #e0e0e0;width:70%;">
+            <input type="checkbox" id="selectall" name="admin_campaign[all]" value="all" class="selectedId"> Select all
+        </div>
+ 
+        <% @entities.each do | d | %>
+            <div style="margin:3px;padding:3px;border:1px dotted #e0e0e0;width:70%;">
+              <input type="checkbox"  name="admin_campaign[entity_id][]" value="<%= d.id  %>" class="selectedId"> <%= d.name  %> 
+              <!-- %= check_box_tag 'tos', d.id, false, :class => 'accept_tos' % -->
+            </div>
+        <% end %>
+ </div> <!-- select_elements ends -->
+
+ <div class="form-actions">
+        <input class="btn" name="commit" type="submit" value="Second Step &gt;&gt;">
+  </div>
+
+</form>
+<% end %>
+
+
+<div id="groups"></div>
+
+</div> <!-- divcbxs -->
+</div> <!-- divcontainer -->
+
+<script type="text/javascript">
+
+$(document).ready(function () {
+
+    $('#datetimepicker1').datetimepicker(
+          {format:'yyyy-MM-dd hh:mm:ss'}
+      ); 
+
+    $("#select_elements").show();
+    $("#future").hide();
+
+    $('#selecttime').change(function(){
+        if ( $(this).val() == 2 ) 
+        {
+            $('#future').fadeIn();  
+        } else {
+            $('#future').fadeOut();
+        }
+    });
+
+    $('#selectall').click(function () {
+        $('.selectedId').prop('checked', isChecked('selectall'));
+    });
+     
+    $('[name^="admin_campaign[kind]"]').change(function(event) {
+        // do your staff here. It will fire any checkbox change
+            if ( $('#everybody').is(':checked') ) 
+            {
+                $("#select_elements").fadeOut();
+            } else {
+                $("#select_elements").fadeIn();
+            }
+    }); 
+
+});
+    
+function isChecked(checkboxId) {
+    var id = '#' + checkboxId;
+    return $(id).is(":checked");
+}
+
+function resetSelectAll() {
+    // if all checkboxes are selected, check the selectall CB
+    // and of course viceversa
+    if ($(".selectedId").length == $(".selectedId:checked").length) {
+        $("#selectall").attr("checked", "checked");
+    } else {
+        $("#selectall").removeAttr("checked");
+    }
+
+    if ($(".selectedId:checked").length > 0) {
+        $('#edit').attr("disabled", false);
+    } else {
+        $('#edit').attr("disabled", true);
+    }
+}
+
+function checkCB() {
+         
+         if ( $(".selectedId:checked").length < 1)
+         {
+            if($("#everybody").attr("checked"))
+            {
+              return true;
+            } else { 
+                alert('Choose at least one college');
+                return false;
+            }
+         }
+    return true;
+}
+
+</script>
+
+<style type="text/css">
+
+input[type=checkbox] {
+  color: #ccc;
+  font-style: italic;
+  font-size: 0.9em;
+   border-radius: 8px;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, .2);  
+} 
+
+input[type=checkbox]:checked  {
+  color: #f00;
+  font-style: normal;
+}
+
+</style>
+
+
