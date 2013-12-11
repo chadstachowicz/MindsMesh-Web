@@ -165,6 +165,7 @@ GEM
     multi_json (1.7.9)
     multi_xml (0.5.5)
     multipart-post (1.2.0)
+    mysql2 (0.3.13)
     net-http-persistent (2.9)
     net-scp (1.1.2)
       net-ssh (>= 2.6.5)
@@ -204,7 +205,6 @@ GEM
       activesupport (>= 3.0.0)
       cocaine (~> 0.5.0)
       mime-types
-    pg (0.17.0)
     polyamorous (0.6.3)
       activerecord (>= 3.0)
     polyglot (0.3.3)
@@ -425,12 +425,12 @@ DEPENDENCIES
   mail (>= 2.4.4)
   mails_viewer
   mini_magick
+  mysql2
   omniauth-facebook (= 1.4.0)
   omniauth-saml
   omniauth-twitter
   omniauth-wsfed
   paperclip
-  pg
   pusher
   railroady
   rails (= 3.2.10)

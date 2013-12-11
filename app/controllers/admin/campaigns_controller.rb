@@ -78,17 +78,4 @@ class Admin::CampaignsController < ApplicationController
     @admin_campaign.destroy
     redirect_to admin_campaigns_url
   end
-
-  # DELETE /admin/campaigns/1.json
-  def destroyii
-    @admin_campaign = Admin::Campaign.find(params[:id])
-    @admin_campaign.destroy
-
-    #beyond simple html
-    respond_to do |format|
-      format.html { redirect_to admin_campaigns_url }
-      format.js   {  } # destroy.js.erb
-      format.json { head :no_content }
-    end
-  end
 end

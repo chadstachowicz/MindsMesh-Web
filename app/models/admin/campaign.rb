@@ -20,6 +20,8 @@ class Admin::Campaign < ActiveRecord::Base
 
   attr_accessor :send_reminders
 
+  @kind = 0
+
   ROLES = {
             'master'    => 30,
             'admin'     => 20,
@@ -28,6 +30,7 @@ class Admin::Campaign < ActiveRecord::Base
           }
 
   self.skip_time_zone_conversion_for_attributes = [:futuretime]
+  
 
   # send to all users
   def self.everybody(data)
@@ -83,9 +86,13 @@ class Admin::Campaign < ActiveRecord::Base
     emails         = 0
     usersfound     = 0
     
+    @kind = admin_campaign.kind
+    
     if admin_campaign.kind == 'everybody'
         users = User.find(:all,:select => "id, name, email")
+
         users.each do |u|
+
             # logger.debug "#ll-> user  -> #{u}  \n \n" if Rails.env.development? 
             usersfound    = usersfound+1
             campaing_user = { admin_campaign_id:admin_campaign.id, delivered:true, user_id:u.id }
@@ -133,8 +140,7 @@ class Admin::Campaign < ActiveRecord::Base
   end
 
   def self.scheduled
-    # q='SELECT id FROM admin_campaigns WHERE scheduled = 2 AND (EXTRACT(EPOCH FROM current_timestamp - "futuretime")/3600)::Integer = 0'  Occam razor
-    # q="SELECT id FROM admin_campaigns WHERE scheduled = 2 AND date_trunc('hour', current_timestamp) = date_trunc('hour', futuretime)  AND futuretime < now()"
+
     q="SELECT id FROM admin_campaigns WHERE scheduled = 2 AND date(now()) = date(futuretime) AND hour(now()) = hour(futuretime)"
 
     campaigns = Admin::Campaign.find_by_sql(q)

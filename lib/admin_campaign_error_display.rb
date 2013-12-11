@@ -51,11 +51,11 @@ end
 #end
 
 
-module CampaignErrorDisplay
+module AdminCampaignErrorDisplay
 
   @@errors = {
-    Admin::Campaign::Error::NotUser => "You are already a member of this group.",
-    Admin::Campaign::Error::SendGridFail => "You don't have the proper permissions to join this group."
+    Admin::Campaign::Error::NotUser      => "There is no user to send this email",
+    Admin::Campaign::Error::SendGridFail => "Something went wrong with sendgrid"
   }
  
   def self.message(error)
