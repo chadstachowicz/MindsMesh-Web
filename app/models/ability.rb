@@ -101,7 +101,7 @@ class Ability
 
   def school_admin
       can [:index], :admin
-      can [:index, :datatable_filter], Entity
+      can [:index, :datatable_filter], User
       can [:index, :datatable_filter], Topic
       can [:edit, :destroy, :update], Topic do |tpc|
           if !@current_user.entity_users.find_by_entity_id(tpc.entity_id).nil?

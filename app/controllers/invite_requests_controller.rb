@@ -32,6 +32,28 @@ class InviteRequestsController < ApplicationController
           Resque.enqueue(NotifyNewInvite, p[:group_id], me.id, params[:invite_receiver_ids])
       end
       if !params[:emails].empty?
+          emails = params[:emails].split(/[\s,;]/).select { |s| !s.blank? && s =~ /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i }.uniq
+          not_ids = []
+          emails.each do |eml|
+              u = User.find_by_email(eml)
+              if !u.nil?
+                  conditions = {user_id:    me.id,
+                      entity_id:  p[:entity_id],
+                      group_id:   p[:group_id],
+                      to_user_id:  u.id
+                  }
+                  @invite_request = InviteRequest.where(conditions).first_or_create
+                  not_ids.push(u.id)
+              end
+          end
+          if !not_ids.empty?
+              Resque.enqueue(NotifyNewInvite, p[:group_id], me.id, not_ids.to_sentence)
+          end
+          conditions = {user_id:    me.id,
+              entity_id:  p[:entity_id],
+              group_id:   p[:group_id],
+          }
+          @invite_request = InviteRequest.where(conditions).first_or_create
           @invite_request.send_emails(params[:emails])
       end
       flash[:notice] = "Invites sent successfully!"

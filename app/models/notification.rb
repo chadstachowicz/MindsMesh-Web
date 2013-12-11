@@ -10,7 +10,7 @@ class Notification < ActiveRecord::Base
   validates_presence_of :user
   validates_presence_of :target
   validates_presence_of :action
-  validates_presence_of :text
+  # validates_presence_of :text
 
   # TODO: test this
   scope :sorted, order('updated_at DESC')
@@ -24,6 +24,11 @@ class Notification < ActiveRecord::Base
 
   def facebook_message
     user_name = User.find(user_id).name
+    "#{user_name} #{action_as_verb}"
+  end
+
+  def push_message_make(id)
+    user_name = User.find(id).name
     "#{user_name} #{action_as_verb}"
   end
 
@@ -84,20 +89,16 @@ class Notification < ActiveRecord::Base
     user_ids.delete(ignore_user_id)
     puts "user_ids to notify: #{user_ids}"
     User.find(user_ids).each do |user|
-      n = notify_user!(user, post, action, post.text, new_actors_count)
+      n = notify_user!(user, post, action, post.text, new_actors_count,reply.user_id)
       #TODO: unsubscribe
       puts email = user.entity_user_requests.first.email
       MyMail.notify_new_reply(user, post, email).deliver
 
-      #notify mobile devices
-      user.user_devices.each do |ud|
-        n.new_apn(ud.token,ud.environment)
-      end
     end
     true
   end
 
-    def self.notify_invitees(group, action, user_ids, ignore_user_id)
+    def self.notify_invitees(group, actsion, user_ids, ignore_user_id)
         users = user_ids.split(/,/)
         users.each do |usr|
             notify_user!(User.find(usr.to_i), group, action, group.name)
@@ -111,34 +112,53 @@ class Notification < ActiveRecord::Base
     end
   end
 
-  def self.notify_user!(user, target, action, text, new_actors_count=1)
+  def self.notify_user!(user, target, action, text, new_actors_count=1, reply_id=nil)
     n = where(user_id: user.id, target_type: target.class.name, target_id: target.id, action: action).first_or_initialize(text: text)
     n.b_read = false
     n.actors_count = new_actors_count
     n.save! #ensure it's persisted
+
+    if !reply_id.nil?
+        message = n.push_message_make(reply_id)
+    else
+        message = n.facebook_message
+        
+    end
+        
+
+    #notify mobile devices
+    user.user_devices.each do |ud|
+        n.new_apn(ud.token,ud.environment, ud.os, message)
+    end
+
     if !user.fb_id.nil?
         n.notify_on_facebook #TODO: rescue, log in db
     end
     n
   end
 
-  def new_apn(device_token,environment)
-    n = Rapns::Apns::Notification.new
-    if environment == 'production'
-        n.app = Rapns::Apns::App.find_by_name("ios_app_production")
+  def new_apn(device_token,environment,os,push_message)
+   if environment == 'production'
+    if os == 'android'
+        options = {:body => {:channel => 'alert', :to_tokens => device_token, :payload => {:alert => push_message, :vibrate => 'true', :notification_id => id, :target_type => target_type, :target_id => target_id}.to_json}}
+        response = HTTParty.post('https://api.cloud.appcelerator.com/v1/push_notification/notify_tokens.json?key=NuMqdARV6T9oNDLF3ulcZ4Rt93K7xw1x',options)
+     else
+
+      options = {:body => {:channel => 'alert', :to_tokens => device_token, :payload => {:alert => push_message, :notification_id => id, :target_type => target_type, :target_id => target_id}.to_json}}
+      response = HTTParty.post('https://api.cloud.appcelerator.com/v1/push_notification/notify_tokens.json?key=AeJdeTWgQfQnDKfeWnPdpKhFH6f0cCgP',options)
+
+     end
     else
-        n.app = Rapns::Apns::App.find_by_name("ios_app_development")
-    end
-    n.device_token = device_token
-    n.alert = facebook_message
-    n.sound = "1.aiff"
-    n.expiry = 1.day.to_i
-    n.attributes_for_device = {
-        :notification_id => id,
-        :target_type =>      target_type,
-        :target_id    =>    target_id
-    }
-    n.save!
+     if os == 'android'
+      options = {:body => {:channel => 'alert', :to_tokens => device_token, :payload => {:alert => push_message, :vibrate => 'true', :notification_id => id, :target_type => target_type, :target_id => target_id}.to_json}}
+      response = HTTParty.post('https://api.cloud.appcelerator.com/v1/push_notification/notify_tokens.json?key=3WikqNv5J3UTkbbBv9IwVTFtSuzXu4rC',options)
+     else
+      
+      options = {:body => {:channel => 'alert', :to_tokens => device_token, :payload => {:alert => push_message, :notification_id => id, :target_type => target_type, :target_id => target_id}.to_json}}
+      response = HTTParty.post('https://api.cloud.appcelerator.com/v1/push_notification/notify_tokens.json?key=VqrInB7qyxetHfzNxIKIvzctf6Y3k2U1',options)
+      
+     end
+   end
   end
 
   def mark_as_read!

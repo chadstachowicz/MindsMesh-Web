@@ -21,12 +21,18 @@ class UsersDatatable
   #must match view columns
   def data
     users.map do |user|
+        if @view.current_user.master?
+            links = [view.link_to('Edit', view.edit_user_path(user)) + " " + view.link_to('Delete', view.user_path(user), :confirm => 'Are you sure you want to destroy this user?', :method => :delete)]
+        else
+            links = ""
+        end
+
       [
         name_decorator(user),
         h(user.created_at),
         entities_decorator(user),
         "#{user.topic_users_count} topics",
-        [view.link_to('Edit', view.edit_user_path(user)) + " " + view.link_to('Delete', view.user_path(user), :confirm => 'Are you sure you want to destroy this user?', :method => :delete)]
+        links
       ]
     end
   end
@@ -52,8 +58,14 @@ class UsersDatatable
   end
 
   def fetch_users
-    users = User.order("#{sort_column} #{sort_direction}")
-    users = users.page(page).per_page(per_page)
+      current_user = @view.current_user
+      if !current_user.master?
+          entity_ids = current_user.entity_users.where(:role_i => 1).map{|e| e.entity_id}
+          list = User.joins(:entity_users).where('entity_users.entity_id in (:entity_ids)', :entity_ids => entity_ids).order("#{sort_column} #{sort_direction}")
+          else
+          list = User.order("#{sort_column} #{sort_direction}")
+      end
+    users = list.page(page).per_page(per_page)
     if params[:sSearch].present?
       users = users.where("upper(name) like upper(:search)", search: "%#{params[:sSearch]}%")
     end
