@@ -82,6 +82,7 @@ class Admin::Campaign < ActiveRecord::Base
   def self.send_mails_and_save(campaign_id)
 
     admin_campaign = find(campaign_id)
+    ac_id          = admin_campaign.id
     nl             = Admin::Newsletter.find(admin_campaign.newsletter_id)
     emails         = 0
     usersfound     = 0
@@ -90,15 +91,15 @@ class Admin::Campaign < ActiveRecord::Base
     
     if admin_campaign.kind == 'everybody'
         users = User.find(:all,:select => "id, name, email")
-
+        logger.debug "#ll-> users  -> #{users.inspect}  \n \n"
         users.each do |u|
 
-            # logger.debug "#ll-> user  -> #{u}  \n \n" if Rails.env.development? 
+            #logger.debug "#ll-> user  -> #{u}  \n \n"
             usersfound    = usersfound+1
-            campaing_user = { admin_campaign_id:admin_campaign.id, delivered:true, user_id:u.id }
+            campaing_user = { admin_campaign_id:ac_id, delivered:true, user_id:u.id }
             transaction do
                 admin_campaign = Admin::CampaignsUsers.new(campaing_user)
-                if admin_campaign.save 
+                if admin_campaign.save
                     # logger.debug "Data saved!!" if Rails.env.development?
                     MyMail.send_newsletter(u,nl,emails).deliver
                     emails = emails+1
@@ -106,9 +107,9 @@ class Admin::Campaign < ActiveRecord::Base
             end
         end
     else
-        entities  = Admin::CampaignAttr.where(:admin_campaign_id=>admin_campaign.id, :key=>'entity')
+        entities  = Admin::CampaignAttr.where(:admin_campaign_id=>ac_id, :key=>'entity')
         entities.each do |entity|
-            types = Admin::CampaignAttr.where(:admin_campaign_id=>admin_campaign.id, :entity_id => entity.entity_id, :key=>admin_campaign.kind)
+            types = Admin::CampaignAttr.where(:admin_campaign_id=>ac_id, :entity_id => entity.entity_id, :key=>@kind)
             types.each do |t|
                 # logger.debug "#### Entity-> values  -> #{t.inspect}  \n \n" if Rails.env.development?
                 users = get_emails(t.value, admin_campaign.kind, entity.entity_id)
@@ -116,7 +117,7 @@ class Admin::Campaign < ActiveRecord::Base
                     usersfound = usersfound+1
                     # logger.debug "#ll-> user  -> #{u}  \n \n" if Rails.env.development?
                     transaction do
-                        camp_user = {admin_campaign_id:admin_campaign.id, delivered:true, user_id:u.id, entity_id:entity.entity_id}
+                        camp_user = {admin_campaign_id:ac_id, delivered:true, user_id:u.id, entity_id:entity.entity_id}
                         campaigns_users = Admin::CampaignsUsers.new(camp_user)
                         if campaigns_users.save
                             MyMail.send_newsletter(u,nl,emails).deliver
@@ -172,16 +173,18 @@ class Admin::Campaign < ActiveRecord::Base
                         q = "SELECT u.id AS id, u.name AS name, u.email AS email, eur.entity_id AS entity_id FROM users AS u, entity_user_requests AS eur WHERE eur.user_id=u.id AND #{extract} GROUP BY u.id" 
                 end 
                 logger.debug "#query:-> #{q}" if Rails.env.development?
+
                 users = User.find_by_sql(q)
 
                 if !users.empty?
-                    nl   = Admin::Newsletter.find(c.newsletter_id)
+                    nl    = Admin::Newsletter.find(c.newsletter_id)
+                    nc_id = c.id
                 else
                     break
                 end
                 users.each do |u|
                     transaction do
-                        camp_user = {admin_campaign_id:c.id, delivered:true, user_id:u.id, entity_id:ent.entity_id}
+                        camp_user = {admin_campaign_id:nc_id, delivered:true, user_id:u.id, entity_id:ent.entity_id}
                         campaigns_users = Admin::CampaignsUsers.new(camp_user)
                         if campaigns_users.save
                             # logger.debug "eur saved!!" if Rails.env.development?
