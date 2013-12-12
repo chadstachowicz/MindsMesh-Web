@@ -99,6 +99,26 @@ EntityUser.transaction do
     EntityUser.create({entity_id:4, user_id:14,role_i:20 })
   end
 
+eur = EntityUserRequest
+eur.attr_accessible :entity_id
+eur.attr_accessible :user_id
+eur.transaction do
+    eur.create({entity_id:1, user_id:1,  email:'sdsd1@gty.com'})
+    eur.create({entity_id:1, user_id:2,  email:'sds2@gty.com'})
+    eur.create({entity_id:1, user_id:3,  email:'sdsd3@gty.com' })
+    eur.create({entity_id:1, user_id:4,  email:'sdsd4@gty.com' })
+    eur.create({entity_id:1, user_id:5,  email:'sdsd5@gty.com'})
+    eur.create({entity_id:2, user_id:6,  email:'sdsd6@gty.com' })
+    eur.create({entity_id:2, user_id:7,  email:'sdsd7@gty.com' })
+    eur.create({entity_id:3, user_id:8,  email:'sdsd8@gty.com' })
+    eur.create({entity_id:3, user_id:9,  email:'sdsd9@gty.com' })
+    eur.create({entity_id:4, user_id:10, email:'sdsd10@gty.com' })
+    eur.create({entity_id:5, user_id:11, email:'sdsd11@gty.com' })
+    eur.create({entity_id:4, user_id:12, email:'sdsd12@gty.com' })
+    eur.create({entity_id:3, user_id:13, email:'sdsd13@gty.com' })
+    eur.create({entity_id:4, user_id:14, email:'sdsd14@gty.com' })
+  end
+
 
 Group.transaction do
     Group.create!({entity_id:2, name:'Group one',  slug:'group_one',   description: 'description one',  user_id:1, privacy:0})

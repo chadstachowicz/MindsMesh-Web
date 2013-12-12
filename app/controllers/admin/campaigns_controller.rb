@@ -28,10 +28,11 @@ class Admin::CampaignsController < ApplicationController
     #return render :text => params[:admin_campaign].inspect
      
     if params[:admin_campaign][:kind] == 'everybody' 
-        @data = Admin::Campaign.everybody(params[:admin_campaign])
+        @data = Admin::Campaign.create_campaign(params[:admin_campaign])
         # return render :text => @data
         return redirect_to admin_campaigns_path , notice: 'Campaign was created.'
     end
+    
     @scheduled      = params[:admin_campaign][:scheduled]
     @futuretime     = params[:admin_campaign][:futuretime]
     @newsletter_id  = params[:admin_campaign][:newsletter_id]

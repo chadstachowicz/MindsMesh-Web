@@ -31,8 +31,8 @@ class MyMail < ActionMailer::Base
        # If first email, we create a category to track this email
        ActionMailer::Base.default "X-SMTPAPI" => "{\"category\": #{nl.title}}"
     end
-
-    return false unless mail(to:'mmontoya@gmail.com', subject: nl.title)
+    
+    return false unless mail(to:user.email, subject: nl.title)
   end
   
   def send_newsletter_test(email, nl)

@@ -41,7 +41,8 @@ class User < ActiveRecord::Base
 
   has_attached_file :avatar, PAPERCLIP_OPTIONS
 
-    
+  accepts_nested_attributes_for :entity_user_requests
+
   validates_presence_of :name
   validates_uniqueness_of :email, :allow_nil => true, :allow_blank => true
 
