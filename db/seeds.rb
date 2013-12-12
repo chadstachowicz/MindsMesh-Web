@@ -76,6 +76,29 @@ Entity.transaction do
   # end  #  Rails.env.development? ends 
 end  # transaction ends
 
+TopicUser.transaction do
+    TopicUser.create({topic_id:1, user_id:1, role_i:10 })
+    TopicUser.create({topic_id:2, user_id:2, role_i:20})
+    TopicUser.create({topic_id:3, user_id:3, role_i:10 })
+    TopicUser.create({topic_id:4, user_id:4, role_i:10 })
+    TopicUser.create({topic_id:5, user_id:5, role_i:20})
+    TopicUser.create({topic_id:6, user_id:6, role_i:10 })
+    TopicUser.create({topic_id:7, user_id:7, role_i:10 })
+    TopicUser.create({topic_id:8, user_id:8, role_i:20})
+    TopicUser.create({topic_id:9, user_id:9, role_i:10 })
+    TopicUser.create({topic_id:1, user_id:10, role_i:10 })
+    TopicUser.create({topic_id:2, user_id:11, role_i:20})
+    TopicUser.create({topic_id:3, user_id:12, role_i:10 })
+    TopicUser.create({topic_id:4, user_id:1, role_i:10 })
+    TopicUser.create({topic_id:4, user_id:2, role_i:10 })
+    TopicUser.create({topic_id:4, user_id:3, role_i:10 })
+    TopicUser.create({topic_id:4, user_id:4, role_i:10 })
+    TopicUser.create({topic_id:4, user_id:5, role_i:10 })
+    TopicUser.create({topic_id:4, user_id:6, role_i:10 })
+    TopicUser.create({topic_id:4, user_id:7, role_i:10 })
+end
+
+
 # finishing the registration process
 EntityUserRequest.transaction do
   EntityUserRequest.attr_accessible :entity_id, :user_id, :email, :confirmation_token, :last_email_sent_at, :confirmed_at

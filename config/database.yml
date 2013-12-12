@@ -17,24 +17,24 @@ development:
   username: root
   password: '123456'
 
-production:
-  adapter: mysql2
-  encoding: utf8
-  reconnect: false
-  database: mindsmesh_production
-  pool: 5
-  username: root
-  password: '123456'
-
 #production:
-#  adapter: postgresql
+#  adapter: mysql2
 #  encoding: utf8
-#  reconnect: true
-#  host: ec2-54-204-2-217.compute-1.amazonaws.com
-#  database: d17a1cv4lksnip
+#  reconnect: false
+#  database: mindsmesh_production
 #  pool: 5
-#  username: fadsvyxhprrenf
-#  password: '5TG_nJ569TbGhiCRmlUucv_jtw'
+#  username: root
+#  password: '123456'
+
+production:
+  adapter: postgresql
+  encoding: utf8
+  reconnect: true
+  host: ec2-54-204-2-217.compute-1.amazonaws.com
+  database: d17a1cv4lksnip
+  pool: 5
+  username: fadsvyxhprrenf
+  password: '5TG_nJ569TbGhiCRmlUucv_jtw'
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".

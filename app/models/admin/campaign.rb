@@ -66,7 +66,7 @@ class Admin::Campaign < ActiveRecord::Base
             fieldsacu = {admin_campaign_id:ac_id, delivered:true, user_id:u.id}
             acu = Admin::CampaignsUsers.new fieldsacu
                 if acu.save
-                    #MyMail.send_newsletter(u,nl,emails).deliver
+                    MyMail.send_newsletter(u,nl,emails).deliver
                     emails = emails+1
                 end
         end
@@ -82,8 +82,8 @@ class Admin::Campaign < ActiveRecord::Base
                     fieldsacu = {admin_campaign_id:ac_id, delivered:true, user_id:u.id, entity_id:entity.entity_id}
                     acu  = Admin::CampaignsUsers.new fieldsacu
                     if acu.save
-                        # MyMail.send_newsletter(u,nl,emails).deliver
-                       #emails = emails+1
+                        MyMail.send_newsletter(u,nl,emails).deliver
+                        emails = emails+1
                     end
                 end
   

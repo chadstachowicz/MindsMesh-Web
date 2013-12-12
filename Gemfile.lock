@@ -46,6 +46,9 @@ GEM
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
     builder (3.0.4)
+    byebug (2.3.1)
+      columnize (~> 0.3.6)
+      debugger-linecache (~> 1.2.0)
     cancan (1.6.10)
     canonix (0.1.1)
     capistrano (3.0.1)
@@ -72,8 +75,10 @@ GEM
       execjs
     coffee-script-source (1.6.3)
     colorize (0.5.8)
+    columnize (0.3.6)
     daemons (1.1.9)
     database_cleaner (1.1.1)
+    debugger-linecache (1.2.0)
     devise (2.2.7)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.1)
@@ -400,6 +405,7 @@ DEPENDENCIES
   backbonejs-rails
   best_in_place
   better_errors
+  byebug
   cancan
   capistrano
   capybara
