@@ -32,6 +32,7 @@ class Notification < ActiveRecord::Base
     "#{user_name} #{action_as_verb}"
   end
 
+
   def action_as_verb
     action_as_verb_html.gsub('<u>', '"').gsub('</u>', '"')
   end
@@ -108,18 +109,18 @@ class Notification < ActiveRecord::Base
   def self.notify_users_in_topic(topic, action, ignore_user_id)
     new_actors_count = topic.posts.where('created_at > ?', 3.day.ago).count
     topic.users.each do |user|
-      notify_user!(user, topic, action, topic.name, new_actors_count) unless user.id == ignore_user_id
+      notify_user!(user, topic, action, topic.name, new_actors_count, nil, ignore_user_id) unless user.id == ignore_user_id
     end
   end
 
   def self.notify_users_in_group(group, action, ignore_user_id)
     new_actors_count = group.posts.where('created_at > ?', 3.day.ago).count
     group.users.each do |user|
-      notify_user!(user, group, action, group.name, new_actors_count) unless user.id == ignore_user_id
+      notify_user!(user, group, action, group.name, new_actors_count, nil, ignore_user_id) unless user.id == ignore_user_id
     end
   end
 
-  def self.notify_user!(user, target, action, text, new_actors_count=1, reply_id=nil)
+  def self.notify_user!(user, target, action, text, new_actors_count=1, reply_id=nil, user_id=nil)
     n = where(user_id: user.id, target_type: target.class.name, target_id: target.id, action: action).first_or_initialize(text: text)
     n.b_read = false
     n.actors_count = new_actors_count
@@ -128,7 +129,7 @@ class Notification < ActiveRecord::Base
     if !reply_id.nil?
         message = n.push_message_make(reply_id)
     else
-        message = n.facebook_message
+        message = n.push_message_make(user_id)
         
     end
         
