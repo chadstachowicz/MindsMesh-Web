@@ -18,7 +18,7 @@ class NotifyNewPost
     post = Post.find(id)
     if !post.topic.nil?
     Notification.notify_users_in_topic(post.topic, Notification::ACTION_POSTED, post.user_id)
-    else if !post.group.nil?
+    elsif !post.group.nil?
     Notification.notify_users_in_group(post.group, Notification::ACTION_POSTED, post.user_id)
     end
  end
