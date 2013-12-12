@@ -36,17 +36,7 @@ production:
   username: b1973d5a06ee70
   password: '5ae73fc9'
 
- #mysql://b1973d5a06ee70:5ae73fc9@us-cdbr-east-04.cleardb.com/heroku_93a10107c161cbc?reconnect=true
-
-#production:
-#  adapter: postgresql
-#  encoding: utf8
-#  reconnect: true
-#  host: ec2-54-204-2-217.compute-1.amazonaws.com
-#  database: d17a1cv4lksnip
-#  pool: 5
-#  username: fadsvyxhprrenf
-#  password: '5TG_nJ569TbGhiCRmlUucv_jtw'
+#mysql://b1973d5a06ee70:5ae73fc9@us-cdbr-east-04.cleardb.com/heroku_93a10107c161cbc?reconnect=true
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
