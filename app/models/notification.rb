@@ -112,6 +112,13 @@ class Notification < ActiveRecord::Base
     end
   end
 
+  def self.notify_users_in_group(group, action, ignore_user_id)
+    new_actors_count = group.posts.where('created_at > ?', 3.day.ago).count
+    group.users.each do |user|
+      notify_user!(user, group, action, group.name, new_actors_count) unless user.id == ignore_user_id
+    end
+  end
+
   def self.notify_user!(user, target, action, text, new_actors_count=1, reply_id=nil)
     n = where(user_id: user.id, target_type: target.class.name, target_id: target.id, action: action).first_or_initialize(text: text)
     n.b_read = false

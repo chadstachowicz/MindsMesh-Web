@@ -17,5 +17,6 @@ class NotifyNewPost
     puts "-"*60
     post = Post.find(id)
     Notification.notify_users_in_topic(post.topic, Notification::ACTION_POSTED, post.user_id)
+    Notification.notify_users_in_group(post.group, Notification::ACTION_POSTED, post.user_id)
  end
 end
