@@ -1,8 +1,5 @@
 # MySQL.  Versions 4.1 and 5.0 are recommended.
 # 
-# Install the MYSQL driver
-#   gem install mysql2
-#
 # Ensure the MySQL gem is defined in your Gemfile
 #   gem 'mysql2'
 #
@@ -17,7 +14,7 @@ development:
   username: root
   password: '123456'
 
-#production:
+# production:
 #  adapter: mysql2
 #  encoding: utf8
 #  reconnect: false
