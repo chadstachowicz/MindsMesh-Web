@@ -16,7 +16,10 @@ class NotifyNewPost
  def self.perform(id)
     puts "-"*60
     post = Post.find(id)
+    if !post.topic.nil?
     Notification.notify_users_in_topic(post.topic, Notification::ACTION_POSTED, post.user_id)
+    else if !post.group.nil?
     Notification.notify_users_in_group(post.group, Notification::ACTION_POSTED, post.user_id)
+    end
  end
 end
