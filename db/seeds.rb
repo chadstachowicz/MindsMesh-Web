@@ -8,8 +8,7 @@
 User.transaction do
     # if Rails.env.development?
     # 'school admin'    20,  'student' = 10,          'moderator' = 1
-          
-    users = [
+    users = [                                                                                                
          {name:'Admin Test User', role_i:30, email:'adminkk@lousianatest.edu', name: 'Admin User', encrypted_password:'$2a$10$4R.gf6j9AmV4GAgszYVLxeCaoNFiRbsLm0VSM5hoOn0YxD8DNwt2u'},
          {name:'AdminTestUser',role_i:20,email:'scholadmin1@southcartest.edu', name: 'SchoolAdmin', encrypted_password:'$2a$10$4R.gfmV4GAgszYVLxeCaoNFiRbsLm0VDNwt2u'},
          {name:'StudentUser',role_i:10,email:'scholadmin2@sanantoniotest.ed', name: 'SchoolAdmin2', encrypted_password:'$2a$10$4R.gfmV4GAgszYVLxeCaoNFiRbsLm0VDNwt2u'},
