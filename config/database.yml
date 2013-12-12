@@ -33,7 +33,7 @@ production:
   username: b1973d5a06ee70
   password: '5ae73fc9'
 
-#mysql://b1973d5a06ee70:5ae73fc9@us-cdbr-east-04.cleardb.com/heroku_93a10107c161cbc?reconnect=true
+#mysql2://b1973d5a06ee70:5ae73fc9@us-cdbr-east-04.cleardb.com/heroku_93a10107c161cbc?reconnect=true
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
