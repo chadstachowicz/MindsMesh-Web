@@ -1,7 +1,12 @@
+
+# MindsMesh, Inc. (c) 2012-2013
+
 class PostsController < ApplicationController
+  
   respond_to :html#, :json, :xml
 
   load_and_authorize_resource except: [:like]
+
   load_resource only: [:like, :update]
 
   # GET /posts

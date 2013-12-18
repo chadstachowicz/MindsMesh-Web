@@ -1,4 +1,8 @@
+
+# MindsMesh (c) 2013
+
 class ApplicationController < ActionController::Base
+
   protect_from_forgery
 
   before_filter :load_messages
@@ -6,6 +10,7 @@ class ApplicationController < ActionController::Base
   protected
 
   before_filter do
+    #return render :text => current_user.to_yaml
     logger.info "Custom: #{custom_log_hash}"
     if Rails.env.test? #capybara
       ident = session[:session_id].object_id
@@ -26,9 +31,8 @@ class ApplicationController < ActionController::Base
   def redirect_to_landing_home_page
     return redirect_to '/auth/facebook' if params['signed_request']
     return redirect_to :home_login      unless current_user
-    return redirect_to :home_entities   if current_user.entity_users.size.zero?
-      #   return redirect_to :home_topics     if current_user.topics.to_a.empty?
-    
+    return redirect_to :home_entities   if current_user.entity_users.size.zero?  # show the form again
+    #   return redirect_to :home_topics     if current_user.topics.to_a.empty?   
     return redirect_to :root unless controller_name=='home'&&action_name=='index'
   end
 
@@ -96,5 +100,4 @@ class ApplicationController < ActionController::Base
   end
 
   
-
 end

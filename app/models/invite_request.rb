@@ -1,3 +1,6 @@
+
+# MindsMesh, Inc. (c) 2012-2013
+
 class InviteRequest < ActiveRecord::Base
   belongs_to :user
   belongs_to :entity

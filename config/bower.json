@@ -1,0 +1,21 @@
+
+{
+  "name": "MindsMesh",
+  "version": "0.0.1",
+  "dependencies": {
+      "jquery-ui": "",
+      "modernizr": "",
+      "bootstrap": "",
+      "bootstrap-datepicker": "",
+      "angular-resource": "",
+      "angular-strap": "",
+      "angular-ui" : "",
+      "ngInfiniteScroll" : "",
+      "angular-underscore" : "",
+      "underscore" : "",
+      "angular-bootstrap" : "",
+      "font-awesome" : "",
+      "emoji" : "",
+      "tinymce" : ""
+  }
+}

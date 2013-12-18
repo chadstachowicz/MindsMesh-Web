@@ -1,3 +1,6 @@
+
+# MindsMesh (c) 2013
+
 class Topic < ActiveRecord::Base
 
     attr_accessible :name, :slug, :entity_user_id, :self_joining, :title, :number, :privacy, :entity_id
@@ -5,16 +8,12 @@ class Topic < ActiveRecord::Base
   #decorator
   attr_accessor :is_my_topic
 
-
   class << self
     #untested
     def filter(q)
       where("UPPER(name) LIKE UPPER(?)", "%#{q}%")
     end
   end
-
-
-
 
   belongs_to :entity, counter_cache: true
   belongs_to :user
@@ -42,6 +41,7 @@ class Topic < ActiveRecord::Base
   end
 
   attr_accessor :entity_user, :entity_user_id
+
   before_validation :set_entity_user_correctly, on: :create
 
   def set_entity_user_correctly
@@ -58,7 +58,6 @@ class Topic < ActiveRecord::Base
 
 def self.find_for_lti_oauth(auth, user=nil, entity_id)
 
-
     topic = Topic.where(:number => auth.context_label, :entity_id => entity_id).first
 
     unless topic
@@ -73,8 +72,8 @@ def self.find_for_lti_oauth(auth, user=nil, entity_id)
             eur.role_i = 1
         end
         eur.save
-topic
-end
+   topic
+ end
 
 
   def compose_name_and_slugify
@@ -82,13 +81,13 @@ end
     self.slug = "#{number}"                if self.slug.blank?
   end
 
-def self.import(file)
+ def self.import(file)
     job = BackgroundJob.create(:job_type => "ImportTopics", :status => 'Processing')
     n = SmarterCSV.process(file.tempfile.to_path.to_s, {:chunk_size => 100}) do |chunk|
         Resque.enqueue( ImportTopics, chunk, job.id ) # pass chunks of CSV-data to Resque workers for parallel processing
     end
     job.total_records = n
     job.save
+  end
 end
 
-end

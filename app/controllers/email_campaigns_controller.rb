@@ -1,4 +1,8 @@
+
+# MindsMesh, Inc. (c) 2012-2013
+
 class EmailCampaignsController < ApplicationController
+  
   load_and_authorize_resource
   
   # TODO: name these comments properly with all the matching URLs to each action

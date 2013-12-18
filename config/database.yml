@@ -5,7 +5,7 @@
 #
 # Ensure the MySQL gem is defined in your Gemfile
 #   gem 'mysql2'
-#
+# 
 # And be sure to use new-style password hashing:
 #   http://dev.mysql.com/doc/refman/5.0/en/old-client.html
 development:
@@ -17,7 +17,7 @@ development:
   username: root
   password: '123456'
 
-#production:
+# production:
 #  adapter: mysql2
 #  encoding: utf8
 #  reconnect: false
@@ -26,16 +26,17 @@ development:
 #  username: root
 #  password: '123456'
 
-
 production:
   adapter: mysql2
   encoding: utf8
   reconnect: true
-  host: mindsmesh.cwzbtuo3ucf9.us-east-1.rds.amazonaws.com
-  database: mindsmesh_production
+  host: us-cdbr-east-04.cleardb.com
+  database: heroku_93a10107c161cbc
   pool: 5
-  username: M1ndsM3sh
-  password: 'This!sM1ndsM3sh'
+  username: b1973d5a06ee70
+  password: '5ae73fc9'
+
+#mysql2://b1973d5a06ee70:5ae73fc9@us-cdbr-east-04.cleardb.com/heroku_93a10107c161cbc?reconnect=true
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".

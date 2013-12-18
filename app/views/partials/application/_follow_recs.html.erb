@@ -1,14 +1,15 @@
 <div class="modal hide fade" id="follow_recs_modal">
   <div class="modal-header" style="padding-bottom:0px">
      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    	<h3>Follow new people</h3>
-          
+    	<h3>Follow new people</h3>          
   </div>
   <div class="modal-body">
   <% @follows = current_user.user_follows %>
   <% follow_ids = @follows.map{|bar| bar.follow_id} %>
   <% follow_ids << current_user.id %>
-      <% User.joins(:entity_users).where('users.id not in (:follow_ids) and entity_users.entity_id in (:entities)', :follow_ids => follow_ids, :entities => current_user.entity_users.map(&:entity_id)).uniq.order("RAND()").limit(20).each do |fb_friend| %>
+      <% User.select('users.*, RANDOM()').joins(:entity_users).where(
+                                         'users.id not in (:follow_ids) and entity_users.entity_id in (:entities)', :follow_ids => follow_ids, :entities => current_user.entity_users.map(&:entity_id)
+                                        ).uniq.order("RANDOM()").limit(20).each do |fb_friend| %>
       <div class="follow_rec row-fluid">
     <div class="span2" style="padding-top:5px;padding-bottom:5px">
         <a  href="/users/<%= fb_friend.id%>"><%= image_tag fb_friend.photo_url, width: 50 %></a>

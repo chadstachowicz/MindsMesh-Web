@@ -3,35 +3,25 @@
 class Ability
   include CanCan::Ability
 
-  def everybody
-      can [:denied, :fb_canvas, :confirm_entity_request, :create_signup_request, :confirm_signup_request, :saml, :demoforik12, :join_entity], :home
-      can [:lti], Entity
-      can :access, :omniauth_callbacks
-  end
+# MindsMesh, Inc. (c) 2012-2013
 
-  def not_logged_in
-      can [:login, :ucmesh_login, :edumesh_login], :home
-  end
+class Ability
 
-  def logged_in
-      can [:admin, :entities, :create_entity_request, :change_access_token, :ajax_application, :search_users], :home
-      can :index, :setting
-      can [:create, :new], FeedbackBug
-      can :create, InviteRequest
-      
+  include CanCan::Ability
 
-  end
-  
   def initialize(current_user)
     everybody
     return not_logged_in unless current_user
     @current_user = current_user
-    #
-    logged_in
+    
+    # alias_action :create, :read, :update, :destroy, :to => :crud  # only CRUD methods
+
+    logged_in   # basic permissions
+
     return if current_user.entity_users.size.zero?
 
-
     index
+
     master    if current_user.master?
     school_admin    if current_user.school_admin?
     topic_admin    if current_user.topic_admin?
@@ -43,51 +33,74 @@ class Ability
     can [:destroy], Post do |post|
       post.user_id == current_user.id
     end
-
+  end
+  
+  
+  def everybody
+    can [:denied, :fb_canvas, :confirm_entity_request, :create_signup_request, :confirm_signup_request, :saml, :demoforik12, :join_entity], :home
+    can [:lti], Entity
+    can :access, :omniauth_callbacks
   end
 
+  def not_logged_in
+    can [:login, :ucmesh_login, :edumesh_login], :home
+  end
+
+  def logged_in
+    can [:admin, :entities, :create_entity_request, :change_access_token, :ajax_application, :search_users], :home
+    can :index, :setting
+    can [:create, :new], FeedbackBug
+    can :create, InviteRequest
+    can [:index, :show, :statics, :recent], :admin_panels             # admin section
+  end
+  
   def index
-      can [:index, :create_post, :more_posts, :feedback, :topics, :groups], :home
+    can [:index, :create_post, :more_posts, :feedback, :topics, :groups], :home
 
     #TODO: stop testing only as a master
-      can :show, Hashtag
+    can :show, Hashtag
       
-      can [:show, :more_posts, :follow, :unfollow, :all, :update], User do |usr|
-          see = false
-          usr.entity_users.all.each do |eu|
-              if !@current_user.entity_users.find_by_entity_id(eu.entity_id).nil?
-                  see = true
-              end
-          end
-          see
+    can [:show, :more_posts, :follow, :unfollow, :all, :update], User do |usr|
+        see = false
+        usr.entity_users.all.each do |eu|
+            if !@current_user.entity_users.find_by_entity_id(eu.entity_id).nil?
+                see = true
+            end
+        end
+        see
     end
       
     can [:create, :filter], Topic
     can [:create, ], Group
     can [:show, :join, :leave], Topic do |topic|
-      topic.entity.entity_users.where(user_id: @current_user.id).exists?
+        topic.entity.entity_users.where(user_id: @current_user.id).exists?
     end
-      can [:show, :join, :leave], Group do |group|
-          group.entity.entity_users.where(user_id: @current_user.id).exists? || group.invite_requests.where(to_user_id: @current_user.id).exists?
-      end
+
+    can [:show, :join, :leave], Group do |group|
+        group.entity.entity_users.where(user_id: @current_user.id).exists? || group.invite_requests.where(to_user_id: @current_user.id).exists?
+    end
+
     #TODO: stop testing only as a master
-      can [:more_posts], Topic do |topic|
-      topic.topic_users.where(user_id: @current_user.id).exists?
+    can [:more_posts], Topic do |topic|
+        topic.topic_users.where(user_id: @current_user.id).exists?
     end
-      can [:more_posts], Group do |group|
-          group.group_users.where(user_id: @current_user.id).exists?
-      end
+
+    can [:more_posts], Group do |group|
+        group.group_users.where(user_id: @current_user.id).exists?
+    end
+
     can [:read, :create_reply, :like, :unlike, :with_links], Post do |post|
-      true ==true
+        true ==true
     end
+
     can [:update, :destroy], [Post, Reply] do |msg|
-      msg.user_id == @current_user.id
+        msg.user_id == @current_user.id
     end
     can [:destroy], [PostAttachment] do |pa|
-      pa.post.user_id == @current_user.id
+        pa.post.user_id == @current_user.id
     end
     can [:show], Notification do |notification|
-      notification.user_id == @current_user.id
+        notification.user_id == @current_user.id
     end
   end
 
@@ -100,42 +113,41 @@ class Ability
   end
 
   def school_admin
-      can [:index], :admin
-      can [:index, :datatable_filter], User
-      can [:index, :datatable_filter], Topic
-      can [:edit, :destroy, :update], Topic do |tpc|
-          if !@current_user.entity_users.find_by_entity_id(tpc.entity_id).nil?
-              @current_user.entity_users.find_by_entity_id(tpc.entity_id).role_i == 1
-          end 
-      end
-      can [:update, :destroy], [Post, Reply]
+    # can :manage, Admin::Newsletter
+    # can :manage, Admin::Campaign                 # admin section
+    can [:index], :admin
+    can [:index, :datatable_filter], Entity
+    can [:index, :datatable_filter], Topic
+    can [:edit, :destroy, :update], Topic do |tpc|
+        if !@current_user.entity_users.find_by_entity_id(tpc.entity_id).nil?
+            @current_user.entity_users.find_by_entity_id(tpc.entity_id).role_i == 1
+        end 
+    end
+    can [:update, :destroy], [Post, Reply]
   end
     
-    def topic_admin
-        can [:index], :admin
-        can [:index, :datatable_filter], Topic
-        can [:edit, :destroy, :update], Topic do |tpc|
-            if !@current_user.topic_users.find_by_topic_id(tpc.id).nil?
-                @current_user.topic_users.find_by_topic_id(tpc.id).role_i == 1
-            end
+  def topic_admin
+    can [:index], :admin
+    can [:index, :datatable_filter], Topic
+    can [:edit, :destroy, :update], Topic do |tpc|
+        if !@current_user.topic_users.find_by_topic_id(tpc.id).nil?
+            @current_user.topic_users.find_by_topic_id(tpc.id).role_i == 1
         end
-        can [:update, :destroy], Post do |msg|
-            if !@current_user.topic_users.find_by_topic_id(msg.topic_id).nil?
+    end
+    can [:update, :destroy], Post do |msg|
+        if !@current_user.topic_users.find_by_topic_id(msg.topic_id).nil?
                 @current_user.topic_users.find_by_topic_id(msg.topic_id).role_i == 1
-            end
-                
-        end
+        end        
     end
+  end
     
-    def group_admin
-        can [:index], :admin
-        can [:update], Group
-        can [:update, :destroy], Post do |msg|
-            if !@current_user.group_users.find_by_group_id(msg.group_id).nil?
-                @current_user.group_users.find_by_group_id(msg.group_id).role_i == 1
-            end
-            
-        end
+  def group_admin
+    can [:index], :admin
+    can [:update], Group
+    can [:update, :destroy], Post do |msg|
+        if !@current_user.group_users.find_by_group_id(msg.group_id).nil?
+            @current_user.group_users.find_by_group_id(msg.group_id).role_i == 1
+        end    
     end
-
+  end
 end

@@ -1,3 +1,4 @@
+
 if ($('#top_menu_left').length) {
   var s = "<%= j render '/partials/application/notifications' %>";
   $('#top_menu_left').append(s);
@@ -8,12 +9,10 @@ if ($('#top_menu_left').length) {
   $('#top_menu_left').append(s);
 }
 
-
-
 if ($('#top_menu_right').length) {
   var s = "<%= j render '/partials/application/myaccount' %>";
   $('#top_menu_right').append(s);
-}
+ }
 
 var s = "<%= j render '/partials/application/follow_recs' %>";
 $('body').append(s);
@@ -31,19 +30,18 @@ var s = "<%= j render '/partials/application/fb_invites' %>";
 $('body').append(s);
 
 
+ if ($.cookie('suggest_follows') == "true") {
+   var _callback = function() {
+     $('#follow_recs_modal').modal();
+     $.cookie('suggest_follows', 'false');
+   }
+   setTimeout(_callback, 1000);
+ } else if ($.cookie('suggest_invites') == "true") {
+   var _callback2 = function() {
+     $('#fb_friends_modal').modal();
+     $.cookie('suggest_invites', 'false');
+   }
+   setTimeout(_callback2, 1000);
+ }
 
-if ($.cookie('suggest_follows') == "true") {
-  var _callback = function() {
-    $('#follow_recs_modal').modal();
-    $.cookie('suggest_follows', 'false');
-  }
-  setTimeout(_callback, 1000);
-} else if ($.cookie('suggest_invites') == "true") {
-  var _callback2 = function() {
-    $('#fb_friends_modal').modal();
-    $.cookie('suggest_invites', 'false');
-  }
-  setTimeout(_callback2, 1000);
-}
-
-<% end %>
+ <% end %>

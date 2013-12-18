@@ -1,3 +1,6 @@
+
+# MindsMesh (c) 2013
+
 class CreateQuestionnaires < ActiveRecord::Migration
   def change
     create_table :questionnaires do |t|
