@@ -88,7 +88,6 @@ GEM
     erubis (2.7.0)
     eventmachine (1.0.3)
     execjs (2.0.1)
-    extlib (0.9.16)
     fabrication (2.7.2)
     factory_girl (4.2.0)
       activesupport (>= 3.0.0)
@@ -103,16 +102,6 @@ GEM
     formatador (0.2.4)
     friendly_id (4.0.10.1)
       activerecord (>= 3.0, < 4.0)
-    google-api-client (0.6.4)
-      addressable (>= 2.3.2)
-      autoparse (>= 0.3.3)
-      extlib (>= 0.9.15)
-      faraday (~> 0.8.4)
-      jwt (>= 0.1.5)
-      launchy (>= 2.1.1)
-      multi_json (>= 1.0.0)
-      signet (~> 0.4.5)
-      uuidtools (>= 2.1.0)
     guard (1.8.2)
       formatador (>= 0.2.4)
       listen (>= 1.0.0)
@@ -318,7 +307,6 @@ GEM
       thor (~> 0.14)
     sendgrid (1.2.0)
       json
-    signature (0.1.7)
     simple_form (2.1.0)
       actionpack (~> 3.0)
       activemodel (~> 3.0)
@@ -427,7 +415,6 @@ DEPENDENCIES
   faker
   font-awesome-sass-rails
   friendly_id
-  google-api-client
   guard-rspec
   haml
   httparty

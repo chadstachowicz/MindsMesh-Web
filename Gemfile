@@ -9,7 +9,6 @@ gem 'jquery-rails', '2.1.4'
 gem 'omniauth-facebook', '1.4.0'
 gem 'omniauth-twitter'
 gem 'omniauth-google-oauth2'
-gem 'turbo-sprockets-rails3'
 gem 'twitter'
 gem 'cancan'
 gem 'validates_email_format_of'
@@ -47,11 +46,9 @@ gem 'roo'
 gem 'rinku', :require => 'rails_rinku'
 gem 'backbonejs-rails'
 gem 'smarter_csv', '~> 1.0.8'
-gem 'sass'   # so other gems don't alert
 gem 'coffee-rails'
 gem 'uglifier', '>= 1.0.3'
 gem 'therubyracer', :platform => :ruby
-gem "therubyracer"
 gem "sass"
 gem 'sass-rails', '>= 3.2' # sass-rails needs to be higher than 3.2
 # gem 'bootstrap-sass', '~> 3.0.2.0'
