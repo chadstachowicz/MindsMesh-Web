@@ -128,7 +128,7 @@ class Notification < ActiveRecord::Base
 
     if !reply_id.nil?
         message = n.push_message_make(reply_id)
-    elsif !user_id.nil?
+    elsif !post_user_id.nil?
         message = n.push_message_make(post_user_id)
     else
         message = n.facebook_message
