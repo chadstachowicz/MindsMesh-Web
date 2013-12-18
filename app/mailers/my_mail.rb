@@ -27,14 +27,12 @@ class MyMail < ActionMailer::Base
     #logger.debug  "\n  Debug: entity_user_request.confirmation_token:" +  entity_user_request.confirmation_token + "\n" if Rails.env.development?
     #logger.debug  "\n  Debug: host:" +  host + "\n" if Rails.env.development?
     @body  = nl.htmlemail.html_safe
-
-    if number == 0
+    #if number == 0
        # If first email, we create a category to track this email
-       ActionMailer::Base.default "X-SMTPAPI" => "{\"category\": #{nl.title}}"
-    end
-
-    mail( to: 'mmontoya@gmail.com', subject: nl.title)
-
+    #   ActionMailer::Base.default "X-SMTPAPI" => "{\"category\": #{nl.title}}"
+    #end
+    
+    mail(to:user.email, subject: nl.title)
   end
   
   def send_newsletter_test(email, nl)
@@ -43,8 +41,7 @@ class MyMail < ActionMailer::Base
     #logger.debug  "\n  Debug: host:" +  host + "\n" if Rails.env.development?
     @body  = nl.htmlemail.html_safe
 
-
-    mail( to: email, subject: nl.title, :template_name => "send_newsletter")
+    mail(to: email, subject: nl.title, :template_name => "send_newsletter")
 
   end
 
