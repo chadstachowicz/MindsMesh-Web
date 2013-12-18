@@ -4,7 +4,6 @@ ruby '2.0.0'
 gem 'rails', '3.2.10'
 gem 'mysql2'
 gem 'byebug'
-gem 'pg'
 # gem 'debugger'  # debugger works only on 1.9
 gem 'jquery-rails', '2.1.4'
 gem 'omniauth-facebook', '1.4.0'
