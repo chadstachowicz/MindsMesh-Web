@@ -1,6 +1,3 @@
-
-# MindsMesh, Inc. (c) 2012-2013
-
 class EntityUsersController < ApplicationController
 
   load_and_authorize_resource

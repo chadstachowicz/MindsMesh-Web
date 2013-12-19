@@ -31,6 +31,10 @@ GEM
     addressable (2.3.5)
     ansi (1.4.3)
     arel (3.0.2)
+    autoparse (0.3.3)
+      addressable (>= 2.3.1)
+      extlib (>= 0.9.15)
+      multi_json (>= 1.0.0)
     aws-sdk (1.3.9)
       httparty (~> 0.7)
       json (~> 1.4)
@@ -45,16 +49,11 @@ GEM
     better_errors (1.0.1)
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
+    bootstrap-sass (2.3.2.2)
+      sass (~> 3.2)
     builder (3.0.4)
-    byebug (2.3.1)
-      columnize (~> 0.3.6)
-      debugger-linecache (~> 1.2.0)
     cancan (1.6.10)
     canonix (0.1.1)
-    capistrano (3.0.1)
-      i18n
-      rake (>= 10.0.0)
-      sshkit (>= 0.0.23)
     capybara (2.1.0)
       mime-types (>= 1.16)
       nokogiri (>= 1.3.3)
@@ -75,10 +74,8 @@ GEM
       execjs
     coffee-script-source (1.6.3)
     colorize (0.5.8)
-    columnize (0.3.6)
     daemons (1.1.9)
     database_cleaner (1.1.1)
-    debugger-linecache (1.2.0)
     devise (2.2.7)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.1)
@@ -88,9 +85,8 @@ GEM
     erubis (2.7.0)
     eventmachine (1.0.3)
     execjs (2.0.1)
+    extlib (0.9.16)
     fabrication (2.7.2)
-    factory_girl (4.2.0)
-      activesupport (>= 3.0.0)
     faker (1.2.0)
       i18n (~> 0.5)
     faraday (0.8.8)
@@ -102,6 +98,16 @@ GEM
     formatador (0.2.4)
     friendly_id (4.0.10.1)
       activerecord (>= 3.0, < 4.0)
+    google-api-client (0.6.4)
+      addressable (>= 2.3.2)
+      autoparse (>= 0.3.3)
+      extlib (>= 0.9.15)
+      faraday (~> 0.8.4)
+      jwt (>= 0.1.5)
+      launchy (>= 2.1.1)
+      multi_json (>= 1.0.0)
+      signet (~> 0.4.5)
+      uuidtools (>= 2.1.0)
     guard (1.8.2)
       formatador (>= 0.2.4)
       listen (>= 1.0.0)
@@ -171,9 +177,6 @@ GEM
     multipart-post (1.2.0)
     mysql2 (0.3.13)
     net-http-persistent (2.9)
-    net-scp (1.1.2)
-      net-ssh (>= 2.6.5)
-    net-ssh (2.7.0)
     nokogiri (1.6.0)
       mini_portile (~> 0.5.0)
     oauth (0.4.7)
@@ -237,11 +240,6 @@ GEM
       activesupport (= 3.2.10)
       bundler (~> 1.0)
       railties (= 3.2.10)
-    rails_12factor (0.0.2)
-      rails_serve_static_assets
-      rails_stdout_logging
-    rails_serve_static_assets (0.0.1)
-    rails_stdout_logging (0.0.3)
     railties (3.2.10)
       actionpack (= 3.2.10)
       activesupport (= 3.2.10)
@@ -307,6 +305,12 @@ GEM
       thor (~> 0.14)
     sendgrid (1.2.0)
       json
+      json
+    signet (0.4.5)
+      addressable (>= 2.2.3)
+      faraday (~> 0.8.1)
+      jwt (>= 0.1.5)
+      multi_json (>= 1.0.0)
     simple_form (2.1.0)
       actionpack (~> 3.0)
       activemodel (~> 3.0)
@@ -329,16 +333,10 @@ GEM
       activerecord (>= 3.0)
       activesupport (>= 3.0)
       polyamorous (~> 0.6.0)
-    sshkit (1.1.0)
-      net-scp
-      net-ssh
-      term-ansicolor
     subexec (0.2.3)
     switch_user (0.9.3)
     systemu (2.5.2)
     template_rider (0.0.2)
-    term-ansicolor (1.2.2)
-      tins (~> 0.8)
     therubyracer (0.12.0)
       libv8 (~> 3.16.14.0)
       ref
@@ -348,15 +346,14 @@ GEM
       rack (>= 1.0.0)
     thor (0.18.1)
     tilt (1.4.1)
-    tins (0.13.1)
     tinymce-rails (4.0.10)
       railties (>= 3.1.1)
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
-    turbo-sprockets-rails3 (0.3.10)
+    turbo-sprockets-rails3 (0.3.11)
       railties (> 3.2.8, < 4.0.0)
-      sprockets (>= 2.0.0)
+      sprockets (>= 2.2.0)
     turn (0.9.6)
       ansi
     twitter (4.8.1)
@@ -401,9 +398,8 @@ DEPENDENCIES
   backbonejs-rails
   best_in_place
   better_errors
-  byebug
+  bootstrap-sass
   cancan
-  capistrano
   capybara
   coffee-rails
   colorize
@@ -411,10 +407,10 @@ DEPENDENCIES
   database_cleaner
   devise (~> 2.2.7)
   fabrication
-  factory_girl
   faker
   font-awesome-sass-rails
   friendly_id
+  google-api-client
   guard-rspec
   haml
   httparty
@@ -425,7 +421,6 @@ DEPENDENCIES
   koala
   launchy
   lazy_high_charts
-  mail (>= 2.4.4)
   mails_viewer
   mini_magick
   mysql2
@@ -437,14 +432,13 @@ DEPENDENCIES
   paperclip
   railroady
   rails (= 3.2.10)
-  rails_12factor
   rapns
   resque
   rinku
   roo
   rspec-rails
   sass
-  sass-rails (>= 3.2)
+  sass-rails
   select2-rails
   sendgrid
   simple_form
@@ -456,7 +450,7 @@ DEPENDENCIES
   therubyracer
   thin
   tinymce-rails
-  turbo-sprockets-rails3 (~> 0.3.10)
+  turbo-sprockets-rails3
   turn
   twitter
   uglifier (>= 1.0.3)

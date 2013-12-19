@@ -1,21 +1,12 @@
-
-$iconSpritePath: '';
-$iconWhiteSpritePath: '';
-$errorText: 'orange';
-$white: rgb(255,255,255);
-$grayDark:  rgb(224,224,224);
-$infoText: rgb(1,64,5);
-$linkColor: rgb(12,64,5);
-
 //fix to use font-awesome
 $iconSpritePath: '';
 $iconWhiteSpritePath: '';
 
-@import "bootstrap.min";
+@import "bootstrap";
 body { padding-top: 60px; }
 @import "font-awesome";
 //@import "font-awesome-ie7";
-@import "bootstrap-responsive.min";
+@import "bootstrap-responsive";
 
 
 // See http://twitter.github.com/bootstrap/less.html
@@ -81,7 +72,6 @@ $dark-green: #074132;
   label, span.help-inline { color:#fff; }
 }
 
-
 // Block level inputs
 .input-block-level {
   display: block;
@@ -110,6 +100,7 @@ $dark-green: #074132;
     margin-top: 70px; /* define margin as you see fit */
 }
 
+// email manager
 .headline3 {
   position: relative;
   margin-left: -22px; /* 15px padding + 7px border ribbon shadow*/
@@ -144,6 +135,7 @@ $dark-green: #074132;
 
 #admincontainer{
   border: 1px solid #e0e0e0;
-  padding: 5px;
-  margin:1px;
+  background-color:#fff;
+  padding: 4px;
+  margin:0;
 }

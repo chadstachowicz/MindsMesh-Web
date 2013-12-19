@@ -1,6 +1,3 @@
-
-# MindsMesh (c) 2013
-
 class CreateEntities < ActiveRecord::Migration
   def change
     create_table :entities do |t|

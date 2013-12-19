@@ -1,6 +1,3 @@
-
-# MindsMesh (c) 2013
-
 require "spec_helper"
 
 describe MyMail do

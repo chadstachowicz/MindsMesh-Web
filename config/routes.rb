@@ -1,21 +1,18 @@
-
-# MindsMesh (c) 2013
-
 Mindsmesh::Application.routes.draw do
-
-  resources :removes
-
 
   resources :background_jobs
 
   resources :email_campaigns
+
   resources :post_hashtags
+
   resources :hashtags
   resources :feedback_bugs
 
   resources :entity_user_lms
 
   resources :entity_lms
+
   resources :lms_providers
 
   devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks"}
@@ -23,7 +20,9 @@ Mindsmesh::Application.routes.draw do
   #rails generate versionist:new_controller notifications api/V1
   #then adapt the generated files
     
+    
   namespace 'api' do
+
     api_version(:module => "V1", :path=> {:value => "v1"}) do
       resources :posts, only: [:index, :show, :create] do
         member do
@@ -46,7 +45,7 @@ Mindsmesh::Application.routes.draw do
             member do
                 post 'mark_as_read'
             end
-      end
+       end
       resources :replies, only: [:show] do
         member do
           get 'likes'
@@ -92,10 +91,13 @@ Mindsmesh::Application.routes.draw do
       post '/home/register_device'
       post "/home/entities" => "home#create_entity_request"
       match '*path' => 'base#render_404'
-    end  
+
+    end
+    
   end
 
   resources :notifies, only: [:index, :destroy]
+
 
   #for now, we're sending IRs to login, but we plan on making a custom login page showing invitor, entity and topic
   resources :invite_requests, only: [:create] #, :show
@@ -156,15 +158,15 @@ Mindsmesh::Application.routes.draw do
     end
   end
     
-  resources :rosters do
-      member do
-      end
-      collection do
-          get :filter
-          get 'datatable_filter', format: 'json'
-          post :import
-      end
-  end
+    resources :rosters do
+        member do
+        end
+        collection do
+            get :filter
+            get 'datatable_filter', format: 'json'
+            post :import
+        end
+    end
 
     
   resources :groups do
@@ -174,7 +176,6 @@ Mindsmesh::Application.routes.draw do
         get :more_posts
     end
   end
-
   resources :posts, except: [:new, :create, :edit] do
     member do
       post 'replies', action: 'create_reply'
@@ -200,22 +201,22 @@ Mindsmesh::Application.routes.draw do
   match "/auth/failure" => "home#denied"
     
   match "/auth/failure" => "home#denied"
-
   #relating to an entity
   get "home/entities"
   post "home/entities" => "home#create_entity_request", as: 'home_create_entity_request'
   get "home/confirm/:confirmation_token" => "home#confirm_entity_request", as: 'home_confirm_entity_request'
     
-  post "home/signup" => "home#create_signup_request", as: 'home_create_signup_request'
-  get "home/confirm_signup/:confirmation_token" => "home#confirm_signup_request", as: 'home_confirm_signup_request'
+    post "home/signup" => "home#create_signup_request", as: 'home_create_signup_request'
+    get "home/confirm_signup/:confirmation_token" => "home#confirm_signup_request", as: 'home_confirm_signup_request'
 
-  get "join/:token" => "home#join_entity"
+   get "join/:token" => "home#join_entity"
 
   #client, a user associated to entity
   match "fb_canvas" => 'home#fb_canvas'
   match "home/search" => 'home#search_users'
   match 'switch_user' => 'switch_user#set_current_user'
   get '/' => 'home#index', as: 'home_index'
+  get '/admin' => 'admin#index', as: 'admin_index'
   get "home/more_posts"
   get "hashtags/more_posts"
   get "hash/:tag" => "hashtags#show"
@@ -231,6 +232,7 @@ Mindsmesh::Application.routes.draw do
   #questionnaire
   post "home/feedback"
 
+
   #other roles
   #get "home/moderator"
   #get "home/manager"
@@ -239,10 +241,8 @@ Mindsmesh::Application.routes.draw do
 
   root to: "home#index"
   get "home/denied", as: 'denied'
-   
-  # Admin section  
-  get '/admin' => 'admin#index', as: 'admin_index'
-  
+
+
   # Admin email manager  3-XII-13
   namespace :admin do
 
@@ -278,4 +278,3 @@ Mindsmesh::Application.routes.draw do
   end
   
 end
-

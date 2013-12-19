@@ -1,8 +1,7 @@
 
    <%= render '/admin/admin_menu', posts: @posts %>
-
     <div class="row">
-		<div class="span4">
+		<div class="span2">
 			<ul class="nav nav-list">
 				<li class="nav-header">Report Categories</li>
 				<li><a href="/users/home?type=volume">Users</a></li>
@@ -15,36 +14,29 @@
 				<li><a href="/users/home?type=agents">Top Users</a></li>
 			</ul>
 		</div>
-		<div class="span4">
-				<p><%= @totalcounts %></p>
+		<div class="span10">
+			<div class="row">
+				<p><%=@totalcounts%></p>
+				<div class="span4">
 		    		<form action="/admin" method="GET" id="manage-rights">
-						<label>Date Range: </label><input name="daterange" id="datepicker" value="<%= params[:daterange] %>" maxlength="60" size="15" type="text"/>
-						<script type="text/javascript">	
-			             $(function(){
-				            $('#datepicker').daterangepicker({arrows: false}); 
-				             //demo only
-				             $('#datepicker').click(function(){
-				 	              $(window.parent.document).find('iframe:eq(0)').width(700).height('35em').resizable();
-				              });
-			 });
-		</script>
-
+						<label>Date Range: </label><input name="daterange" id="datepicker" value="<%=params[:daterange]%>" maxlength="60" size="15" type="text"/>
+						<script>
+							$( "#datepicker").daterangepicker();
+						</script>
 						<input type="hidden" id="authenticity_token" name="authenticity_token" value="<%= form_authenticity_token %>" />
 						<input type="hidden" id="res" name="res" value="<%= params[:res] %>" />
 						<input value="Search" type="submit"/>
 					</form>
-		</div>		
-		<div class="span4 pull-right">
-					<ul class="nav nav-pills nav-stacked">
-						<li class="dropdown-header">Graph Resolution</li>
+				</div>
+				<div class="span2 pull-right">
+					<ul class="nav nav-list">
+						<li class="nav-header">Graph Resolution</li>
 						<li><a href="/users/home?res=day">Day</a></li>
 						<li><a href="/users/home?res=month">Month</a></li>
 						<li><a href="/users/home?res=year">Year</a></li>
 					</ul>
-		</div>
-	</div> <!-- row -->
-	<div class="row">
-		<div class="span12">
-		   <%= high_chart("my_id", @h)%>
+				</div>
+			</div>
+		 <%= high_chart("my_id", @h)%>
         </div>
    </div>

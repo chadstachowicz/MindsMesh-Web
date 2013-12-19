@@ -1,9 +1,5 @@
-
-# MindsMesh (c) 2013
-
 class Roster < ActiveRecord::Base
-    
-  attr_accessible :email, :group_id, :topic_id, :user_id, :role
+    attr_accessible :email, :group_id, :topic_id, :user_id, :role
     
   def self.import(file)
     job = BackgroundJob.create(:name => "ImportRosters", :status => 'Processing')
@@ -13,5 +9,5 @@ class Roster < ActiveRecord::Base
     job.total_records = n
     job.save
 
-  end
+end
 end

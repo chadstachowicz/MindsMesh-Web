@@ -1,6 +1,3 @@
-
-# MindsMesh, Inc. (c) 2012-2013
-
 class UserDevice < ActiveRecord::Base
   belongs_to :user
   attr_accessible :os, :environment, :model, :name, :token

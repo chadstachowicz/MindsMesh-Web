@@ -1,6 +1,3 @@
-
-# MindsMesh (c) 2013
-
 class AddDomainsAndStateNameToEntities < ActiveRecord::Migration
   def change
     add_column :entities, :domains, :string

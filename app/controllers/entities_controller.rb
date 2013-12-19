@@ -1,10 +1,5 @@
-
-# MindsMesh, Inc. (c) 2012-2013
-
 class EntitiesController < ApplicationController
-
   respond_to :html, :json, :js
-
   load_and_authorize_resource
 
   # GET /entities
@@ -45,6 +40,8 @@ class EntitiesController < ApplicationController
       end
 
   end
+
+
 
   # GET /entities/datatable_filter
   def datatable_filter

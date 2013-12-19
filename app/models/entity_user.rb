@@ -1,10 +1,5 @@
-
-# MindsMesh (c) 2013
-
 class EntityUser < ActiveRecord::Base
-
-  attr_accessible :user_id, :entity_id, :user, :role_i
-
+    attr_accessible :user_id, :entity_id, :user, :role_i
   belongs_to :entity, counter_cache: true
   belongs_to :user, counter_cache: true
   # TODO: define or remove these boolean fields

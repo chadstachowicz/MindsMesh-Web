@@ -91,7 +91,7 @@ class Admin::Campaign < ActiveRecord::Base
         end
     end
     
-    data = {emails:emails, usersfound:usersfound, nl_id:nl.id}
+      data = {emails:emails, usersfound:usersfound, nl_id:nl.id}
   end
   
   def self.send_reminders

@@ -1,6 +1,3 @@
-
-# MindsMesh (c) 2013
-
 module Api::V1
   class HomeController < BaseController
 
@@ -23,9 +20,7 @@ module Api::V1
       topics = @current_user.search_topics(params[:q])
       render json: TopicPresenter.array(topics)
     end
-    
-    #  post "/home/entities" => "home#create_entity_request"
-    # link an account to an entity   
+      
     def create_entity_request
       entity = Entity.find_by_email_domain(params[:email])
       eur = @current_user.entity_user_requests.where(entity_id: entity.id, email: params[:email]).first_or_initialize

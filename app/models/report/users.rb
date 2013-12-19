@@ -1,6 +1,3 @@
-
-# MindsMesh, Inc. (c) 2012-2013
-
 class Report::Users < ActiveRecord::Base
 
   def self.users_joined(daterange)
@@ -11,7 +8,7 @@ class Report::Users < ActiveRecord::Base
 	  monthname = Date::MONTHNAMES[time.month] 
 	  @users = User.find(:all, :conditions => ['created_at >= ? AND created_at <= ?', time.at_beginning_of_month, time.at_end_of_month])
 	  Date.new(currenttime.year, currenttime.month).at_beginning_of_month.upto(Date.new(currenttime.year, currenttime.month).at_end_of_month) do |date|
-      totalcounts << @users.select{|u| u.created_at.to_s =~ /#{date.to_s}/}.size
+    totalcounts << @users.select{|u| u.created_at.to_s =~ /#{date.to_s}/}.size
 
 	  end
 	else 

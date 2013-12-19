@@ -1,8 +1,4 @@
-
-# MindsMesh, Inc. (c) 2012-2013
-
 class EntityUserRequest < ActiveRecord::Base
-
   belongs_to :entity
   belongs_to :user
 
@@ -14,25 +10,20 @@ class EntityUserRequest < ActiveRecord::Base
 
   validates_email_format_of :email
 
-  # overridden ActiveRecord 
   def to_param
     confirmation_token
   end
 
   def generate_and_mail_new_token
     transaction do
-        self.last_email_sent_at = Time.now
-        self.confirmation_token = Digest::MD5.hexdigest(Time.now.to_s)
-        
-        #if save && Rails.env.development?
-        #    confirm
-        # else
-        #    MyMail.confirmation(self).deliver
-        # end
-        if save
-           # logger.debug "eur saved!!"
-           MyMail.confirmation(self).deliver
-        end
+      self.last_email_sent_at = Time.now
+      self.confirmation_token = Digest::MD5.hexdigest(Time.now.to_s)
+      
+      if save && Rails.env.development?
+        confirm
+      else
+        MyMail.confirmation(self).deliver
+      end
     end
   end
 
@@ -41,7 +32,7 @@ class EntityUserRequest < ActiveRecord::Base
   end
 
   def confirmed?
-    confirmed_at.present?  # email is already confirmed
+    confirmed_at.present?
   end
 
   def confirm
@@ -51,14 +42,6 @@ class EntityUserRequest < ActiveRecord::Base
       #entity_user.joins_self_joinings_topics
       update_attribute(:confirmed_at, Time.now)
       entity_user = entity.user_join!(user)
-    end
-  end
-
-  class << self
-    def random
-       order = ActiveRecord::Base.connection.adapter_name == 'PostgreSQL' ? 'RANDOM()' : 'RAND()';
-       # logger.debug "### connection.adapter_name: " + self.connection.adapter_name + "\n"
-       return order
     end
   end
 end

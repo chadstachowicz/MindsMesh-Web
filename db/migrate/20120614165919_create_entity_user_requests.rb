@@ -1,6 +1,3 @@
-
-# MindsMesh (c) 2013
-
 class CreateEntityUserRequests < ActiveRecord::Migration
   def change
     create_table :entity_user_requests do |t|

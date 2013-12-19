@@ -3,7 +3,7 @@ class CreateTopicUsers < ActiveRecord::Migration
     create_table :topic_users do |t|
       t.references :topic
       t.references :user
-      t.integer :role_i
+      t.string :role
 
       t.timestamps
     end

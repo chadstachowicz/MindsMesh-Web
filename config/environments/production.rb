@@ -1,8 +1,4 @@
-
-# MindsMesh (c) 2013
-
 require "#{Rails.root}/lib/settings.rb"
-
 ActionMailer::Base.smtp_settings = {
   user_name:            Settings.env['sendgrid']['username'],
   password:             Settings.env['sendgrid']['password'],
@@ -20,7 +16,7 @@ Mindsmesh::Application.configure do
   config.cache_classes = true
 
   # Full error reports are disabled and caching is turned on
-  config.consider_all_requests_local       = true
+  config.consider_all_requests_local       = false
   config.action_controller.perform_caching = true
     
   config.action_mailer.default_url_options = { :host => 'www.mindsmesh.com' }
@@ -32,7 +28,7 @@ Mindsmesh::Application.configure do
   config.assets.compress = false
 
   # Don't fallback to assets pipeline if a precompiled asset is missed
-  config.assets.compile = true
+  config.assets.compile = false
 
   # Generate digests for assets URLs
   config.assets.digest = true
@@ -48,8 +44,8 @@ Mindsmesh::Application.configure do
   config.force_ssl = false
 
   # See everything in the log (default is :info)
-  config.log_level = :debug
-  
+  # config.log_level = :debug
+
   # Prepend all log lines with the following tags
   # config.log_tags = [ :subdomain, :uuid ]
 
@@ -63,15 +59,14 @@ Mindsmesh::Application.configure do
   # config.action_controller.asset_host = "http://assets.example.com"
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
-  config.assets.precompile += %w( tinymce.min.js )
-  # config.assets.precompile += %w( *.js *.scss *.coffee *.css )
+  # config.assets.precompile += %w( search.js )
 
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
 
   # Enable threaded mode
   # config.threadsafe!
-  
+
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation can not be found)
   config.i18n.fallbacks = true
@@ -83,4 +78,3 @@ Mindsmesh::Application.configure do
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
 end
-

@@ -18,19 +18,3 @@
 /config/apn
 /app/assets/stylesheets/scaffolds.css.scss
 /mindsmesh_production-snapshot*
-
-# ignore emacs and gedit temp files
-*~
-# OS generated files #
-######################
-*/.DS_Store
-.DS_Store?
-._*
-__MACOSX
-.DS_Store
-
-#ignore sass temporals
-.sass-cache
-/.sass-cache/
-#ignore bower 
-/app/assets/components/

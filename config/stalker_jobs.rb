@@ -1,11 +1,8 @@
-
-# MindsMesh (c) 2013
-
 require 'stalker'
-
 require File.expand_path("../../config/environment", __FILE__)
 
 include Stalker
+
 
 job 'notify.new.post' do |args|
 

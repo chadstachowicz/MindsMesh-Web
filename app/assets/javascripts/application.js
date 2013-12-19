@@ -13,10 +13,10 @@
 //= require jquery
 //= require jquery-ui
 //= require jquery_ujs
-//= require bootstrap.min
 //= require jquery.scrollTo-min
 //= require jquery.cookie
 //= require jquery.watermark.min
+//= require bootstrap
 //= require jquery.purr
 //= require jquery-ui-1.10.2.custom.min
 //= require highcharts
@@ -30,6 +30,7 @@
 //= require posts
 //= require jwplayer
 //= require jwplayer.html5
+//= require daterangepicker.jQuery
 //= require livesearch
 //= require frontend
 //= require jquery.pixelentity.flare.min
@@ -37,10 +38,6 @@
 //= require underscore
 //= require backbone
 //= require bb-private-messages.js
-<<<<<<< HEAD
 //= require tinymce/tinymce.min
-=======
-//= require tinymce
->>>>>>> 1c321e13c023d5c642fe20a6f725ca277c86d4df
 //= require daterangepicker.jQuery
 
