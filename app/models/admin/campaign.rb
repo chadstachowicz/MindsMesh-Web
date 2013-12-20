@@ -62,7 +62,7 @@ class Admin::Campaign < ActiveRecord::Base
         users = get_emails(0, 0) # all users
         users.each do |u|
             usersfound = usersfound+1
-            logger.debug "User:  -> #{u.inspect}  \n\n" if Rails.env.development?
+            #logger.debug "User:  -> #{u.inspect}  \n\n" if Rails.env.development?
             fieldsacu = {admin_campaign_id:ac_id, delivered:true, user_id:u.id}
             acu = Admin::CampaignsUsers.new fieldsacu
                 if acu.save
@@ -75,10 +75,13 @@ class Admin::Campaign < ActiveRecord::Base
         entities.each do |entity|
             types = Admin::CampaignAttr.where(:admin_campaign_id=>ac_id, :entity_id => entity.entity_id, :key=>@kind)
             types.each do |t|
+                if t.value == 10
+                    t.value = 0
+                end 
                 users = get_emails(t.value, entity.entity_id)
                 users.each do |u|
                     usersfound = usersfound+1
-                    logger.debug "User:  -> #{u.inspect}  \n\n" if Rails.env.development?
+                    #logger.debug "User:  -> #{u.inspect}  \n\n" if Rails.env.development?
                     fieldsacu = {admin_campaign_id:ac_id, delivered:true, user_id:u.id, entity_id:entity.entity_id}
                     acu  = Admin::CampaignsUsers.new fieldsacu
                     if acu.save
@@ -86,7 +89,6 @@ class Admin::Campaign < ActiveRecord::Base
                         emails = emails+1
                     end
                 end
-  
             end
         end
     end
@@ -129,6 +131,7 @@ class Admin::Campaign < ActiveRecord::Base
     q += " WHERE nl.id = ac.newsletter_id AND acu.admin_campaign_id = ac.id AND u.id=acu.user_id ORDER BY acu.id DESC LIMIT 100"
     users = User.find_by_sql q
   end
+
   private
   
   # after choose between the options, get the users emails to send
@@ -157,7 +160,7 @@ class Admin::Campaign < ActiveRecord::Base
             q += " AND #{extract}" if @hours == 24
             q += " GROUP BY u.id"
     end 
-    logger.debug "Query:  -> #{q}  \n\n" if Rails.env.development?
+    #logger.debug "Query:  -> #{q}  \n\n" if Rails.env.development?
     #users = User.connection.select_all(q)
     users = User.find_by_sql q
   end
