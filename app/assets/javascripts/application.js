@@ -38,6 +38,6 @@
 //= require underscore
 //= require backbone
 //= require bb-private-messages.js
-//= require tinymce/tinymce.min
+//= require tinymce
 //= require daterangepicker.jQuery
 
