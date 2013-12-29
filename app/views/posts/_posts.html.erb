@@ -1,5 +1,14 @@
 <div id="posts">
   <% if posts.any? %>
+  <div visible="false">
+    <%= link_to "1 New Post",
+                "/",
+                class: "more btn btn-large",
+                style: "display:none",
+                id: "newPost",
+                data: {disable_with: "loading..."},
+                remote: false
+                %></div>
     <%= render posts %>
     <%= link_to "MORE",
                 {action: 'more_posts', format: 'html', before: posts.last.id},

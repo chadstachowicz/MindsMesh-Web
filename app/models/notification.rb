@@ -100,6 +100,7 @@ class Notification < ActiveRecord::Base
   end
 
     def self.notify_invitees(group, actsion, user_ids, ignore_user_id)
+        action = ACTION_INVITED
         users = user_ids.split(/,/)
         users.each do |usr|
             notify_user!(User.find(usr.to_i), group, action, group.name)
