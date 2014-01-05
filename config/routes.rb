@@ -176,6 +176,11 @@ Mindsmesh::Application.routes.draw do
         get :more_posts
     end
   end
+  resources :settings do
+      collection do
+      get :notifications
+      end
+  end
   resources :posts, except: [:new, :create, :edit] do
     member do
       post 'replies', action: 'create_reply'
@@ -195,7 +200,6 @@ Mindsmesh::Application.routes.draw do
   get "home/login" => "home#edumesh_login", :constraints => { :domain => "edumesh.com" }
   get "home/login"
   get "session/logout"
-  get "settings" => "settings#index"
   put "session/switch"
   match "/auth/:provider/callback" => "session#create"
   match "/auth/failure" => "home#denied"

@@ -99,8 +99,7 @@ class Notification < ActiveRecord::Base
     true
   end
 
-    def self.notify_invitees(group, actsion, user_ids, ignore_user_id)
-        action = ACTION_INVITED
+    def self.notify_invitees(group, action, user_ids, ignore_user_id)
         users = user_ids.split(/,/)
         users.each do |usr|
             notify_user!(User.find(usr.to_i), group, action, group.name)
@@ -115,7 +114,7 @@ class Notification < ActiveRecord::Base
   end
 
   def self.notify_users_in_group(group, action, ignore_user_id)
-    new_actors_count = group.posts.where('created_at > ?', 3.day.ago).count
+# new_actors_count = group.posts.where('created_at > ?', 3.day.ago).count
     group.users.each do |user|
       notify_user!(user, group, action, group.name, new_actors_count, nil, ignore_user_id) unless user.id == ignore_user_id
     end

@@ -6,6 +6,10 @@ class SettingsController < ApplicationController
   def index
       @user = current_user
   end
+  
+  def notifications
+      @user = current_user
+  end
 
 
 end
