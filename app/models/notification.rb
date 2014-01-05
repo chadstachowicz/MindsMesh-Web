@@ -137,13 +137,13 @@ class Notification < ActiveRecord::Base
 
     #notify mobile devices
     if !user.user_devices.empty?
-      user.user_devices.each do |ud|
+       user.user_devices.each do |ud|
         n.new_apn(ud.token,ud.environment, ud.os, message)
       end
     end
 
     if !user.fb_id.nil?
-        n.notify_on_facebook #TODO: rescue, log in db
+        #       n.notify_on_facebook #TODO: rescue, log in db
     end
     n
   end
