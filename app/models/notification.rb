@@ -121,13 +121,10 @@ class Notification < ActiveRecord::Base
   end
 
   def self.notify_user!(user, target, action, text, new_actors_count=1, reply_id=nil, post_user_id=nil)
-    puts user.id
     n = where(user_id: user.id, target_type: target.class.name, target_id: target.id, action: action).first_or_initialize(text: text)
     n.b_read = false
-    puts text
     n.actors_count = new_actors_count
     n.save! #ensure it's persisted
-    puts "saved"
     if !reply_id.nil?
         message = n.push_message_make(reply_id)
     elsif !post_user_id.nil?
@@ -139,8 +136,10 @@ class Notification < ActiveRecord::Base
         
 
     #notify mobile devices
-    user.user_devices.each do |ud|
+    if !user.user_devices.empty?
+      user.user_devices.each do |ud|
         n.new_apn(ud.token,ud.environment, ud.os, message)
+      end
     end
 
     if !user.fb_id.nil?
