@@ -116,6 +116,7 @@ class Notification < ActiveRecord::Base
   def self.notify_users_in_group(group, action, ignore_user_id)
     new_actors_count = group.posts.where('created_at > ?', 3.day.ago).count
     group.users.each do |user|
+        puts "user.id"
       notify_user!(user, group, action, group.name, new_actors_count, nil, ignore_user_id) unless user.id == ignore_user_id
     end
   end
@@ -131,6 +132,7 @@ class Notification < ActiveRecord::Base
     elsif !post_user_id.nil?
         message = n.push_message_make(post_user_id)
     else
+        puts "message"
         message = n.facebook_message
     end
         
