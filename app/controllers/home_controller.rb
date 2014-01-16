@@ -1,7 +1,8 @@
 class HomeController < ApplicationController
     
   load_and_authorize_resource class: false
-    
+  force_ssl
+  
   def denied
     redirect_to_landing_home_page
   end
@@ -78,7 +79,6 @@ class HomeController < ApplicationController
   end
 
   def login
-    force_ssl
     render layout: 'home_guest'
   end
     
