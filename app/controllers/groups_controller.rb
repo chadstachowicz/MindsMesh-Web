@@ -41,7 +41,7 @@ class GroupsController < ApplicationController
     
     # GET /topics/1/more_posts.js
     def more_posts
-        @posts = @topic.posts.as_feed(params.slice(:limit, :before))
+        @posts = @group.posts.as_feed(params.slice(:limit, :before))
         render '/posts/more_posts', layout: false
     end
 
