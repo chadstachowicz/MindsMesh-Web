@@ -1,5 +1,11 @@
 Mindsmesh::Application.routes.draw do
 
+  resources :notification_settings
+
+
+  resources :notification_settings_times
+
+
   resources :background_jobs
 
   resources :email_campaigns
@@ -229,6 +235,7 @@ Mindsmesh::Application.routes.draw do
   post "home/change_access_token"
   get '/home/topics'
   post 'home/fb_requests_sent'
+    get "home/demoforik12"
   
   #ajax
   get "home/ajax_application", format: 'js'

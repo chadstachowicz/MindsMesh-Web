@@ -1,0 +1,23 @@
+<h1>Listing notification_settings_times</h1>
+
+<table>
+  <tr>
+    <th>Description</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @notification_settings_times.each do |notification_settings_time| %>
+  <tr>
+    <td><%= notification_settings_time.description %></td>
+    <td><%= link_to 'Show', notification_settings_time %></td>
+    <td><%= link_to 'Edit', edit_notification_settings_time_path(notification_settings_time) %></td>
+    <td><%= link_to 'Destroy', notification_settings_time, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Notification settings time', new_notification_settings_time_path %>

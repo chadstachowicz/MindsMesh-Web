@@ -1,0 +1,40 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>User:</b>
+  <%= @notification_setting.user_id %>
+</p>
+
+<p>
+  <b>Topic push setting:</b>
+  <%= @notification_setting.topic_push_setting_id %>
+</p>
+
+<p>
+  <b>Topic email setting:</b>
+  <%= @notification_setting.topic_email_setting_id %>
+</p>
+
+<p>
+  <b>Group push setting:</b>
+  <%= @notification_setting.group_push_setting_id %>
+</p>
+
+<p>
+  <b>Group email setting:</b>
+  <%= @notification_setting.group_email_setting_id %>
+</p>
+
+<p>
+  <b>Reply push setting:</b>
+  <%= @notification_setting.reply_push_setting_id %>
+</p>
+
+<p>
+  <b>Reply email setting:</b>
+  <%= @notification_setting.reply_email_setting_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_notification_setting_path(@notification_setting) %> |
+<%= link_to 'Back', notification_settings_path %>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131129183204) do
+ActiveRecord::Schema.define(:version => 20140107072846) do
 
   create_table "admin_campaign_attrs", :force => true do |t|
     t.integer  "admin_campaign_id"
@@ -315,6 +315,24 @@ ActiveRecord::Schema.define(:version => 20131129183204) do
     t.integer  "message_thread_id"
   end
 
+  create_table "notification_settings", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "topic_push_setting_id"
+    t.integer  "topic_email_setting_id"
+    t.integer  "group_push_setting_id"
+    t.integer  "group_email_setting_id"
+    t.integer  "reply_push_setting_id"
+    t.integer  "reply_email_setting_id"
+    t.datetime "created_at",             :null => false
+    t.datetime "updated_at",             :null => false
+  end
+
+  create_table "notification_settings_times", :force => true do |t|
+    t.string   "description"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
   create_table "notifications", :force => true do |t|
     t.integer  "user_id"
     t.boolean  "b_read",           :default => false
@@ -407,7 +425,7 @@ ActiveRecord::Schema.define(:version => 20131129183204) do
   create_table "rapns_apps", :force => true do |t|
     t.string   "name",                       :null => false
     t.string   "environment"
-    t.text     "certificate",                :null => false
+    t.text     "certificate"
     t.string   "password"
     t.integer  "connections", :default => 1, :null => false
     t.datetime "created_at",                 :null => false

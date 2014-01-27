@@ -1,0 +1,35 @@
+<h1>Listing notification_settings</h1>
+
+<table>
+  <tr>
+    <th>User</th>
+    <th>Topic push setting</th>
+    <th>Topic email setting</th>
+    <th>Group push setting</th>
+    <th>Group email setting</th>
+    <th>Reply push setting</th>
+    <th>Reply email setting</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @notification_settings.each do |notification_setting| %>
+  <tr>
+    <td><%= notification_setting.user_id %></td>
+    <td><%= notification_setting.topic_push_setting_id %></td>
+    <td><%= notification_setting.topic_email_setting_id %></td>
+    <td><%= notification_setting.group_push_setting_id %></td>
+    <td><%= notification_setting.group_email_setting_id %></td>
+    <td><%= notification_setting.reply_push_setting_id %></td>
+    <td><%= notification_setting.reply_email_setting_id %></td>
+    <td><%= link_to 'Show', notification_setting %></td>
+    <td><%= link_to 'Edit', edit_notification_setting_path(notification_setting) %></td>
+    <td><%= link_to 'Destroy', notification_setting, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Notification setting', new_notification_setting_path %>

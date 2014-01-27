@@ -1,0 +1,2 @@
+module NotificationSettingsTimesHelper
+end
