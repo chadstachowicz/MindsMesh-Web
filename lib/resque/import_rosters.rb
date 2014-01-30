@@ -22,6 +22,10 @@ class ImportRosters
         if i[:role] == 1
             @roster.role = 1
         end
+        u = User.find_by_email(i[:email])
+        if !u.nil?
+            TopicUser.where(:topic_id => @topic.id, :user_id => u.id).first_or_create
+        end
         @roster.save
         if @job.transactions == @job.total_records
            @job.status = "Complete"

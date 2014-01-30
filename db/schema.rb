@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140107072846) do
+ActiveRecord::Schema.define(:version => 20140128015038) do
 
   create_table "admin_campaign_attrs", :force => true do |t|
     t.integer  "admin_campaign_id"
@@ -232,6 +232,7 @@ ActiveRecord::Schema.define(:version => 20140107072846) do
     t.string   "confirmation_token"
     t.integer  "group_id"
     t.integer  "to_user_id"
+    t.integer  "invite_accepted"
   end
 
   add_index "invite_requests", ["entity_id"], :name => "index_invite_requests_on_entity_id"
