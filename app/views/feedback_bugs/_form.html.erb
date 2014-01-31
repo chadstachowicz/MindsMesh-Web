@@ -1,12 +1,12 @@
 <%= simple_form_for(@feedback_bug, :html => {:class => 'form-horizontal' }) do |f| %>
-    <p>Thanks for helping us make the product better.  We receive you information with the request and will contact your email when the issue is addressed.</p>
+   <div id="feedbackinfo"> <p>Please be as specific as possible when reporting a bug or error.  Our staff will fix the issue as soon as possible and will contact you as soon as the issue has been addressed. We sincerely thank you for helping us make Minds Mesh better.</p></div>
      <br />
 	<%= f.input :request_type, :label => "Request Type", :collection => ["Bug","Feature Request","General Observation"], :selected => "Bug" %>
 	<%= f.input :platform, :label => "Platform", :collection => ["Web","iPhone","iPad","Android Phone"], :selected => "Web" %>
     <br/>
     <%= f.input :feedback, :input_html => {:style => 'width: 900px'}%>
 			
-    <div class="actions">
+    <div class="actions" id="feedbacksubmit">
     <%= f.submit "Finish Bug Report"%>
   </div>
 <% end %>
