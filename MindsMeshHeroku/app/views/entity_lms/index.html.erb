@@ -1,0 +1,33 @@
+<h1>Listing entity_lms</h1>
+
+<table>
+  <tr>
+    <th>Lms provider</th>
+    <th>Entity</th>
+    <th>Version</th>
+    <th>Host</th>
+    <th>Secure</th>
+    <th>Lti-guid</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @entity_lms.each do |entity_lm| %>
+  <tr>
+    <td><%= entity_lm.lms_provider_id %></td>
+    <td><%= entity_lm.entity_id %></td>
+    <td><%= entity_lm.version %></td>
+    <td><%= entity_lm.host %></td>
+    <td><%= entity_lm.secure %></td>
+    <td><%= entity_lm.lti-guid %></td>
+    <td><%= link_to 'Show', entity_lm %></td>
+    <td><%= link_to 'Edit', edit_entity_lm_path(entity_lm) %></td>
+    <td><%= link_to 'Destroy', entity_lm, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Entity lm', new_entity_lm_path %>

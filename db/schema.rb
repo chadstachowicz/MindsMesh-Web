@@ -365,7 +365,7 @@ ActiveRecord::Schema.define(:version => 20131013222841) do
   create_table "rapns_apps", :force => true do |t|
     t.string   "name",                       :null => false
     t.string   "environment"
-    t.text     "certificate"
+    t.text     "certificate",                :null => false
     t.string   "password"
     t.integer  "connections", :default => 1, :null => false
     t.datetime "created_at",                 :null => false

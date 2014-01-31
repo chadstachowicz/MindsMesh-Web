@@ -1,0 +1,68 @@
+facebook: &facebook
+    key: 325545057555650
+    secret: c60f05f4033eb502365cfffa205b2ca1
+    options: {scope: 'email,user_education_history,friends_education_history,user_birthday,friends_birthday'}
+
+edu_facebook: &edu_facebook
+    key: 117667031774813
+    secret: 18e42284c5f3dbafcd50ac3ef73508bd
+    options: {scope: 'email,user_education_history,friends_education_history,user_birthday,friends_birthday'}
+
+twitter: &twitter
+    key: X73asiTCmfgbbOhxuFl12g
+    secret: BLbFDDa0rqs03B5ZexN2yz7xvcEW9YxPCnQnXQRTXQ
+  
+s3: &s3
+    access_key_id: AKIAIKFVJ3EMAIBXELBQ
+    secret_access_key: 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
+
+defaults: &defaults
+    admin_email: chadstachowicz@gmail.com
+    ZENCODER_API_KEY: 131fef618cd26208a260a0b12b83ca6d
+    s3: false
+    twitter:
+        <<: *twitter
+    edu_facebook:
+        <<: *edu_facebook
+
+development:
+    <<: *defaults
+    domain: 0.0.0.0:5000
+    email: mmontoya@gmail.com
+    sendgrid:
+        username: cstachowicz
+        password: M1ndsM3sh1
+
+    facebook:
+        <<: *facebook
+    s3:
+        <<: *s3
+
+test:
+    <<: *defaults
+    domain: www.mindsmesh.com
+    email: mindsmesh@mindsmesh.com
+    sendgrid:
+        username: cstachowicz
+        password: M1ndsM3sh1
+    facebook:
+        key: 391884850858794
+        secret:  3e2ce240f4214646bf11bacd11378ab0
+        options: {scope: 'email,user_education_history,friends_education_history,user_birthday,friends_birthday'}
+    s3:
+        <<: *s3
+
+production:
+    <<: *defaults
+    domain: www.mindsmesh.com
+    email: mindsmesh@mindsmesh.com
+    sendgrid:
+        username: cstachowicz
+        password: M1ndsM3sh1
+    facebook:
+        key: 391884850858794
+        secret:  3e2ce240f4214646bf11bacd11378ab0
+        options: {scope: 'email,user_education_history,friends_education_history,user_birthday,friends_birthday'}
+    s3:
+        <<: *s3
+    

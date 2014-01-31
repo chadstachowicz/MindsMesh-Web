@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>EduMesh.com - Collaborate with your classmates</title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+  <%= favicon_link_tag '/favicon.ico' %>
+
+  <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+  <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+</head>
+<body id="guestlogin" class="header_small">
+	  <script type="text/javascript">
+        jQuery(function($){
+                $('a[data-target="flare"]').peFlareLightbox();
+        });
+</script>
+
+  <div id="fb-root"></div>
+    <div class="navbar">
+    <div class="navbar-inner">
+      <div class="container">
+
+
+          <ul class="nav pull-left" id="top_menu_left">
+            <li><a id="logo" href="/"><%= image_tag('appicon-72.png') %></a></li>
+            <!-- placeholder ajax_application.js -->
+          </ul>
+          <ul class="nav pull-left" id="top_menu_right">
+            <li><a href="/">Home</a></li>
+            <li><a id="product_tour" href="/product_tour">Product Tour</a></li>
+            <!-- placeholder ajax_application.js -->
+          </ul>
+          <ul class="nav pull-right" id="top_menu_right">
+            <li><%= link_to 'Login',
+                    "#login_modal",
+                    id: 'try-button',
+                    data: {toggle: 'modal'} %></li>
+            <!-- placeholder ajax_application.js -->
+          </ul>
+
+      </div>
+    </div>
+  </div>
+      <div class="signup" id="signup">
+        <div class="modal hide fade" id="signup_request_modal">
+
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    		 <h3>EduMesh.com</h3>
+          
+        </div>
+        <div class="modal-body">
+			<h2></h2>
+        </div>
+        
+       <div class="modal-footer">
+			<button type="button" class="btn-primary" data-dismiss="modal" aria-hidden="true">I understand</button>
+        </div>
+    
+    </div>
+    </div>
+    <div id="features">
+    <div id="featurediv">
+    <div class="container fix-sections">
+    <%= "<div class='alert alert-success'><a class='close' data-dismiss='alert' href='#'>×</a><b>#{notice}</b></div>".html_safe if notice %>
+    <%= "<div class='alert alert-error'><a class='close' data-dismiss='alert' href='#'>×</a><b>#{alert}</b></div>".html_safe   if alert %>
+	<%= render '/partials/application/edumesh_login' %>
+	<div class="row edumesh_home">
+		<div style="width:480px">
+			<h2 style="margin-top:20px;text-align:left;">EduMesh is a Intellectual Social Network for Your School</h2>
+			<p style="text-align:left">EduMesh allows secure collaboration with classmates and faculty over classes and campus life.</p>
+			<div id="new_signup" class="signup-hold">
+			<h3 style="color:white;font-size:20px;">Join Your School's Social Network for Free</h3>
+			<% @signup_request = SignupRequest.new %>
+			<%= form_for(@signup_request, url: home_create_signup_request_path, remote: true) do |f| %>
+  				<%= f.email_field :email, :class => "input-email", :placeholder => "Enter your school email address" %>
+  				
+  				<%= f.submit "Sign up" %>
+  				<p style="color:white;font-size:11px">Only students and faculty with verified school emails can join your network</p>
+			<% end %>
+			</div>
+ 		</div>
+ 	</div>
+  </div></div>
+  </div>
+ 
+ 
+
+  <div class="container">
+  	<%= render '/footer' %>
+  </div>
+  
+  
+
+</body>
+</html>

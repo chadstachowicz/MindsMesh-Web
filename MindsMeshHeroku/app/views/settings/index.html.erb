@@ -1,0 +1,60 @@
+
+<div id="main_div">
+<div data-sidebar="left" class="sidebar_content">
+
+  <ul class="nav blue-nav nav-list">
+    <li class="nav-header">
+      Settings
+    </li>
+      <li>
+      	 <a href="#">Account</a>
+      </li>
+      <li>
+      	 <a href="#">Notifications</a>
+      </li>
+        </ul>
+
+</div>
+	<h2>Account Profile</h2/>
+		<hr/>
+		
+		
+		
+		<%= simple_form_for(@user, :html => {:class => 'form-horizontal' }) do |f| %>
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+      <ul>
+      <% @user.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+
+    <%= f.label :name %>
+    <%= f.input_field :name%>
+    <br/>
+    <%= f.label :tagline %>
+    <%= f.input_field :tagline%>
+    <br/>
+
+
+  
+  		<div>
+			<h3>current picture</h3>
+      			<%= image_tag(current_user.photo_url('large')) %>
+			<%= f.input_field :avatar %>
+			</div>
+			
+    <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+
+
+	</div>
+
+</div>

@@ -1,0 +1,61 @@
+<%= render '/posts/posts', posts: @posts %>
+
+<div data-sidebar="left" class="sidebar_content">
+  <div style="padding:0 0 20px 20px;">
+
+    <center><%= image_tag @user.photo_url('large') %></center>
+    
+  </div>
+      <% if @user_follows.empty? %>
+  <div style="padding: 0 0 0 5px">
+    <%= link_to follow_user_path(@user),
+                method: 'put',
+                id: 'Follow',
+                class: 'btn btn-large btn-success input-block-level',
+                data: {disable_with: "hold on..."} do
+                %>
+                <i class="icon-check" style="font-size:36px"></i>
+                <br />
+                <span style="font-size:20px">Follow this user</span>
+                <% end %>
+  </div>
+  <% end %>
+  <ul class="nav blue-nav nav-list">
+    <li class="nav-header">
+      <%= @user.name %>
+    </li>
+    <%= li link_to  icon_text('facebook-sign', 'facebook profile'),
+                    @user.fb_url,
+                    target: '_blank' %>
+    <% if @user_follows.present? %>
+
+      <%= li link_to  icon_text('signout', 'unfollow this user'),
+                      unfollow_user_path(@user),
+                      method: 'put',
+                      id: 'leave',
+                      data: {disable_with: "hold on..."}
+                      %>
+    <% end %>
+    
+    <li class="nav-header">
+      friends
+    </li>
+    <% @user.fb_friends.are_registered.map(&:friend_user).each do |user| %>
+      <li>
+        <%= link_to user, class: 'tooltiped', title: user.name do %>
+          <%= image_tag user.photo_url, width: 30 %>
+          <%= user.name %>
+        <% end %>
+      </li>
+    <% end %>
+
+    <% if current_user.master? %>
+      <li class="nav-header">master</li>
+      <%= li link_to 'Log in as..', "/switch_user?scope_identifier=user_#{@user.id}"%>
+      <%= li @user.access_token, style: 'font-size:9px;' %>
+      <%= li @email, style: 'font-size:9px;' %>
+      <%= li "#{@user.user_devices.count} devices", style: 'font-size:9px;' %>
+      <%= li "last seen @ #{localized_short_format(@user.last_sign_in_at)}", style: 'font-weight: bold' %>
+    <% end %>
+  </ul>
+</div>

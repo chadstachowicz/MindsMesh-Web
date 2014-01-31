@@ -1,0 +1,72 @@
+<% q = Questionnaire.where(user_id: current_user.id).first_or_initialize.sample_blank_question %>
+<% if q %>
+<section class="block questionnaire">
+
+<% if q == :q1 %>
+  <div class="field">
+    <p><%= raw Questionnaire::QUESTIONS[q] %></p>
+    <div class="well" style="text-align:center">
+      <span class="rating" data-name="<%= q %>">
+        <span class="star" data-value="1/5"></span>
+        <span class="star" data-value="2/5"></span>
+        <span class="star" data-value="3/5"></span>
+        <span class="star" data-value="4/5"></span>
+        <span class="star" data-value="5/5"></span>
+      </span>
+    </div>
+  </div>
+<% elsif [:q2, :q3, :q4, :q5, :q6, :q7].include? q %>
+  <div class="field">
+    <p><%= raw Questionnaire::QUESTIONS[q] %></p>
+    <%= text_area_tag q, '', class: 'input-block-level' %>
+  </div>
+<% end %>
+
+</section>
+<script type="text/javascript">
+
+function questionnaire_answer(field, params) {
+  $.post('<%= home_feedback_path %>', params);
+
+  field.html("<h3 style='center'>THANK YOU</h3>");
+  $("section.questionnaire").slideUp(1200);
+}
+
+$(function() {
+
+  $("section.questionnaire textarea").live('keydown', function(e) {
+    //
+
+    if (e.keyCode == 13 && !e.shiftKey && !e.ctrlKey) {
+      if ($(this).val().trim().length > 0) {
+
+        var field = $(this).closest('.field');
+        var params = {
+          name: $(this).attr('name'),
+          value: $(this).val()
+        };
+        questionnaire_answer(field, params);
+        return false;
+
+      }
+    }
+
+  });
+
+  $("section.questionnaire .rating .star").live('click', function(e) {
+
+    var field = $(this).closest('.field');
+    var params = {
+      name: $(this).closest('.rating').data('name'),
+      value: $(this).data('value')
+    };
+    questionnaire_answer(field, params);
+    return false;
+
+
+  });
+
+});
+
+</script>
+<% end %>

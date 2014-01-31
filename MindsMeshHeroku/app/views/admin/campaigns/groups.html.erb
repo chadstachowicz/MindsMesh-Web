@@ -1,0 +1,124 @@
+
+<div class="headline3">Final step</div>
+
+<div style="padding:10px;margin:6px;background-color:#fff;border: 2px solid gray;">
+
+<h2>Select the <%= @kind %> you want to send this email to:</h2>
+
+<%= simple_form_for(@admin_campaign,  :url => url_for(:controller => 'campaigns', :action => 'create'), :html => { :method => :post, :onsubmit => 'return checkCB();' })  do |f| %>
+
+  <%= f.error_notification %>
+  
+  <% one_value = false %>
+
+  <input type="hidden" name="admin_campaign[kind]" value="<%= @kind %>">
+  <input type="hidden" name="admin_campaign[newsletter_id]"  value="<%= @newsletter_id %>">
+  <input type="hidden" name="admin_campaign[futuretime]" value="<%= @futuretime %>">
+  <input type="hidden" name="admin_campaign[scheduled]"  value="<%= @scheduled %>">
+
+
+  <div class="form-inputs">
+
+  <% @data.each do | d | %>
+  <!-- %= d.inspect % -->
+      <%=  content_tag :h3, "College: #{d[:name]} "  %>
+
+      <% if @kind == 'users' %>    
+          <% if d.has_key?(:users) %>
+              <% one_value = true %>
+              <% d[:users].each do |k,v| %>
+              <div style="margin:3px;padding:3px;border:1px dotted #e0e0e0;">
+                  <input type="checkbox" class="eleclass" name="admin_campaign[entity_ids][<%= d[:id] %>][user_ids][<%= v  %>]" value="<%= v  %>"> <%= k  %>
+              </div>
+              <% end %>
+          <% else %>
+             <p>No groups in this college yet.</p>
+          <% end %>  
+      <% end %>
+
+      <% if @kind == 'groups' %>    
+          <% if d.has_key?(:groups) %>
+              <% one_value = true %>
+              <% d[:groups].each do |g| %>
+              <div style="margin:3px;padding:3px;border:1px dotted #e0e0e0;">
+                <input type="checkbox" class="eleclass" name="admin_campaign[entity_ids][<%= d[:id] %>][user_ids][<%= g.id  %>]" value="<%= g.id  %>"> <%= g.name  %> 
+                </div>
+              <% end %>
+          <% else %>
+             <p>No groups in this college yet.</p>
+          <% end %>  
+      <% end %>
+
+      <% if @kind == 'topics' %> 
+          <% if d.has_key?(:topics) %>
+          <% one_value = true %>
+           <input type="hidden" name="admin_campaign[entity_id]"  value="<%= d[:id] %>">
+              <% d[:topics].each do |t| %>
+              <div style="margin:3px;padding:3px;border:1px dotted #e0e0e0;">
+                  <input type="checkbox" class="eleclass" name="admin_campaign[entity_ids][<%= d[:id] %>][user_ids][<%= t.id  %>]" value="<%= t.id  %>"> <%= t.name  %> 
+              </div>
+              <% end %>
+          <% else %>
+             <p>No topics in this college yet.</p>
+          <% end %>  
+      <% end %>
+
+  <% end %>  
+  <br />
+
+  </div> <!-- form inputs -->
+  
+  <div class="form-actions">
+      <%  if one_value == true  %>
+         <input class="btn" name="commit" type="submit" value="Create Campaign">
+      <% end %> 
+  </div>
+
+  </form>
+<% end %>
+
+</div>
+
+<script type="text/javascript">
+
+$(document).ready(function () {
+    $('#selectall').click(function () {
+        $('.selectedId').prop('checked', isChecked('selectall'));
+    });
+});
+    
+function isChecked(checkboxId) {
+    var id = '#' + checkboxId;
+    return $(id).is(":checked");
+}
+
+function resetSelectAll() {
+    // if all checkboxes are selected, check the selectall CB
+    // and of course viceversa
+    if ($(".selectedId").length == $(".selectedId:checked").length) {
+        $("#selectall").attr("checked", "checked");
+    } else {
+        $("#selectall").removeAttr("checked");
+    }
+
+    if ($(".selectedId:checked").length > 0) {
+        $('#edit').attr("disabled", false);
+    } else {
+        $('#edit').attr("disabled", true);
+    }
+}
+
+function checkCB() {
+         
+         if ( $(".eleclass:checked").length < 1)
+         {
+            alert('Choose at least one element');
+            return false;
+         }
+        // return confirm("Are you sure you want to send this email?");
+}
+
+</script>
+
+
+

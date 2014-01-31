@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html
+  xmlns:fb="https://www.facebook.com/2008/fbml">
+<head>
+  <title>MindsMesh.com - Collaborate with your classmates</title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+  <%= favicon_link_tag '/favicon.ico' %>
+
+  <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+  <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+</head>
+<body class="header_small layout_datatables">
+  <div id="fb-root"></div>
+
+  <div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+      <div class="container">
+
+        <% if current_user %>
+          <ul class="nav pull-left" id="top_menu_left">
+            <li><a id="logo" href="/"><%= image_tag('appicon-72.png', :height => 50, :width => 50) %></a></li>
+            <!-- placeholder ajax_application.js -->
+          </ul>
+          <div style="float:none;margin-left:28%;margin-right:auto" >
+          <ul class="nav" id="top_menu_middle">
+            <li><input type="text"  placeholder="Search for people or groups" id="searchAll" style="width:380px;margin-top:11px;margin-bottom:4px;"/></li>
+          </ul>
+          
+          </div>
+          <ul class="nav pull-right" id="top_menu_right">
+            <li><a href="/"><i class="icon-home"></i> Home</a></li>
+            <!-- placeholder ajax_application.js -->
+          </ul>
+        <% end %>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid">
+    <div class="row-fluid">
+      <%= "<div class='alert alert-success'><a class='close' data-dismiss='alert' href='#'>×</a><b>#{notice}</b></div>".html_safe if notice %>
+      <%= "<div class='alert alert-error'><a class='close' data-dismiss='alert' href='#'>×</a><b>#{alert}</b></div>".html_safe   if alert %>
+    </div>
+
+    <%= yield %>
+  
+    <%= render '/footer' %>
+    <%= render '/partials/datatables/master_assign_entity_modal' %>
+  </div>
+
+
+</body>
+</html>

@@ -1,0 +1,43 @@
+<script type="text/javascript" charset="utf-8">
+  // This bootstraps the Messages collection on page load
+  PrivateMessages.reset(<%= @messages.to_json.html_safe %>);
+</script>
+
+<div data-sidebar="left" class="sidebar_content">
+    <ul class="nav blue-nav nav-list"><li class="nav-header">
+      <%= @user.name %>
+    </li></ul>
+  <div style="padding:0 0 20px 20px;">
+
+    <center><%= image_tag @user.photo_url('large') %></center>
+    
+  </div>
+  
+     
+  <ul class="nav blue-nav nav-list">
+    
+    <li class="nav-header">
+      conversations
+    </li>
+
+    <% @user.fb_friends.are_registered.map(&:friend_user).each do |user| %>
+      <li>
+        <%= link_to user, class: 'tooltiped', title: user.name do %>
+          <%= image_tag user.photo_url, width: 30 %>
+          <%= user.name %>
+        <% end %>
+      </li>
+    <% end %>
+
+  </ul>
+</div>
+
+
+<div id="main_messages" class="">
+
+  <div id="mm-private-messages">
+    <h3>Messages go here</h3>
+  </div>
+
+</div>
+<div class="clear"></div>

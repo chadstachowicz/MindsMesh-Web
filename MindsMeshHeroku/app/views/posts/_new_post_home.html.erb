@@ -1,0 +1,35 @@
+<div id="new_post_wrapper">
+  <%= form_for Post.new, url: home_create_post_path, html: {multipart: true} do |f| %>
+  <% if @type == 'topic' %>
+    <%= f.hidden_field :topic_id, value: params[:id] %>
+  <% elsif @type == 'group' %>  
+    <%= f.hidden_field :group_id, value: params[:id] %>
+  <% end %>
+    <%= f.hidden_field :user_id, value: @current_user.id %>
+    <h3 class="title">Update Status</h3>
+    <%= f.text_area :text, class: 'input-block-level'%>
+    <div class="files">
+      <a href="#" class="add_file">add file</a>
+    </div>
+    <div>
+        <%= f.submit  'post',
+                      id: 'new_post_create',
+                      class: "btn btn-success btn-large float-right clear",
+                      disable_with: "Posting..."
+                      %>
+                      
+    </div>
+    <div class="t-links">
+    <% if params[:type] == "following"%> 
+        <a href="?type=all">All</a> .
+        <a style="color: #000000;" href="?type=following">Following</a>
+    <% else %> 
+    	<a style="color: #000000;" href="?type=all">All</a> .
+        <a href="?type=following">Following</a>
+    <% end %>
+
+    </div>
+    <div class="clear">
+    </div>
+  <% end %>
+</div>

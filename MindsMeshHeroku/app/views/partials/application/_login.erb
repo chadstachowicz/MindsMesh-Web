@@ -1,0 +1,66 @@
+	<div class="login" id="login">
+        <div class="modal hide fade reply_modal" id="login_modal">
+
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    		 <h3>Login to MindsMesh</h3>
+          
+        </div>
+        <div class="modal-body" style="width:600px">
+		  <div class="row">
+			<div class="span3">
+				<%= link_to image_tag('connect-facebook-button.png'), user_omniauth_authorize_path(:facebook), id: 'login_facebook' %>
+				<br/>
+				<h2 style="width:100%;text-align:center">or</h2>
+				<%= link_to_function icon_text('check','Create Account'),
+                'createAccount()',
+                id: 'schools_link',
+                style: 'font-size: 25px;width: 100%',
+                class: 'btn btn-success input-block-level'%>
+                <br/ >
+            <%- if devise_mapping.recoverable? && controller_name != 'passwords' %>
+  				<%= link_to "Forgot your password or school made your account?", new_password_path(resource_name) %><br />
+			<% end -%>
+
+ 		    </div>
+			<div id="dev_signin" class="span2">
+				<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+  					<div><%= f.label :email %>
+  					<%= f.email_field :email, :autofocus => true %></div>
+
+  					<div><%= f.label :password %>
+  					<%= f.password_field :password %></div>
+
+  					<% if devise_mapping.rememberable? -%>
+    					<div><%= f.check_box :remember_me %> <%= f.label :remember_me %></div>
+  					<% end -%>
+
+  					<div><%= f.submit "Sign in" %></div>
+				<% end %>
+			</div>
+			<div id="dev_signup" class="span2" style="display:none">
+			<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+  				<%= devise_error_messages! %>
+				<div><%= f.label :name %>
+  				<%= f.text_field :name, :autofocus => true %></div>
+  				
+  				<div><%= f.label :email %>
+  				<%= f.email_field :email %></div>
+
+  				<div><%= f.label :password %>
+  				<%= f.password_field :password %></div>
+
+  				<div><%= f.label :password_confirmation %>
+  				<%= f.password_field :password_confirmation %></div>
+
+  				<div><%= f.submit "Sign up", :id => 'sign-up' %></div>
+			<% end %>
+			
+			
+			
+           </div>
+		  </div>
+        </div>
+    
+    </div>
+    </div>

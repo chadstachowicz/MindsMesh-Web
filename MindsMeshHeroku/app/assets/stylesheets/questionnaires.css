@@ -1,0 +1,54 @@
+/*TODO: remove section*/
+section {
+  background: #fff;
+  border: 1px solid #ccc;
+  margin-bottom: 30px;
+  position: relative; }
+  section.block {
+    border: none;
+    background: none; }
+    section.block .btn-large {
+      display: block; }
+  section.questionnaire {
+    background: #333;
+    color: #fff;
+    padding: 0 10px;
+    border-radius: 4px; }
+    section.questionnaire .field {
+      padding: 10px 0; }
+      section.questionnaire .field textarea:focus {
+        border-color: #ffc40d; }
+  section h1 {
+    display: block;
+    background: #aaa;
+    padding: 10px;
+    color: #b7993f; }
+  section h2 {
+    display: block;
+    background: #eee4c2;
+    padding: 5px 10px;
+    color: #b7993f; }
+
+.rating {
+  unicode-bidi: bidi-override;
+  direction: rtl;
+  font-size: 30px; }
+
+.rating span.star {
+  font-family: FontAwesome;
+  font-weight: normal;
+  font-style: normal;
+  display: inline-block; }
+
+.rating span.star:hover {
+  cursor: pointer; }
+
+.rating span.star:before {
+  content: "\f006";
+  padding-right: 5px;
+  color: #999999; }
+
+.rating span.star:hover:before,
+.rating span.star:hover ~ span.star:before {
+  content: "\f005";
+  color: #e3cf7a; }

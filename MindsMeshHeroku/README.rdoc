@@ -1,0 +1,39 @@
+== MINDSMESH.COM
+
+== API ROUTES
+grouped_with_parents_api_v1_notifications GET    /api/v1/notifications/grouped/with_parents(.:format) api/V1/notifications#grouped_with_parents
+         mark_as_read_api_v1_notification POST   /api/v1/notifications/:id/mark_as_read(.:format)     api/V1/notifications#mark_as_read
+                with_children_api_v1_post GET    /api/v1/posts/:id/with_children(.:format)            api/V1/posts#with_children
+                        likes_api_v1_post GET    /api/v1/posts/:id/likes(.:format)                    api/V1/posts#likes
+           likes_with_parents_api_v1_post GET    /api/v1/posts/:id/likes/with_parents(.:format)       api/V1/posts#likes_with_parents
+                         like_api_v1_post POST   /api/v1/posts/:id/like(.:format)                     api/V1/posts#like
+                       unlike_api_v1_post POST   /api/v1/posts/:id/unlike(.:format)                   api/V1/posts#unlike
+                      replies_api_v1_post POST   /api/v1/posts/:id/replies(.:format)                  api/V1/posts#create_reply
+                             api_v1_posts POST   /api/v1/posts(.:format)                              api/V1/posts#create
+                              api_v1_post GET    /api/v1/posts/:id(.:format)                          api/V1/posts#show
+                       likes_api_v1_reply GET    /api/v1/replies/:id/likes(.:format)                  api/V1/replies#likes
+          likes_with_parents_api_v1_reply GET    /api/v1/replies/:id/likes/with_parents(.:format)     api/V1/replies#likes_with_parents
+                        like_api_v1_reply POST   /api/v1/replies/:id/like(.:format)                   api/V1/replies#like
+                      unlike_api_v1_reply POST   /api/v1/replies/:id/unlike(.:format)                 api/V1/replies#unlike
+                             api_v1_reply GET    /api/v1/replies/:id(.:format)                        api/V1/replies#show
+                       posts_api_v1_topic GET    /api/v1/topics/:id/posts(.:format)                   api/V1/topics#posts
+          posts_with_parents_api_v1_topic GET    /api/v1/topics/:id/posts/with_parents(.:format)      api/V1/topics#posts_with_parents
+                        join_api_v1_topic POST   /api/v1/topics/:id/join(.:format)                    api/V1/topics#join
+                       leave_api_v1_topic POST   /api/v1/topics/:id/leave(.:format)                   api/V1/topics#leave
+                            api_v1_topics POST   /api/v1/topics(.:format)                             api/V1/topics#create
+                             api_v1_topic GET    /api/v1/topics/:id(.:format)                         api/V1/topics#show
+                with_children_api_v1_user GET    /api/v1/users/:id/with_children(.:format)            api/V1/users#with_children
+                        posts_api_v1_user GET    /api/v1/users/:id/posts(.:format)                    api/V1/users#posts
+           posts_with_parents_api_v1_user GET    /api/v1/users/:id/posts/with_parents(.:format)       api/V1/users#posts_with_parents
+                              api_v1_user GET    /api/v1/users/:id(.:format)                          api/V1/users#show
+                     api_v1_session_login POST   /api/v1/session/login(.:format)                      api/v1/session#login
+                        api_v1_session_me GET    /api/v1/session/me(.:format)                         api/v1/session#me
+                        api_v1_home_posts GET    /api/v1/home/posts(.:format)                         api/v1/home#posts
+           api_v1_home_posts_with_parents GET    /api/v1/home/posts/with_parents(.:format)            api/V1/home#posts_with_parents
+                     api_v1_home_entities GET    /api/v1/home/entities(.:format)                      api/v1/home#entities
+       api_v1_home_entities_with_children GET    /api/v1/home/entities/with_children(.:format)        api/V1/home#entities_with_children
+                       api_v1_home_topics GET    /api/v1/home/topics(.:format)                        api/v1/home#topics
+                api_v1_home_search_topics POST   /api/v1/home/search_topics(.:format)                 api/v1/home#search_topics
+              api_v1_home_register_device POST   /api/v1/home/register_device(.:format)               api/v1/home#register_device
+                                          POST   /api/v1/home/entities(.:format)                      api/V1/home#create_entity_request
+                                   api_v1        /api/v1/*path(.:format)                              api/V1/base#render_404

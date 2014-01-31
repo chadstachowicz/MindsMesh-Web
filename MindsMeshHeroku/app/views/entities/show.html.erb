@@ -1,0 +1,19 @@
+<p>
+  <b>Name:</b>
+  <%= @entity.name %>
+</p>
+
+<p>
+  <b>Token:</b>
+  <%= @entity.token %>
+</p>
+
+
+<p>
+  <b>Slug:</b>
+  <%= @entity.slug %>
+</p>
+
+
+<%= link_to 'Edit', edit_entity_path(@entity) %> |
+<%= link_to 'Back', entities_path %>

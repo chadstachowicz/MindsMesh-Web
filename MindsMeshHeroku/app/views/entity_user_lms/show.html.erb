@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Lms provider:</b>
+  <%= @entity_user_lm.lms_provider_id %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%= @entity_user_lm.user_id %>
+</p>
+
+<p>
+  <b>Token:</b>
+  <%= @entity_user_lm.token %>
+</p>
+
+
+<%= link_to 'Edit', edit_entity_user_lm_path(@entity_user_lm) %> |
+<%= link_to 'Back', entity_user_lms_path %>

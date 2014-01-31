@@ -1,0 +1,54 @@
+
+
+<div id="admincontainer">
+
+<div class="headline3">SendGrid General Statics</div>
+
+<div style="margin:5px;padding:7px;">
+           <form method="post" action="/admin/newsletters/generalstats/" id="manage-rights" style="font-size:11pt;">
+            <label>Date Range: </label><input name="daterange" id="datepicker" value="<%= params[:daterange] %>" maxlength="60" size="15" type="text"/>
+            <input type="hidden" id="authenticity_token" name="authenticity_token" value="<%= form_authenticity_token %>" /><br />
+            <input value="Search" type="submit"/>
+          </form>
+</div>
+
+<div class="row">
+    <div class="span12">
+       <%=  high_chart("my_id", @data['chart'])  %>
+    </div>
+</div>
+
+<table style="width:60%;margin:auto;font-size:12pt;border:1px dotted gray;padding:5px;text-align:center;">
+   <tr style="font-size:1.1em;background-color:#e0e0e0;border:1px solid black;"><td> Date </td><td> Delivered</td><td> Request </td><td> Processed </td></tr>
+
+<% @data[:json].each do |s| %>
+    <tr> <td><%= s["date"] %> </td><td> <%= s["delivered"] %></td><td>   <%= s["request"] %></td><td>   <%= s["processed"] %></td></tr>
+<% end %>
+</table>
+
+<div style="text-align:left;">
+   <%= link_to image_tag('icon-back.png', :title=>'Go back', :alt=>'Go back'), admin_newsletters_path %>
+</div>
+</div>
+
+
+<script type="text/javascript">
+$(function() {
+     $('#datepicker').daterangepicker({dateFormat: 'yy-mm-dd'}); 
+});
+</script>
+
+<style type="text/css">
+
+table
+{
+  border-collapse:collapse;
+}
+table,th, td
+{
+  border: 1px solid #429b31;
+  text-align: center;
+  padding:2px;
+}
+
+</style>

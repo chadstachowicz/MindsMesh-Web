@@ -1,0 +1,13 @@
+<%= render '/posts/posts', posts: @posts %>
+
+<div data-sidebar="left" class="sidebar_content">
+    <ul class="nav blue-nav nav-list"><li class="nav-header">
+      <%= @current_user.name %>
+    </li></ul>
+  <div style="padding:0 0 20px 20px;">
+
+    <center><%= image_tag @current_user.photo_url('large') %></center>
+    
+  </div>
+  
+</div>

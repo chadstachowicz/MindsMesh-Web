@@ -1,0 +1,320 @@
+.clear {
+  clear: both; }
+
+.float-right {
+  float: right; }
+
+a {
+  color: #666; }
+  a:hover {
+    color: #46a546; }
+
+span.best_in_place {
+  display: block; }
+
+.messages .names {
+  float: left;
+  padding: 1px 1px 1px 1px;
+  margin-left: 3px;
+  margin-bottom: 3px;
+  background-color: #E0F2F7;
+  height: 22px;
+  border: 1px solid #A9E2F3; }
+.messages .reply_modal {
+  width: 1000px;
+  margin-left: -500px; }
+  .messages .reply_modal form {
+    margin: 0; }
+  .messages .reply_modal .modal-header h3 {
+    color: #46a546; }
+  .messages .reply_modal .question_area {
+    margin-bottom: 15px;
+    position: relative; }
+    .messages .reply_modal .question_area img {
+      position: absolute; }
+    .messages .reply_modal .question_area .clear {
+      padding-left: 60px;
+      min-height: 60px; }
+      .messages .reply_modal .question_area .clear a {
+        font-weight: bold;
+        color: #46a546; }
+  .messages .reply_modal .answer_area {
+    margin: 10px 0 0;
+    position: relative; }
+    .messages .reply_modal .answer_area img {
+      position: absolute; }
+    .messages .reply_modal .answer_area p {
+      padding-left: 60px; }
+    .messages .reply_modal .answer_area textarea {
+      width: 100%;
+      -webkit-box-sizing: border-box;
+      /* Safari/Chrome, other WebKit */
+      -moz-box-sizing: border-box;
+      /* Firefox, other Gecko */
+      box-sizing: border-box;
+      border: 1px solid #dbdbdb;
+      border-radius: 0;
+      padding: 5px;
+      margin: 0;
+      line-height: 16px;
+      font-size: 14px;
+      color: #646464;
+      resize: none;
+      height: 250px; }
+      .messages .reply_modal .answer_area textarea:focus {
+        box-shadow: none;
+        outline: none;
+        border-color: #95C557; }
+
+.post:not(.hover) .post_right .caret-down-holder {
+  display: none; }
+
+.reply:not(.hover) .caret-down-holder {
+  display: none; }
+
+.follow_rec {
+  border-bottom: 1px solid #eee; }
+  .follow_rec h5 {
+    font-size: 13px; }
+    .follow_rec h5 i {
+      font-size: 11px; }
+    .follow_rec h5 a {
+      text-decoration: none;
+      color: #46a546; }
+      .follow_rec h5 a:hover {
+        text-decoration: underline; }
+
+.post {
+  border-bottom: 1px solid #808080;
+  position: relative;
+  padding: 10px 0;
+  padding-left: 130px;
+  padding-right: 60px;
+  color: #666;
+  line-height: 1.4em;
+  min-height: 110px; }
+  .post .post-text a {
+    color: #0000FF; }
+  .post.pushpin_off .pushpin {
+    color: #cccccc; }
+  .post.pushpin_on .pushpin {
+    color: #3A87AD; }
+    .post.pushpin_on .pushpin i {
+      font-size: 18px; }
+  .post .post_left {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 15px; }
+  .post .post_right {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 15px; }
+    .post .post_right li {
+      list-style: none; }
+    .post .post_right a.pushpin {
+      font-size: 16px;
+      width: 20px;
+      height: 20px;
+      position: absolute;
+      top: 15px;
+      right: 35px; }
+      .post .post_right a.pushpin:hover i {
+        text-decoration: none; }
+    .post .post_right .caret-down-holder {
+      position: absolute;
+      top: 17px;
+      right: 55px;
+      width: 12px;
+      height: 20px;
+      text-align: left;
+      padding-right: 10px; }
+      .post .post_right .caret-down-holder a.caret-down {
+        width: 20px;
+        height: 20px; }
+        .post .post_right .caret-down-holder a.caret-down i {
+          font-size: 18px; }
+        .post .post_right .caret-down-holder a.caret-down:hover i {
+          text-decoration: none;
+          color: #333; }
+    .post .post_right .pins a {
+      width: 20px;
+      height: 20px;
+      display: block;
+      text-align: center;
+      font-size: 11px;
+      border: #fff solid 1px;
+      margin-bottom: 1px; }
+      .post .post_right .pins a:hover {
+        border: #ccc solid 1px;
+        color: #666;
+        font-weight: bold;
+        text-decoration: none; }
+    .post .post_right a.pinbutton {
+      font-size: 20px;
+      margin-top: 20px;
+      display: block; }
+    .post .post_right a.pinbutton i {
+      margin-top: auto;
+      margin-right: auto;
+      margin-bottom: auto;
+      margin-left: auto;
+      font-size: 20px; }
+    .post .post_right a.pinbutton:hover i {
+      font-size: 24px; }
+  .post .image, .post .image img {
+    width: 75px;
+    height: 75px; }
+  .post h5 {
+    font-size: 13px; }
+    .post h5 i {
+      font-size: 11px; }
+    .post h5 a {
+      text-decoration: none;
+      color: #46a546; }
+      .post h5 a:hover {
+        text-decoration: underline; }
+  .post .top-actions {
+    float: right;
+    /*
+    text-align:right;
+    display:block;
+    */
+    font-size: 11px;
+    line-height: 11px; }
+  .post .post-info {
+    margin: 5px 0; }
+    .post .post-info .time {
+      clear: both;
+      float: right;
+      font-weight: bold;
+      color: #ccc; }
+    .post .post-info .btn {
+      clear: both; }
+    .post .post-info a:hover {
+      text-decoration: none; }
+  .post .files ul {
+    margin: 0; }
+  .post .files li {
+    margin: 0 0 10px;
+    list-style: none;
+    position: relative; }
+    .post .files li.hover a.file {
+      background: #86cb86;
+      color: #fff; }
+  .post .files a.file {
+    color: #666;
+    display: block;
+    text-align: left;
+    text-decoration: none;
+    border-radius: 5px; }
+  .post .files a.trash {
+    color: #666;
+    position: absolute;
+    right: 5px;
+    top: 7px;
+    right: 0;
+    top: 0;
+    height: 100%;
+    border-radius: 0 5px 5px 0;
+    font-size: 18px;
+    display: none;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box; }
+    .post .files a.trash i {
+      margin-top: 10px; }
+  .post .replies {
+    margin: 0px;
+    border: 1px solid #dbdbdb;
+    position: relative; }
+    .post .replies .reply {
+      padding: 1px 5px 5px 40px;
+      font-size: 14px;
+      position: relative;
+      min-height: 20px;
+      line-height: 20px; }
+      .post .replies .reply:nth-child(odd) {
+        background: #eee; }
+      .post .replies .reply:last-child {
+        border: none; }
+      .post .replies .reply h5 {
+        font-weight: normal; }
+        .post .replies .reply h5 a {
+          text-decoration: none;
+          color: #46a546; }
+          .post .replies .reply h5 a:hover {
+            text-decoration: underline; }
+        .post .replies .reply h5 i {
+          font-size: 10px; }
+      .post .replies .reply .image {
+        display: block;
+        position: absolute;
+        top: 5px;
+        left: 5px; }
+        .post .replies .reply .image, .post .replies .reply .image img {
+          width: 30px;
+          height: 30px; }
+      .post .replies .reply .caret-down-holder {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 12px;
+        height: 20px;
+        text-align: left;
+        padding-right: 5px; }
+        .post .replies .reply .caret-down-holder a.caret-down {
+          width: 20px;
+          height: 20px; }
+          .post .replies .reply .caret-down-holder a.caret-down i {
+            font-size: 16px; }
+          .post .replies .reply .caret-down-holder a.caret-down:hover i {
+            text-decoration: none;
+            color: #333; }
+  .post .reply_modal {
+    width: 1000px;
+    margin-left: -500px; }
+    .post .reply_modal form {
+      margin: 0; }
+    .post .reply_modal .modal-header h3 {
+      color: #46a546; }
+    .post .reply_modal .question_area {
+      margin-bottom: 15px;
+      position: relative; }
+      .post .reply_modal .question_area img {
+        position: absolute; }
+      .post .reply_modal .question_area .clear {
+        padding-left: 60px;
+        min-height: 60px; }
+        .post .reply_modal .question_area .clear a {
+          font-weight: bold;
+          color: #46a546; }
+    .post .reply_modal .answer_area {
+      margin: 10px 0 0;
+      position: relative; }
+      .post .reply_modal .answer_area img {
+        position: absolute; }
+      .post .reply_modal .answer_area p {
+        padding-left: 60px; }
+      .post .reply_modal .answer_area textarea {
+        width: 100%;
+        -webkit-box-sizing: border-box;
+        /* Safari/Chrome, other WebKit */
+        -moz-box-sizing: border-box;
+        /* Firefox, other Gecko */
+        box-sizing: border-box;
+        border: 1px solid #dbdbdb;
+        border-radius: 0;
+        padding: 5px;
+        margin: 0;
+        line-height: 16px;
+        font-size: 14px;
+        color: #646464;
+        resize: none;
+        height: 250px; }
+        .post .reply_modal .answer_area textarea:focus {
+          box-shadow: none;
+          outline: none;
+          border-color: #95C557; }

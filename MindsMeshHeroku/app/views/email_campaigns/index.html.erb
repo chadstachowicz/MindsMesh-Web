@@ -1,0 +1,33 @@
+<h1>Listing email_campaigns</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Type</th>
+    <th>Entity</th>
+    <th>Emails sent</th>
+    <th>Emails responded</th>
+    <th>Status</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @email_campaigns.each do |email_campaign| %>
+  <tr>
+    <td><%= email_campaign.name %></td>
+    <td><%= email_campaign.type %></td>
+    <td><%= email_campaign.entity_id %></td>
+    <td><%= email_campaign.emails_sent %></td>
+    <td><%= email_campaign.emails_responded %></td>
+    <td><%= email_campaign.status %></td>
+    <td><%= link_to 'Show', email_campaign %></td>
+    <td><%= link_to 'Edit', edit_email_campaign_path(email_campaign) %></td>
+    <td><%= link_to 'Destroy', email_campaign, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Email campaign', new_email_campaign_path %>

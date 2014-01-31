@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Lms provider:</b>
+  <%= @entity_lm.lms_provider_id %>
+</p>
+
+<p>
+  <b>Entity:</b>
+  <%= @entity_lm.entity_id %>
+</p>
+
+<p>
+  <b>Version:</b>
+  <%= @entity_lm.version %>
+</p>
+
+<p>
+  <b>Host:</b>
+  <%= @entity_lm.host %>
+</p>
+
+<p>
+  <b>Secure:</b>
+  <%= @entity_lm.secure %>
+</p>
+
+<p>
+  <b>Lti-guid:</b>
+  <%= @entity_lm.lti-guid %>
+</p>
+
+
+<%= link_to 'Edit', edit_entity_lm_path(@entity_lm) %> |
+<%= link_to 'Back', entity_lms_path %>

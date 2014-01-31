@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.0.0'
+ruby '1.9.3'
 
 gem 'rails', '3.2.10'
 gem 'mysql2'
@@ -45,17 +45,13 @@ gem 'smarter_csv', '~> 1.0.8'
 
 
   gem 'sass' #so other gems don't alert
-  gem 'sass-rails'
+  gem 'sass-rails', '~> 3.2'
   gem 'coffee-rails'
   gem 'uglifier', '>= 1.0.3'
   gem 'therubyracer', :platform => :ruby
-  gem 'bootstrap-sass'
+  gem 'bootstrap-sass', '~> 2.3.1.0'
   gem 'font-awesome-sass-rails'
   gem 'select2-rails'
-
-group :assets do
-
-end
 
 group :production do
   gem 'unicorn'

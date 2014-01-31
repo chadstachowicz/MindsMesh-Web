@@ -1,0 +1,27 @@
+ <%= render '/admin/admin_menu', posts: @posts %>
+<table data-source="<%= datatable_filter_topics_url(format: :json) %>">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
+
+<h2>Import Topics</h2>
+
+<%= form_tag import_topics_path, multipart: true do %>
+  
+  <%= file_field_tag :file %>
+  <%= submit_tag "Import" %>
+<% end %>
+
+<h2>Import Rosters</h2>
+
+<%= form_tag import_rosters_path, multipart: true do %>
+  
+  <%= file_field_tag :file %>
+  <%= submit_tag "Import" %>
+<% end %>

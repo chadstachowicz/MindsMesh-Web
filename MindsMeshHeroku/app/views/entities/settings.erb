@@ -1,0 +1,39 @@
+<h2>Advanced Setting</h2/>
+		<hr/>
+		<p>LTI Launch URL: http://www.edumesh.com/entities/<%= params[:entity_id] %>/lti</p> 
+		<%= simple_form_for(@settings, :html => {:class => 'form-horizontal' }) do |f| %>
+  <% if @settings.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@settings.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+      <ul>
+      <% @settings.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+	
+    <%= f.label :lti_consumer_key %>
+    <%= f.input_field :lti_consumer_key %>
+    <br/>
+    <%= f.label :lti_consumer_secret %>
+    <%= f.input_field :lti_consumer_secret %>
+    <br/>
+    <%= f.label :lms_provider %>
+    <%= f.input_field :lms_provider %>
+    <br/>
+    <%= f.label :invite_template %>
+    <%= f.input_field :invite_template %>
+    <br/>
+    <%= f.label :can_create_topic %>
+    <%= f.check_box :can_create_topic %>
+    <%= f.hidden_field :entity_id, :value => params[:entity_id]%>
+
+  
+			
+    <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

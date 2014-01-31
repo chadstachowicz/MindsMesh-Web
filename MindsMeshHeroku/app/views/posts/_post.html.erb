@@ -1,0 +1,236 @@
+<% can_update_post = can? :update, post %>
+<% if post.user_liked?(current_user) %>
+  <% pushpin_state = 'pushpin_on' %>
+  <% pushpin_title = 'Unlike' %>
+<% else %>
+  <% pushpin_state = 'pushpin_off' %>
+  <% pushpin_title = 'Like' %>
+<% end %>
+
+<%= div_for(post, class: pushpin_state, data: {id: post.id}) do %>
+
+
+  <div class="post_left">
+    <div>
+
+      <%= link_to image_tag(post.user.photo_url('large'), :style => "max-width:64px;max-height:64px"), post.user %>
+
+    </div>
+  </div>
+
+
+
+  <div class="post_right">
+
+
+
+    <%= link_to icon('thumbs-up'),
+                '#',
+                class: "pushpin",
+                title: pushpin_title
+                %>
+
+
+
+    <div class="caret-down-holder js_post_actions">
+      <%= link_to icon('caret-down'),
+                  '#',
+                  class: 'caret-down dropdown-toggle',
+                  data: {toggle: "dropdown"}
+                  %>
+
+      <ul class="dropdown-menu">
+
+        <%= li link_to  icon_text('external-link', 'view this in a full page'),
+                        post,
+                        target: '_blank' unless request.url == post_url(post).to_s
+                        %>
+        <li class="divider"></li>
+
+        <% if can_update_post %>
+        <%= li  link_to icon_text('edit', 'edit this post'),
+                        post,
+                        id: "edit_post_#{post.id}"
+                        %>
+        <%= li  link_to icon_text('trash', 'remove this post'),
+                        post,
+                        remote: true,
+                        method: :delete,
+                        data: { confirm: 'Removing a post cannot be undone. Are you sure?' }
+                        %>
+        <%end %>
+		<% if post.topic.present? %>
+		<li class="divider"></li>
+        <%= li  link_to icon_text('signout', 'leave this topic'),
+                        leave_topic_path(post.topic),
+                        method: :put,
+                        data: { confirm: 'You will not see posts from this topic anymore. Are you sure?' }
+                        %>
+       <% end %>
+      </ul>
+    </div>
+
+    <ul class="pins">
+    <% post.likes.order('created_at desc').limit(5).map(&:user).each do |u| %>
+      <%= li link_to  image_tag(u.photo_url, width: 20),
+                      u,
+                      title: u.name,
+                      data: {id: u.id}
+                      %>
+    <% end %>
+      <%= li link_to post.likes.size,
+                     '#',
+                     class: 'count',
+                     title: "#{post.likes.size} people pinned this post" #unless post.likes.size.zero?
+                     %>
+    </ul>
+
+
+
+  </div>
+
+
+
+
+
+
+
+  <h5>
+    <span><%= link_to post.user.name, post.user %></span>
+    <% if post.topic.present? %>
+    <i>asked</i>
+    <span><%= link_to truncate(post.topic.name, length: 40), post.topic %></span>
+    <% elsif post.group.present? %>
+    <i>posted in </i>
+    <span><%= link_to truncate(post.group.name, length: 40), post.topic %></span>
+    <%end%>
+  </h5>
+  <table style="width:100%">
+    <tr>
+      <td>
+      <div class="post-text">
+      <% if post.text != "" %>
+        <%= best_in_place post,
+                             :text,
+                             type: :textarea,
+                             :display_as => :with_links,
+                             activator: "#edit_post_#{post.id}",
+                             :sanitize => false
+                             %>
+        <% end %>
+        </div>
+      </td>
+      <td width="7">
+      </td>
+    </tr>
+  </table>
+  
+   <div class="files">
+    <ul>
+      <% post.post_attachments.each do |pa| %>
+        <% if pa.file? %>
+          <li>
+          	<% if pa.file.original_filename.match(/\.mov$/i) or pa.file.original_filename.match(/\.flv$/i)  %>
+          	
+          	
+          	<div id='mediaplayer-<%=post.id%>'></div>
+
+			<script type="text/javascript">
+ 			 jwplayer('mediaplayer-<%=post.id%>').setup({
+ 			 'flashplayer': '/assets/jwplayer.flash.swf',
+   				 'id': 'playerID',
+   				  'height': '480',
+   				  'image': '<%=pa.file.url[0..-9]%>frame_0000.png',
+   			 'file': '<%=pa.file.url%>',
+ 			 });
+		</script>
+			<% elsif pa.file.original_filename.match(/\.png$/i) or pa.file.original_filename.match(/\.jpg$/i)  %>
+			<div id='image'>
+				<a
+     data-target="flare"
+     href="<%=pa.file.url%>"
+     data-flare-scale="fit"
+     >
+				<img src="<%=pa.file.url%>" style="max-width: 480px; max-height: 480px">
+				</a>
+			</div>
+			
+          	<% else %>
+          <%= link_to(pa.file.url, class: 'file btn btn-link', target: '_blank', title: "Click for download (#{number_to_human_size pa.file.size})") do %>
+            <%= image_tag pa.ext_path, width: 32, height: 32 %>
+            <%= pa.file.original_filename.truncate(70) %>
+          <% end %>
+          <% end %>
+          <%= link_to icon('trash'), pa, method: :delete, confirm: "Are you sure?", remote: true, class: 'trash btn btn-link' if can? :destroy, pa %>
+          </li>
+        <% end %>
+      <% end %>
+    </ul>
+  </div>
+
+
+  <div class="post-info">
+    <% if can? :create_reply, post %>
+      <%= link_to icon_text('circle-arrow-down', 'comment'),
+                  "#reply_modal_#{post.id}",
+                  class: 'btn btn-success',
+                  data: {toggle: 'modal'}
+                  %>
+    <% end %>
+    <span class="time"><%= time_ago(post.created_at) %></span>
+    <div class="clear"></div>
+  </div>
+
+
+
+  <% if can? :create_reply, post %>
+    <div class="modal hide fade reply_modal" id="reply_modal_<%= post.id %>">
+      <% reply = Reply.new; reply.post = post %>
+      <%= form_for(reply, url: replies_post_path(post), remote: true) do |f| %>
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+              <% if post.topic.present? %>
+    			<h3><%= post.topic.name %></h3>
+    		 <% else %>
+    		 	<h3>Reply</h3> 
+   			 <%end%>
+          
+        </div>
+        <div class="modal-body">
+          <div class="question_area">
+            <%= image_tag post.user.photo_url, width: 50 %>
+            <div class="clear">
+              <%= link_to post.user.name, post.user %>
+              <%= simple_format post.text %>
+            </div>
+          </div>
+          <div class="answer_area">
+            <%= image_tag current_user.photo_url, width: 50 %>
+            <p><%= f.text_area :text %></p>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <%= f.submit "Submit This Answer", class: 'btn btn-success', disable_with: "Submitting Your Answer..." %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+
+  <div class="js_replies_holder" <%= "style=display:none" if post.replies.to_a.empty? %>>
+    <div class="replies">
+      <%= render post.replies, can_update_post: can_update_post %>
+    </div>
+
+    <% if can? :create_reply, post %>
+      <div class="post-info">
+        <%= link_to icon_text('circle-arrow-down', 'comment'),
+                    "#reply_modal_#{post.id}",
+                    class: 'btn btn-success',
+                    style: 'float:right;',
+                    data: {toggle: 'modal'} %>
+        <div class="clear"></div>
+      </div>
+    <% end %>
+  </div>
+
+<% end %>

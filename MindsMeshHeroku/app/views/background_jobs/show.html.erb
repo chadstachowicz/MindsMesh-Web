@@ -1,0 +1,40 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @background_job.name %>
+</p>
+
+<p>
+  <b>Type:</b>
+  <%= @background_job.job_type %>
+</p>
+
+<p>
+  <b>Entity:</b>
+  <%= @background_job.entity_id %>
+</p>
+
+<p>
+  <b>Total Records:</b>
+  <%= @background_job.total_records %>
+</p>
+
+<p>
+  <b>Transactions:</b>
+  <%= @background_job.transactions %>
+</p>
+
+<p>
+  <b>Campaign:</b>
+  <%= @background_job.campaign_id %>
+</p>
+
+<p>
+  <b>Status:</b>
+  <%= @background_job.status %>
+</p>
+
+
+<%= link_to 'Edit', edit_background_job_path(@background_job) %> |
+<%= link_to 'Back', background_jobs_path %>

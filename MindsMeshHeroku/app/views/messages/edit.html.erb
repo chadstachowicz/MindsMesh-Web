@@ -1,0 +1,72 @@
+<h1>Editing user</h1>
+
+<%= form_for(@user) do |f| %>
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+      <ul>
+      <% @user.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :photo_url %><br />
+    <%= f.text_field :photo_url %>
+  </div>
+  
+  <h3>Current Schools </h3>
+      <% @schools.each do |school| %>
+      	<div id="schools-manage" value="<%= school.id %>" class="schools"><%= school.entity.name %><select name="<%= school.id %>" id="school_role_i">
+      	<% if school.role_i == 1 %>
+  <option value="0">User</option>
+  <option value="1" selected>School Administrator</option>
+  <% else %>
+    <option value="0" selected>User</option>
+  <option value="1">School Administrator</option>
+  <% end %>
+</select><a href='/entity_users/<%= school.id %>' class='btn btn-mini'>x</a></div>
+      <% end %>
+      
+        <h3>Current Topics</h3>
+      <% @topics.each do |topic| %>
+      	<div id="topics-manage" value="<%= topic.id %>" class="schools"><%= topic.topic.name %><select name="<%= topic.id %>" id="topic_role_i">
+      	<% if topic.role_i == 1 %>
+  <option value="0">User</option>
+  <option value="1" selected>Teacher</option>
+  <% else %>
+    <option value="0" selected>User</option>
+  <option value="1">Teacher</option>
+  <% end %>
+</select><a href='/topic_users/<%= topic.id %>' class='btn btn-mini'>x</a></div>
+      <% end %>
+      
+        <h3>Current Groups </h3>
+      <% @groups.each do |group| %>
+      	<div id="groups-manage" value="<%= group.id %>" class="schools"><%= group.group.name %><select name="<%= group.id %>" id="group_role_i">
+      	<% if group.role_i == 1 %>
+  <option value="0">User</option>
+  <option value="1" selected>Group Administrator</option>
+  <% else %>
+    <option value="0" selected>User</option>
+  <option value="1">Group Administrator</option>
+  <% end %>
+</select><a href='/group_users/<%= group.id %>' class='btn btn-mini'>x</a></div>
+      <% end %>
+  
+  
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+
+
+<%= link_to 'Show', @user %> |
+<%= link_to 'Back', users_path %>

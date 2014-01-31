@@ -1,0 +1,13 @@
+<div class="posts_pack">
+<% if @posts.any? %>
+  <%= render @posts %>
+  <%= link_to "MORE",
+              {action: 'more_posts', before: @posts.last.id},
+              class: "more btn btn-inverse btn-large",
+              data: {disable_with: "loading..."},
+              remote: true
+              %>
+<% else %>
+<h3><center>sorry, no posts were found</center></h3>
+<% end %>
+</div>

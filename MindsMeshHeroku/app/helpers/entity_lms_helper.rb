@@ -1,0 +1,2 @@
+module EntityLmsHelper
+end

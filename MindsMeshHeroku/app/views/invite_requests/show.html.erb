@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>User:</b>
+  <%= @invite_request.user %>
+</p>
+
+<p>
+  <b>Entity:</b>
+  <%= @invite_request.entity %>
+</p>
+
+<p>
+  <b>Topic:</b>
+  <%= @invite_request.topic %>
+</p>
+
+
+<%= link_to 'Edit', edit_invite_request_path(@invite_request) %> |
+<%= link_to 'Back', invite_requests_path %>

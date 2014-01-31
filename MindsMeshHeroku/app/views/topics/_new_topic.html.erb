@@ -1,0 +1,71 @@
+<div id="topics_filter">
+
+  <div class="title">
+    <h1><%= icon('search') %> FIND YOUR CLASSES</h1>
+
+    <%= text_field_tag :q,
+                       @q,
+                       autocomplete: 'off',
+                       placeholder: "Class Name",
+                       class: 'input-block-level'
+                       %>
+  </div>
+
+
+  <div class="topics css-hide-on-filter">
+  </div>
+  <div id="topics_filter_result" class="topics css-show-on-filter">
+  </div>
+  <div>
+  <a id="button_create_topic"
+     href="#new_topic_modal"
+     role="button"
+     class="btn btn-inverse input-block-level css-show-on-filter"
+     data-toggle="modal">Create a Class</a>
+  </div>
+</div>
+
+
+
+
+
+<% if current_user.entity_users.any? %>
+<% @topic = Topic.new %>
+<%= form_for(@topic, html: {class: 'form-horizontal'}, remote: true, format: :json) do |f| %>
+  <div class="modal hide" id="new_topic_modal">
+    <div class="modal-header">
+      <h3>Create a new Class</h3>
+    </div>
+    <div class="modal-body">
+
+      <div class="control-group">
+        <%= f.label :entity_user, 'School', class: 'control-label' %>
+        <div class="controls">
+          <%= f.select :entity_user_id, current_user.entity_users.map { |eu| [eu.entity.name, eu.id] } %>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <%= f.label :title, nil, class: 'control-label' %>
+        <div class="controls">
+          <%= f.text_field :title, placeholder: "Introduction to Chemistry" %>
+          <span class="help-inline"></span>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <%= f.label :number, nil, class: 'control-label' %>
+        <div class="controls">
+          <%= f.text_field :number, placeholder: "CHEM 101" %>
+          <span class="help-inline"></span>
+        </div>
+      </div>
+
+    </div>
+    <div class="modal-footer">
+      <a href="#" class="btn" data-dismiss="modal">Cancel</a>
+      <%= f.submit 'Create Class', class: 'btn btn-primary' %>
+    </div>
+  </div>
+<% end %>
+<% end %>

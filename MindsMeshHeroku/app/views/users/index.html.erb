@@ -1,0 +1,22 @@
+ <%= render '/admin/admin_menu', posts: @posts %>
+<table data-source="<%= users_url(format: :json) %>">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Creation</th>
+      <th>Entities</th>
+      <th>Topics</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
+
+<h2>Import Users</h2>
+
+<%= form_tag import_users_path, multipart: true do %>
+  
+  <%= file_field_tag :file %>
+  <%= submit_tag "Import" %>
+<% end %>

@@ -1,0 +1,15 @@
+ <%= render '/admin/admin_menu', posts: @posts %>
+<table id="datatable" data-source="<%= datatable_filter_entities_url(format: :json) %>">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Slug</th>
+      <th>State</th>
+      <th>Topics</th>
+      <th>Users</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>

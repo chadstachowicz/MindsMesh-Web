@@ -1,0 +1,15 @@
+#entity-email
+  = form_tag home_create_entity_request_path, remote: true do |f|
+    = text_field_tag :email, '', placeholder: "joe@uncc.edu"
+    = submit_tag '', id: 'submit'
+
+#entity_request_modal.modal.hide.fade
+  .modal-header
+    %button.close{data: {dismiss: "modal"}}
+      ×
+    %h3 MindsMesh.com
+  .modal-body
+    %h2
+  .modal-footer
+    %a.btn.btn-primary{href: "#", data: {dismiss: "modal"}}
+      Yes, I understand

@@ -1,0 +1,30 @@
+<li class="dropdown">
+  <a href="#"
+      id="myaccount"
+      class="dropdown-toggle"
+      data-toggle="dropdown">
+      <%= image_tag current_user.photo_url, :style => "margin-top:8px" %>
+      <%=  text_icon(current_user.name, 'caret-down') %>
+  </a>
+  <ul class="dropdown-menu">
+    <% if session[:master_id] %>
+      <%= li link_to  icon_text('user', 'back to self'),
+                      session_switch_path,
+                      method: 'put',
+                      data: {disable_with: "hold on..."}
+                      %>
+      <li class="divider"></li>
+    <% end %>
+    <%= li link_to icon_text('user', "Go to my profile page"), current_user %>
+    <li class="divider"></li>
+    <%= li link_to icon_text('envelope', "Invite friends"), '#fb_friends_modal', data: {toggle: 'modal'} if my_fb_friends_i_should_invite.any? %>
+<%= li link_to icon_text('cog', "Settings"), '/settings' %>
+<%= li link_to icon_text('flag', "Report Bug"), '/feedback_bugs/new' %>
+    <%= li link_to icon_text('signout', "Sign Out"), destroy_user_session_path, :method => :delete  %>
+    <% if current_user.master? || current_user.school_admin? || current_user.topic_admin? || current_user.group_admin? %>
+    	<li class="divider"></li>
+    	 <%= li link_to icon_text('key', "Admin Portal"), admin_index_path, id: 'admin' %>
+	<% end %>
+    
+  </ul>
+</li>

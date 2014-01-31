@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>MindsMesh.com - Collaborate with your classmates</title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+  <%= favicon_link_tag '/favicon.ico' %>
+
+  <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+  <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+</head>
+<body id="guestlogin" class="header_small">
+	<script type="text/javascript">jwplayer.key="6q2XmZIAL0vmbFzfr2kXjH4TVQn0PfvFkmtqwQ==";</script>
+  <div id="fb-root"></div>
+    <div class="navbar">
+    <div class="navbar-inner style="filter:none">
+      <div class="container">
+
+
+          <ul class="nav pull-left" id="top_menu_left">
+            <li><a id="logo" href="/"><%= image_tag('appicon-72.png') %></a></li>
+            <!-- placeholder ajax_application.js -->
+          </ul>
+          <ul class="nav pull-left" id="top_menu_right">
+            <li><a id="features_link" href="/">Features</a></li>
+            <li><a id="schools_link" href="/">For Schools</a></li>
+            <li><a id="product_tour" href="/product_tour">Product Tour</a></li>
+            <li><a href="/">About Us</a></li>
+            <li><a href="/">Blog</a></li>
+            <!-- placeholder ajax_application.js -->
+          </ul>
+          <ul class="nav pull-right" id="top_menu_right">
+            <li><%= link_to 'Login',
+                    "#login_modal",
+                    id: 'try-button',
+                    data: {toggle: 'modal'} %></li>
+            <!-- placeholder ajax_application.js -->
+          </ul>
+
+      </div>
+    </div>
+  </div>
+  <div id="homepagesplit" class="container">
+    <h2><%= @user %></h2>
+    <%= "<div class='alert alert-success'><a class='close' data-dismiss='alert' href='#'>×</a><b>#{notice}</b></div>".html_safe if notice %>
+    <%= "<div class='alert alert-error'><a class='close' data-dismiss='alert' href='#'>×</a><b>#{alert}</b></div>".html_safe   if alert %>
+
+	<%= render '/partials/application/login' %>
+	
+	<div class="row">
+		<div class="span8">
+<div id='mediaplayer'></div>
+
+			<script type="text/javascript">
+ 			 jwplayer('mediaplayer').setup({
+  			  'flashplayer': '/assets/jwplayer.flash.swf',
+   				 'id': 'playerID',
+   				  'height': '355',
+   				  'width': '600',
+   				  'image': 'https://s3.amazonaws.com/mindsmesh.com/assets/MindsMeshMovFrame.jpg',
+   			 'file': 'https://s3.amazonaws.com/mindsmesh.com/assets/MindsMesh.mov',
+ 			 });
+		</script>
+ 		</div>
+ 		<div class="span4">
+ 			<h2 style="color: white;">MindsMesh transforms a Learning Management System into a vibrant campus community</h2>
+ 			<%= link_to_function icon_text('check','Get Started'),
+                'scrollSchools()',
+                id: 'schools_link',
+                style: 'font-size: 40px;margin-top:75px;',
+                class: 'btn btn-large btn-success input-block-level'%>
+             
+ 		</div>
+ 	</div>
+  </div>
+  <div id="features">
+    <div id="featurediv">
+  	<div class="container fix-sections">
+  		<div  class="row">
+ 		<div class="span2"></div>
+		<div class="span4">
+			 	<h2>Build A Campus Community</h2>
+			 	<br/>
+			 	<p>With MindsMesh a university can build a private online social network with the newest web technologies students are used to using with current social media platforms such as Video, Photo, Groups, Events and more.</p>
+			 	<p><a href="/product_tour">Read More</a></p>
+ 		</div>
+ 		<div class="span6">
+ 			<img src="/assets/iStock_000022812361_ExtraSmall.jpg"/>
+ 		</div>
+ 	</div>
+
+  	</div>
+  </div>
+   <div id="featurediv">
+  	<div class="container fix-sections">
+  		<div  class="row">
+		<div class="span6 ">
+			<img class='pull-right' src="/assets/iStock-charts.jpg" width="268"/>
+ 		</div>
+ 		<div class="span4">
+ 			<h2>Analytics that matter</h2>
+ 			<br/>
+			<p>The university has in depth views at the usage of the platform, and how students are interacting with it.  Mobile usage, Learning Management System access and social media statistics are all available through our advanced yet easy to use analytics platform.</p>
+ 		</div>
+ 		<div class="span2"></div>
+ 	</div>
+
+  	</div>
+  	</div>
+  	  <div id="featurediv">
+  	<div class="container fix-sections">
+  		<div  class="row">
+  		<div class="span2"></div>
+		<div class="span4">
+			  <h2>Native mobile apps</h2>
+			  <br/>
+			  <p class='pull-right' >Today's students and faculty are mobile first in many cases.  Students want to see their LMS content and be social on campus on the go.  MindsMesh provides iPhone, iPad and Android apps all with full LMS, Multimedia and real-time notifications to give a full experience to the end user.</p>
+ 			<br/>
+ 			<div style="width:250px;margin-left: 60px; line-height: 200px;">
+ 			<%= link_to image_tag('appstore.png'), 'https://itunes.apple.com/us/app/mindsmesh/id595862148?mt=8' %>
+ 		   </div>
+ 		</div>
+ 		<div class="span6">
+ 			<img src="/assets/MindsMeshiPhone.png"/>
+ 		</div>
+ 	</div>
+
+  	</div>
+  	
+  </div>
+  	
+  </div>
+  </div>
+    <div id="for-schools" >
+    	<div id="featurediv">
+    	<div class="container fix-sections">
+    	<h2>MindsMesh is designed for school adoption to be easy!</h2>
+    	<br/>
+    		<div class="row">
+		<div class="span4">
+			<%= image_tag('e-learning.png') %>
+			<br/>
+			<p>MindsMesh integrates with Moodle, Blackboard and Sakai through their standard API.  If a partner hosts your equipment thats just fine.</p>
+ 		</div>
+ 		<div class="span4">
+			
+			<%= image_tag('187360_thumbnail.png', style: "margin-top:45px;margin-bottom:56px") %>
+			<br/>
+			<p>Faculty and staff don't have to re-work their content on the LMS at all.  It just works.</p>
+ 		</div>
+ 		
+ 		<div class="span4">
+ 			<%= image_tag('iStock_000017973250_ExtraSmall.jpg', style: "margin-top:30px;margin-bottom:30px") %>
+			<br/>
+			<p>We are obsessed with the cloud which allows us to power your university and deliver a top-notch, managed and reliable platform. </p>
+ 		</div>
+ 			</div>
+
+    	
+    	</div>
+    	</div>
+    	<div id="featurediv">
+    		<div class="container fix-sections">
+    		<h2>Contact us below to get started!</h2>
+    		<br/>
+    			<div class="row">
+		<div class="span3">
+    		    	<%= image_tag('Occupations-Technical-Support-Representative-Female-Light-icon.png', class: 'pull-right') %>
+    		    	</div>
+    		    	<div class="span3">
+    		    		<p style="padding-top:20px">Phone: 980-333-8415</p><p> Email: contact@mindsmesh.com</p>
+    		    	</div>
+    		    	<div class="span1">
+    		    		<h2 style="padding-top:30px">OR </h2>
+    		    	</div>
+    		    	<div class="span3">
+    		    		<h3>Try a basic demo!</h3>
+    		    		<%= link_to icon_text('check','Sign up'),
+                '#login_modal',
+                style: 'font-size: 30px;',
+                class: 'btn btn-large btn-success input-block-level',
+                data: {toggle: 'modal'}  %>
+    		    	</div>
+    		    </div>
+    	</div>
+    	</div>
+    </div>
+
+  <div class="container">
+  	<%= render '/footer' %>
+  </div>
+</body>
+</html>

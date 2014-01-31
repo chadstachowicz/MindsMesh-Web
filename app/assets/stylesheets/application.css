@@ -19,3 +19,5 @@
  *= require ui.daterangepicker
  *= require jquery.pixelentity.flare.min
  */
+
+@import "twitter/bootstrap";

@@ -1,0 +1,17 @@
+<div class="modal hide fade" id="fb_friends_modal">
+  <div class="modal-body">
+    <h2>Want to get school content from friends?</h2>
+    <p>Mindsmesh works best with people from your class</p>
+    <p>
+      <%= hidden_field_tag :invite_fb_ids, my_fb_friends_i_should_invite.map(&:fb_id).join(',') %>
+      <% my_fb_friends_i_should_invite[0..8].each do |fb_friend| %>
+        <%= image_tag fb_friend.photo_url, width: 50 %>
+      <% end %>
+    </p>
+  </div>
+  <div class="modal-footer">
+    <%= link_to "skip", '#', style: 'float:left', data: {dismiss: "modal"} %>
+    <%= link_to "Select Friends", '#', class: 'btn btn-large select_and_invite_friends_button', data: {dismiss: "modal"} %>
+    <%= link_to "Continue »", '#', class: 'btn btn-large btn-primary invite_friends_button', data: {dismiss: "modal"} %>
+  </div>
+</div>

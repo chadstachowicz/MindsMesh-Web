@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @email_campaign.name %>
+</p>
+
+<p>
+  <b>Type:</b>
+  <%= @email_campaign.type %>
+</p>
+
+<p>
+  <b>Entity:</b>
+  <%= @email_campaign.entity_id %>
+</p>
+
+<p>
+  <b>Emails sent:</b>
+  <%= @email_campaign.emails_sent %>
+</p>
+
+<p>
+  <b>Emails responded:</b>
+  <%= @email_campaign.emails_responded %>
+</p>
+
+<p>
+  <b>Status:</b>
+  <%= @email_campaign.status %>
+</p>
+
+
+<%= link_to 'Edit', edit_email_campaign_path(@email_campaign) %> |
+<%= link_to 'Back', email_campaigns_path %>
