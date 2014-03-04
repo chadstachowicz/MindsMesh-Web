@@ -235,7 +235,7 @@ Mindsmesh::Application.routes.draw do
   post "home/change_access_token"
   get '/home/topics'
   post 'home/fb_requests_sent'
-    get "home/demoforik12"
+  get "home/demoforik12"
   
   #ajax
   get "home/ajax_application", format: 'js'
